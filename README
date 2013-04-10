@@ -1,0 +1,41 @@
+Important assumptions/concepts:
+
+1) Each BPMN element name is unique per process. This simplifies live considerably because:
+- We can use names instead of IDs simplifying the world for users and developers alike
+- We can use event names to find the current process node. This is clear for BPMN events.
+    For example, the "myStartEvent" BPMN element equals the event "myStartEvent".
+    However, we can apply this also for tasks: the task "MyTask" starts with the event "MyTask" and
+    ends by emitting the "MyTaskDone" event. That is, the status of the process is encoded in the event.
+
+2) Only one process per bpmn file.
+
+Persistency:
+ This engine saves the state while waiting for a task being done. While this is happening, all events are deferred until
+ the state has been saved. When creating a process the process manager first finds to reload existing processes having
+ the given ID. If there is no such process, it will be created.
+
+Handler:
+- Event Handler: It gets a callback to be called if the event has been handled.
+  Event name == handler name;
+- Task Handler: It gets a callback to be called if the event has been handled.
+  Task name == handler being called on begin of a task
+  Task name + 'Done' == handler being called on end of a task
+- Exclusive gateway handlers: Gateways have two different kind of handlers. One handler that is being called
+  before the gateway conditions are being evaluated (the gatway handler).
+  Gateway event handler name == gateway name
+  Additionally, for each outgoing transition we have a condition handler that hast to evaluate synchronously.
+  So if backend data are required do this in the gateway callback
+  Gateway condition handler name == gateway name + ":" + condition flow name
+  NOTE1: if the conditional flow does not have a name an error is thrown
+
+TODOs:
+- During wait states we should maybe remove the process from memory and reload it if necessary.
+- Default error and event handler
+- MongoDB
+- Introduce Logger
+- History State
+
+Questions:
+- On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?
+- Build up tests with default events
+- Test errors for exclusive gateways

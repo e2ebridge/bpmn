@@ -1,0 +1,17 @@
+{
+    "name": "bpmn",
+    "version": "0.0.1",
+    "description": "Process State Machine for BPMN",
+    "main": "./lib/processManager.js",
+    "dependencies": {
+        "sax": ">= 0.5.2",
+        "node-fs": ">= 0.1.5",
+        "jaguar": ">= 0.1.3"
+    },
+    "devDependencies": {
+        "nodeunit": ">= 0.7.4"
+    },
+    "repository": "",
+    "author": "Marcel Rassinger",
+    "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/"
+}
