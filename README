@@ -33,7 +33,8 @@ TODOs:
 - Default error and event handler
 - MongoDB
 - Introduce Logger
-- History State
+- Remove from db after reaching the final state
+
 
 Questions:
 - On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?

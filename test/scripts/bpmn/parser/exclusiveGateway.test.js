@@ -5,24 +5,110 @@
 
 var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
-exports.testParseBPMNExclusiveGateway = function(test) {
+exports.testParseExclusiveConvergingGateway = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/exclusiveGateway.bpmn");
+    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/exclusiveConvergingGateway.bpmn");
     test.deepEqual(bpmnObject,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "ExclusiveGateway",
+                "name": "ExclusiveConvergingGateway",
+                "tasks": [],
+                "startEvents": [
+                    {
+                        "bpmnId": "_2",
+                        "name": "Start Event1",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_5"
+                        ]
+                    },
+                    {
+                        "bpmnId": "_3",
+                        "name": "Start Event2",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_6"
+                        ]
+                    }
+                ],
+                "endEvents": [
+                    {
+                        "bpmnId": "_9",
+                        "name": "End Event",
+                        "type": "endEvent",
+                        "incomingRefs": [
+                            "_10"
+                        ],
+                        "outgoingRefs": []
+                    }
+                ],
+                "sequenceFlows": [
+                    {
+                        "bpmnId": "_5",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_2",
+                        "targetRef": "_4"
+                    },
+                    {
+                        "bpmnId": "_6",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_3",
+                        "targetRef": "_4"
+                    },
+                    {
+                        "bpmnId": "_10",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_4",
+                        "targetRef": "_9"
+                    }
+                ],
+                "gateways": [
+                    {
+                        "bpmnId": "_4",
+                        "name": "Exclusive Converging Gateway",
+                        "type": "exclusiveGateway",
+                        "incomingRefs": [
+                            "_5",
+                            "_6"
+                        ],
+                        "outgoingRefs": [
+                            "_10"
+                        ],
+                        "isExclusiveGateway": true
+                    }
+                ],
+                "processElementIndex": null,
+                "nameMap": null
+            }
+        ],
+        "testParseExclusiveConvergingGateway");
+    test.done();
+};
+
+exports.testParseExclusiveDivergingGateway = function(test) {
+
+    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/exclusiveDivergingGateway.bpmn");
+    test.deepEqual(bpmnObject,
+        [
+            {
+                "bpmnId": "PROCESS_1",
+                "name": "ExclusiveDivergingGateway",
                 "tasks": [
                     {
                         "bpmnId": "_3",
                         "name": "First Task",
                         "type": "task",
-                        "outgoingRefs": [
-                            "_6"
-                        ],
                         "incomingRefs": [
                             "_4"
+                        ],
+                        "outgoingRefs": [
+                            "_6"
                         ],
                         "waitForTaskDoneEvent": true
                     },
@@ -30,11 +116,11 @@ exports.testParseBPMNExclusiveGateway = function(test) {
                         "bpmnId": "_7",
                         "name": "Task A",
                         "type": "task",
-                        "outgoingRefs": [
-                            "_14"
-                        ],
                         "incomingRefs": [
                             "_8"
+                        ],
+                        "outgoingRefs": [
+                            "_14"
                         ],
                         "waitForTaskDoneEvent": true
                     },
@@ -42,11 +128,11 @@ exports.testParseBPMNExclusiveGateway = function(test) {
                         "bpmnId": "_9",
                         "name": "Task B",
                         "type": "task",
-                        "outgoingRefs": [
-                            "_13"
-                        ],
                         "incomingRefs": [
                             "_10"
+                        ],
+                        "outgoingRefs": [
+                            "_13"
                         ],
                         "waitForTaskDoneEvent": true
                     }
@@ -56,10 +142,10 @@ exports.testParseBPMNExclusiveGateway = function(test) {
                         "bpmnId": "_2",
                         "name": "Start Event",
                         "type": "startEvent",
+                        "incomingRefs": [],
                         "outgoingRefs": [
                             "_4"
-                        ],
-                        "incomingRefs": []
+                        ]
                     }
                 ],
                 "endEvents": [
@@ -67,19 +153,19 @@ exports.testParseBPMNExclusiveGateway = function(test) {
                         "bpmnId": "_11",
                         "name": "End Event A",
                         "type": "endEvent",
-                        "outgoingRefs": [],
                         "incomingRefs": [
                             "_14"
-                        ]
+                        ],
+                        "outgoingRefs": []
                     },
                     {
                         "bpmnId": "_12",
                         "name": "End Event B",
                         "type": "endEvent",
-                        "outgoingRefs": [],
                         "incomingRefs": [
                             "_13"
-                        ]
+                        ],
+                        "outgoingRefs": []
                     }
                 ],
                 "sequenceFlows": [
@@ -131,12 +217,12 @@ exports.testParseBPMNExclusiveGateway = function(test) {
                         "bpmnId": "_5",
                         "name": "Is it ok?",
                         "type": "exclusiveGateway",
+                        "incomingRefs": [
+                            "_6"
+                        ],
                         "outgoingRefs": [
                             "_8",
                             "_10"
-                        ],
-                        "incomingRefs": [
-                            "_6"
                         ],
                         "isExclusiveGateway": true
                     }
@@ -145,6 +231,6 @@ exports.testParseBPMNExclusiveGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseBPMNExclusiveGateway");
+        "testParseExclusiveDivergingGateway");
     test.done();
 };
