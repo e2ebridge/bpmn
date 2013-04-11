@@ -5,33 +5,119 @@
 
 var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
-exports.testParseBPMNParallelGateway = function(test) {
+exports.testParseParallelConvergingGateway = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/parallelGateway.bpmn");
+    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/parallelConvergingGateway.bpmn");
     test.deepEqual(bpmnObject,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "ParallelGateway",
+                "name": "ParallelConvergingGateway",
+                "tasks": [],
+                "startEvents": [
+                    {
+                        "bpmnId": "_2",
+                        "name": "Start Event1",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_10"
+                        ]
+                    },
+                    {
+                        "bpmnId": "_3",
+                        "name": "Start Event2",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_11"
+                        ]
+                    }
+                ],
+                "endEvents": [
+                    {
+                        "bpmnId": "_9",
+                        "name": "End Event",
+                        "type": "endEvent",
+                        "incomingRefs": [
+                            "_8"
+                        ],
+                        "outgoingRefs": []
+                    }
+                ],
+                "sequenceFlows": [
+                    {
+                        "bpmnId": "_8",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_7",
+                        "targetRef": "_9"
+                    },
+                    {
+                        "bpmnId": "_10",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_2",
+                        "targetRef": "_7"
+                    },
+                    {
+                        "bpmnId": "_11",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_3",
+                        "targetRef": "_7"
+                    }
+                ],
+                "gateways": [
+                    {
+                        "bpmnId": "_7",
+                        "name": "Parallel Converging Gateway",
+                        "type": "parallelGateway",
+                        "incomingRefs": [
+                            "_10",
+                            "_11"
+                        ],
+                        "outgoingRefs": [
+                            "_8"
+                        ],
+                        "isParallelGateway": true
+                    }
+                ],
+                "processElementIndex": null,
+                "nameMap": null
+            }
+        ],
+        "testParseParallelConvergingGateway");
+    test.done();
+};
+
+exports.testParseParallelDivergingGateway = function(test) {
+
+    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/parallelDivergingGateway.bpmn");
+    test.deepEqual(bpmnObject,
+        [
+            {
+                "bpmnId": "PROCESS_1",
+                "name": "ParallelDivergingGateway",
                 "tasks": [
                     {
                         "bpmnId": "_5",
                         "name": "Task A",
                         "type": "task",
-                        "outgoingRefs": [],
                         "incomingRefs": [
                             "_7"
                         ],
+                        "outgoingRefs": [],
                         "waitForTaskDoneEvent": true
                     },
                     {
                         "bpmnId": "_6",
                         "name": "Task B",
                         "type": "task",
-                        "outgoingRefs": [],
                         "incomingRefs": [
                             "_8"
                         ],
+                        "outgoingRefs": [],
                         "waitForTaskDoneEvent": true
                     }
                 ],
@@ -40,10 +126,10 @@ exports.testParseBPMNParallelGateway = function(test) {
                         "bpmnId": "_2",
                         "name": "Start Event",
                         "type": "startEvent",
+                        "incomingRefs": [],
                         "outgoingRefs": [
                             "_4"
-                        ],
-                        "incomingRefs": []
+                        ]
                     }
                 ],
                 "endEvents": [],
@@ -75,12 +161,12 @@ exports.testParseBPMNParallelGateway = function(test) {
                         "bpmnId": "_3",
                         "name": "Parallel Gateway",
                         "type": "parallelGateway",
+                        "incomingRefs": [
+                            "_4"
+                        ],
                         "outgoingRefs": [
                             "_7",
                             "_8"
-                        ],
-                        "incomingRefs": [
-                            "_4"
                         ],
                         "isParallelGateway": true
                     }
@@ -89,6 +175,6 @@ exports.testParseBPMNParallelGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseBPMNParallelGateway");
+        "testParseParallelDivergingGateway");
     test.done();
 };

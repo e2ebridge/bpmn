@@ -1,21 +1,27 @@
 /*global exports */
 
+var doLog = false;
+
+function log(eventName) {
+    if (doLog) console.log("taskExampleProcess.js: Calling handler for '" + eventName + "'");
+}
+
 exports.MyStart = function(data, done) {
-    console.log("taskExampleProcess.js: Calling handler for 'MyStart'");
+    log("MyStart");
     done(data);
 };
 
 exports.MyTask = function(data, done) {
-    console.log("taskExampleProcess.js: Calling handler for 'MyTask'");
+    log("MyTask");
     done(data);
 };
 
 exports.MyTaskDone = function(data, done) {
-    console.log("taskExampleProcess.js: Calling handler for 'MyTaskDone'");
+    log("MyTaskDone");
     done(data);
 };
 
 exports.MyEnd = function(data, done) {
-    console.log("taskExampleProcess.js: Calling handler for 'MyEnd'");
+    log("MyEnd");
     done(data);
 };
