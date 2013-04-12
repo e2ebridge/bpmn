@@ -17,52 +17,15 @@ exports.testCreateVolatileBPMNProcess = function(test) {
     process.nextTick(function() {
         //console.log("Comparing result after start event");
         state = bpmnProcess.getState();
-        test.deepEqual(state,
+        test.deepEqual(state.tokens,
             [
                 {
-                    "bpmnId": "_3",
-                    "name": "MyTask",
-                    "type": "task",
-                    "outgoingRefs": [
-                        "_6"
-                    ],
-                    "incomingRefs": [
-                        "_4"
-                    ],
-                    "waitForTaskDoneEvent": true
+                    "position": "MyTask"
                 }
             ],
-            "testCreateVolatileBPMNProcess: initial task"
+            "testCreateVolatileBPMNProcess: reached first wait state."
         );
-    });
 
-    process.nextTick(function() {
-        //console.log("Sending task done");
-        bpmnProcess.taskDone("MyTask");
-    });
-
-    process.nextTick(function() {
-
-        //console.log("Checking for end event");
-        state = bpmnProcess.getState();
-        test.deepEqual(state,
-            [
-                {
-                    "bpmnId": "_5",
-                    "name": "MyEnd",
-                    "type": "endEvent",
-                    "outgoingRefs": [],
-                    "incomingRefs": [
-                        "_6"
-                    ]
-                }
-            ],
-            "testCreateVolatileBPMNProcess: end event"
-        );
-    });
-
-    process.nextTick(function() {
-        //console.log("Test Done");
         test.done();
     });
 };
@@ -76,11 +39,29 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     var loadedState = function(error, loadedData) {
         //console.log("Comparing result after start event");
         state = bpmnProcess.getState();
-        test.deepEqual(state,
-            [],
-            "testCreatePersistentBPMNProcess: current flowObjects are empty because all events have been deferred up to now."
+        test.deepEqual(state.tokens,
+            [
+                {
+                    "position": "MyStart"
+                }
+            ],
+            "testCreatePersistentBPMNProcess: reached start state."
         );
 
+        process.nextTick(function() {
+            //console.log("Comparing result after start event");
+            state = bpmnProcess.getState();
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask"
+                    }
+                ],
+                "testCreatePersistentBPMNProcess: reached first wait state."
+            );
+
+            test.done();
+        });
     };
 
     var bpmnProcess = processManagerModule.getBPMNProcess(
@@ -90,36 +71,6 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         loadedState);
 
     bpmnProcess.emitEvent("MyStart");
-
-    bpmnProcess.taskDone("MyTask");
-
-    bpmnProcess.onTaskDone(function(taskName) {
-
-        test.equal(taskName, "MyTask", "testCreatePersistentBPMNProcess: done task name");
-
-        //console.log("Checking for end event");
-
-        state = bpmnProcess.getState();
-        // NOTE: current state is still MyTask until taskDone finishes successfully
-        test.deepEqual(state,
-            [
-                {
-                    "bpmnId": "_3",
-                    "name": "MyTask",
-                    "type": "task",
-                    "outgoingRefs": [
-                        "_6"
-                    ],
-                    "incomingRefs": [
-                        "_4"
-                    ],
-                    "waitForTaskDoneEvent": true
-                }
-            ],
-            "testCreatePersistentBPMNProcess: end event"
-        );
-        test.done();
-    });
 };
 
 exports.testLoadBPMNProcess = function(test) {
@@ -134,12 +85,13 @@ exports.testLoadBPMNProcess = function(test) {
                     "bpmnId": "_3",
                     "name": "MyTask",
                     "type": "task",
-                    "outgoingRefs": [
-                        "_6"
-                    ],
                     "incomingRefs": [
                         "_4"
                     ],
+                    "outgoingRefs": [
+                        "_6"
+                    ],
+                    "isFlowObject": true,
                     "waitForTaskDoneEvent": true
                 }
             ],
@@ -148,10 +100,11 @@ exports.testLoadBPMNProcess = function(test) {
                     "bpmnId": "_2",
                     "name": "MyStart",
                     "type": "startEvent",
+                    "incomingRefs": [],
                     "outgoingRefs": [
                         "_4"
                     ],
-                    "incomingRefs": []
+                    "isFlowObject": true
                 }
             ],
             "endEvents": [
@@ -159,10 +112,11 @@ exports.testLoadBPMNProcess = function(test) {
                     "bpmnId": "_5",
                     "name": "MyEnd",
                     "type": "endEvent",
-                    "outgoingRefs": [],
                     "incomingRefs": [
                         "_6"
-                    ]
+                    ],
+                    "outgoingRefs": [],
+                    "isFlowObject": true
                 }
             ],
             "sequenceFlows": [

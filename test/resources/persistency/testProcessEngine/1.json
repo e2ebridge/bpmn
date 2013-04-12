@@ -1,1 +1,1 @@
-{"processInstanceId":"myProcess::myPersistentProcess_1","data":{"myprop":{"an":"object"}},"state":[{"bpmnId":"_3","name":"MyTask","type":"task","incomingRefs":["_4"],"outgoingRefs":["_6"],"waitForTaskDoneEvent":true}],"_id":1}
+{"processInstanceId":"myProcess::myPersistentProcess_1","data":{"myprop":{"an":"object"},"anAdditionalProperty":"Value of an additional property"},"state":{"tokens":[{"position":"MyTask"}]},"_id":1}

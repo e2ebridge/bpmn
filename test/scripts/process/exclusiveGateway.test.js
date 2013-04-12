@@ -76,61 +76,61 @@ exports.testExclusiveDivergingGateway = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
     processDefinition.addGateway(new BPMNExclusiveGateway("_5", "Is it ok?", "exclusiveGateway", ["_6"], ["_8","_10"]));
 
-    var log = function(message) {
-        //console.log(message);
+    var log = function(eventType) {
+        //console.log("testExclusiveDivergingGateway: Calling handler for '" + eventType + "'");
     };
 
     var handler = {
         "Start Event": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'Start Event'");
+            log("Start Event");
             done(data);
         },
         "First Task": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'First Task'");
+            log("First Task");
             done(data);
         },
         "First TaskDone": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'First TaskDone'");
+            log("First TaskDone");
             done(data);
         },
         "Is it ok?": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'Is it ok?'");
+            log("Is it ok?");
             done(data);
         },
         "Is it ok?:ok": function() {
-            log("testExclusiveDivergingGateway: Calling handler for 'Is it ok?:ok'");
+            log("Is it ok?:ok");
             return true;
         },
         "Is it ok?:nok": function() {
-            log("testExclusiveDivergingGateway: Calling handler for 'Is it ok?:nok'");
+            log("Is it ok?:nok");
             return false;
         },
         "Task A": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'Task A'");
+            log("Task A");
             test.ok(false, "testExclusiveDivergingGateway: reached Task A but expected B!");
             test.done();
             done(data);
         },
         "Task ADone": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'Task ADone'");
+            log("Task ADone");
             done(data);
         },
         "Task B": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'Task B'");
+            log("Task B");
             test.ok(true, "testExclusiveDivergingGateway: reached Task B");
             test.done();
             done(data);
         },
         "Task BDone": function(data, done) {
-            log("testExclusiveDivergingGateway. Calling handler for 'Task BDone'");
+            log("Task BDone");
             done(data);
         },
         "End Event A": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'End Event A'");
+            log("End Event A");
             done(data);
         },
         "End Event B": function(data, done) {
-            log("testExclusiveDivergingGateway: Calling handler for 'End Event B'");
+            log("End Event B");
             done(data);
         }
     };

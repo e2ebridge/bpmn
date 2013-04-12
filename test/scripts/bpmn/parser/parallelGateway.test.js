@@ -22,7 +22,8 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "incomingRefs": [],
                         "outgoingRefs": [
                             "_10"
-                        ]
+                        ],
+                        "isFlowObject": true
                     },
                     {
                         "bpmnId": "_3",
@@ -31,7 +32,8 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "incomingRefs": [],
                         "outgoingRefs": [
                             "_11"
-                        ]
+                        ],
+                        "isFlowObject": true
                     }
                 ],
                 "endEvents": [
@@ -42,7 +44,8 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "incomingRefs": [
                             "_8"
                         ],
-                        "outgoingRefs": []
+                        "outgoingRefs": [],
+                        "isFlowObject": true
                     }
                 ],
                 "sequenceFlows": [
@@ -80,6 +83,7 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "outgoingRefs": [
                             "_8"
                         ],
+                        "isFlowObject": true,
                         "isParallelGateway": true
                     }
                 ],
@@ -108,6 +112,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                             "_7"
                         ],
                         "outgoingRefs": [],
+                        "isFlowObject": true,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -118,6 +123,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                             "_8"
                         ],
                         "outgoingRefs": [],
+                        "isFlowObject": true,
                         "waitForTaskDoneEvent": true
                     }
                 ],
@@ -129,7 +135,8 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "incomingRefs": [],
                         "outgoingRefs": [
                             "_4"
-                        ]
+                        ],
+                        "isFlowObject": true
                     }
                 ],
                 "endEvents": [],
@@ -168,6 +175,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                             "_7",
                             "_8"
                         ],
+                        "isFlowObject": true,
                         "isParallelGateway": true
                     }
                 ],

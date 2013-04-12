@@ -22,7 +22,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "incomingRefs": [],
                         "outgoingRefs": [
                             "_5"
-                        ]
+                        ],
+                        "isFlowObject": true
                     },
                     {
                         "bpmnId": "_3",
@@ -31,7 +32,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "incomingRefs": [],
                         "outgoingRefs": [
                             "_6"
-                        ]
+                        ],
+                        "isFlowObject": true
                     }
                 ],
                 "endEvents": [
@@ -42,7 +44,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "incomingRefs": [
                             "_10"
                         ],
-                        "outgoingRefs": []
+                        "outgoingRefs": [],
+                        "isFlowObject": true
                     }
                 ],
                 "sequenceFlows": [
@@ -80,6 +83,7 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "outgoingRefs": [
                             "_10"
                         ],
+                        "isFlowObject": true,
                         "isExclusiveGateway": true
                     }
                 ],
@@ -110,6 +114,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "outgoingRefs": [
                             "_6"
                         ],
+                        "isFlowObject": true,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -122,6 +127,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "outgoingRefs": [
                             "_14"
                         ],
+                        "isFlowObject": true,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -134,6 +140,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "outgoingRefs": [
                             "_13"
                         ],
+                        "isFlowObject": true,
                         "waitForTaskDoneEvent": true
                     }
                 ],
@@ -145,7 +152,8 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "incomingRefs": [],
                         "outgoingRefs": [
                             "_4"
-                        ]
+                        ],
+                        "isFlowObject": true
                     }
                 ],
                 "endEvents": [
@@ -156,7 +164,8 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "incomingRefs": [
                             "_14"
                         ],
-                        "outgoingRefs": []
+                        "outgoingRefs": [],
+                        "isFlowObject": true
                     },
                     {
                         "bpmnId": "_12",
@@ -165,7 +174,8 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "incomingRefs": [
                             "_13"
                         ],
-                        "outgoingRefs": []
+                        "outgoingRefs": [],
+                        "isFlowObject": true
                     }
                 ],
                 "sequenceFlows": [
@@ -224,6 +234,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                             "_8",
                             "_10"
                         ],
+                        "isFlowObject": true,
                         "isExclusiveGateway": true
                     }
                 ],

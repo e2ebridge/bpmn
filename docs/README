@@ -28,15 +28,21 @@ Handler:
   Gateway condition handler name == gateway name + ":" + condition flow name
   NOTE1: if the conditional flow does not have a name an error is thrown
 
+Questions:
+- On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?
+- Shall we bind 'this' of handlers to the process or to another object?
+
 TODOs:
 - During wait states we should maybe remove the process from memory and reload it if necessary.
 - Default error and event handler
 - MongoDB
 - Introduce Logger
 - Remove from db after reaching the final state
-
-
-Questions:
-- On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?
-- Build up tests with default events
 - Test errors for exclusive gateways
+- Build up tests with default events
+- Define a name normalize operation on the BPMN package for Cyril
+- Document public API
+- Describe Semantics
+- Add History (would be very useful for testing, so let's do it soon)
+
+

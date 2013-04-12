@@ -15,27 +15,21 @@ exports.testBPMNProcessStateCreateTokens = function(test) {
     state.createTokenAt(startEvent);
     state.createTokensAt(gateway, 3);
 
-    test.deepEqual(state,
-        {
-            "tokens": [
-                {
-                    "position": "Start Event1",
-                    "createdAt": "Start Event1"
-                },
-                {
-                    "position": "Parallel Gateway1",
-                    "createdAt": "Parallel Gateway1"
-                },
-                {
-                    "position": "Parallel Gateway1",
-                    "createdAt": "Parallel Gateway1"
-                },
-                {
-                    "position": "Parallel Gateway1",
-                    "createdAt": "Parallel Gateway1"
-                }
-            ]
-        },
+    test.deepEqual(state.tokens,
+        [
+            {
+                "position": "Start Event1"
+            },
+            {
+                "position": "Parallel Gateway1"
+            },
+            {
+                "position": "Parallel Gateway1"
+            },
+            {
+                "position": "Parallel Gateway1"
+            }
+        ],
         "testBPMNProcessStateCreateTokens"
     );
 
@@ -49,25 +43,25 @@ exports.testBPMNProcessStateRemoveToken = function(test) {
 
     state.removeTokenAt(gateway);
 
-    test.deepEqual(state,
-        {
-            "tokens": [
-                {
-                    "position": "Start Event1",
-                    "createdAt": "Start Event1"
-                },
-                {
-                    "position": "Parallel Gateway1",
-                    "createdAt": "Parallel Gateway1"
-                },
-                {
-                    "position": "Parallel Gateway1",
-                    "createdAt": "Parallel Gateway1"
-                }
-            ]
-        },
-        "testBPMNProcessStateRemoveToken"
+    test.deepEqual(state.tokens,
+        [
+            {
+                "position": "Start Event1"
+            },
+            {
+                "position": "Parallel Gateway1"
+            },
+            {
+                "position": "Parallel Gateway1"
+            }
+        ],
+        "testBPMNProcessStateRemoveToken: remove one token"
     );
+
+    state.removeAllTokensAt(gateway);
+
+    var hasTokens = state.hasTokensAt(gateway);
+    test.equal(hasTokens, false, "testBPMNProcessStateRemoveToken: removed all tokens");
 
     test.done();
 };

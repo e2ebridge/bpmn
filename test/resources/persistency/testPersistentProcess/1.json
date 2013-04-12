@@ -1,1 +1,1 @@
-{"processInstanceId":"TaskExampleProcess::myid","data":{},"state":[{"bpmnId":"_3","name":"MyTask","type":"task","incomingRefs":["_4"],"outgoingRefs":["_6"],"waitForTaskDoneEvent":true}],"_id":1}
+{"processInstanceId":"TaskExampleProcess::myid","data":{},"state":{"tokens":[{"position":"MyTask"}]},"_id":1}
