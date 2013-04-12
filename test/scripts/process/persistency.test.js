@@ -91,6 +91,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
   };
 
 exports.testLoadSimpleBPMNProcess = function(test) {
+    var newBpmnProcess;
 
     var handler = {
         "MyTaskDone": function(data, done) {
@@ -103,7 +104,8 @@ exports.testLoadSimpleBPMNProcess = function(test) {
                 ],
                 "testPersistSimpleBPMNProcess: state at MyTask AFTER LOADING"
             );
-            test.deepEqual(this.data,
+            // data is not in the process client interface. Thus, we have to use the process instance to get it
+            test.deepEqual(newBpmnProcess.data,
                 {
                     "myprop": {
                         "an": "object"
@@ -176,9 +178,11 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: get loaded property"
         );
 
-        test.ok(this.deferEvents, "testLoadSimpleBPMNProcess: deferEvents");
+        // deferEvents flag is not in the process client interface. Thus, we have to use the process instance to get it
+        test.ok(newBpmnProcess.deferEvents, "testLoadSimpleBPMNProcess: deferEvents");
 
-        var deferredEvents = this.deferredEvents;
+        // deferredEvents is not in the process client interface. Thus, we have to use the process instance to get it
+        var deferredEvents = newBpmnProcess.deferredEvents;
         test.deepEqual(deferredEvents,
             [
                 {
@@ -190,7 +194,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
-    var newBpmnProcess = new BPMNProcessEngine(processId, processDefinition, handler, persistency);
+    newBpmnProcess = new BPMNProcessEngine(processId, processDefinition, handler, persistency);
     newBpmnProcess.loadState(doneLoading);
 
     newBpmnProcess.taskDone("MyTask");
