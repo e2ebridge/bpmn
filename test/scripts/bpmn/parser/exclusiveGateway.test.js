@@ -57,21 +57,24 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_4"
+                        "targetRef": "_4",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_6",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
-                        "targetRef": "_4"
+                        "targetRef": "_4",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_10",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_4",
-                        "targetRef": "_9"
+                        "targetRef": "_9",
+                        "isSequenceFlow": true
                     }
                 ],
                 "gateways": [
@@ -190,42 +193,48 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_3"
+                        "targetRef": "_3",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_6",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
-                        "targetRef": "_5"
+                        "targetRef": "_5",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_8",
                         "name": "nok",
                         "type": "sequenceFlow",
                         "sourceRef": "_5",
-                        "targetRef": "_7"
+                        "targetRef": "_7",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_10",
                         "name": "ok",
                         "type": "sequenceFlow",
                         "sourceRef": "_5",
-                        "targetRef": "_9"
+                        "targetRef": "_9",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_13",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_9",
-                        "targetRef": "_12"
+                        "targetRef": "_12",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_14",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_7",
-                        "targetRef": "_11"
+                        "targetRef": "_11",
+                        "isSequenceFlow": true
                     }
                 ],
                 "gateways": [

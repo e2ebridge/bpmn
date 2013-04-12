@@ -60,14 +60,16 @@ exports.testParseBPMNTask = function(test) {
                         "name": "flow1",
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_3"
+                        "targetRef": "_3",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_6",
                         "name": "flow2",
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
-                        "targetRef": "_5"
+                        "targetRef": "_5",
+                        "isSequenceFlow": true
                     }
                 ],
                 "gateways": [],

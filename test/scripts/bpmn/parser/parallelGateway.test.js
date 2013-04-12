@@ -57,21 +57,24 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_7",
-                        "targetRef": "_9"
+                        "targetRef": "_9",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_10",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_7"
+                        "targetRef": "_7",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_11",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
-                        "targetRef": "_7"
+                        "targetRef": "_7",
+                        "isSequenceFlow": true
                     }
                 ],
                 "gateways": [
@@ -150,21 +153,24 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_3"
+                        "targetRef": "_3",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_7",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
-                        "targetRef": "_5"
+                        "targetRef": "_5",
+                        "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_8",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
-                        "targetRef": "_6"
+                        "targetRef": "_6",
+                        "isSequenceFlow": true
                     }
                 ],
                 "gateways": [
