@@ -13,7 +13,18 @@ exports.testParseBPMNTask = function(test) {
             {
                 "bpmnId": "PROCESS_1",
                 "name": "TaskExampleProcess",
-                "tasks": [
+                "flowObjects": [
+                    {
+                        "bpmnId": "_2",
+                        "name": "MyStart",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_4"
+                        ],
+                        "isFlowObject": true,
+                        "isStartEvent": true
+                    },
                     {
                         "bpmnId": "_3",
                         "name": "MyTask",
@@ -26,22 +37,7 @@ exports.testParseBPMNTask = function(test) {
                         ],
                         "isFlowObject": true,
                         "waitForTaskDoneEvent": true
-                    }
-                ],
-                "startEvents": [
-                    {
-                        "bpmnId": "_2",
-                        "name": "MyStart",
-                        "type": "startEvent",
-                        "incomingRefs": [],
-                        "outgoingRefs": [
-                            "_4"
-                        ],
-                        "isFlowObject": true,
-                        "isStartEvent": true
-                    }
-                ],
-                "endEvents": [
+                    },
                     {
                         "bpmnId": "_5",
                         "name": "MyEnd",
@@ -72,7 +68,6 @@ exports.testParseBPMNTask = function(test) {
                         "isSequenceFlow": true
                     }
                 ],
-                "gateways": [],
                 "processElementIndex": null,
                 "nameMap": null
             }

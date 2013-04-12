@@ -13,8 +13,7 @@ exports.testParseParallelConvergingGateway = function(test) {
             {
                 "bpmnId": "PROCESS_1",
                 "name": "ParallelConvergingGateway",
-                "tasks": [],
-                "startEvents": [
+                "flowObjects": [
                     {
                         "bpmnId": "_2",
                         "name": "Start Event1",
@@ -36,9 +35,7 @@ exports.testParseParallelConvergingGateway = function(test) {
                         ],
                         "isFlowObject": true,
                         "isStartEvent": true
-                    }
-                ],
-                "endEvents": [
+                    },
                     {
                         "bpmnId": "_9",
                         "name": "End Event",
@@ -49,6 +46,20 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "outgoingRefs": [],
                         "isFlowObject": true,
                         "isEndEvent": true
+                    },
+                    {
+                        "bpmnId": "_7",
+                        "name": "Parallel Converging Gateway",
+                        "type": "parallelGateway",
+                        "incomingRefs": [
+                            "_10",
+                            "_11"
+                        ],
+                        "outgoingRefs": [
+                            "_8"
+                        ],
+                        "isFlowObject": true,
+                        "isParallelGateway": true
                     }
                 ],
                 "sequenceFlows": [
@@ -77,22 +88,6 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "isSequenceFlow": true
                     }
                 ],
-                "gateways": [
-                    {
-                        "bpmnId": "_7",
-                        "name": "Parallel Converging Gateway",
-                        "type": "parallelGateway",
-                        "incomingRefs": [
-                            "_10",
-                            "_11"
-                        ],
-                        "outgoingRefs": [
-                            "_8"
-                        ],
-                        "isFlowObject": true,
-                        "isParallelGateway": true
-                    }
-                ],
                 "processElementIndex": null,
                 "nameMap": null
             }
@@ -109,7 +104,32 @@ exports.testParseParallelDivergingGateway = function(test) {
             {
                 "bpmnId": "PROCESS_1",
                 "name": "ParallelDivergingGateway",
-                "tasks": [
+                "flowObjects": [
+                    {
+                        "bpmnId": "_2",
+                        "name": "Start Event",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_4"
+                        ],
+                        "isFlowObject": true,
+                        "isStartEvent": true
+                    },
+                    {
+                        "bpmnId": "_3",
+                        "name": "Parallel Gateway",
+                        "type": "parallelGateway",
+                        "incomingRefs": [
+                            "_4"
+                        ],
+                        "outgoingRefs": [
+                            "_7",
+                            "_8"
+                        ],
+                        "isFlowObject": true,
+                        "isParallelGateway": true
+                    },
                     {
                         "bpmnId": "_5",
                         "name": "Task A",
@@ -133,20 +153,6 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "waitForTaskDoneEvent": true
                     }
                 ],
-                "startEvents": [
-                    {
-                        "bpmnId": "_2",
-                        "name": "Start Event",
-                        "type": "startEvent",
-                        "incomingRefs": [],
-                        "outgoingRefs": [
-                            "_4"
-                        ],
-                        "isFlowObject": true,
-                        "isStartEvent": true
-                    }
-                ],
-                "endEvents": [],
                 "sequenceFlows": [
                     {
                         "bpmnId": "_4",
@@ -171,22 +177,6 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "sourceRef": "_3",
                         "targetRef": "_6",
                         "isSequenceFlow": true
-                    }
-                ],
-                "gateways": [
-                    {
-                        "bpmnId": "_3",
-                        "name": "Parallel Gateway",
-                        "type": "parallelGateway",
-                        "incomingRefs": [
-                            "_4"
-                        ],
-                        "outgoingRefs": [
-                            "_7",
-                            "_8"
-                        ],
-                        "isFlowObject": true,
-                        "isParallelGateway": true
                     }
                 ],
                 "processElementIndex": null,

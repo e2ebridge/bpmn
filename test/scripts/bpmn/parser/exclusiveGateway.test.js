@@ -13,8 +13,7 @@ exports.testParseExclusiveConvergingGateway = function(test) {
             {
                 "bpmnId": "PROCESS_1",
                 "name": "ExclusiveConvergingGateway",
-                "tasks": [],
-                "startEvents": [
+                "flowObjects": [
                     {
                         "bpmnId": "_2",
                         "name": "Start Event1",
@@ -36,9 +35,21 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         ],
                         "isFlowObject": true,
                         "isStartEvent": true
-                    }
-                ],
-                "endEvents": [
+                    },
+                    {
+                        "bpmnId": "_4",
+                        "name": "Exclusive Converging Gateway",
+                        "type": "exclusiveGateway",
+                        "incomingRefs": [
+                            "_5",
+                            "_6"
+                        ],
+                        "outgoingRefs": [
+                            "_10"
+                        ],
+                        "isFlowObject": true,
+                        "isExclusiveGateway": true
+                    },
                     {
                         "bpmnId": "_9",
                         "name": "End Event",
@@ -77,22 +88,6 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "isSequenceFlow": true
                     }
                 ],
-                "gateways": [
-                    {
-                        "bpmnId": "_4",
-                        "name": "Exclusive Converging Gateway",
-                        "type": "exclusiveGateway",
-                        "incomingRefs": [
-                            "_5",
-                            "_6"
-                        ],
-                        "outgoingRefs": [
-                            "_10"
-                        ],
-                        "isFlowObject": true,
-                        "isExclusiveGateway": true
-                    }
-                ],
                 "processElementIndex": null,
                 "nameMap": null
             }
@@ -109,7 +104,18 @@ exports.testParseExclusiveDivergingGateway = function(test) {
             {
                 "bpmnId": "PROCESS_1",
                 "name": "ExclusiveDivergingGateway",
-                "tasks": [
+                "flowObjects": [
+                    {
+                        "bpmnId": "_2",
+                        "name": "Start Event",
+                        "type": "startEvent",
+                        "incomingRefs": [],
+                        "outgoingRefs": [
+                            "_4"
+                        ],
+                        "isFlowObject": true,
+                        "isStartEvent": true
+                    },
                     {
                         "bpmnId": "_3",
                         "name": "First Task",
@@ -122,6 +128,20 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         ],
                         "isFlowObject": true,
                         "waitForTaskDoneEvent": true
+                    },
+                    {
+                        "bpmnId": "_5",
+                        "name": "Is it ok?",
+                        "type": "exclusiveGateway",
+                        "incomingRefs": [
+                            "_6"
+                        ],
+                        "outgoingRefs": [
+                            "_8",
+                            "_10"
+                        ],
+                        "isFlowObject": true,
+                        "isExclusiveGateway": true
                     },
                     {
                         "bpmnId": "_7",
@@ -148,22 +168,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         ],
                         "isFlowObject": true,
                         "waitForTaskDoneEvent": true
-                    }
-                ],
-                "startEvents": [
-                    {
-                        "bpmnId": "_2",
-                        "name": "Start Event",
-                        "type": "startEvent",
-                        "incomingRefs": [],
-                        "outgoingRefs": [
-                            "_4"
-                        ],
-                        "isFlowObject": true,
-                        "isStartEvent": true
-                    }
-                ],
-                "endEvents": [
+                    },
                     {
                         "bpmnId": "_11",
                         "name": "End Event A",
@@ -235,22 +240,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "sourceRef": "_7",
                         "targetRef": "_11",
                         "isSequenceFlow": true
-                    }
-                ],
-                "gateways": [
-                    {
-                        "bpmnId": "_5",
-                        "name": "Is it ok?",
-                        "type": "exclusiveGateway",
-                        "incomingRefs": [
-                            "_6"
-                        ],
-                        "outgoingRefs": [
-                            "_8",
-                            "_10"
-                        ],
-                        "isFlowObject": true,
-                        "isExclusiveGateway": true
                     }
                 ],
                 "processElementIndex": null,

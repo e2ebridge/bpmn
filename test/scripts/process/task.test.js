@@ -16,9 +16,9 @@ var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiv
 exports.testSimpleBPMNProcess = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addStartEvent(new BPMNStartEvent("_2", "MyStart", "startEvent", [], ["_4"]));
-    processDefinition.addTask(new BPMNTask("_3", "MyTask", "task", ["_4"], ["_6"]));
-    processDefinition.addEndEvent(new BPMNEndEvent("_5", "MyEnd", "endEvent", ["_6"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent", [], ["_4"]));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task", ["_4"], ["_6"]));
+    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent", ["_6"], []));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 

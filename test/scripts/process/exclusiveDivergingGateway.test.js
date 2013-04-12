@@ -14,18 +14,18 @@ var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiv
 
 exports.testExclusiveDivergingGateway = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addStartEvent(new BPMNStartEvent("_2", "Start Event", "startEvent", [], ["_4"]));
-    processDefinition.addTask(new BPMNTask("_3", "First Task", "task", ["_4"], ["_6"]));
-    processDefinition.addTask(new BPMNTask("_7", "Task A", "task", ["_8"], ["_14"]));
-    processDefinition.addTask(new BPMNTask("_9", "Task B", "task", ["_10"], ["_13"]));
-    processDefinition.addEndEvent(new BPMNEndEvent("_11", "End Event A", "endEvent", ["_14"], []));
-    processDefinition.addEndEvent(new BPMNEndEvent("_12", "End Event B", "endEvent", ["_13"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent", [], ["_4"]));
+    processDefinition.addFlowObject(new BPMNTask("_3", "First Task", "task", ["_4"], ["_6"]));
+    processDefinition.addFlowObject(new BPMNTask("_7", "Task A", "task", ["_8"], ["_14"]));
+    processDefinition.addFlowObject(new BPMNTask("_9", "Task B", "task", ["_10"], ["_13"]));
+    processDefinition.addFlowObject(new BPMNEndEvent("_11", "End Event A", "endEvent", ["_14"], []));
+    processDefinition.addFlowObject(new BPMNEndEvent("_12", "End Event B", "endEvent", ["_13"], []));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", null, "sequenceFlow", "_3", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", "nok", "sequenceFlow", "_5", "_7"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", "ok", "sequenceFlow", "_5", "_9"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
-    processDefinition.addGateway(new BPMNExclusiveGateway("_5", "Is it ok?", "exclusiveGateway", ["_6"], ["_8","_10"]));
+    processDefinition.addFlowObject(new BPMNExclusiveGateway("_5", "Is it ok?", "exclusiveGateway", ["_6"], ["_8","_10"]));
 
     var log = function(eventType) {
         //console.log("testExclusiveDivergingGateway: Calling handler for '" + eventType + "'");
