@@ -95,6 +95,6 @@ exports.testSimpleBPMNProcess = function(test) {
 
     var bpmnProcess = new BPMNProcess("myFirstProcess", processDefinition, handler);
 
-    bpmnProcess.emitEvent("MyStart");
+    bpmnProcess.sendStartEvent("MyStart");
 
 };

@@ -4,7 +4,6 @@
  */
 
 var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
-var errorsModule = require('../../../../lib/errors.js');
 
 exports.testParseBPMNTask = function(test) {
 
@@ -38,7 +37,8 @@ exports.testParseBPMNTask = function(test) {
                         "outgoingRefs": [
                             "_4"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     }
                 ],
                 "endEvents": [
@@ -50,7 +50,8 @@ exports.testParseBPMNTask = function(test) {
                             "_6"
                         ],
                         "outgoingRefs": [],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isEndEvent": true
                     }
                 ],
                 "sequenceFlows": [

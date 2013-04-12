@@ -3,63 +3,20 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var processDefinitionModule = require('../../../lib/bpmn/processDefinition.js');
-
-function getMockupProcessDefinition() {
-
-    /** @type {BPMNProcessDefinition} */
-    var process = new processDefinitionModule.BPMNProcessDefinition("PROCESS_1", "myProcess");
-    process.addTask({
-        "bpmnId": "_3",
-        "name": "MyTask",
-        "type": "task",
-        "outgoingRefs": [
-            "_6"
-        ],
-        "incomingRefs": [
-            "_4"
-        ],
-        "waitForTaskDoneEvent": true
-    });
-    process.addStartEvent({
-        "bpmnId": "_2",
-        "name": "MyStart",
-        "type": "startEvent",
-        "outgoingRefs": [
-            "_4"
-        ],
-        "incomingRefs": []
-    });
-    process.addEndEvent({
-        "bpmnId": "_5",
-        "name": "MyEnd",
-        "type": "endEvent",
-        "outgoingRefs": [],
-        "incomingRefs": [
-            "_6"
-        ]
-    });
-    process.addSequenceFlow({
-        "bpmnId": "_4",
-        "name": "flow1",
-        "type": "sequenceFlow",
-        "sourceRef": "_2",
-        "targetRef": "_3"
-    });
-    process.addSequenceFlow({
-        "bpmnId": "_6",
-        "name": "flow2",
-        "type": "sequenceFlow",
-        "sourceRef": "_3",
-        "targetRef": "_5"
-    });
-
-    return process;
-}
+var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
 exports.testGetFlowObject = function(test) {
-    /** @type {BPMNProcessDefinition} */
-    var processDefinition = getMockupProcessDefinition();
+
+    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
+    processDefinition.addStartEvent(new BPMNStartEvent("_2", "MyStart", "startEvent", [], ["_4"]));
+    processDefinition.addTask(new BPMNTask("_3", "MyTask", "task", ["_4"], ["_6"]));
+    processDefinition.addEndEvent(new BPMNEndEvent("_5", "MyEnd", "endEvent", ["_6"], []));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
     var flowObject = processDefinition.getProcessElement("_3");
     test.deepEqual(flowObject,
@@ -67,12 +24,13 @@ exports.testGetFlowObject = function(test) {
             "bpmnId": "_3",
             "name": "MyTask",
             "type": "task",
-            "outgoingRefs": [
-                "_6"
-            ],
             "incomingRefs": [
                 "_4"
             ],
+            "outgoingRefs": [
+                "_6"
+            ],
+            "isFlowObject": true,
             "waitForTaskDoneEvent": true
         },
         "testGetFlowObject");
@@ -84,10 +42,12 @@ exports.testGetFlowObject = function(test) {
                 "bpmnId": "_5",
                 "name": "MyEnd",
                 "type": "endEvent",
-                "outgoingRefs": [],
                 "incomingRefs": [
                     "_6"
-                ]
+                ],
+                "outgoingRefs": [],
+                "isFlowObject": true,
+                "isEndEvent": true
             }
         ],
         "testGetNextFlowObjects");

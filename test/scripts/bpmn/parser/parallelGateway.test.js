@@ -23,7 +23,8 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "outgoingRefs": [
                             "_10"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     },
                     {
                         "bpmnId": "_3",
@@ -33,7 +34,8 @@ exports.testParseParallelConvergingGateway = function(test) {
                         "outgoingRefs": [
                             "_11"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     }
                 ],
                 "endEvents": [
@@ -45,7 +47,8 @@ exports.testParseParallelConvergingGateway = function(test) {
                             "_8"
                         ],
                         "outgoingRefs": [],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isEndEvent": true
                     }
                 ],
                 "sequenceFlows": [
@@ -136,7 +139,8 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "outgoingRefs": [
                             "_4"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     }
                 ],
                 "endEvents": [],

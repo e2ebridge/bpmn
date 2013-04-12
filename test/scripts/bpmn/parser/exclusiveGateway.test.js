@@ -23,7 +23,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "outgoingRefs": [
                             "_5"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     },
                     {
                         "bpmnId": "_3",
@@ -33,7 +34,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "outgoingRefs": [
                             "_6"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     }
                 ],
                 "endEvents": [
@@ -45,7 +47,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                             "_10"
                         ],
                         "outgoingRefs": [],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isEndEvent": true
                     }
                 ],
                 "sequenceFlows": [
@@ -153,7 +156,8 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "outgoingRefs": [
                             "_4"
                         ],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isStartEvent": true
                     }
                 ],
                 "endEvents": [
@@ -165,7 +169,8 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                             "_14"
                         ],
                         "outgoingRefs": [],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isEndEvent": true
                     },
                     {
                         "bpmnId": "_12",
@@ -175,7 +180,8 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                             "_13"
                         ],
                         "outgoingRefs": [],
-                        "isFlowObject": true
+                        "isFlowObject": true,
+                        "isEndEvent": true
                     }
                 ],
                 "sequenceFlows": [

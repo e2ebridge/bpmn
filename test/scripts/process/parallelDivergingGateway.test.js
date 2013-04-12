@@ -81,5 +81,5 @@ exports.testDivergingParallelGatewayProcess = function(test) {
 
     var bpmnProcess = new BPMNProcessEngine("myFirstForkingGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.emitEvent("Start Event");
+    bpmnProcess.sendStartEvent("Start Event");
 };

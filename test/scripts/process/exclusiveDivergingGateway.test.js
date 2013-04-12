@@ -102,7 +102,7 @@ exports.testExclusiveDivergingGateway = function(test) {
 
     var bpmnProcess = new BPMNProcessEngine("myFirstXGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.emitEvent("Start Event");
+    bpmnProcess.sendStartEvent("Start Event");
     bpmnProcess.taskDone("First Task");
 
 };

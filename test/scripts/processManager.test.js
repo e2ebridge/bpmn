@@ -12,7 +12,7 @@ exports.testCreateVolatileBPMNProcess = function(test) {
 
     var bpmnProcess = processManagerModule.getBPMNProcess("myid","test/resources/projects/simpleBPMN/taskExampleProcess.bpmn");
 
-    bpmnProcess.emitEvent("MyStart");
+    bpmnProcess.sendStartEvent("MyStart");
 
     process.nextTick(function() {
         //console.log("Comparing result after start event");
@@ -70,7 +70,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         persistencyPath,
         loadedState);
 
-    bpmnProcess.emitEvent("MyStart");
+    bpmnProcess.sendStartEvent("MyStart");
 };
 
 exports.testLoadBPMNProcess = function(test) {
@@ -104,7 +104,8 @@ exports.testLoadBPMNProcess = function(test) {
                     "outgoingRefs": [
                         "_4"
                     ],
-                    "isFlowObject": true
+                    "isFlowObject": true,
+                    "isStartEvent": true
                 }
             ],
             "endEvents": [
@@ -116,7 +117,8 @@ exports.testLoadBPMNProcess = function(test) {
                         "_6"
                     ],
                     "outgoingRefs": [],
-                    "isFlowObject": true
+                    "isFlowObject": true,
+                    "isEndEvent": true
                 }
             ],
             "sequenceFlows": [

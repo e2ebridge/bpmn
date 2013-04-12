@@ -75,12 +75,12 @@ exports.testExclusiveConvergingGateway = function(test) {
 
     var bpmnProcess = new BPMNProcessEngine("myFirstConvergingXorGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.emitEvent("Start Event1");
+    bpmnProcess.sendStartEvent("Start Event1");
 
     var bpmnProcess2 = new BPMNProcessEngine("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
 
     finalTest = true;
 
-    bpmnProcess2.emitEvent("Start Event2");
+    bpmnProcess2.sendStartEvent("Start Event2");
 
 };

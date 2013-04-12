@@ -106,7 +106,7 @@ exports.testParallelConvergingGateway = function(test) {
 
     var bpmnProcess = new BPMNProcessEngine("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.emitEvent("Start Event1");
-    bpmnProcess.emitEvent("Start Event2");
+    bpmnProcess.sendStartEvent("Start Event1");
+    bpmnProcess.sendStartEvent("Start Event2");
 
 };
