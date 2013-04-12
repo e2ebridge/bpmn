@@ -37,8 +37,20 @@ exports.testDivergingParallelGatewayProcess = function(test) {
                     "position": "Task B"
                 }
             ],
-            "testDivergingParallelGatewayProcess: state after forking A and B")
-        ;
+            "testDivergingParallelGatewayProcess: state after forking A and B"
+        );
+
+        var history = process.getHistory();
+        test.deepEqual(history,
+            [
+                "Start Event",
+                "Parallel Gateway",
+                "Task A",
+                "Task B"
+            ],
+            "testDivergingParallelGatewayProcess: history after forking A and B"
+        );
+
         test.done();
     };
 

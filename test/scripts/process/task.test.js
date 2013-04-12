@@ -25,28 +25,24 @@ exports.testSimpleBPMNProcess = function(test) {
     var handler = {
         "MyStart": function(data, done) {
             var state = this.getState();
-            test.deepEqual(state,
-                {
-                    "tokens": [
-                        {
-                            "position": "MyStart"
-                        }
-                    ]
-                },
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyStart"
+                    }
+                ],
                 "testSimpleBPMNProcess: state at MyStart"
             );
             done(data);
         },
         "MyTask": function(data, done) {
             var state = this.getState();
-            test.deepEqual(state,
-                {
-                    "tokens": [
-                        {
-                            "position": "MyTask"
-                        }
-                    ]
-                },
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask"
+                    }
+                ],
                 "testSimpleBPMNProcess: state at MyTask"
             );
             this.data = {myproperty: "blah"};
@@ -56,14 +52,12 @@ exports.testSimpleBPMNProcess = function(test) {
         },
         "MyTaskDone": function(data, done) {
             var state = this.getState();
-            test.deepEqual(state,
-                {
-                    "tokens": [
-                        {
-                            "position": "MyTask"
-                        }
-                    ]
-                },
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask"
+                    }
+                ],
                 "testSimpleBPMNProcess: state at MyTaskDone"
             );
             test.deepEqual(this.data,
@@ -76,17 +70,23 @@ exports.testSimpleBPMNProcess = function(test) {
         },
         "MyEnd": function(data, done) {
             var state = this.getState();
-            test.deepEqual(state,
-                {
-                    "tokens": [
-                        {
-                            "position": "MyEnd"
-                        }
-                    ]
-                },
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyEnd"
+                    }
+                ],
                 "testSimpleBPMNProcess: state at MyEnd"
             );
-
+            var history = this.getHistory();
+            test.deepEqual(history,
+                [
+                    "MyStart",
+                    "MyTask",
+                    "MyEnd"
+                ],
+                "testSimpleBPMNProcess: history at MyEnd"
+            );
             done(data);
 
             test.done();

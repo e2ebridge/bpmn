@@ -86,6 +86,19 @@ exports.testParallelConvergingGateway = function(test) {
                 ],
                 "testParallelConvergingGateway: at End Event"
             );
+
+            var history = this.getHistory();
+            test.deepEqual(history,
+                [
+                    "Start Event1",
+                    "Parallel Converging Gateway",
+                    "Start Event2",
+                    "Parallel Converging Gateway",
+                    "End Event"
+                ],
+                "testParallelConvergingGateway: history at End Event"
+            );
+
             done(data);
             testOk(this);
         }

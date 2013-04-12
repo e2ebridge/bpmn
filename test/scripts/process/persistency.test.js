@@ -49,6 +49,38 @@ exports.testPersistSimpleBPMNProcess = function(test) {
             this.setProperty("anAdditionalProperty", "Value of an additional property");
 
             done(data);
+        },
+        "doneSavingHandler": function(error, savedData) {
+            if (error) {
+                test.ok(false, "testPersistSimpleBPMNProcess: error at saving SAVING");
+                test.done();
+            }
+
+            test.deepEqual(savedData,
+                {
+                    "processInstanceId": "myProcess::myPersistentProcess_1",
+                    "data": {
+                        "myprop": {
+                            "an": "object"
+                        },
+                        "anAdditionalProperty": "Value of an additional property"
+                    },
+                    "state": {
+                        "tokens": [
+                            {
+                                "position": "MyTask"
+                            }
+                        ]
+                    },
+                    "history": [
+                        "MyStart",
+                        "MyTask"
+                    ],
+                    "_id": 1
+                },
+                "testPersistSimpleBPMNProcess: saved data"
+            );
+
             test.done();
         }
     };
@@ -98,51 +130,65 @@ exports.testLoadSimpleBPMNProcess = function(test) {
     };
 
     var doneLoading = function(error, loadedData) {
-            test.deepEqual(
-                loadedData,
-                {
-                    "processInstanceId": "myProcess::myPersistentProcess_1",
-                    "data": {
-                        "myprop": {
-                            "an": "object"
-                        },
-                        "anAdditionalProperty": "Value of an additional property"
-                    },
-                    "state": {
-                        "tokens": [
-                            {
-                                "position": "MyTask"
-                            }
-                        ]
-                    },
-                    "_id": 1
-                },
-                "testLoadSimpleBPMNProcess: loaded data"
-            );
-            //console.log("Loaded data");
+        if (!error && !loadedData) {
+            test.ok(false, "testLoadSimpleBPMNProcess: there was nothing to load. Did saving data in the previous testcase work?");
+            test.done();
+        }
 
-            var myProperty = this.getProperty(testPropertyName);
-            test.deepEqual(
-                myProperty,
-                {
+        if (error) {
+            test.ok(false, "testLoadSimpleBPMNProcess: failed loading. Error: " + error);
+            test.done();
+        }
+
+        test.equal(loadedData._id, 1, "testLoadSimpleBPMNProcess: _id");
+        test.equal(loadedData.processInstanceId, "myProcess::myPersistentProcess_1", "testLoadSimpleBPMNProcess: processInstanceId");
+        test.deepEqual(loadedData.history,
+            [
+                "MyStart",
+                "MyTask"
+            ],
+            "testLoadSimpleBPMNProcess: history"
+        );
+        test.deepEqual(loadedData.data,
+            {
+                "myprop": {
                     "an": "object"
                 },
-                "testLoadSimpleBPMNProcess: get loaded property"
-            );
+                "anAdditionalProperty": "Value of an additional property"
+            },
+            "testLoadSimpleBPMNProcess: data"
+        );
+        test.deepEqual(loadedData.state.tokens,
+            [
+                {
+                    "position": "MyTask"
+                }
+            ],
+            "testLoadSimpleBPMNProcess: tokens"
+        );
 
-            test.ok(this.deferEvents, "testLoadSimpleBPMNProcess: deferEvents");
+        var myProperty = this.getProperty(testPropertyName);
+        test.deepEqual(
+            myProperty,
+            {
+                "an": "object"
+            },
+            "testLoadSimpleBPMNProcess: get loaded property"
+        );
 
-            var deferredEvents = this.deferredEvents;
-            test.deepEqual(deferredEvents,
-                [
-                    {
-                        "type": "taskDoneEvent",
-                        "name": "MyTask",
-                        "data": {}
-                    }
-                ],
-                "testLoadSimpleBPMNProcess: deferred after loading");
-        };
+        test.ok(this.deferEvents, "testLoadSimpleBPMNProcess: deferEvents");
+
+        var deferredEvents = this.deferredEvents;
+        test.deepEqual(deferredEvents,
+            [
+                {
+                    "type": "taskDoneEvent",
+                    "name": "MyTask",
+                    "data": {}
+                }
+            ],
+            "testLoadSimpleBPMNProcess: deferred after loading");
+    };
 
     var newBpmnProcess = new BPMNProcessEngine(processId, processDefinition, handler, persistency);
     newBpmnProcess.loadState(doneLoading);

@@ -10,12 +10,11 @@ exports.testFilePersistencyInsert = function(test) {
     var persistency = new Persistency({path: persistencyPath});
     persistency.cleanAllSync();
 
-    var processEngine = {
+    var persistentData = {
         processInstanceId: "mypid",
         data: {myattr: "x"},
         state: ["a", "b"],
-        processDefinition: {name: "myProcess", tasks: []},
-        persistency: persistency
+        history: ["a", "b", "c", "d"]
     };
 
     var done = function(error, persistedData) {
@@ -27,6 +26,7 @@ exports.testFilePersistencyInsert = function(test) {
                     "myattr": "x"
                 },
                 "state": ["a", "b"],
+                "history": ["a", "b", "c", "d"],
                 "_id": 1
             },
             "testFilePersistencyInsert"
@@ -36,7 +36,7 @@ exports.testFilePersistencyInsert = function(test) {
 
 
     process.nextTick(function() {
-        persistency.persist(processEngine, done);
+        persistency.persist(persistentData, done);
     });
 
 };
@@ -44,12 +44,11 @@ exports.testFilePersistencyInsert = function(test) {
 exports.testFilePersistencyUpdate = function(test) {
     var persistency = new Persistency({path: persistencyPath});
 
-    var processEngine = {
+    var persistentData = {
         processInstanceId: "mypid",
         data: {myattr: "CHANGED"},
         state: ["a", "CHANGED"],
-        processDefinition: {name: "myProcess", tasks: []},
-        persistency: persistency
+        history: ["a", "b", "c", "d"]
     };
 
     var done = function(error, persistedData) {
@@ -61,6 +60,7 @@ exports.testFilePersistencyUpdate = function(test) {
                     "myattr": "CHANGED"
                 },
                 "state": ["a", "CHANGED"],
+                "history": ["a", "b", "c", "d"],
                 "_id": 1
             },
             "testFilePersistencyUpdate"
@@ -69,7 +69,7 @@ exports.testFilePersistencyUpdate = function(test) {
     };
 
     process.nextTick(function() {
-        persistency.persist(processEngine, done);
+        persistency.persist(persistentData, done);
     });
 
 };
