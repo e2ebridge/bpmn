@@ -7,8 +7,8 @@ var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
 exports.testParseBPMNTask = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/taskExampleProcess.bpmn");
-    test.deepEqual(bpmnObject,
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/taskExampleProcess.bpmn");
+    test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
@@ -36,6 +36,9 @@ exports.testParseBPMNTask = function(test) {
                             "_6"
                         ],
                         "isFlowObject": true,
+                        "boundaryEvents": [],
+                        "isActivity": true,
+                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {

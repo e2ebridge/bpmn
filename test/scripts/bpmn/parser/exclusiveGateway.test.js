@@ -7,8 +7,8 @@ var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
 exports.testParseExclusiveConvergingGateway = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/exclusiveConvergingGateway.bpmn");
-    test.deepEqual(bpmnObject,
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/exclusiveConvergingGateway.bpmn");
+    test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
@@ -98,8 +98,8 @@ exports.testParseExclusiveConvergingGateway = function(test) {
 
 exports.testParseExclusiveDivergingGateway = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/exclusiveDivergingGateway.bpmn");
-    test.deepEqual(bpmnObject,
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/exclusiveDivergingGateway.bpmn");
+    test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
@@ -127,6 +127,9 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                             "_6"
                         ],
                         "isFlowObject": true,
+                        "boundaryEvents": [],
+                        "isActivity": true,
+                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -154,6 +157,9 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                             "_14"
                         ],
                         "isFlowObject": true,
+                        "boundaryEvents": [],
+                        "isActivity": true,
+                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -167,6 +173,9 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                             "_13"
                         ],
                         "isFlowObject": true,
+                        "boundaryEvents": [],
+                        "isActivity": true,
+                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {

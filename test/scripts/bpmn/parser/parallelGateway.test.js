@@ -7,8 +7,8 @@ var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
 exports.testParseParallelConvergingGateway = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/parallelConvergingGateway.bpmn");
-    test.deepEqual(bpmnObject,
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/parallelConvergingGateway.bpmn");
+    test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
@@ -98,8 +98,8 @@ exports.testParseParallelConvergingGateway = function(test) {
 
 exports.testParseParallelDivergingGateway = function(test) {
 
-    var bpmnObject = bpmnParserModule.parse("test/resources/bpmn/parallelDivergingGateway.bpmn");
-    test.deepEqual(bpmnObject,
+    var bpmnProcesses = bpmnParserModule.parse("test/resources/bpmn/parallelDivergingGateway.bpmn");
+    test.deepEqual(bpmnProcesses,
         [
             {
                 "bpmnId": "PROCESS_1",
@@ -139,6 +139,9 @@ exports.testParseParallelDivergingGateway = function(test) {
                         ],
                         "outgoingRefs": [],
                         "isFlowObject": true,
+                        "boundaryEvents": [],
+                        "isActivity": true,
+                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -150,6 +153,9 @@ exports.testParseParallelDivergingGateway = function(test) {
                         ],
                         "outgoingRefs": [],
                         "isFlowObject": true,
+                        "boundaryEvents": [],
+                        "isActivity": true,
+                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     }
                 ],

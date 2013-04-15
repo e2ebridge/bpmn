@@ -103,6 +103,9 @@ exports.testLoadBPMNProcess = function(test) {
                         "_6"
                     ],
                     "isFlowObject": true,
+                    "boundaryEvents": [],
+                    "isActivity": true,
+                    "hasBoundaryEvents": false,
                     "waitForTaskDoneEvent": true
                 },
                 {

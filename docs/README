@@ -9,6 +9,9 @@ Important assumptions/concepts:
 
 2) Only one process per bpmn file.
 
+3) Other rules
+- Boundary Events only for user, receive, and other wait tasks
+
 Persistency:
  This engine saves the state while waiting for a task being done. While this is happening, all events are deferred until
  the state has been saved. When creating a process the process manager first finds to reload existing processes having
@@ -31,13 +34,18 @@ Handler:
 Questions:
 - On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?
 - Shall we bind 'this' of handlers to the process or to another object?
+- It would be easy to add a token tracker (same place where we write into the history) and simulation mode (doneHandlers will
+  be executed automatically) and then to track the token in Cyrils BPMN diagram.
 
 TODOs:
+- DON'T RELY ON INCOMING/OUTGOING REFS (they are not provided all the time because they are optioanl in the schema)
+  DO IT ANAOLOGOUS TO BPMNProcessDefinition.prototype.attachBoundaryEvents
+- We have too many emitToken operations. I think they can be simplified
 - During wait states we should maybe remove the process from memory and reload it if necessary.
 - Test default error and event handler
 - MongoDB
 - Introduce Logger
-- Remove from db after reaching the final state
+- Remove from db after reaching the final state - or shouldn't we?
 - Test errors for exclusive gateways
 - Build up tests with default events
 - Define a name normalize operation on the BPMN package for Cyril
@@ -45,4 +53,4 @@ TODOs:
     - plus the handler api (NOTE: defaultErrorHandler, defaultEventHandler, and doneSavingHandler are also put into this object)
 - Describe Semantics (use docs Token Semantics (Lam).pdf
 - Describe the process client interface as seen by the handlers and the clients
-
+- Parse MID (no outgoing/incoming flow references!), GBTEC, and Signavio BPMN files!
