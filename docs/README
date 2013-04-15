@@ -18,6 +18,7 @@ Persistency:
  the given ID. If there is no such process, it will be created.
 
 Handler:
+- All handlers get a BPMNProcessClient interface as this
 - Event Handler: It gets a callback to be called if the event has been handled.
   Event name == handler name;
 - Task Handler: It gets a callback to be called if the event has been handled.
@@ -28,8 +29,12 @@ Handler:
   Gateway event handler name == gateway name
   Additionally, for each outgoing transition we have a condition handler that hast to evaluate synchronously.
   So if backend data are required do this in the gateway callback
-  Gateway condition handler name == gateway name + ":" + condition flow name
+  Gateway condition handler name: <condition call back> == <gateway name> + ":" + <condition flow name>
   NOTE1: if the conditional flow does not have a name an error is thrown
+- Timeouthandler:
+    handler name == Timeout Event name,
+    Timout is calculated by a callback having then name: <get timout call back> == <timeout event name> + ":getTimeout"
+    Value in ms
 
 Questions:
 - On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?
@@ -38,6 +43,7 @@ Questions:
   be executed automatically) and then to track the token in Cyrils BPMN diagram.
 
 TODOs:
+- Should we replace the ':' separator for condition and timeout callbacks by '_'?
 - DON'T RELY ON INCOMING/OUTGOING REFS (they are not provided all the time because they are optioanl in the schema)
   DO IT ANAOLOGOUS TO BPMNProcessDefinition.prototype.attachBoundaryEvents
 - We have too many emitToken operations. I think they can be simplified
