@@ -89,6 +89,7 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                     }
                 ],
                 "processElementIndex": null,
+                "sequenceFlowBySourceIndex": null,
                 "nameMap": null
             }
         ],
@@ -252,6 +253,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                     }
                 ],
                 "processElementIndex": null,
+                "sequenceFlowBySourceIndex": null,
                 "nameMap": null
             }
         ],

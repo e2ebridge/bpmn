@@ -72,6 +72,7 @@ exports.testParseBPMNTask = function(test) {
                     }
                 ],
                 "processElementIndex": null,
+                "sequenceFlowBySourceIndex": null,
                 "nameMap": null
             }
         ],

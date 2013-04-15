@@ -180,6 +180,7 @@ exports.testParseBPMNTimeout = function(test) {
                     "isSequenceFlow": true
                 }
             },
+            "sequenceFlowBySourceIndex": null,
             "nameMap": null
         },
         "testParseBPMNTimeout");

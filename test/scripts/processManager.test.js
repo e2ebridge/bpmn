@@ -139,6 +139,7 @@ exports.testLoadBPMNProcess = function(test) {
                 }
             ],
             "processElementIndex": null,
+            "sequenceFlowBySourceIndex": null,
             "nameMap": null
         },
         "testLoadBPMNProcess");

@@ -89,6 +89,7 @@ exports.testParseParallelConvergingGateway = function(test) {
                     }
                 ],
                 "processElementIndex": null,
+                "sequenceFlowBySourceIndex": null,
                 "nameMap": null
             }
         ],
@@ -186,6 +187,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                     }
                 ],
                 "processElementIndex": null,
+                "sequenceFlowBySourceIndex": null,
                 "nameMap": null
             }
         ],
