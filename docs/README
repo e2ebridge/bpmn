@@ -19,6 +19,10 @@ Persistency:
 
 Handler:
 - All handlers get a BPMNProcessClient interface as this
+- setTimeout does only work for short time spans but makes no sense for weeks and months
+    Numerically, the max timeout is about 24 days. To find this test search for "testClearBPMNTimeoutByLeavingTask: maxTimeout".
+    However, even if this would work numerically, we would loose the time when restarting node.
+    So we have to find a different solution.
 - Event Handler: It gets a callback to be called if the event has been handled.
   Event name == handler name;
 - Task Handler: It gets a callback to be called if the event has been handled.
@@ -41,6 +45,7 @@ Questions:
 - Shall we bind 'this' of handlers to the process or to another object?
 - It would be easy to add a token tracker (same place where we write into the history) and simulation mode (doneHandlers will
   be executed automatically) and then to track the token in Cyrils BPMN diagram.
+- Should we use the currentActivity in the name as well? E.g. instead of having MyTimout, MyTask_MyTimeout?
 
 TODOs:
 - Should we replace the ':' separator for condition and timeout callbacks by '_'?
