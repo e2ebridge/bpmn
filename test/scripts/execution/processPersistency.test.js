@@ -3,9 +3,9 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var Persistency = require('../../../lib/execution/persistency.js').Persistency;
+var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
-var BPMNProcessEngine = require('../../../lib/process.js').BPMNProcess;
-var Persistency = require('../../../lib/persistency.js').Persistency;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
@@ -85,7 +85,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcessEngine(processId, processDefinition, handler, persistency);
+    var bpmnProcess = new BPMNProcess(processId, processDefinition, handler, persistency);
     bpmnProcess.setProperty(testPropertyName, {an: "object"});
     bpmnProcess.sendStartEvent("MyStart");
   };
@@ -194,7 +194,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
-    newBpmnProcess = new BPMNProcessEngine(processId, processDefinition, handler, persistency);
+    newBpmnProcess = new BPMNProcess(processId, processDefinition, handler, persistency);
     newBpmnProcess.loadState(doneLoading);
 
     newBpmnProcess.taskDone("MyTask");

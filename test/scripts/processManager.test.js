@@ -10,7 +10,7 @@ var ProcessManager = processManagerModule.ProcessManager;
 exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
-    var bpmnProcess = processManagerModule.getBPMNProcess("myid","test/resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var bpmnProcess = processManagerModule.getBPMNProcessDefinition("myid","test/resources/projects/simpleBPMN/taskExampleProcess.bpmn");
 
     bpmnProcess.sendStartEvent("MyStart");
 
@@ -64,7 +64,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         });
     };
 
-    var bpmnProcess = processManagerModule.getBPMNProcess(
+    var bpmnProcess = processManagerModule.getBPMNProcessDefinition(
         "myid",
         "test/resources/projects/simpleBPMN/taskExampleProcess.bpmn",
         persistencyPath,

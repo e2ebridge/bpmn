@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var Persistency = require('../../lib/persistency.js').Persistency;
+var Persistency = require('../../../lib/execution/persistency.js').Persistency;
 var persistencyPath = './test/resources/persistency/testPersistency';
 
 exports.testFilePersistencyInsert = function(test) {

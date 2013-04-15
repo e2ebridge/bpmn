@@ -3,9 +3,9 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var Persistency = require('../../../lib/execution/persistency.js').Persistency;
+var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
-var BPMNProcessEngine = require('../../../lib/process.js').BPMNProcess;
-var Persistency = require('../../../lib/persistency.js').Persistency;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
@@ -73,11 +73,11 @@ exports.testExclusiveConvergingGateway = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcessEngine("myFirstConvergingXorGatewayProcess", processDefinition, handler);
+    var bpmnProcess = new BPMNProcess("myFirstConvergingXorGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event1");
 
-    var bpmnProcess2 = new BPMNProcessEngine("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
+    var bpmnProcess2 = new BPMNProcess("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
 
     finalTest = true;
 

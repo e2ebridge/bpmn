@@ -1,5 +1,10 @@
+/**
+ * AUTHOR: mrassinger
+ * COPYRIGHT: E2E Technologies Ltd.
+ */
+
+var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
-var BPMNProcess = require('../../../lib/process.js').BPMNProcess;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
