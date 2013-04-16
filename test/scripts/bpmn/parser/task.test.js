@@ -11,7 +11,7 @@ exports.testParseBPMNTask = function(test) {
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
-                "bpmnId": "PROCESS_1",
+                "bpmnId": "MyTaskExampleProcess",
                 "name": "TaskExampleProcess",
                 "flowObjects": [
                     {
