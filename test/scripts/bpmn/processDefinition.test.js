@@ -12,9 +12,9 @@ var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenc
 exports.testGetFlowObject = function(test) {
 
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent", [], ["_4"]));
-    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task", ["_4"], ["_6"]));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent", ["_6"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
+    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
@@ -24,12 +24,6 @@ exports.testGetFlowObject = function(test) {
             "bpmnId": "_3",
             "name": "MyTask",
             "type": "task",
-            "incomingRefs": [
-                "_4"
-            ],
-            "outgoingRefs": [
-                "_6"
-            ],
             "isFlowObject": true,
             "boundaryEvents": [],
             "isActivity": true,
@@ -45,10 +39,6 @@ exports.testGetFlowObject = function(test) {
                 "bpmnId": "_5",
                 "name": "MyEnd",
                 "type": "endEvent",
-                "incomingRefs": [
-                    "_6"
-                ],
-                "outgoingRefs": [],
                 "isFlowObject": true,
                 "isEndEvent": true
             }

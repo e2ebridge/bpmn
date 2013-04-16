@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var fileUtilsModule = require('../../lib/utils/file.js');
+var fileUtilsModule = require('../../../lib/utils/file.js');
 var JaguarDb = require('jaguarDb').JaguarDb;
 var jaguarDbPath = './test/resources/persistency/testJaguardb';
 

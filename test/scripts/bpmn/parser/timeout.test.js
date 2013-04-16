@@ -21,10 +21,6 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_2",
                     "name": "MyStart",
                     "type": "startEvent",
-                    "incomingRefs": [],
-                    "outgoingRefs": [
-                        "_4"
-                    ],
                     "isFlowObject": true,
                     "isStartEvent": true
                 },
@@ -32,20 +28,12 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_3",
                     "name": "MyTask",
                     "type": "task",
-                    "incomingRefs": [
-                        "_4"
-                    ],
-                    "outgoingRefs": [],
                     "isFlowObject": true,
                     "boundaryEvents": [
                         {
                             "bpmnId": "_7",
                             "name": "MyTimeout",
                             "type": "boundaryEvent",
-                            "incomingRefs": [],
-                            "outgoingRefs": [
-                                "_8"
-                            ],
                             "isFlowObject": true,
                             "isBoundaryEvent": true,
                             "attachedToRef": "_3",
@@ -60,10 +48,6 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_5",
                     "name": "MyEnd",
                     "type": "endEvent",
-                    "incomingRefs": [
-                        "_8"
-                    ],
-                    "outgoingRefs": [],
                     "isFlowObject": true,
                     "isEndEvent": true
                 },
@@ -71,10 +55,6 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_7",
                     "name": "MyTimeout",
                     "type": "boundaryEvent",
-                    "incomingRefs": [],
-                    "outgoingRefs": [
-                        "_8"
-                    ],
                     "isFlowObject": true,
                     "isBoundaryEvent": true,
                     "attachedToRef": "_3",
@@ -104,10 +84,6 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_2",
                     "name": "MyStart",
                     "type": "startEvent",
-                    "incomingRefs": [],
-                    "outgoingRefs": [
-                        "_4"
-                    ],
                     "isFlowObject": true,
                     "isStartEvent": true
                 },
@@ -115,20 +91,12 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_3",
                     "name": "MyTask",
                     "type": "task",
-                    "incomingRefs": [
-                        "_4"
-                    ],
-                    "outgoingRefs": [],
                     "isFlowObject": true,
                     "boundaryEvents": [
                         {
                             "bpmnId": "_7",
                             "name": "MyTimeout",
                             "type": "boundaryEvent",
-                            "incomingRefs": [],
-                            "outgoingRefs": [
-                                "_8"
-                            ],
                             "isFlowObject": true,
                             "isBoundaryEvent": true,
                             "attachedToRef": "_3",
@@ -143,10 +111,6 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_5",
                     "name": "MyEnd",
                     "type": "endEvent",
-                    "incomingRefs": [
-                        "_8"
-                    ],
-                    "outgoingRefs": [],
                     "isFlowObject": true,
                     "isEndEvent": true
                 },
@@ -154,10 +118,6 @@ exports.testParseBPMNTimeout = function(test) {
                     "bpmnId": "_7",
                     "name": "MyTimeout",
                     "type": "boundaryEvent",
-                    "incomingRefs": [],
-                    "outgoingRefs": [
-                        "_8"
-                    ],
                     "isFlowObject": true,
                     "isBoundaryEvent": true,
                     "attachedToRef": "_3",
@@ -181,6 +141,7 @@ exports.testParseBPMNTimeout = function(test) {
                 }
             },
             "sequenceFlowBySourceIndex": null,
+            "sequenceFlowByTargetIndex": null,
             "nameMap": null
         },
         "testParseBPMNTimeout");

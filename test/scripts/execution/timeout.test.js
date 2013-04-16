@@ -12,14 +12,14 @@ var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenc
 var BPMNBoundaryEvent = require("../../../lib/bpmn/boundaryEvents.js").BPMNBoundaryEvent;
 
 exports.testBPMNTimeout = function(test) {
-    var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3", [], ["_8"]);
+    var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3");
     boundaryEvent.isTimerEvent = true;
 
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent", [], ["_4"]));
-    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task", ["_4"], []));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent", ["_8"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
+    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addFlowObject(boundaryEvent);
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
@@ -108,14 +108,14 @@ exports.testBPMNTimeout = function(test) {
 };
 
 exports.testBPMNWrongGetTimeoutResponse = function(test) {
-    var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3", [], ["_8"]);
+    var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3");
     boundaryEvent.isTimerEvent = true;
 
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent", [], ["_4"]));
-    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task", ["_4"], []));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent", ["_8"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
+    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addFlowObject(boundaryEvent);
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));

@@ -14,13 +14,13 @@ var BPMNParallelGateway = require("../../../lib/bpmn/gateways.js").BPMNParallelG
 
 exports.testParallelConvergingGateway = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event1", "startEvent", [], ["_5"]));
-    processDefinition.addFlowObject(new BPMNStartEvent("_3", "Start Event2", "startEvent", [], ["_6"]));
-    processDefinition.addFlowObject(new BPMNEndEvent("_9", "End Event", "endEvent", ["_10"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event1", "startEvent"));
+    processDefinition.addFlowObject(new BPMNStartEvent("_3", "Start Event2", "startEvent"));
+    processDefinition.addFlowObject(new BPMNEndEvent("_9", "End Event", "endEvent"));
+    processDefinition.addFlowObject(new BPMNParallelGateway("_4", "Parallel Converging Gateway", "exclusiveGateway"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_5", null, "sequenceFlow", "_2", "_4"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", null, "sequenceFlow", "_3", "_4"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_4", "_9"));
-    processDefinition.addFlowObject(new BPMNParallelGateway("_4", "Parallel Converging Gateway", "exclusiveGateway", ["_5", "_6"], ["_10"]));
 
     var log = function(eventType) {
         //console.log("testParallelConvergingGateway: Calling handler for '" + eventType + "'");

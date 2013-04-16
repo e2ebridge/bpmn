@@ -14,10 +14,10 @@ var BPMNParallelGateway = require("../../../lib/bpmn/gateways.js").BPMNParallelG
 
 exports.testDivergingParallelGatewayProcess = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcessWithParallelGateway");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent", [], ["_4"]));
-    processDefinition.addFlowObject(new BPMNParallelGateway("_3", "Parallel Gateway", "parallelGateway", ["_4"], ["_7","_8"]));
-    processDefinition.addFlowObject(new BPMNTask("_5", "Task A", "task", ["_7"], []));
-    processDefinition.addFlowObject(new BPMNTask("_6", "Task B", "task", ["_8"], []));
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
+    processDefinition.addFlowObject(new BPMNParallelGateway("_3", "Parallel Gateway", "parallelGateway"));
+    processDefinition.addFlowObject(new BPMNTask("_5", "Task A", "task"));
+    processDefinition.addFlowObject(new BPMNTask("_6", "Task B", "task"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_7", null, "sequenceFlow", "_3", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_3", "_6"));
@@ -70,8 +70,8 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         },
         "Task B": function(data, done) {
             log("Task B");
-            done(data);
             if (--counter === 0) testOk(this);
+            done(data);
         },
         "Parallel Gateway": function(data, done) {
             log("Parallel Gateway");

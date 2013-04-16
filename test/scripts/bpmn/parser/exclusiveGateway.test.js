@@ -18,10 +18,6 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "bpmnId": "_2",
                         "name": "Start Event1",
                         "type": "startEvent",
-                        "incomingRefs": [],
-                        "outgoingRefs": [
-                            "_5"
-                        ],
                         "isFlowObject": true,
                         "isStartEvent": true
                     },
@@ -29,10 +25,6 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "bpmnId": "_3",
                         "name": "Start Event2",
                         "type": "startEvent",
-                        "incomingRefs": [],
-                        "outgoingRefs": [
-                            "_6"
-                        ],
                         "isFlowObject": true,
                         "isStartEvent": true
                     },
@@ -40,13 +32,6 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "bpmnId": "_4",
                         "name": "Exclusive Converging Gateway",
                         "type": "exclusiveGateway",
-                        "incomingRefs": [
-                            "_5",
-                            "_6"
-                        ],
-                        "outgoingRefs": [
-                            "_10"
-                        ],
                         "isFlowObject": true,
                         "isExclusiveGateway": true
                     },
@@ -54,10 +39,6 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                         "bpmnId": "_9",
                         "name": "End Event",
                         "type": "endEvent",
-                        "incomingRefs": [
-                            "_10"
-                        ],
-                        "outgoingRefs": [],
                         "isFlowObject": true,
                         "isEndEvent": true
                     }
@@ -90,6 +71,7 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                 ],
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
+                "sequenceFlowByTargetIndex": null,
                 "nameMap": null
             }
         ],
@@ -110,10 +92,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_2",
                         "name": "Start Event",
                         "type": "startEvent",
-                        "incomingRefs": [],
-                        "outgoingRefs": [
-                            "_4"
-                        ],
                         "isFlowObject": true,
                         "isStartEvent": true
                     },
@@ -121,12 +99,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_3",
                         "name": "First Task",
                         "type": "task",
-                        "incomingRefs": [
-                            "_4"
-                        ],
-                        "outgoingRefs": [
-                            "_6"
-                        ],
                         "isFlowObject": true,
                         "boundaryEvents": [],
                         "isActivity": true,
@@ -137,13 +109,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_5",
                         "name": "Is it ok?",
                         "type": "exclusiveGateway",
-                        "incomingRefs": [
-                            "_6"
-                        ],
-                        "outgoingRefs": [
-                            "_8",
-                            "_10"
-                        ],
                         "isFlowObject": true,
                         "isExclusiveGateway": true
                     },
@@ -151,12 +116,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_7",
                         "name": "Task A",
                         "type": "task",
-                        "incomingRefs": [
-                            "_8"
-                        ],
-                        "outgoingRefs": [
-                            "_14"
-                        ],
                         "isFlowObject": true,
                         "boundaryEvents": [],
                         "isActivity": true,
@@ -167,12 +126,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_9",
                         "name": "Task B",
                         "type": "task",
-                        "incomingRefs": [
-                            "_10"
-                        ],
-                        "outgoingRefs": [
-                            "_13"
-                        ],
                         "isFlowObject": true,
                         "boundaryEvents": [],
                         "isActivity": true,
@@ -183,10 +136,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_11",
                         "name": "End Event A",
                         "type": "endEvent",
-                        "incomingRefs": [
-                            "_14"
-                        ],
-                        "outgoingRefs": [],
                         "isFlowObject": true,
                         "isEndEvent": true
                     },
@@ -194,10 +143,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "bpmnId": "_12",
                         "name": "End Event B",
                         "type": "endEvent",
-                        "incomingRefs": [
-                            "_13"
-                        ],
-                        "outgoingRefs": [],
                         "isFlowObject": true,
                         "isEndEvent": true
                     }
@@ -254,6 +199,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                 ],
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
+                "sequenceFlowByTargetIndex": null,
                 "nameMap": null
             }
         ],
