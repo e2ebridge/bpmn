@@ -26,9 +26,7 @@ exports.testParseBPMNTask = function(test) {
                         "name": "MyTask",
                         "type": "task",
                         "isFlowObject": true,
-                        "boundaryEvents": [],
                         "isActivity": true,
-                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -60,6 +58,7 @@ exports.testParseBPMNTask = function(test) {
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
+                "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null
             }
         ],

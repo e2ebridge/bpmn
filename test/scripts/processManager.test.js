@@ -93,9 +93,7 @@ exports.testLoadBPMNProcess = function(test) {
                     "name": "MyTask",
                     "type": "task",
                     "isFlowObject": true,
-                    "boundaryEvents": [],
                     "isActivity": true,
-                    "hasBoundaryEvents": false,
                     "waitForTaskDoneEvent": true
                 },
                 {
@@ -127,6 +125,7 @@ exports.testLoadBPMNProcess = function(test) {
             "processElementIndex": null,
             "sequenceFlowBySourceIndex": null,
             "sequenceFlowByTargetIndex": null,
+            "boundaryEventsByAttachmentIndex": null,
             "nameMap": null
         },
         "testLoadBPMNProcess");

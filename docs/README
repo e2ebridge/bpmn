@@ -49,8 +49,6 @@ Questions:
 
 TODOs:
 - Should we replace the ':' separator for condition and timeout callbacks by '_'?
-- DON'T RELY ON INCOMING/OUTGOING REFS (they are not provided all the time because they are optioanl in the schema)
-  DO IT ANAOLOGOUS TO BPMNProcessDefinition.prototype.attachBoundaryEvents
 - We have too many emitToken operations. I think they can be simplified
 - During wait states we should maybe remove the process from memory and reload it if necessary.
 - Test default error and event handler

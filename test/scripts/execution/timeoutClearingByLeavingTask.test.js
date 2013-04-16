@@ -26,8 +26,6 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_3", "_9"));
 
-    processDefinition.attachBoundaryEvents();
-
     var bpmnProcess;
 
     var handler = {

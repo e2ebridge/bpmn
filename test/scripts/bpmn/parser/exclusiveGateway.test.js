@@ -72,6 +72,7 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
+                "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null
             }
         ],
@@ -100,9 +101,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "name": "First Task",
                         "type": "task",
                         "isFlowObject": true,
-                        "boundaryEvents": [],
                         "isActivity": true,
-                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -117,9 +116,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "name": "Task A",
                         "type": "task",
                         "isFlowObject": true,
-                        "boundaryEvents": [],
                         "isActivity": true,
-                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -127,9 +124,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "name": "Task B",
                         "type": "task",
                         "isFlowObject": true,
-                        "boundaryEvents": [],
                         "isActivity": true,
-                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -200,6 +195,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
+                "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null
             }
         ],

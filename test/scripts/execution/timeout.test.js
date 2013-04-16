@@ -24,8 +24,6 @@ exports.testBPMNTimeout = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
 
-    processDefinition.attachBoundaryEvents();
-
     var handler = {
         "MyStart": function(data, done) {
             var state = this.getState();
@@ -119,8 +117,6 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
     processDefinition.addFlowObject(boundaryEvent);
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
-
-    processDefinition.attachBoundaryEvents();
 
     var timeout = "1000x";
 

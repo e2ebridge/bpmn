@@ -25,9 +25,7 @@ exports.testGetFlowObject = function(test) {
             "name": "MyTask",
             "type": "task",
             "isFlowObject": true,
-            "boundaryEvents": [],
             "isActivity": true,
-            "hasBoundaryEvents": false,
             "waitForTaskDoneEvent": true
         },
         "testGetFlowObject");

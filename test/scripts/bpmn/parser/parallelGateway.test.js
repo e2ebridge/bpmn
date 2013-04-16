@@ -72,6 +72,7 @@ exports.testParseParallelConvergingGateway = function(test) {
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
+                "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null
             }
         ],
@@ -107,9 +108,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "name": "Task A",
                         "type": "task",
                         "isFlowObject": true,
-                        "boundaryEvents": [],
                         "isActivity": true,
-                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     },
                     {
@@ -117,9 +116,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "name": "Task B",
                         "type": "task",
                         "isFlowObject": true,
-                        "boundaryEvents": [],
                         "isActivity": true,
-                        "hasBoundaryEvents": false,
                         "waitForTaskDoneEvent": true
                     }
                 ],
@@ -152,6 +149,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
+                "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null
             }
         ],
