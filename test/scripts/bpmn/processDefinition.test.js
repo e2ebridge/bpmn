@@ -3,11 +3,73 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
+var bpmnProcessDefinitionModule = require('../../../lib/bpmn/processDefinition.js');
+var BPMNProcessDefinition = bpmnProcessDefinitionModule.BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
+var pathModule = require('path');
+
+exports.testLoadBPMNProcessDefinition = function(test) {
+    var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var processes = bpmnProcessDefinitionModule.getBPMNProcessDefinition(fileName);
+    test.deepEqual(processes,
+        {
+            "bpmnId": "PROCESS_1",
+            "name": "TaskExampleProcess",
+            "flowObjects": [
+                {
+                    "bpmnId": "_2",
+                    "name": "MyStart",
+                    "type": "startEvent",
+                    "isFlowObject": true,
+                    "isStartEvent": true
+                },
+                {
+                    "bpmnId": "_3",
+                    "name": "MyTask",
+                    "type": "task",
+                    "isFlowObject": true,
+                    "isActivity": true,
+                    "isWaitActivity": true
+                },
+                {
+                    "bpmnId": "_5",
+                    "name": "MyEnd",
+                    "type": "endEvent",
+                    "isFlowObject": true,
+                    "isEndEvent": true
+                }
+            ],
+            "sequenceFlows": [
+                {
+                    "bpmnId": "_4",
+                    "name": "flow1",
+                    "type": "sequenceFlow",
+                    "sourceRef": "_2",
+                    "targetRef": "_3",
+                    "isSequenceFlow": true
+                },
+                {
+                    "bpmnId": "_6",
+                    "name": "flow2",
+                    "type": "sequenceFlow",
+                    "sourceRef": "_3",
+                    "targetRef": "_5",
+                    "isSequenceFlow": true
+                }
+            ],
+            "processElementIndex": null,
+            "sequenceFlowBySourceIndex": null,
+            "sequenceFlowByTargetIndex": null,
+            "boundaryEventsByAttachmentIndex": null,
+            "nameMap": null
+        },
+        "testLoadBPMNProcessDefinition");
+
+    test.done();
+};
 
 exports.testGetFlowObject = function(test) {
 

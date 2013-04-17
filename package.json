@@ -2,7 +2,7 @@
     "name": "bpmn",
     "version": "0.0.1",
     "description": "Process State Machine for BPMN",
-    "main": "./lib/processManager.js",
+    "main": "./lib/execution/process.js",
     "dependencies": {
         "sax": ">= 0.5.2",
         "node-fs": ">= 0.1.5",

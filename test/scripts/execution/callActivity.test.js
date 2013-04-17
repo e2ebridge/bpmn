@@ -10,13 +10,16 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiveGateway;
-
+var pathModule = require('path');
 
 exports.testBPMNCallActivity = function(test) {
+    var bpmnSubprocessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-    processDefinition.addFlowObject(new BPMNCallActivity("_3", "MyCallActivity", "callActivity", "MyTaskExampleProcess", "http://sourceforge.net/bpmn/definitions/_1363693864276"));
+    processDefinition.addFlowObject(new BPMNCallActivity("_3", "MyCallActivity", "callActivity",
+        "MyTaskExampleProcess", "http://sourceforge.net/bpmn/definitions/_1363693864276", bpmnSubprocessFileName));
     processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));

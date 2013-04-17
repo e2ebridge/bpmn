@@ -38,15 +38,7 @@ exports.testParseBPMNCallActivity = function(test) {
                         "isCallActivity": true,
                         "calledElementName": "MyTaskExampleProcess",
                         "calledElementNamespace": "http://sourceforge.net/bpmn/definitions/_1363693864276",
-                        "location": "taskExampleProcess.bpmn"
-                    },
-                    {
-                        "bpmnId": "GT_1",
-                        "name": "Global Task",
-                        "type": "globalTask",
-                        "isFlowObject": true,
-                        "isActivity": true,
-                        "isWaitActivity": false
+                        "location": "test\\resources\\bpmn\\taskExampleProcess.bpmn"
                     }
                 ],
                 "sequenceFlows": [
