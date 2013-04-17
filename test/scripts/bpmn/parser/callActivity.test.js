@@ -34,6 +34,7 @@ exports.testParseBPMNCallActivity = function(test) {
                         "type": "callActivity",
                         "isFlowObject": true,
                         "isActivity": true,
+                        "isWaitActivity": false,
                         "isCallActivity": true,
                         "calledElementName": "MyTaskExampleProcess",
                         "calledElementNamespace": "http://sourceforge.net/bpmn/definitions/_1363693864276",
@@ -45,7 +46,7 @@ exports.testParseBPMNCallActivity = function(test) {
                         "type": "globalTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "waitForTaskDoneEvent": false
+                        "isWaitActivity": false
                     }
                 ],
                 "sequenceFlows": [

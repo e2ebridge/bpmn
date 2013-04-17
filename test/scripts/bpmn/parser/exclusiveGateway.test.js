@@ -102,7 +102,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "waitForTaskDoneEvent": true
+                        "isWaitActivity": true
                     },
                     {
                         "bpmnId": "_5",
@@ -117,7 +117,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "waitForTaskDoneEvent": true
+                        "isWaitActivity": true
                     },
                     {
                         "bpmnId": "_9",
@@ -125,7 +125,7 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "waitForTaskDoneEvent": true
+                        "isWaitActivity": true
                     },
                     {
                         "bpmnId": "_11",

@@ -46,8 +46,6 @@ exports.testBPMNCallActivity = function(test) {
             );
             this.data = {myproperty: "blah"};
             done(data);
-
-            bpmnProcess.taskDone("MyCallActivity");
         },
         "MyEnd": function(data, done) {
             var state = this.getState();

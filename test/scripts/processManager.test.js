@@ -10,7 +10,7 @@ var ProcessManager = processManagerModule.ProcessManager;
 exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
-    var bpmnProcess = processManagerModule.getBPMNProcessDefinition("myid","test/resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var bpmnProcess = processManagerModule.getBPMNProcess("myid","test/resources/projects/simpleBPMN/taskExampleProcess.bpmn");
 
     bpmnProcess.sendStartEvent("MyStart");
 
@@ -64,7 +64,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         });
     };
 
-    var bpmnProcess = processManagerModule.getBPMNProcessDefinition(
+    var bpmnProcess = processManagerModule.getBPMNProcess(
         "myid",
         "test/resources/projects/simpleBPMN/taskExampleProcess.bpmn",
         persistencyPath,
@@ -75,7 +75,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
 exports.testLoadBPMNProcess = function(test) {
     var processManager = new ProcessManager("test/resources/projects/simpleBPMN/taskExampleProcess.bpmn");
-    var processes = processManager.getProcessDefinition();
+    var processes = processManager.loadProcessDefinition();
     test.deepEqual(processes,
         {
             "bpmnId": "PROCESS_1",
@@ -94,7 +94,7 @@ exports.testLoadBPMNProcess = function(test) {
                     "type": "task",
                     "isFlowObject": true,
                     "isActivity": true,
-                    "waitForTaskDoneEvent": true
+                    "isWaitActivity": true
                 },
                 {
                     "bpmnId": "_5",
