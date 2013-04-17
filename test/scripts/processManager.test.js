@@ -94,7 +94,7 @@ exports.testLoadBPMNProcess = function(test) {
                     "type": "task",
                     "isFlowObject": true,
                     "isActivity": true,
-                    "waitForTaskDoneEvent": true
+                    "isWaitActivity": true
                 },
                 {
                     "bpmnId": "_5",

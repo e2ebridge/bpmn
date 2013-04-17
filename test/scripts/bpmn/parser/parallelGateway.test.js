@@ -109,7 +109,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "waitForTaskDoneEvent": true
+                        "isWaitActivity": true
                     },
                     {
                         "bpmnId": "_6",
@@ -117,7 +117,7 @@ exports.testParseParallelDivergingGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "waitForTaskDoneEvent": true
+                        "isWaitActivity": true
                     }
                 ],
                 "sequenceFlows": [
