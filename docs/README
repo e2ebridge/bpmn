@@ -48,6 +48,9 @@ Questions:
 - Should we use the currentActivity in the name as well? E.g. instead of having MyTimout, MyTask_MyTimeout?
 
 TODOs:
+- Hierarchical history for processes having subprocesses
+- Persisting processes HAVING sub-processes!!!!!!!!!!!!!
+- Implement send event with findToken
 - Should we replace the ':' separator for condition and timeout callbacks by '_'?
 - We have too many emitToken operations. I think they can be simplified
 - During wait states we should maybe remove the process from memory and reload it if necessary.

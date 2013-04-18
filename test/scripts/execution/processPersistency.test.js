@@ -3,8 +3,8 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var bpmnProcessModule = require('../../../lib/execution/process.js');
 var Persistency = require('../../../lib/execution/persistency.js').Persistency;
-var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
@@ -59,7 +59,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
 
             test.deepEqual(savedData,
                 {
-                    "processInstanceId": "myProcess::myPersistentProcess_1",
+                    "processId": "myProcess::myPersistentProcess_1",
                     "data": {
                         "myprop": {
                             "an": "object"
@@ -86,7 +86,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcess(processId, processDefinition, handler, persistency);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess(processId, processDefinition, handler, persistency);
     bpmnProcess.setProperty(testPropertyName, {an: "object"});
     bpmnProcess.sendStartEvent("MyStart");
   };
@@ -144,7 +144,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
         }
 
         test.equal(loadedData._id, 1, "testLoadSimpleBPMNProcess: _id");
-        test.equal(loadedData.processInstanceId, "myProcess::myPersistentProcess_1", "testLoadSimpleBPMNProcess: processInstanceId");
+        test.equal(loadedData.processId, "myProcess::myPersistentProcess_1", "testLoadSimpleBPMNProcess:processIdd");
         test.deepEqual(loadedData.history,
             [
                 "MyStart",
@@ -195,7 +195,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
-    newBpmnProcess = new BPMNProcess(processId, processDefinition, handler, persistency);
+    newBpmnProcess = bpmnProcessModule.createBPMNProcess(processId, processDefinition, handler, persistency);
     newBpmnProcess.loadState(doneLoading);
 
     newBpmnProcess.taskDone("MyTask");

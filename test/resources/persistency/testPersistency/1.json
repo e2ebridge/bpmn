@@ -1,1 +1,1 @@
-{"processInstanceId":"mypid","data":{"myattr":"CHANGED"},"state":["a","CHANGED"],"history":["a","b","c","d"],"_id":1}
+{"processId":"mypid","data":{"myattr":"CHANGED"},"state":["a","CHANGED"],"history":["a","b","c","d"],"_id":1}

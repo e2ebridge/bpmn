@@ -9,25 +9,46 @@ var BPMNFlowObject = require("../../../lib/bpmn/flowObject.js").BPMNFlowObject;
 var gateway = new BPMNFlowObject("_2", "Parallel Gateway1", "parallelGateway");
 var startEvent = new BPMNFlowObject("_1", "Start Event1", "startEvent");
 
+exports.testBPMNProcessStateFindTokens = function(test) {
+
+    var callActivity = new BPMNFlowObject("_1", "My Call Activity", "callActivity");
+
+    var state = new BPMNProcessState();
+    state.tokens = [
+        {
+            "position": "MyCallActivity",
+            "substate": {
+                "tokens": [
+                    {
+                        "position": "MyTask"
+                    }
+                ]
+            }
+        }
+    ];
+
+    var foundTokens = state.findTokens("MyTask");
+    test.deepEqual(foundTokens,
+        [
+            {
+                "position": "MyTask"
+            }
+        ],
+        "testBPMNProcessStateFindTokens"
+    );
+
+    test.done();
+};
+
 exports.testBPMNProcessStateCreateTokens = function(test) {
 
     var state = new BPMNProcessState();
-    state.createTokenAt(startEvent);
-    state.createTokensAt(gateway, 3);
+    state.createTokenAt(startEvent.name, "myPid1");
 
     test.deepEqual(state.tokens,
         [
             {
                 "position": "Start Event1"
-            },
-            {
-                "position": "Parallel Gateway1"
-            },
-            {
-                "position": "Parallel Gateway1"
-            },
-            {
-                "position": "Parallel Gateway1"
             }
         ],
         "testBPMNProcessStateCreateTokens"
@@ -38,8 +59,10 @@ exports.testBPMNProcessStateCreateTokens = function(test) {
 
 exports.testBPMNProcessStateRemoveToken = function(test) {
     var state = new BPMNProcessState();
-    state.createTokenAt(startEvent);
-    state.createTokensAt(gateway, 3);
+    state.createTokenAt(startEvent.name, "myPid1");
+    state.createTokenAt(gateway.name, "myPid1");
+    state.createTokenAt(gateway.name, "myPid1");
+    state.createTokenAt(gateway.name, "myPid1");
 
     state.removeTokenAt(gateway);
 
@@ -68,7 +91,7 @@ exports.testBPMNProcessStateRemoveToken = function(test) {
 
 exports.testBPMNProcessStateHasToken = function(test) {
     var state = new BPMNProcessState();
-    state.createTokenAt(startEvent);
+    state.createTokenAt(startEvent.name, "myPid1");
 
     var test1 = state.hasTokensAt(null);
     test.equal(test1, false, "testBPMNProcessStateHasToken: flowObject = null");

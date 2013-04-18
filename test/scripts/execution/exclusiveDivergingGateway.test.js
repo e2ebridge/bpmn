@@ -3,8 +3,8 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var bpmnProcessModule = require('../../../lib/execution/process.js');
 var Persistency = require('../../../lib/execution/persistency.js').Persistency;
-var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
@@ -100,7 +100,7 @@ exports.testExclusiveDivergingGateway = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcess("myFirstXGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstXGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event");
     bpmnProcess.taskDone("First Task");

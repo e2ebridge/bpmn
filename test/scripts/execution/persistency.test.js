@@ -11,7 +11,7 @@ exports.testFilePersistencyInsert = function(test) {
     persistency.cleanAllSync();
 
     var persistentData = {
-        processInstanceId: "mypid",
+        processId: "mypid",
         data: {myattr: "x"},
         state: ["a", "b"],
         history: ["a", "b", "c", "d"]
@@ -21,7 +21,7 @@ exports.testFilePersistencyInsert = function(test) {
         test.deepEqual(
             persistedData,
             {
-                "processInstanceId": "mypid",
+                "processId": "mypid",
                 "data": {
                     "myattr": "x"
                 },
@@ -45,7 +45,7 @@ exports.testFilePersistencyUpdate = function(test) {
     var persistency = new Persistency({path: persistencyPath});
 
     var persistentData = {
-        processInstanceId: "mypid",
+        processId: "mypid",
         data: {myattr: "CHANGED"},
         state: ["a", "CHANGED"],
         history: ["a", "b", "c", "d"]
@@ -55,7 +55,7 @@ exports.testFilePersistencyUpdate = function(test) {
         test.deepEqual(
             persistedData,
             {
-                "processInstanceId": "mypid",
+                "processId": "mypid",
                 "data": {
                     "myattr": "CHANGED"
                 },

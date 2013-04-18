@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
+var bpmnProcessModule = require('../../../lib/execution/process.js');
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
@@ -92,7 +92,7 @@ exports.testSimpleBPMNProcess = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcess("myFirstProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
 

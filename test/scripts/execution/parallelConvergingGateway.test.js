@@ -3,8 +3,8 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var bpmnProcessModule = require('../../../lib/execution/process.js');
 var Persistency = require('../../../lib/execution/persistency.js').Persistency;
-var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
@@ -45,7 +45,9 @@ exports.testParallelConvergingGateway = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "Start Event1"
+                        "position": "Start Event1",
+                        "substate": null,
+                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
                     }
                 ],
                 "testParallelConvergingGateway: state after Start Event1"
@@ -59,10 +61,14 @@ exports.testParallelConvergingGateway = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "Parallel Converging Gateway"
+                        "position": "Parallel Converging Gateway",
+                        "substate": null,
+                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
                     },
                     {
-                        "position": "Start Event2"
+                        "position": "Start Event2",
+                        "substate": null,
+                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
                     }
                 ],
                 "testParallelConvergingGateway: state after Start Event2"
@@ -81,7 +87,9 @@ exports.testParallelConvergingGateway = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "End Event"
+                        "position": "End Event",
+                        "substate": null,
+                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
                     }
                 ],
                 "testParallelConvergingGateway: at End Event"
@@ -104,7 +112,7 @@ exports.testParallelConvergingGateway = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcess("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event1");
     bpmnProcess.sendStartEvent("Start Event2");

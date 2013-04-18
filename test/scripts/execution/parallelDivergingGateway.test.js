@@ -3,8 +3,8 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var bpmnProcessModule = require('../../../lib/execution/process.js');
 var Persistency = require('../../../lib/execution/persistency.js').Persistency;
-var BPMNProcess = require('../../../lib/execution/process.js').BPMNProcess;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
@@ -31,10 +31,14 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         test.deepEqual(states.tokens,
             [
                 {
-                    "position": "Task A"
+                    "position": "Task A",
+                    "substate": null,
+                    "owningProcessId": "myProcessWithParallelGateway::myFirstForkingGatewayProcess"
                 },
                 {
-                    "position": "Task B"
+                    "position": "Task B",
+                    "substate": null,
+                    "owningProcessId": "myProcessWithParallelGateway::myFirstForkingGatewayProcess"
                 }
             ],
             "testDivergingParallelGatewayProcess: state after forking A and B"
@@ -79,7 +83,7 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         }
     };
 
-    var bpmnProcess = new BPMNProcess("myFirstForkingGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstForkingGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event");
 };

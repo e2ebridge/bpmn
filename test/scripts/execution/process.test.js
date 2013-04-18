@@ -21,7 +21,9 @@ exports.testCreateVolatileBPMNProcess = function(test) {
         test.deepEqual(state.tokens,
             [
                 {
-                    "position": "MyTask"
+                    "position": "MyTask",
+                    "substate": null,
+                    "owningProcessId": "TaskExampleProcess::myid"
                 }
             ],
             "testCreateVolatileBPMNProcess: reached first wait state."
