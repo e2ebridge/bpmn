@@ -30,7 +30,7 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                     {
                         "position": "MyStart",
                         "substate": null,
-                        "owningProcessId": "myProcess::myFirstProcess"
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testIncorrectTaskDoneEvent: state at MyStart"
@@ -44,7 +44,7 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                     {
                         "position": "MyTask",
                         "substate": null,
-                        "owningProcessId": "myProcess::myFirstProcess"
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testIncorrectTaskDoneEvent: state at MyTask"
@@ -59,8 +59,11 @@ exports.testIncorrectTaskDoneEvent = function(test) {
             test.done();
             done(data);
         },
-        "defaultEventHandler": function(eventName) {
-            test.equal(eventName, "MyTask", "testIncorrectTaskDoneEvent: state at MyEnd");
+        "defaultEventHandler": function(eventType, flowObjectName, handlerName, reason) {
+            test.equal(eventType, "activityFinishedEvent", "testIncorrectTaskDoneEvent: defaultEventHandler: eventType");
+            test.equal(flowObjectName, "MyTask", "testIncorrectTaskDoneEvent: defaultEventHandler: flowObjectName");
+            test.equal(handlerName, "MyTaskDone", "testIncorrectTaskDoneEvent: defaultEventHandler: handlerName");
+            test.equal(reason, "Found no outgoing flow.", "testIncorrectTaskDoneEvent: defaultEventHandler: reason");
 
             var history = this.getHistory();
             test.deepEqual(history,

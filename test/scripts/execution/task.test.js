@@ -27,7 +27,9 @@ exports.testSimpleBPMNProcess = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyStart"
+                        "position": "MyStart",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testSimpleBPMNProcess: state at MyStart"
@@ -39,7 +41,9 @@ exports.testSimpleBPMNProcess = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testSimpleBPMNProcess: state at MyTask"
@@ -54,7 +58,9 @@ exports.testSimpleBPMNProcess = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testSimpleBPMNProcess: state at MyTaskDone"
@@ -72,7 +78,9 @@ exports.testSimpleBPMNProcess = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyEnd"
+                        "position": "MyEnd",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testSimpleBPMNProcess: state at MyEnd"

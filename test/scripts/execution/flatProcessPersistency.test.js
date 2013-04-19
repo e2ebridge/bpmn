@@ -3,6 +3,8 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var pathModule = require('path');
+var fileUtilsModule = require('../../../lib/utils/file.js');
 var bpmnProcessModule = require('../../../lib/execution/process.js');
 var Persistency = require('../../../lib/execution/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
@@ -11,7 +13,7 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
+var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
 processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
 processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
 processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
@@ -23,6 +25,114 @@ var persistency = new Persistency({path: persistencyPath});
 var processId = "myPersistentProcess_1";
 var testPropertyName = "myprop";
 
+exports.testCreatePersistentBPMNProcess = function(test) {
+    var bpmnProcess;
+
+    var persistencyPath = './test/resources/persistency/testPersistentProcess';
+    fileUtilsModule.cleanDirectorySync(persistencyPath);
+
+    var savedState = function(error, savedData) {
+        test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
+
+        var state = bpmnProcess.getState();
+        test.deepEqual(state.tokens,
+            [
+                {
+                    "position": "MyTask",
+                    "substate": null,
+                    "owningProcessId": "myid"
+                }
+            ],
+            "testCreatePersistentBPMNProcess: reached first wait state."
+        );
+
+        test.deepEqual(savedData,
+            {
+                "processId": "myid",
+                "data": {},
+                "state": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "substate": null,
+                            "owningProcessId": "myid"
+                        }
+                    ]
+                },
+                "history": [
+                    "MyStart",
+                    "MyTask"
+                ],
+                "_id": 1
+            },
+            "testCreatePersistentBPMNProcess: saved data."
+        );
+
+        // this points to the process client interface and not to the process directly
+        this._bpmnProcess.loadState();
+    };
+
+    var loadedState = function(error, loadedData) {
+        test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
+
+        var state = bpmnProcess.getState();
+        test.deepEqual(state.tokens,
+            [
+                {
+                    "position": "MyTask",
+                    "substate": null,
+                    "owningProcessId": "myid"
+                }
+            ],
+            "testCreatePersistentBPMNProcess: reached save state."
+        );
+
+        test.deepEqual(loadedData,
+            {
+                "processId": "myid",
+                "data": {},
+                "state": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "substate": null,
+                            "owningProcessId": "myid"
+                        }
+                    ]
+                },
+                "history": [
+                    "MyStart",
+                    "MyTask"
+                ],
+                "_id": 1
+            },
+            "testCreatePersistentBPMNProcess: loaded data."
+        );
+
+        test.done();
+    };
+
+    var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    bpmnProcess = bpmnProcessModule.getBPMNProcess("myid", fileName, persistencyPath, loadedState, savedState);
+
+    // we let the process run to the first save state
+    bpmnProcess.sendStartEvent("MyStart");
+};
+
+
+exports.testLoadHandler = function(test) {
+    var handlerFilePath = bpmnProcessModule.getHandlerFileName("a/b/c.bpmn");
+    test.equal(handlerFilePath, "a/b/c.js","testLoadHandler: handlerFilePath");
+
+    var bpmnFilePath = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var handler = bpmnProcessModule.getHandler(bpmnFilePath);
+    var myTaskHandler = handler["MyTask"];
+    var foundMyTask = myTaskHandler && typeof myTaskHandler === 'function';
+    test.equal(foundMyTask, true,"testLoadHandler");
+
+    test.done();
+};
+
 exports.testPersistSimpleBPMNProcess = function(test) {
 
     persistency.cleanAllSync();
@@ -32,7 +142,9 @@ exports.testPersistSimpleBPMNProcess = function(test) {
             test.deepEqual(this.getState().tokens,
                 [
                     {
-                        "position": "MyStart"
+                        "position": "MyStart",
+                        "substate": null,
+                        "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
                 "testPersistSimpleBPMNProcess: state at MyTask BEFORE SAVING"
@@ -42,7 +154,9 @@ exports.testPersistSimpleBPMNProcess = function(test) {
             test.deepEqual(this.getState().tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
                 "testPersistSimpleBPMNProcess: state at MyTask BEFORE SAVING"
@@ -59,7 +173,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
 
             test.deepEqual(savedData,
                 {
-                    "processId": "myProcess::myPersistentProcess_1",
+                    "processId": "myPersistentProcess_1",
                     "data": {
                         "myprop": {
                             "an": "object"
@@ -69,7 +183,9 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                     "state": {
                         "tokens": [
                             {
-                                "position": "MyTask"
+                                "position": "MyTask",
+                                "substate": null,
+                                "owningProcessId": "myPersistentProcess_1"
                             }
                         ]
                     },
@@ -100,7 +216,9 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
                 "testPersistSimpleBPMNProcess: state at MyTask AFTER LOADING"
@@ -122,7 +240,9 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyEnd"
+                        "position": "MyEnd",
+                        "substate": null,
+                        "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
                 "testLoadSimpleBPMNProcess: end event"
@@ -132,7 +252,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
         }
     };
 
-    var doneLoading = function(error, loadedData) {
+    handler.doneLoadingHandler = function(error, loadedData) {
         if (!error && !loadedData) {
             test.ok(false, "testLoadSimpleBPMNProcess: there was nothing to load. Did saving data in the previous testcase work?");
             test.done();
@@ -144,7 +264,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
         }
 
         test.equal(loadedData._id, 1, "testLoadSimpleBPMNProcess: _id");
-        test.equal(loadedData.processId, "myProcess::myPersistentProcess_1", "testLoadSimpleBPMNProcess:processIdd");
+        test.equal(loadedData.processId, "myPersistentProcess_1", "testLoadSimpleBPMNProcess:processIdd");
         test.deepEqual(loadedData.history,
             [
                 "MyStart",
@@ -164,7 +284,9 @@ exports.testLoadSimpleBPMNProcess = function(test) {
         test.deepEqual(loadedData.state.tokens,
             [
                 {
-                    "position": "MyTask"
+                    "position": "MyTask",
+                    "substate": null,
+                    "owningProcessId": "myPersistentProcess_1"
                 }
             ],
             "testLoadSimpleBPMNProcess: tokens"
@@ -195,8 +317,10 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
+    // Todo this test properly we have to delete the cache otherwise we might take an old version of this process
+    bpmnProcessModule.clearActiveProcessesCache();
     newBpmnProcess = bpmnProcessModule.createBPMNProcess(processId, processDefinition, handler, persistency);
-    newBpmnProcess.loadState(doneLoading);
+    newBpmnProcess.loadState();
 
     newBpmnProcess.taskDone("MyTask");
 

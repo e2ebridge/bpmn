@@ -9,7 +9,6 @@ var BPMNCallActivity = require("../../../lib/bpmn/callActivity.js").BPMNCallActi
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiveGateway;
 var pathModule = require('path');
 
 exports.testBPMNCallActivity = function(test) {
@@ -37,7 +36,7 @@ exports.testBPMNCallActivity = function(test) {
                         {
                             "position": "MyStart",
                             "substate": null,
-                            "owningProcessId": "TaskExampleProcess::MyProcess::mainPid1::MyCallActivity"
+                            "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
                     "testBPMNCallActivity: local state at MyCallActivity"
@@ -51,7 +50,7 @@ exports.testBPMNCallActivity = function(test) {
                         {
                             "position": "MyTask",
                             "substate": null,
-                            "owningProcessId": "TaskExampleProcess::MyProcess::mainPid1::MyCallActivity"
+                            "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
                     "testSimpleBPMNProcess: local state at MyTask"
@@ -68,11 +67,11 @@ exports.testBPMNCallActivity = function(test) {
                                     {
                                         "position": "MyTask",
                                         "substate": null,
-                                        "owningProcessId": "TaskExampleProcess::MyProcess::mainPid1::MyCallActivity"
+                                        "owningProcessId": "mainPid1::MyCallActivity"
                                     }
                                 ]
                             },
-                            "owningProcessId": "MyProcess::mainPid1"
+                            "owningProcessId": "mainPid1"
                         }
                     ],
                     "testSimpleBPMNProcess: main state at MyTask"
@@ -87,7 +86,7 @@ exports.testBPMNCallActivity = function(test) {
                         {
                             "position": "MyTask",
                             "substate": null,
-                            "owningProcessId": "TaskExampleProcess::MyProcess::mainPid1::MyCallActivity"
+                            "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
                     "testSimpleBPMNProcess: local state at MyTaskDone"
@@ -101,29 +100,48 @@ exports.testBPMNCallActivity = function(test) {
                         {
                             "position": "MyEnd",
                             "substate": null,
-                            "owningProcessId": "TaskExampleProcess::MyProcess::mainPid1::MyCallActivity"
+                            "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
                     "testSimpleBPMNProcess: state at MyEnd"
                 );
-                var history = this.getHistory();
+                var history = this.getParentProcess().getHistory();
                 test.deepEqual(history,
                     [
                         "MyStart",
+                        "MyCallActivity",
                         {
                             "MyCallActivity": [
                                 "MyStart",
                                 "MyTask",
                                 "MyEnd"]
-                        },
-                        "MyEnd"
+                        }
                     ],
-                    "testSimpleBPMNProcess: history at MyEnd"
+                    "testSimpleBPMNProcess: history at MyEnd of subprocess"
                 );
                 done(data);
             }
         },
+        "MyCallActivityDone": function(data, done) {
+            done(data);
+        },
         "MyEnd": function(data, done) {
+            var history = this.getHistory();
+            test.deepEqual(history,
+                [
+                    "MyStart",
+                    "MyCallActivity",
+                    {
+                        "MyCallActivity": [
+                            "MyStart",
+                            "MyTask",
+                            "MyEnd"
+                        ]
+                    },
+                    "MyEnd"
+                ],
+                "testSimpleBPMNProcess: history at MyEnd of main process"
+            );
             done(data);
             test.done();
         }

@@ -34,7 +34,9 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyStart"
+                        "position": "MyStart",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testClearBPMNTimeoutByLeavingTask: state at MyStart"
@@ -46,7 +48,9 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testClearBPMNTimeoutByLeavingTask: state at MyTask"
@@ -59,7 +63,9 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testClearBPMNTimeoutByLeavingTask: state at MyTask"
@@ -96,7 +102,9 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyEnd2"
+                        "position": "MyEnd2",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testClearBPMNTimeoutByLeavingTask: state at MyEnd"
@@ -116,6 +124,7 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
         }
     };
 
+    bpmnProcessModule.clearActiveProcessesCache();
     bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");

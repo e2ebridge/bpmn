@@ -20,7 +20,9 @@ exports.testBPMNProcessStateFindTokens = function(test) {
             "substate": {
                 "tokens": [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myPid1"
                     }
                 ]
             }
@@ -31,7 +33,9 @@ exports.testBPMNProcessStateFindTokens = function(test) {
     test.deepEqual(foundTokens,
         [
             {
-                "position": "MyTask"
+                "position": "MyTask",
+                "substate": null,
+                "owningProcessId": "myPid1"
             }
         ],
         "testBPMNProcessStateFindTokens"
@@ -48,7 +52,9 @@ exports.testBPMNProcessStateCreateTokens = function(test) {
     test.deepEqual(state.tokens,
         [
             {
-                "position": "Start Event1"
+                "position": "Start Event1",
+                "substate": null,
+                "owningProcessId": "myPid1"
             }
         ],
         "testBPMNProcessStateCreateTokens"
@@ -69,13 +75,19 @@ exports.testBPMNProcessStateRemoveToken = function(test) {
     test.deepEqual(state.tokens,
         [
             {
-                "position": "Start Event1"
+                "position": "Start Event1",
+                "substate": null,
+                "owningProcessId": "myPid1"
             },
             {
-                "position": "Parallel Gateway1"
+                "position": "Parallel Gateway1",
+                "substate": null,
+                "owningProcessId": "myPid1"
             },
             {
-                "position": "Parallel Gateway1"
+                "position": "Parallel Gateway1",
+                "substate": null,
+                "owningProcessId": "myPid1"
             }
         ],
         "testBPMNProcessStateRemoveToken: remove one token"

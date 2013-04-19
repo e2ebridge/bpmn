@@ -30,7 +30,9 @@ exports.testBPMNTimeout = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyStart"
+                        "position": "MyStart",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testBPMNTimeout: state at MyStart"
@@ -42,7 +44,9 @@ exports.testBPMNTimeout = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyTask"
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testBPMNTimeout: state at MyTask"
@@ -78,7 +82,9 @@ exports.testBPMNTimeout = function(test) {
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyEnd"
+                        "position": "MyEnd",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
                 "testBPMNTimeout: state at MyEnd"
@@ -99,6 +105,7 @@ exports.testBPMNTimeout = function(test) {
         }
     };
 
+    bpmnProcessModule.clearActiveProcessesCache();
     var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
@@ -149,6 +156,7 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
         }
     };
 
+    bpmnProcessModule.clearActiveProcessesCache();
     var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");

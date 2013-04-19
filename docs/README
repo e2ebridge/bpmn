@@ -1,5 +1,6 @@
 Important assumptions/concepts:
 
+0) The user must ensure that the process ID is unique
 1) Each BPMN element name is unique per process. This simplifies live considerably because:
 - We can use names instead of IDs simplifying the world for users and developers alike
 - We can use event names to find the current process node. This is clear for BPMN events.
@@ -46,10 +47,12 @@ Questions:
 - It would be easy to add a token tracker (same place where we write into the history) and simulation mode (doneHandlers will
   be executed automatically) and then to track the token in Cyrils BPMN diagram.
 - Should we use the currentActivity in the name as well? E.g. instead of having MyTimout, MyTask_MyTimeout?
+- At the moment, the process id is internally calculated by <Process Type Name> + "::" + <process instance id>.
+  Process Type Name is just the local name. Should we use a namespaced name?
 
 TODOs:
 - Hierarchical history for processes having subprocesses
-- Persisting processes HAVING sub-processes!!!!!!!!!!!!!
+- Persisting hierarchical must be tested
 - Implement send event with findToken
 - Should we replace the ':' separator for condition and timeout callbacks by '_'?
 - We have too many emitToken operations. I think they can be simplified

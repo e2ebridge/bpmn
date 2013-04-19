@@ -47,7 +47,7 @@ exports.testParallelConvergingGateway = function(test) {
                     {
                         "position": "Start Event1",
                         "substate": null,
-                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
+                        "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
                 "testParallelConvergingGateway: state after Start Event1"
@@ -63,12 +63,12 @@ exports.testParallelConvergingGateway = function(test) {
                     {
                         "position": "Parallel Converging Gateway",
                         "substate": null,
-                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
+                        "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     },
                     {
                         "position": "Start Event2",
                         "substate": null,
-                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
+                        "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
                 "testParallelConvergingGateway: state after Start Event2"
@@ -89,7 +89,7 @@ exports.testParallelConvergingGateway = function(test) {
                     {
                         "position": "End Event",
                         "substate": null,
-                        "owningProcessId": "myProcess::myFirstConvergingParallelGatewayProcess"
+                        "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
                 "testParallelConvergingGateway: at End Event"

@@ -13,6 +13,7 @@ var pathModule = require('path');
 
 exports.testLoadBPMNProcessDefinition = function(test) {
     var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    bpmnProcessDefinitionModule.clearProcessDefinitionCache();
     var processes = bpmnProcessDefinitionModule.getBPMNProcessDefinition(fileName);
     test.deepEqual(processes,
         {
