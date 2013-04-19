@@ -7,14 +7,14 @@ var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
 exports.testParseBPMNTimeout = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/timeoutExampleProcess.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/timeout.bpmn");
     test.equal(bpmnProcessDefinitions.length, 1, "testParseBPMNTimeout: number of processDefinitions");
     var bpmnProcessDefinition = bpmnProcessDefinitions[0];
 
     test.deepEqual(bpmnProcessDefinition,
         {
             "bpmnId": "PROCESS_1",
-            "name": "TimeoutExampleProcess",
+            "name": "Timeout",
             "flowObjects": [
                 {
                     "bpmnId": "_2",

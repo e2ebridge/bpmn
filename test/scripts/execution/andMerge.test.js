@@ -12,7 +12,7 @@ var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNParallelGateway = require("../../../lib/bpmn/gateways.js").BPMNParallelGateway;
 
-exports.testParallelConvergingGateway = function(test) {
+exports.testAndMerge = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event1", "startEvent"));
     processDefinition.addFlowObject(new BPMNStartEvent("_3", "Start Event2", "startEvent"));
@@ -23,17 +23,17 @@ exports.testParallelConvergingGateway = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_4", "_9"));
 
     var log = function(eventType) {
-        //console.log("testParallelConvergingGateway: Calling handler for '" + eventType + "'");
+        //console.log("testAndMerge: Calling handler for '" + eventType + "'");
     };
 
     var counter = 0;
     var testOk = function(process) {
-        test.equal(counter, 2, "testParallelConvergingGateway: reached end event after start event1 AND start event2");
+        test.equal(counter, 2, "testAndMerge: reached end event after start event1 AND start event2");
 
         var state = process.getState();
         test.deepEqual(state.tokens,
             [],
-            "testParallelConvergingGateway: state after merging start event1 and start event2")
+            "testAndMerge: state after merging start event1 and start event2")
         ;
         test.done();
     };
@@ -50,7 +50,7 @@ exports.testParallelConvergingGateway = function(test) {
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
-                "testParallelConvergingGateway: state after Start Event1"
+                "testAndMerge: state after Start Event1"
             );
             done(data);
         },
@@ -71,7 +71,7 @@ exports.testParallelConvergingGateway = function(test) {
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
-                "testParallelConvergingGateway: state after Start Event2"
+                "testAndMerge: state after Start Event2"
             );
 
             //setTimeout(function() {done(data);}, 2000);
@@ -92,7 +92,7 @@ exports.testParallelConvergingGateway = function(test) {
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
-                "testParallelConvergingGateway: at End Event"
+                "testAndMerge: at End Event"
             );
 
             var history = this.getHistory();
@@ -113,7 +113,7 @@ exports.testParallelConvergingGateway = function(test) {
                     {
                         "name": "End Event"
                     }]                ,
-                "testParallelConvergingGateway: history at End Event"
+                "testAndMerge: history at End Event"
             );
 
             done(data);

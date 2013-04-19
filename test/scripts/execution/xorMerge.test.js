@@ -12,7 +12,7 @@ var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiveGateway;
 
-exports.testExclusiveConvergingGateway = function(test) {
+exports.testXorMerge = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event1", "startEvent"));
     processDefinition.addFlowObject(new BPMNStartEvent("_3", "Start Event2", "startEvent"));
@@ -23,7 +23,7 @@ exports.testExclusiveConvergingGateway = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_4", "_9"));
 
     var log = function(eventType) {
-        //console.log("testExclusiveConvergingGateway: Calling handler for '" + eventType + "'");
+        //console.log("testXorMerge: Calling handler for '" + eventType + "'");
     };
 
     var finalTest = false;
@@ -44,7 +44,7 @@ exports.testExclusiveConvergingGateway = function(test) {
         "End_Event": function(data, done) {
             log("End_Event");
             done(data);
-            test.ok(true, "testExclusiveConvergingGateway: reached End_Event");
+            test.ok(true, "testXorMerge: reached End_Event");
 
             var history = this.getHistory();
 
@@ -61,7 +61,7 @@ exports.testExclusiveConvergingGateway = function(test) {
                             "name": "End Event"
                         }
                     ],
-                    "testExclusiveConvergingGateway: history at End Event"
+                    "testXorMerge: history at End Event"
                 );
 
                 test.done();
@@ -78,7 +78,7 @@ exports.testExclusiveConvergingGateway = function(test) {
                             "name": "End Event"
                         }
                     ],
-                    "testExclusiveConvergingGateway: history at End Event"
+                    "testXorMerge: history at End Event"
                 );
             }
 

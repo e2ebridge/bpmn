@@ -5,14 +5,14 @@
 
 var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
-exports.testParseParallelConvergingGateway = function(test) {
+exports.testParseAndMerge = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/parallelConvergingGateway.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/andMerge.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "ParallelConvergingGateway",
+                "name": "AndMerge",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -76,18 +76,18 @@ exports.testParseParallelConvergingGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseParallelConvergingGateway");
+        "testParseAndMerge");
     test.done();
 };
 
-exports.testParseParallelDivergingGateway = function(test) {
+exports.testParseAndGateway = function(test) {
 
-    var bpmnProcesses = bpmnParserModule.parse("test/resources/bpmn/parallelDivergingGateway.bpmn");
+    var bpmnProcesses = bpmnParserModule.parse("test/resources/bpmn/andGateway.bpmn");
     test.deepEqual(bpmnProcesses,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "ParallelDivergingGateway",
+                "name": "AndGateway",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -153,6 +153,6 @@ exports.testParseParallelDivergingGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseParallelDivergingGateway");
+        "testParseAndGateway");
     test.done();
 };

@@ -12,7 +12,7 @@ var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiveGateway;
 
-exports.testExclusiveDivergingGateway = function(test) {
+exports.testXorGateway = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
     processDefinition.addFlowObject(new BPMNTask("_3", "First Task", "task"));
@@ -28,7 +28,7 @@ exports.testExclusiveDivergingGateway = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
 
     var log = function(eventType) {
-        //console.log("testExclusiveDivergingGateway: Calling handler for '" + eventType + "'");
+        //console.log("testXorGateway: Calling handler for '" + eventType + "'");
     };
 
     var handler = {
@@ -58,7 +58,7 @@ exports.testExclusiveDivergingGateway = function(test) {
         },
         "Task_A": function(data, done) {
             log("Task A");
-            test.ok(false, "testExclusiveDivergingGateway: reached Task A but expected B!");
+            test.ok(false, "testXorGateway: reached Task A but expected B!");
             test.done();
             done(data);
         },
@@ -69,7 +69,7 @@ exports.testExclusiveDivergingGateway = function(test) {
         "Task_B": function(data, done) {
             log("Task B");
 
-            test.ok(true, "testExclusiveDivergingGateway: reached Task B");
+            test.ok(true, "testXorGateway: reached Task B");
 
             var history = this.getHistory();
             test.deepEqual(history.historyEntries,
@@ -87,7 +87,7 @@ exports.testExclusiveDivergingGateway = function(test) {
                         "name": "Task B"
                     }
                 ],
-                "testExclusiveDivergingGateway: history at End Event B"
+                "testXorGateway: history at End Event B"
             );
 
             test.done();

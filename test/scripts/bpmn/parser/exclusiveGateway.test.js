@@ -5,14 +5,14 @@
 
 var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
 
-exports.testParseExclusiveConvergingGateway = function(test) {
+exports.testParseXorMerge = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/exclusiveConvergingGateway.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/xorMerge.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "ExclusiveConvergingGateway",
+                "name": "XorMerge",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -76,18 +76,18 @@ exports.testParseExclusiveConvergingGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseExclusiveConvergingGateway");
+        "testParseXorMerge");
     test.done();
 };
 
-exports.testParseExclusiveDivergingGateway = function(test) {
+exports.testParseXorGateway = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/exclusiveDivergingGateway.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/xorGateway.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "ExclusiveDivergingGateway",
+                "name": "XorGateway",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -199,6 +199,6 @@ exports.testParseExclusiveDivergingGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseExclusiveDivergingGateway");
+        "testParseXorGateway");
     test.done();
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ns1="http://sourceforge.net/bpmn/definitions/_1363693864276" xmlns:tns="http://sourceforge.net/bpmn/definitions/_1366104650184" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" exporter="Yaoqiang BPMN Editor" exporterVersion="2.1.25" expressionLanguage="http://www.w3.org/1999/XPath" id="_1366104650184" name="" targetNamespace="http://sourceforge.net/bpmn/definitions/_1366104650184" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
-  <import importType="http://www.omg.org/spec/BPMN/20100524/MODEL" location="taskExampleProcess.bpmn" namespace="http://sourceforge.net/bpmn/definitions/_1363693864276"/>
+  <import importType="http://www.omg.org/spec/BPMN/20100524/MODEL" location="task.bpmn" namespace="http://sourceforge.net/bpmn/definitions/_1363693864276"/>
   <process id="PROCESS_1" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" isInterrupting="true" name="Start Event" parallelMultiple="false">
       <outgoing>_10</outgoing>
