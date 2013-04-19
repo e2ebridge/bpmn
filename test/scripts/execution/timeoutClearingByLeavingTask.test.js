@@ -131,7 +131,7 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
     };
 
     bpmnProcessModule.clearActiveProcessesCache();
-    bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstProcess", processDefinition, handler);
+    bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
 

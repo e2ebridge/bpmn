@@ -317,7 +317,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     handler.doneLoadingHandler = loadedState;
     handler.doneSavingHandler = savedState;
 
-    mainProcess = bpmnProcessModule.createBPMNProcess("mainPid1", processDefinition, handler, persistency);
+    mainProcess = bpmnProcessModule._createBPMNProcess("mainPid1", processDefinition, handler, persistency);
 
     mainProcess.sendStartEvent("MyStart");
 };

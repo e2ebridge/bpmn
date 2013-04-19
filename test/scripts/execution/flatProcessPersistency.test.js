@@ -125,7 +125,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     };
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
-    bpmnProcess = bpmnProcessModule.getBPMNProcess("myid", fileName, persistencyPath, loadedState, savedState);
+    bpmnProcess = bpmnProcessModule.createBPMNProcess("myid", fileName, persistencyPath, loadedState, savedState);
 
     // we let the process run to the first save state
     bpmnProcess.sendStartEvent("MyStart");
@@ -219,7 +219,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess(processId, processDefinition, handler, persistency);
+    var bpmnProcess = bpmnProcessModule._createBPMNProcess(processId, processDefinition, handler, persistency);
     bpmnProcess.setProperty(testPropertyName, {an: "object"});
     bpmnProcess.sendStartEvent("MyStart");
   };
@@ -340,7 +340,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
 
     // Todo this test properly we have to delete the cache otherwise we might take an old version of this process
     bpmnProcessModule.clearActiveProcessesCache();
-    newBpmnProcess = bpmnProcessModule.createBPMNProcess(processId, processDefinition, handler, persistency);
+    newBpmnProcess = bpmnProcessModule._createBPMNProcess(processId, processDefinition, handler, persistency);
     newBpmnProcess.loadState();
 
     newBpmnProcess.taskDone("MyTask");

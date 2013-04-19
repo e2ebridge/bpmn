@@ -108,7 +108,7 @@ exports.testExclusiveDivergingGateway = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstXGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstXGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event");
     bpmnProcess.taskDone("First Task");

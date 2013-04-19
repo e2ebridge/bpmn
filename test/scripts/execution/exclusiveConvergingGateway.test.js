@@ -85,11 +85,11 @@ exports.testExclusiveConvergingGateway = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstConvergingXorGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstConvergingXorGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event1");
 
-    var bpmnProcess2 = bpmnProcessModule.createBPMNProcess("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
+    var bpmnProcess2 = bpmnProcessModule._createBPMNProcess("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
 
     finalTest = true;
 

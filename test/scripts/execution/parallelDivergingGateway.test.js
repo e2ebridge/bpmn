@@ -91,7 +91,7 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstForkingGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstForkingGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event");
 };

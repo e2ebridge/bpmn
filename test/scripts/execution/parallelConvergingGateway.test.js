@@ -121,7 +121,7 @@ exports.testParallelConvergingGateway = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event1");
     bpmnProcess.sendStartEvent("Start Event2");

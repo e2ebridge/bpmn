@@ -106,7 +106,7 @@ exports.testSimpleBPMNProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess("myFirstProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
 
