@@ -14,13 +14,6 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
-processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
-processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
-processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
-processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
-
 var bpmnSubprocessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
 var persistencyPath = './test/resources/persistency/testHierarchicalProcess';
 var persistency = new Persistency({path: persistencyPath});
@@ -264,6 +257,19 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         var activeProcesses = bpmnProcessModule.getActiveProcessesCache();
         var subprocess = activeProcesses[subprocessId];
         test.ok(subprocess !== undefined && subprocess !== null, "testCreatePersistentBPMNProcess: subprocess exists");
+
+        var history = subprocess.getHistory();
+        test.deepEqual(history.historyEntries,
+            [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "testCreatePersistentBPMNProcess: loaded subprocess history"
+        );
 
         test.done();
     };
