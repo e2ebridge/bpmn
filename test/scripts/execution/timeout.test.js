@@ -54,7 +54,7 @@ exports.testBPMNTimeout = function(test) {
             this.data = {myproperty: "blah"};
             done(data);
         },
-        "MyTimeout:getTimeout": function() {
+        "MyTimeout$getTimeout": function() {
             test.ok(true, "testBPMNTimeout: getTimeout has been called");
             return 1000.11;
         },
@@ -148,7 +148,7 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
         "MyTask": function(data, done) {
             done(data);
         },
-        "MyTimeout:getTimeout": function() {
+        "MyTimeout$getTimeout": function() {
             test.ok(true, "testBPMNWrongGetTimeoutResponse: getTimeout has been called");
             return timeout;
         },
@@ -164,7 +164,7 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
             test.ok(true, "testBPMNWrongGetTimeoutResponse: called default error handler");
 
             test.equal(error.message,
-                "The getTimeout handler 'MyTimeout:getTimeout' does not return a number but '1000x'",
+                "The getTimeout handler 'MyTimeout$getTimeout' does not return a number but '1000x'",
                 "testBPMNWrongGetTimeoutResponse: test error message.");
             test.done();
         }

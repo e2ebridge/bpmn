@@ -38,7 +38,7 @@ exports.testParallelConvergingGateway = function(test) {
         test.done();
     };
     var handler = {
-        "Start Event1": function(data, done) {
+        "Start_Event1": function(data, done) {
             log("Start Event1");
             counter++;
             var state = this.getState();
@@ -54,7 +54,7 @@ exports.testParallelConvergingGateway = function(test) {
             );
             done(data);
         },
-        "Start Event2": function(data, done) {
+        "Start_Event2": function(data, done) {
             log("Start Event2");
             counter++;
             var state = this.getState();
@@ -77,11 +77,11 @@ exports.testParallelConvergingGateway = function(test) {
             //setTimeout(function() {done(data);}, 2000);
             done(data);
         },
-        "Parallel Converging Gateway": function(data, done) {
+        "Parallel_Converging_Gateway": function(data, done) {
             log("Exclusive Converging Gateway");
             done(data);
         },
-        "End Event": function(data, done) {
+        "End_Event": function(data, done) {
             log("End Event");
             var state = this.getState();
             test.deepEqual(state.tokens,

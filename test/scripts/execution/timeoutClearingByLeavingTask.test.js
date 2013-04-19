@@ -73,7 +73,7 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             this.data = {myproperty: "blah"};
             done(data);
         },
-        "MyTimeout:getTimeout": function() {
+        "MyTimeout$getTimeout": function() {
             test.ok(true, "testClearBPMNTimeoutByLeavingTask: getTimout has been called");
 
             var maxTimeout = 24 * 24 * 3600 * 1000;

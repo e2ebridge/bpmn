@@ -29,22 +29,22 @@ exports.testExclusiveConvergingGateway = function(test) {
     var finalTest = false;
 
     var handler = {
-        "Start Event1": function(data, done) {
-            log("Start Event1");
+        "Start_Event1": function(data, done) {
+            log("Start_Event1");
             done(data);
         },
-        "Start Event2": function(data, done) {
-            log("Start Event2");
+        "Start_Event2": function(data, done) {
+            log("Start_Event2");
             done(data);
         },
-        "Exclusive Converging Gateway": function(data, done) {
+        "Exclusive_Converging_Gateway": function(data, done) {
             log("Exclusive Converging Gateway");
             done(data);
         },
-        "End Event": function(data, done) {
-            log("End Event");
+        "End_Event": function(data, done) {
+            log("End_Event");
             done(data);
-            test.ok(true, "testExclusiveConvergingGateway: reached End Event");
+            test.ok(true, "testExclusiveConvergingGateway: reached End_Event");
 
             var history = this.getHistory();
 

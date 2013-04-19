@@ -32,41 +32,41 @@ exports.testExclusiveDivergingGateway = function(test) {
     };
 
     var handler = {
-        "Start Event": function(data, done) {
+        "Start_Event": function(data, done) {
             log("Start Event");
             done(data);
         },
-        "First Task": function(data, done) {
+        "First_Task": function(data, done) {
             log("First Task");
             done(data);
         },
-        "First TaskDone": function(data, done) {
+        "First_TaskDone": function(data, done) {
             log("First TaskDone");
             done(data);
         },
-        "Is it ok?": function(data, done) {
+        "Is_it_ok_": function(data, done) {
             log("Is it ok?");
             done(data);
         },
-        "Is it ok?:ok": function() {
+        "Is_it_ok_$ok": function() {
             log("Is it ok?:ok");
             return true;
         },
-        "Is it ok?:nok": function() {
+        "Is_it_ok_$nok": function() {
             log("Is it ok?:nok");
             return false;
         },
-        "Task A": function(data, done) {
+        "Task_A": function(data, done) {
             log("Task A");
             test.ok(false, "testExclusiveDivergingGateway: reached Task A but expected B!");
             test.done();
             done(data);
         },
-        "Task ADone": function(data, done) {
+        "Task_ADone": function(data, done) {
             log("Task ADone");
             done(data);
         },
-        "Task B": function(data, done) {
+        "Task_B": function(data, done) {
             log("Task B");
 
             test.ok(true, "testExclusiveDivergingGateway: reached Task B");
@@ -94,15 +94,15 @@ exports.testExclusiveDivergingGateway = function(test) {
 
             done(data);
         },
-        "Task BDone": function(data, done) {
+        "Task_BDone": function(data, done) {
             log("Task BDone");
             done(data);
         },
-        "End Event A": function(data, done) {
+        "End_Event A": function(data, done) {
             log("End Event A");
             done(data);
         },
-        "End Event B": function(data, done) {
+        "End_Event B": function(data, done) {
             log("End Event B");
             done(data);
         }

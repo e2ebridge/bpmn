@@ -71,21 +71,21 @@ exports.testDivergingParallelGatewayProcess = function(test) {
     };
 
     var handler = {
-        "Start Event": function(data, done) {
+        "Start_Event": function(data, done) {
             log("Start Event");
             done(data);
         },
-        "Task A": function(data, done) {
+        "Task_A": function(data, done) {
             log("Task A");
             if (--counter === 0) testOk(this);
             done(data);
         },
-        "Task B": function(data, done) {
+        "Task_B": function(data, done) {
             log("Task B");
             if (--counter === 0) testOk(this);
             done(data);
         },
-        "Parallel Gateway": function(data, done) {
+        "Parallel_Gateway": function(data, done) {
             log("Parallel Gateway");
             done(data);
         }
