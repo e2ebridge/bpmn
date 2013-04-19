@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var BPMNProcessState = require("../../../lib/execution/processState.js").BPMNProcessState;
+var BPMNProcessState = require("../../../lib/execution/state.js").BPMNProcessState;
 var BPMNFlowObject = require("../../../lib/bpmn/flowObject.js").BPMNFlowObject;
 
 var gateway = new BPMNFlowObject("_2", "Parallel Gateway1", "parallelGateway");
