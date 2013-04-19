@@ -1,12 +1,12 @@
 {
-    "name": "bpmn",
+    "name": "bpmn.js",
     "version": "0.0.1",
-    "description": "Process State Machine for BPMN",
+    "description": "BPMN 2.0 Execution Engine",
     "main": "./lib/execution/process.js",
     "dependencies": {
         "sax": ">= 0.5.2",
         "node-fs": ">= 0.1.5",
-        "jaguar": ">= 0.1.3"
+        "jaguardb": ">= 0.1.3"
     },
     "devDependencies": {
         "nodeunit": ">= 0.7.4"
