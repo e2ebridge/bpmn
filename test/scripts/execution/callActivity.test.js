@@ -106,18 +106,25 @@ exports.testBPMNCallActivity = function(test) {
                     "testSimpleBPMNProcess: state at MyEnd"
                 );
                 var history = this.getParentProcess().getHistory();
-                test.deepEqual(history,
-                    [
-                        "MyStart",
-                        "MyCallActivity",
-                        {
-                            "MyCallActivity": [
-                                "MyStart",
-                                "MyTask",
-                                "MyEnd"]
+                var callActivityHistory = history.getLastEntry("MyCallActivity");
+                test.deepEqual(callActivityHistory,
+                    {
+                        "name": "MyCallActivity",
+                        "subprocessHistory": {
+                            "historyEntries": [
+                                {
+                                    "name": "MyStart"
+                                },
+                                {
+                                    "name": "MyTask"
+                                },
+                                {
+                                    "name": "MyEnd"
+                                }
+                            ]
                         }
-                    ],
-                    "testSimpleBPMNProcess: history at MyEnd of subprocess"
+                    },
+                    "testSimpleBPMNProcess: callActivity history"
                 );
                 done(data);
             }
@@ -128,18 +135,32 @@ exports.testBPMNCallActivity = function(test) {
         "MyEnd": function(data, done) {
             var history = this.getHistory();
             test.deepEqual(history,
-                [
-                    "MyStart",
-                    "MyCallActivity",
-                    {
-                        "MyCallActivity": [
-                            "MyStart",
-                            "MyTask",
-                            "MyEnd"
-                        ]
-                    },
-                    "MyEnd"
-                ],
+                {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyCallActivity",
+                            "subprocessHistory": {
+                                "historyEntries": [
+                                    {
+                                        "name": "MyStart"
+                                    },
+                                    {
+                                        "name": "MyTask"
+                                    },
+                                    {
+                                        "name": "MyEnd"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "MyEnd"
+                        }
+                    ]
+                },
                 "testSimpleBPMNProcess: history at MyEnd of main process"
             );
             done(data);

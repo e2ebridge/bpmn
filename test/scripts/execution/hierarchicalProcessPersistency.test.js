@@ -75,10 +75,16 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                             }
                         ]
                     },
-                    "history": [
-                        "MyStart",
-                        "MyTask"
-                    ]
+                    "history": {
+                        "historyEntries": [
+                            {
+                                "name": "MyStart"
+                            },
+                            {
+                                "name": "MyTask"
+                            }
+                        ]
+                    }
                 },
                 "activeSubprocessParentToken": {
                     "position": "MyCallActivity",
@@ -112,16 +118,26 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         }
                     ]
                 },
-                "history": [
-                    "MyStart",
-                    "MyCallActivity",
-                    {
-                        "MyCallActivity": [
-                            "MyStart",
-                            "MyTask"
-                        ]
-                    }
-                ],
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyCallActivity",
+                            "subprocessHistory": {
+                                "historyEntries": [
+                                    {
+                                        "name": "MyStart"
+                                    },
+                                    {
+                                        "name": "MyTask"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "_id": 1
             },
             "testCreatePersistentBPMNProcess: saved data."
@@ -176,10 +192,16 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                             }
                         ]
                     },
-                    "history": [
-                        "MyStart",
-                        "MyTask"
-                    ]
+                    "history": {
+                        "historyEntries": [
+                            {
+                                "name": "MyStart"
+                            },
+                            {
+                                "name": "MyTask"
+                            }
+                        ]
+                    }
                 },
                 "activeSubprocessParentToken": {
                     "position": "MyCallActivity",
@@ -213,16 +235,26 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         }
                     ]
                 },
-                "history": [
-                    "MyStart",
-                    "MyCallActivity",
-                    {
-                        "MyCallActivity": [
-                            "MyStart",
-                            "MyTask"
-                        ]
-                    }
-                ],
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyCallActivity",
+                            "subprocessHistory": {
+                                "historyEntries": [
+                                    {
+                                        "name": "MyStart"
+                                    },
+                                    {
+                                        "name": "MyTask"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "_id": 1
             },
             "testCreatePersistentBPMNProcess: loaded data."
@@ -256,19 +288,25 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         },
         "MyEnd": function(data, done) {
             var history = this.getHistory();
-            test.deepEqual(history,
-                [
-                    "MyStart",
-                    "MyCallActivity",
-                    {
-                        "MyCallActivity": [
-                            "MyStart",
-                            "MyTask",
-                            "MyEnd"
+            test.deepEqual(history.historyEntries,
+            [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyCallActivity",
+                    "subprocessHistory": {
+                        "historyEntries": [
+                            {
+                                "name": "MyStart"
+                            },
+                            {
+                                "name": "MyTask"
+                            }
                         ]
-                    },
-                    "MyEnd"
-                ],
+                    }
+                }
+            ],
                 "testSimpleBPMNProcess: history at MyEnd of main process"
             );
             done(data);

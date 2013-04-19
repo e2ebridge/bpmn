@@ -66,10 +66,14 @@ exports.testIncorrectTaskDoneEvent = function(test) {
             test.equal(reason, "Found no outgoing flow.", "testIncorrectTaskDoneEvent: defaultEventHandler: reason");
 
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "MyStart",
-                    "MyTask"
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
                 ],
                 "testIncorrectTaskDoneEvent: history at MyEnd"
             );

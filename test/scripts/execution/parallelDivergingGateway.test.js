@@ -45,12 +45,20 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         );
 
         var history = process.getHistory();
-        test.deepEqual(history,
+        test.deepEqual(history.historyEntries,
             [
-                "Start Event",
-                "Parallel Gateway",
-                "Task A",
-                "Task B"
+                {
+                    "name": "Start Event"
+                },
+                {
+                    "name": "Parallel Gateway"
+                },
+                {
+                    "name": "Task A"
+                },
+                {
+                    "name": "Task B"
+                }
             ],
             "testDivergingParallelGatewayProcess: history after forking A and B"
         );

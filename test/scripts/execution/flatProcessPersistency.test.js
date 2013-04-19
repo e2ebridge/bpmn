@@ -59,10 +59,16 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         }
                     ]
                 },
-                "history": [
-                    "MyStart",
-                    "MyTask"
-                ],
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        }
+                    ]
+                },
                 "_id": 1
             },
             "testCreatePersistentBPMNProcess: saved data."
@@ -100,10 +106,16 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         }
                     ]
                 },
-                "history": [
-                    "MyStart",
-                    "MyTask"
-                ],
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        }
+                    ]
+                },
                 "_id": 1
             },
             "testCreatePersistentBPMNProcess: loaded data."
@@ -118,7 +130,6 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     // we let the process run to the first save state
     bpmnProcess.sendStartEvent("MyStart");
 };
-
 
 exports.testLoadHandler = function(test) {
     var handlerFilePath = bpmnProcessModule.getHandlerFileName("a/b/c.bpmn");
@@ -189,10 +200,16 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                             }
                         ]
                     },
-                    "history": [
-                        "MyStart",
-                        "MyTask"
-                    ],
+                    "history": {
+                        "historyEntries": [
+                            {
+                                "name": "MyStart"
+                            },
+                            {
+                                "name": "MyTask"
+                            }
+                        ]
+                    },
                     "_id": 1
                 },
                 "testPersistSimpleBPMNProcess: saved data"
@@ -265,10 +282,14 @@ exports.testLoadSimpleBPMNProcess = function(test) {
 
         test.equal(loadedData._id, 1, "testLoadSimpleBPMNProcess: _id");
         test.equal(loadedData.processId, "myPersistentProcess_1", "testLoadSimpleBPMNProcess:processIdd");
-        test.deepEqual(loadedData.history,
+        test.deepEqual(loadedData.history.historyEntries,
             [
-                "MyStart",
-                "MyTask"
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
             ],
             "testLoadSimpleBPMNProcess: history"
         );

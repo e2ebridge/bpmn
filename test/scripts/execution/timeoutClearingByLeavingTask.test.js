@@ -110,11 +110,17 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
                 "testClearBPMNTimeoutByLeavingTask: state at MyEnd"
             );
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "MyStart",
-                    "MyTask",
-                    "MyEnd2"
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    },
+                    {
+                        "name": "MyEnd2"
+                    }
                 ],
                 "testClearBPMNTimeoutByLeavingTask: history at MyEnd"
             );

@@ -49,22 +49,34 @@ exports.testExclusiveConvergingGateway = function(test) {
             var history = this.getHistory();
 
             if (finalTest) {
-                test.deepEqual(history,
+                test.deepEqual(history.historyEntries,
                     [
-                        "Start Event2",
-                        "Exclusive Converging Gateway",
-                        "End Event"
+                        {
+                            "name": "Start Event2"
+                        },
+                        {
+                            "name": "Exclusive Converging Gateway"
+                        },
+                        {
+                            "name": "End Event"
+                        }
                     ],
                     "testExclusiveConvergingGateway: history at End Event"
                 );
 
                 test.done();
             } else {
-                test.deepEqual(history,
+                test.deepEqual(history.historyEntries,
                     [
-                        "Start Event1",
-                        "Exclusive Converging Gateway",
-                        "End Event"
+                        {
+                            "name": "Start Event1"
+                        },
+                        {
+                            "name": "Exclusive Converging Gateway"
+                        },
+                        {
+                            "name": "End Event"
+                        }
                     ],
                     "testExclusiveConvergingGateway: history at End Event"
                 );

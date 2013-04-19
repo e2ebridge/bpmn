@@ -86,11 +86,17 @@ exports.testSimpleBPMNProcess = function(test) {
                 "testSimpleBPMNProcess: state at MyEnd"
             );
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "MyStart",
-                    "MyTask",
-                    "MyEnd"
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    },
+                    {
+                        "name": "MyEnd"
+                    }
                 ],
                 "testSimpleBPMNProcess: history at MyEnd"
             );

@@ -66,11 +66,17 @@ exports.testBPMNTimeout = function(test) {
             );
 
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "MyStart",
-                    "MyTask",
-                    "MyTimeout"
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    },
+                    {
+                        "name": "MyTimeout"
+                    }
                 ],
                 "testBPMNTimeout: history at MyTimeout"
             );
@@ -90,12 +96,20 @@ exports.testBPMNTimeout = function(test) {
                 "testBPMNTimeout: state at MyEnd"
             );
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "MyStart",
-                    "MyTask",
-                    "MyTimeout",
-                    "MyEnd"
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    },
+                    {
+                        "name": "MyTimeout"
+                    },
+                    {
+                        "name": "MyEnd"
+                    }
                 ],
                 "testBPMNTimeout: history at MyEnd"
             );

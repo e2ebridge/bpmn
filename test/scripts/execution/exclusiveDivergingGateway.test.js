@@ -72,12 +72,20 @@ exports.testExclusiveDivergingGateway = function(test) {
             test.ok(true, "testExclusiveDivergingGateway: reached Task B");
 
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "Start Event",
-                    "First Task",
-                    "Is it ok?",
-                    "Task B"
+                    {
+                        "name": "Start Event"
+                    },
+                    {
+                        "name": "First Task"
+                    },
+                    {
+                        "name": "Is it ok?"
+                    },
+                    {
+                        "name": "Task B"
+                    }
                 ],
                 "testExclusiveDivergingGateway: history at End Event B"
             );

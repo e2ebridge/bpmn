@@ -96,14 +96,23 @@ exports.testParallelConvergingGateway = function(test) {
             );
 
             var history = this.getHistory();
-            test.deepEqual(history,
+            test.deepEqual(history.historyEntries,
                 [
-                    "Start Event1",
-                    "Parallel Converging Gateway",
-                    "Start Event2",
-                    "Parallel Converging Gateway",
-                    "End Event"
-                ],
+                    {
+                        "name": "Start Event1"
+                    },
+                    {
+                        "name": "Parallel Converging Gateway"
+                    },
+                    {
+                        "name": "Start Event2"
+                    },
+                    {
+                        "name": "Parallel Converging Gateway"
+                    },
+                    {
+                        "name": "End Event"
+                    }]                ,
                 "testParallelConvergingGateway: history at End Event"
             );
 

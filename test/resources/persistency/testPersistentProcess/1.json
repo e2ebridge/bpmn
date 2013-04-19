@@ -1,1 +1,1 @@
-{"processId":"myid","data":{},"state":{"tokens":[{"position":"MyTask","substate":null,"owningProcessId":"myid"}]},"history":["MyStart","MyTask"],"_id":1}
+{"processId":"myid","data":{},"state":{"tokens":[{"position":"MyTask","substate":null,"owningProcessId":"myid"}]},"history":{"historyEntries":[{"name":"MyStart"},{"name":"MyTask"}]},"_id":1}
