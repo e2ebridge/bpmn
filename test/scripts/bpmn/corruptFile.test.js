@@ -3,8 +3,8 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
-var errorsModule = require('../../../../lib/errors.js');
+var bpmnParserModule = require('../../../lib/bpmn/parser.js');
+var errorsModule = require('../../../lib/errors.js');
 
 exports.testParseCorruptFile = function(test) {
 

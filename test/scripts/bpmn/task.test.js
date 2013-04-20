@@ -3,16 +3,16 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
+var bpmnParserModule = require('../../../lib/bpmn/parser.js');
 
-exports.testParseBPMNServiceTask = function(test) {
+exports.testParseBPMNTask = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/serviceTask.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/task.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "MyTaskExampleProcess",
-                "name": "ServiceTask",
+                "name": "Task",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -22,35 +22,35 @@ exports.testParseBPMNServiceTask = function(test) {
                         "isStartEvent": true
                     },
                     {
+                        "bpmnId": "_3",
+                        "name": "MyTask",
+                        "type": "task",
+                        "isFlowObject": true,
+                        "isActivity": true,
+                        "isWaitActivity": true
+                    },
+                    {
                         "bpmnId": "_5",
                         "name": "MyEnd",
                         "type": "endEvent",
                         "isFlowObject": true,
                         "isEndEvent": true
-                    },
-                    {
-                        "bpmnId": "_7",
-                        "name": "Service Task",
-                        "type": "serviceTask",
-                        "isFlowObject": true,
-                        "isActivity": true,
-                        "isWaitActivity": false
                     }
                 ],
                 "sequenceFlows": [
                     {
-                        "bpmnId": "_8",
-                        "name": null,
+                        "bpmnId": "_4",
+                        "name": "flow1",
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_7",
+                        "targetRef": "_3",
                         "isSequenceFlow": true
                     },
                     {
-                        "bpmnId": "_9",
-                        "name": null,
+                        "bpmnId": "_6",
+                        "name": "flow2",
                         "type": "sequenceFlow",
-                        "sourceRef": "_7",
+                        "sourceRef": "_3",
                         "targetRef": "_5",
                         "isSequenceFlow": true
                     }
@@ -62,6 +62,6 @@ exports.testParseBPMNServiceTask = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseBPMNServiceTask");
+        "testParseBPMNTask");
     test.done();
 };

@@ -168,7 +168,7 @@ exports.testBPMNCallActivity = function(test) {
         }
     };
 
-    mainProcess = bpmnProcessModule._createBPMNProcess("mainPid1", processDefinition, handler);
+    mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
 
     mainProcess.sendStartEvent("MyStart");
 

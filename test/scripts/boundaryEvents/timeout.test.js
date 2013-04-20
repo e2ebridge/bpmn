@@ -119,8 +119,7 @@ exports.testBPMNTimeout = function(test) {
         }
     };
 
-    bpmnProcessModule.clearActiveProcessesCache();
-    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
 
@@ -170,8 +169,7 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
         }
     };
 
-    bpmnProcessModule.clearActiveProcessesCache();
-    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstProcess", processDefinition, handler);
+   var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
 

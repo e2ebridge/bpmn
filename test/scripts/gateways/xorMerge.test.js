@@ -85,11 +85,11 @@ exports.testXorMerge = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstConvergingXorGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("Start Event1");
 
-    var bpmnProcess2 = bpmnProcessModule._createBPMNProcess("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
+    var bpmnProcess2 = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
 
     finalTest = true;
 

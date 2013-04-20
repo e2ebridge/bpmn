@@ -3,16 +3,16 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
+var bpmnParserModule = require('../../../lib/bpmn/parser.js');
 
-exports.testParseAndMerge = function(test) {
+exports.testParseXorMerge = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/andMerge.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("./test/resources/bpmn/xorMerge.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "AndMerge",
+                "name": "XorMerge",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -29,43 +29,43 @@ exports.testParseAndMerge = function(test) {
                         "isStartEvent": true
                     },
                     {
+                        "bpmnId": "_4",
+                        "name": "Exclusive Converging Gateway",
+                        "type": "exclusiveGateway",
+                        "isFlowObject": true,
+                        "isExclusiveGateway": true
+                    },
+                    {
                         "bpmnId": "_9",
                         "name": "End Event",
                         "type": "endEvent",
                         "isFlowObject": true,
                         "isEndEvent": true
-                    },
-                    {
-                        "bpmnId": "_7",
-                        "name": "Parallel Converging Gateway",
-                        "type": "parallelGateway",
-                        "isFlowObject": true,
-                        "isParallelGateway": true
                     }
                 ],
                 "sequenceFlows": [
                     {
-                        "bpmnId": "_8",
+                        "bpmnId": "_5",
                         "name": null,
                         "type": "sequenceFlow",
-                        "sourceRef": "_7",
-                        "targetRef": "_9",
+                        "sourceRef": "_2",
+                        "targetRef": "_4",
+                        "isSequenceFlow": true
+                    },
+                    {
+                        "bpmnId": "_6",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_3",
+                        "targetRef": "_4",
                         "isSequenceFlow": true
                     },
                     {
                         "bpmnId": "_10",
                         "name": null,
                         "type": "sequenceFlow",
-                        "sourceRef": "_2",
-                        "targetRef": "_7",
-                        "isSequenceFlow": true
-                    },
-                    {
-                        "bpmnId": "_11",
-                        "name": null,
-                        "type": "sequenceFlow",
-                        "sourceRef": "_3",
-                        "targetRef": "_7",
+                        "sourceRef": "_4",
+                        "targetRef": "_9",
                         "isSequenceFlow": true
                     }
                 ],
@@ -76,18 +76,18 @@ exports.testParseAndMerge = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseAndMerge");
+        "testParseXorMerge");
     test.done();
 };
 
-exports.testParseAndGateway = function(test) {
+exports.testParseXorGateway = function(test) {
 
-    var bpmnProcesses = bpmnParserModule.parse("test/resources/bpmn/andGateway.bpmn");
-    test.deepEqual(bpmnProcesses,
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/xorGateway.bpmn");
+    test.deepEqual(bpmnProcessDefinitions,
         [
             {
                 "bpmnId": "PROCESS_1",
-                "name": "AndGateway",
+                "name": "XorGateway",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
@@ -98,13 +98,21 @@ exports.testParseAndGateway = function(test) {
                     },
                     {
                         "bpmnId": "_3",
-                        "name": "Parallel Gateway",
-                        "type": "parallelGateway",
+                        "name": "First Task",
+                        "type": "task",
                         "isFlowObject": true,
-                        "isParallelGateway": true
+                        "isActivity": true,
+                        "isWaitActivity": true
                     },
                     {
                         "bpmnId": "_5",
+                        "name": "Is it ok?",
+                        "type": "exclusiveGateway",
+                        "isFlowObject": true,
+                        "isExclusiveGateway": true
+                    },
+                    {
+                        "bpmnId": "_7",
                         "name": "Task A",
                         "type": "task",
                         "isFlowObject": true,
@@ -112,12 +120,26 @@ exports.testParseAndGateway = function(test) {
                         "isWaitActivity": true
                     },
                     {
-                        "bpmnId": "_6",
+                        "bpmnId": "_9",
                         "name": "Task B",
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
                         "isWaitActivity": true
+                    },
+                    {
+                        "bpmnId": "_11",
+                        "name": "End Event A",
+                        "type": "endEvent",
+                        "isFlowObject": true,
+                        "isEndEvent": true
+                    },
+                    {
+                        "bpmnId": "_12",
+                        "name": "End Event B",
+                        "type": "endEvent",
+                        "isFlowObject": true,
+                        "isEndEvent": true
                     }
                 ],
                 "sequenceFlows": [
@@ -130,7 +152,7 @@ exports.testParseAndGateway = function(test) {
                         "isSequenceFlow": true
                     },
                     {
-                        "bpmnId": "_7",
+                        "bpmnId": "_6",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
@@ -139,10 +161,34 @@ exports.testParseAndGateway = function(test) {
                     },
                     {
                         "bpmnId": "_8",
+                        "name": "nok",
+                        "type": "sequenceFlow",
+                        "sourceRef": "_5",
+                        "targetRef": "_7",
+                        "isSequenceFlow": true
+                    },
+                    {
+                        "bpmnId": "_10",
+                        "name": "ok",
+                        "type": "sequenceFlow",
+                        "sourceRef": "_5",
+                        "targetRef": "_9",
+                        "isSequenceFlow": true
+                    },
+                    {
+                        "bpmnId": "_13",
                         "name": null,
                         "type": "sequenceFlow",
-                        "sourceRef": "_3",
-                        "targetRef": "_6",
+                        "sourceRef": "_9",
+                        "targetRef": "_12",
+                        "isSequenceFlow": true
+                    },
+                    {
+                        "bpmnId": "_14",
+                        "name": null,
+                        "type": "sequenceFlow",
+                        "sourceRef": "_7",
+                        "targetRef": "_11",
                         "isSequenceFlow": true
                     }
                 ],
@@ -153,6 +199,6 @@ exports.testParseAndGateway = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseAndGateway");
+        "testParseXorGateway");
     test.done();
 };

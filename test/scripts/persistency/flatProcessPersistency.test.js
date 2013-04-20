@@ -6,7 +6,6 @@
 var pathModule = require('path');
 var fileUtilsModule = require('../../../lib/utils/file.js');
 var bpmnProcessModule = require('../../../lib/process.js');
-var handlerModule = require('../../../lib/handler.js');
 var Persistency = require('../../../lib/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
@@ -14,22 +13,10 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
-processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
-processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
-processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
-processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
-
-var persistencyPath = './test/resources/persistency/testProcessEngine';
-var persistency = new Persistency({path: persistencyPath});
-var processId = "myPersistentProcess_1";
-var testPropertyName = "myprop";
-
 exports.testCreatePersistentBPMNProcess = function(test) {
     var bpmnProcess;
 
-    var persistencyPath = './test/resources/persistency/testPersistentProcess';
+    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testPersistentProcess');
     fileUtilsModule.cleanDirectorySync(persistencyPath);
 
     var savedState = function(error, savedData) {
@@ -133,6 +120,17 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 };
 
 exports.testPersistSimpleBPMNProcess = function(test) {
+    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
+    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
+
+    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
+    var persistency = new Persistency({path: persistencyPath});
+    var processId = "myPersistentProcess_1";
+    var testPropertyName = "myprop";
 
     persistency.cleanAllSync();
 
@@ -207,13 +205,25 @@ exports.testPersistSimpleBPMNProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule._createBPMNProcess(processId, processDefinition, handler, persistency);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
     bpmnProcess.setProperty(testPropertyName, {an: "object"});
     bpmnProcess.sendStartEvent("MyStart");
   };
 
 exports.testLoadSimpleBPMNProcess = function(test) {
     var newBpmnProcess;
+
+    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
+    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
+    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
+
+    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
+    var persistency = new Persistency({path: persistencyPath});
+    var processId = "myPersistentProcess_1";
+    var testPropertyName = "myprop";
 
     var handler = {
         "MyTaskDone": function(data, done) {
@@ -326,9 +336,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
-    // Todo this test properly we have to delete the cache otherwise we might take an old version of this process
-    bpmnProcessModule.clearActiveProcessesCache();
-    newBpmnProcess = bpmnProcessModule._createBPMNProcess(processId, processDefinition, handler, persistency);
+    newBpmnProcess = bpmnProcessModule.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
     newBpmnProcess.loadState();
 
     newBpmnProcess.taskDone("MyTask");

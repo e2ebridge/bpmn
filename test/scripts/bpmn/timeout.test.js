@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
+var bpmnParserModule = require('../../../lib/bpmn/parser.js');
 
 exports.testParseBPMNTimeout = function(test) {
 

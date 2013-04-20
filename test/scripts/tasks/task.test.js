@@ -12,11 +12,11 @@ var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenc
 var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiveGateway;
 
 
-exports.testBPMNServiceTask = function(test) {
+exports.testBPMNTask = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-    processDefinition.addFlowObject(new BPMNTask("_3", "MyServiceTask", "serviceTask"));
+    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
     processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
@@ -29,26 +29,48 @@ exports.testBPMNServiceTask = function(test) {
                     {
                         "position": "MyStart",
                         "substate": null,
-                        "owningProcessId": "myFirstServiceTaskProcess"
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
-                "testBPMNServiceTask: state at MyStart"
+                "testBPMNTask: state at MyStart"
             );
             done(data);
         },
-        "MyServiceTask": function(data, done) {
+        "MyTask": function(data, done) {
             var state = this.getState();
             test.deepEqual(state.tokens,
                 [
                     {
-                        "position": "MyServiceTask",
+                        "position": "MyTask",
                         "substate": null,
-                        "owningProcessId": "myFirstServiceTaskProcess"
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
-                "testBPMNServiceTask: state at MyTask"
+                "testBPMNTask: state at MyTask"
             );
             this.data = {myproperty: "blah"};
+            done(data);
+
+            bpmnProcess.taskDone("MyTask");
+        },
+        "MyTaskDone": function(data, done) {
+            var state = this.getState();
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask",
+                        "substate": null,
+                        "owningProcessId": "myFirstProcess"
+                    }
+                ],
+                "testBPMNTask: state at MyTaskDone"
+            );
+            test.deepEqual(this.data,
+                {
+                    "myproperty": "blah"
+                },
+                "testBPMNTask: test data"
+            );
             done(data);
         },
         "MyEnd": function(data, done) {
@@ -58,10 +80,10 @@ exports.testBPMNServiceTask = function(test) {
                     {
                         "position": "MyEnd",
                         "substate": null,
-                        "owningProcessId": "myFirstServiceTaskProcess"
+                        "owningProcessId": "myFirstProcess"
                     }
                 ],
-                "testBPMNServiceTask: state at MyEnd"
+                "testBPMNTask: state at MyEnd"
             );
             var history = this.getHistory();
             test.deepEqual(history.historyEntries,
@@ -70,13 +92,13 @@ exports.testBPMNServiceTask = function(test) {
                         "name": "MyStart"
                     },
                     {
-                        "name": "MyServiceTask"
+                        "name": "MyTask"
                     },
                     {
                         "name": "MyEnd"
                     }
                 ],
-                "testBPMNServiceTask: history at MyEnd"
+                "testBPMNTask: history at MyEnd"
             );
             done(data);
 
@@ -84,7 +106,7 @@ exports.testBPMNServiceTask = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule._createBPMNProcess("myFirstServiceTaskProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendStartEvent("MyStart");
 

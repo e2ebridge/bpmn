@@ -3,56 +3,55 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../../lib/bpmn/parser.js');
+var bpmnParserModule = require('../../../lib/bpmn/parser.js');
 
-exports.testParseBPMNIntermediateMessageEvent = function(test) {
+exports.testParseBPMNServiceTask = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/intermediateMessageEvent.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/serviceTask.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
-                "bpmnId": "PROCESS_1",
-                "name": "IntermediateMessageEvent",
+                "bpmnId": "MyTaskExampleProcess",
+                "name": "ServiceTask",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
-                        "name": "Start Event",
+                        "name": "MyStart",
                         "type": "startEvent",
                         "isFlowObject": true,
-                        "isStartEvent": true,
-                        "isMessageEvent": true
+                        "isStartEvent": true
                     },
                     {
-                        "bpmnId": "_3",
-                        "name": "End Event",
+                        "bpmnId": "_5",
+                        "name": "MyEnd",
                         "type": "endEvent",
                         "isFlowObject": true,
                         "isEndEvent": true
                     },
                     {
-                        "bpmnId": "_4",
-                        "name": "Intermediate Message Event",
-                        "type": "intermediateThrowEvent",
+                        "bpmnId": "_7",
+                        "name": "Service Task",
+                        "type": "serviceTask",
                         "isFlowObject": true,
-                        "isIntermediateThrowEvent": true,
-                        "isMessageEvent": true
+                        "isActivity": true,
+                        "isWaitActivity": false
                     }
                 ],
                 "sequenceFlows": [
                     {
-                        "bpmnId": "_5",
+                        "bpmnId": "_8",
                         "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
-                        "targetRef": "_4",
+                        "targetRef": "_7",
                         "isSequenceFlow": true
                     },
                     {
-                        "bpmnId": "_6",
+                        "bpmnId": "_9",
                         "name": null,
                         "type": "sequenceFlow",
-                        "sourceRef": "_4",
-                        "targetRef": "_3",
+                        "sourceRef": "_7",
+                        "targetRef": "_5",
                         "isSequenceFlow": true
                     }
                 ],
@@ -63,6 +62,6 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                 "nameMap": null
             }
         ],
-        "testParseBPMNIntermediateMessageEvent");
+        "testParseBPMNServiceTask");
     test.done();
 };
