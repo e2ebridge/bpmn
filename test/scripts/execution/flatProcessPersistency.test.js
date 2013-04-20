@@ -6,6 +6,7 @@
 var pathModule = require('path');
 var fileUtilsModule = require('../../../lib/utils/file.js');
 var bpmnProcessModule = require('../../../lib/execution/process.js');
+var handlerModule = require('../../../lib/execution/handler.js');
 var Persistency = require('../../../lib/execution/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
@@ -129,19 +130,6 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
     // we let the process run to the first save state
     bpmnProcess.sendStartEvent("MyStart");
-};
-
-exports.testLoadHandler = function(test) {
-    var handlerFilePath = bpmnProcessModule.getHandlerFileName("a/b/c.bpmn");
-    test.equal(handlerFilePath, "a/b/c.js","testLoadHandler: handlerFilePath");
-
-    var bpmnFilePath = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
-    var handler = bpmnProcessModule.getHandler(bpmnFilePath);
-    var myTaskHandler = handler["MyTask"];
-    var foundMyTask = myTaskHandler && typeof myTaskHandler === 'function';
-    test.equal(foundMyTask, true,"testLoadHandler");
-
-    test.done();
 };
 
 exports.testPersistSimpleBPMNProcess = function(test) {
