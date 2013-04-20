@@ -5,8 +5,8 @@
 
 var pathModule = require('path');
 var fileUtilsModule = require('../../../lib/utils/file.js');
-var bpmnProcessModule = require('../../../lib/execution/process.js');
-var Persistency = require('../../../lib/execution/persistency.js').Persistency;
+var bpmnProcessModule = require('../../../lib/process.js');
+var Persistency = require('../../../lib/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNCallActivity = require("../../../lib/bpmn/callActivity.js").BPMNCallActivity;

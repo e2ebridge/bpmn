@@ -4,7 +4,7 @@
  */
 
 var pathModule = require('path');
-var processModule = require('../../../lib/execution/process.js');
+var processModule = require('../../../lib/process.js');
 
 exports.testCreateVolatileBPMNProcess = function(test) {
     var state;

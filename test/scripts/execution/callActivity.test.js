@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnProcessModule = require('../../../lib/execution/process.js');
+var bpmnProcessModule = require('../../../lib/process.js');
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNCallActivity = require("../../../lib/bpmn/callActivity.js").BPMNCallActivity;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;

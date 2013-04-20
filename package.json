@@ -2,7 +2,7 @@
     "name": "bpmn.js",
     "version": "0.0.1",
     "description": "BPMN 2.0 Execution Engine",
-    "main": "./lib/execution/process.js",
+    "main": "./lib/process.js",
     "dependencies": {
         "sax": ">= 0.5.2",
         "node-fs": ">= 0.1.5",

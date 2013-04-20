@@ -4,7 +4,7 @@
  */
 
 var pathModule = require('path');
-var handlerModule = require('../../../lib/execution/handler.js');
+var handlerModule = require('../../../lib/handler.js');
 
 exports.testMapName2HandlerName = function(test) {
    var map = handlerModule.mapName2HandlerName;
