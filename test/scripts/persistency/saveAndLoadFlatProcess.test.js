@@ -13,124 +13,19 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-exports.testCreatePersistentBPMNProcess = function(test) {
-    var bpmnProcess;
+var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
+processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
+processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
+processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
+processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testPersistentProcess');
-    fileUtilsModule.cleanDirectorySync(persistencyPath);
-
-    var savedState = function(error, savedData) {
-        test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
-
-        var state = bpmnProcess.getState();
-        test.deepEqual(state.tokens,
-            [
-                {
-                    "position": "MyTask",
-                    "substate": null,
-                    "owningProcessId": "myid"
-                }
-            ],
-            "testCreatePersistentBPMNProcess: reached first wait state."
-        );
-
-        test.deepEqual(savedData,
-            {
-                "processId": "myid",
-                "data": {},
-                "state": {
-                    "tokens": [
-                        {
-                            "position": "MyTask",
-                            "substate": null,
-                            "owningProcessId": "myid"
-                        }
-                    ]
-                },
-                "history": {
-                    "historyEntries": [
-                        {
-                            "name": "MyStart"
-                        },
-                        {
-                            "name": "MyTask"
-                        }
-                    ]
-                },
-                "_id": 1
-            },
-            "testCreatePersistentBPMNProcess: saved data."
-        );
-
-        // this points to the process client interface and not to the process directly
-        this._bpmnProcess.loadState();
-    };
-
-    var loadedState = function(error, loadedData) {
-        test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
-
-        var state = bpmnProcess.getState();
-        test.deepEqual(state.tokens,
-            [
-                {
-                    "position": "MyTask",
-                    "substate": null,
-                    "owningProcessId": "myid"
-                }
-            ],
-            "testCreatePersistentBPMNProcess: reached save state."
-        );
-
-        test.deepEqual(loadedData,
-            {
-                "processId": "myid",
-                "data": {},
-                "state": {
-                    "tokens": [
-                        {
-                            "position": "MyTask",
-                            "substate": null,
-                            "owningProcessId": "myid"
-                        }
-                    ]
-                },
-                "history": {
-                    "historyEntries": [
-                        {
-                            "name": "MyStart"
-                        },
-                        {
-                            "name": "MyTask"
-                        }
-                    ]
-                },
-                "_id": 1
-            },
-            "testCreatePersistentBPMNProcess: loaded data."
-        );
-
-        test.done();
-    };
-
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
-    bpmnProcess = bpmnProcessModule.createBPMNProcess("myid", fileName, persistencyPath, loadedState, savedState);
-
-    // we let the process run to the first save state
-    bpmnProcess.sendStartEvent("MyStart");
-};
+var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
+var persistency = new Persistency({path: persistencyPath});
+var processId = "myPersistentProcess_1";
+var testPropertyName = "myprop";
 
 exports.testPersistSimpleBPMNProcess = function(test) {
-    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
-    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
-    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
-
-    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
-    var persistency = new Persistency({path: persistencyPath});
-    var processId = "myPersistentProcess_1";
-    var testPropertyName = "myprop";
 
     persistency.cleanAllSync();
 
@@ -212,18 +107,6 @@ exports.testPersistSimpleBPMNProcess = function(test) {
 
 exports.testLoadSimpleBPMNProcess = function(test) {
     var newBpmnProcess;
-
-    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-    processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
-    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
-    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
-
-    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
-    var persistency = new Persistency({path: persistencyPath});
-    var processId = "myPersistentProcess_1";
-    var testPropertyName = "myprop";
 
     var handler = {
         "MyTaskDone": function(data, done) {
