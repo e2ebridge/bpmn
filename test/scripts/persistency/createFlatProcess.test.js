@@ -5,7 +5,7 @@
 
 var pathModule = require('path');
 var fileUtilsModule = require('../../../lib/utils/file.js');
-var bpmnProcessModule = require('../../../lib/process.js');
+var publicModule = require('../../../lib/public.js');
 var Persistency = require('../../../lib/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
@@ -113,7 +113,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     };
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
-    bpmnProcess = bpmnProcessModule.createBPMNProcess("myid", fileName, persistencyPath, loadedState, savedState);
+    publicModule.clearActiveProcessesCache();
+    var persistencyOptions = {
+        persistencyPath: persistencyPath,
+        doneSaving: savedState,
+        doneLoading: loadedState
+    };
+
+    bpmnProcess = publicModule.createBPMNProcess("myid", fileName, persistencyOptions);
 
     // we let the process run to the first save state
     bpmnProcess.sendStartEvent("MyStart");

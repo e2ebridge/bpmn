@@ -4,13 +4,14 @@
  */
 
 var pathModule = require('path');
-var processModule = require('../../../lib/process.js');
+var publicModule = require('../../../lib/public.js');
 
 exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
-    var bpmnProcess = processModule.createBPMNProcess("myid", fileName);
+    publicModule.clearActiveProcessesCache();
+    var bpmnProcess = publicModule.createBPMNProcess("myid", fileName);
 
     bpmnProcess.sendStartEvent("MyStart");
 
