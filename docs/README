@@ -51,21 +51,22 @@ Questions:
   Process Type Name is just the local name. Should we use a namespaced name?
 
 TODOs:
-- Hierarchical history for processes having subprocesses
+
+Just missing:
 - Persisting hierarchical must be tested
+- Test errors for exclusive gateways
+- Document public API
+    - plus the handler api (NOTE: defaultErrorHandler, defaultEventHandler, and doneSavingHandler are also put into this object)
+		- Describe Semantics (use docs Token Semantics (Lam).pdf
+		- Describe the process client interface as seen by the handlers and the clients
+
+Improvements:
 - Implement send event with findToken
-- Should we replace the ':' separator for condition and timeout callbacks by '_'?
-- We have too many emitToken operations. I think they can be simplified
+
+Features:
+- Monitoring interface:
+	- getHistory, getState, getDate: if we find the process in Memory, we get the data from there, if not, we go to the DB
 - During wait states we should maybe remove the process from memory and reload it if necessary.
-- Test default error and event handler
 - MongoDB
 - Introduce Logger
 - Remove from db after reaching the final state - or shouldn't we?
-- Test errors for exclusive gateways
-- Build up tests with default events
-- Define a name normalize operation on the BPMN package for Cyril
-- Document public API
-    - plus the handler api (NOTE: defaultErrorHandler, defaultEventHandler, and doneSavingHandler are also put into this object)
-- Describe Semantics (use docs Token Semantics (Lam).pdf
-- Describe the process client interface as seen by the handlers and the clients
-- Parse MID (no outgoing/incoming flow references!), GBTEC, and Signavio BPMN files!
