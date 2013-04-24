@@ -13,13 +13,13 @@ var pathModule = require('path');
 
 exports.testBPMNCallActivity = function(test) {
     var mainProcess;
-    var bpmnSubprocessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
 
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
     processDefinition.addFlowObject(new BPMNCallActivity("_3", "MyCallActivity", "callActivity",
-        "MyTaskExampleProcess", "http://sourceforge.net/bpmn/definitions/_1363693864276", bpmnSubprocessFileName));
+        "MyTaskExampleProcess", "http://sourceforge.net/bpmn/definitions/_1363693864276", bpmnCalledProcessFileName));
     processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
@@ -28,7 +28,7 @@ exports.testBPMNCallActivity = function(test) {
         "MyStart": function(data, done) {
             done(data);
         },
-        "MyCallActivity": { // subprocess handler start here
+        "MyCallActivity": { // calledProcess handler start here
             "MyStart": function(data, done) {
                 var localState = this.getState();
                 test.deepEqual(localState.tokens,
@@ -110,7 +110,7 @@ exports.testBPMNCallActivity = function(test) {
                 test.deepEqual(callActivityHistory,
                     {
                         "name": "MyCallActivity",
-                        "subprocessHistory": {
+                        "calledProcessHistory": {
                             "historyEntries": [
                                 {
                                     "name": "MyStart"
@@ -142,7 +142,7 @@ exports.testBPMNCallActivity = function(test) {
                         },
                         {
                             "name": "MyCallActivity",
-                            "subprocessHistory": {
+                            "calledProcessHistory": {
                                 "historyEntries": [
                                     {
                                         "name": "MyStart"

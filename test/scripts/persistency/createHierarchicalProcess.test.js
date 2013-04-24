@@ -14,14 +14,14 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-var bpmnSubprocessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
 var persistencyPath = './test/resources/persistency/testHierarchicalProcess';
 var persistency = new Persistency({path: persistencyPath});
 
 var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyProcess");
 processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
 processDefinition.addFlowObject(new BPMNCallActivity("_3", "MyCallActivity", "callActivity",
-    "MyTaskExampleProcess", "http://sourceforge.net/bpmn/definitions/_1363693864276", bpmnSubprocessFileName));
+    "MyTaskExampleProcess", "http://sourceforge.net/bpmn/definitions/_1363693864276", bpmnCalledProcessFileName));
 processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
@@ -56,7 +56,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
         test.deepEqual(savedData,
             {
-                "activeSubprocess": {
+                "activeCalledProcess": {
                     "processId": "mainPid1::MyCallActivity",
                     "data": {},
                     "state": {
@@ -79,7 +79,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         ]
                     }
                 },
-                "activeSubprocessParentToken": {
+                "activeCalledProcessParentToken": {
                     "position": "MyCallActivity",
                     "substate": {
                         "tokens": [
@@ -118,7 +118,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         },
                         {
                             "name": "MyCallActivity",
-                            "subprocessHistory": {
+                            "calledProcessHistory": {
                                 "historyEntries": [
                                     {
                                         "name": "MyStart"
@@ -136,14 +136,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             "testCreatePersistentBPMNProcess: saved data."
         );
 
-        var subprocessId = "mainPid1::MyCallActivity";
+        var calledProcessId = "mainPid1::MyCallActivity";
         var activeProcesses = bpmnProcessModule.getActiveProcessesCache();
-        var subprocess = activeProcesses[subprocessId];
-        test.ok(subprocess !== undefined && subprocess !== null, "testCreatePersistentBPMNProcess: subprocess exists");
+        var calledProcess = activeProcesses[calledProcessId];
+        test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentBPMNProcess: calledProcess exists");
 
-        // we delete the subprocess now, to see whether it will be regenerated when loading the process
-        delete activeProcesses[subprocessId];
-        test.ok(activeProcesses[subprocessId] === undefined, "testCreatePersistentBPMNProcess: subprocess has been deleted");
+        // we delete the calledProcess now, to see whether it will be regenerated when loading the process
+        delete activeProcesses[calledProcessId];
+        test.ok(activeProcesses[calledProcessId] === undefined, "testCreatePersistentBPMNProcess: calledProcess has been deleted");
 
         mainProcess.loadState();
     };
@@ -173,7 +173,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
         test.deepEqual(loadedData,
             {
-                "activeSubprocess": {
+                "activeCalledProcess": {
                     "processId": "mainPid1::MyCallActivity",
                     "data": {},
                     "state": {
@@ -196,7 +196,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         ]
                     }
                 },
-                "activeSubprocessParentToken": {
+                "activeCalledProcessParentToken": {
                     "position": "MyCallActivity",
                     "substate": {
                         "tokens": [
@@ -235,7 +235,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         },
                         {
                             "name": "MyCallActivity",
-                            "subprocessHistory": {
+                            "calledProcessHistory": {
                                 "historyEntries": [
                                     {
                                         "name": "MyStart"
@@ -253,12 +253,12 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             "testCreatePersistentBPMNProcess: loaded data."
         );
 
-        var subprocessId = "mainPid1::MyCallActivity";
+        var calledProcessId = "mainPid1::MyCallActivity";
         var activeProcesses = bpmnProcessModule.getActiveProcessesCache();
-        var subprocess = activeProcesses[subprocessId];
-        test.ok(subprocess !== undefined && subprocess !== null, "testCreatePersistentBPMNProcess: subprocess exists");
+        var calledProcess = activeProcesses[calledProcessId];
+        test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentBPMNProcess: calledProcess exists");
 
-        var history = subprocess.getHistory();
+        var history = calledProcess.getHistory();
         test.deepEqual(history.historyEntries,
             [
                 {
@@ -268,7 +268,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                     "name": "MyTask"
                 }
             ],
-            "testCreatePersistentBPMNProcess: loaded subprocess history"
+            "testCreatePersistentBPMNProcess: loaded calledProcess history"
         );
 
         test.done();
@@ -278,7 +278,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         "MyStart": function(data, done) {
             done(data);
         },
-        "MyCallActivity": { // subprocess handler start here
+        "MyCallActivity": { // calledProcess handler start here
             "MyStart": function(data, done) {
                 done(data);
             },
@@ -301,7 +301,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                 },
                 {
                     "name": "MyCallActivity",
-                    "subprocessHistory": {
+                    "calledProcessHistory": {
                         "historyEntries": [
                             {
                                 "name": "MyStart"
