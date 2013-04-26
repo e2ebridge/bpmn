@@ -77,7 +77,8 @@ exports.testParseBPMNAllEndEvents = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true
             }
         ],
         "testParseBPMNAllEndEvents");

@@ -73,7 +73,8 @@ exports.testParseXorMerge = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true
             }
         ],
         "testParseXorMerge");
@@ -196,7 +197,8 @@ exports.testParseXorGateway = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true
             }
         ],
         "testParseXorGateway");

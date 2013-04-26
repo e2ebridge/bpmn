@@ -60,7 +60,36 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true
+            },
+            {
+                "bpmnId": "COLLABORATION_1",
+                "participants": [
+                    {
+                        "bpmnId": "_7",
+                        "name": "Participant",
+                        "type": "participant",
+                        "processRef": null
+                    }
+                ],
+                "messageFlows": [
+                    {
+                        "bpmnId": "_8",
+                        "name": null,
+                        "type": "messageFlow",
+                        "sourceRef": "_7",
+                        "targetRef": "_2"
+                    },
+                    {
+                        "bpmnId": "_9",
+                        "name": null,
+                        "type": "messageFlow",
+                        "sourceRef": "_4",
+                        "targetRef": "_7"
+                    }
+                ],
+                "isCollaboration": true
             }
         ],
         "testParseBPMNIntermediateMessageEvent");

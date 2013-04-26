@@ -20,10 +20,6 @@ Persistency:
 
 Handler:
 - All handlers get a BPMNProcessClient interface as this
-- setTimeout does only work for short time spans but makes no sense for weeks and months
-    Numerically, the max timeout is about 24 days. To find this test search for "testClearBPMNTimeoutByLeavingTask: maxTimeout".
-    However, even if this would work numerically, we would loose the time when restarting node.
-    So we have to find a different solution.
 - Event Handler: It gets a callback to be called if the event has been handled.
   Event name == handler name;
 - Task Handler: It gets a callback to be called if the event has been handled.
@@ -36,10 +32,12 @@ Handler:
   So if backend data are required do this in the gateway callback
   Gateway condition handler name: <condition call back> == <gateway name> + ":" + <condition flow name>
   NOTE1: if the conditional flow does not have a name an error is thrown
-- Timeouthandler:
+- Timeout handler:
     handler name == Timeout Event name,
     Timout is calculated by a callback having then name: <get timout call back> == <timeout event name> + ":getTimeout"
     Value in ms
+- Throw event handler are called when reaching the throw event
+- Catch event handler are called when the event has been catched
 
 Questions:
 - On Task Begin handler has the same name as the task. On Task End handler uses taskName + "Done". Shall we use another convention?
@@ -52,16 +50,20 @@ Questions:
 
 TODOs:
 
-Just missing:
+Missing before we could publish 0.0.1:
+- setTimeout does only work for short time spans but makes no sense for weeks and months
+      Numerically, the max timeout is about 24 days. To find this test search for "testClearBPMNTimeoutByLeavingTask: maxTimeout".
+      However, even if this would work numerically, we would loose the time when restarting node.
+      So we have to find a different solution.
+- For startEvents: test whether the state is empty, otherwise the process already exists (however, bpmn would allow this)
+- Boundary Message Elements
 - Persisting hierarchical must be tested
 - Test errors for exclusive gateways
 - Document public API
     - plus the handler api (NOTE: defaultErrorHandler, defaultEventHandler, and doneSavingHandler are also put into this object)
 		- Describe Semantics (use docs Token Semantics (Lam).pdf
 		- Describe the process client interface as seen by the handlers and the clients
-
-Improvements:
-- Implement send event with findToken
+- How to handler two processes in two pools respectively?
 
 Features:
 - Monitoring interface:

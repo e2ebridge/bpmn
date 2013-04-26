@@ -41,7 +41,9 @@ exports.testParseBPMNAllSupportedGateways = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true,
+                "isProcessDefinition": true
             }
         ],
         "testParseBPMNAllSupportedGateways");

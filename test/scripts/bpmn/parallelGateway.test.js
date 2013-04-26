@@ -73,7 +73,8 @@ exports.testParseAndMerge = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true
             }
         ],
         "testParseAndMerge");
@@ -150,7 +151,8 @@ exports.testParseAndGateway = function(test) {
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
-                "nameMap": null
+                "nameMap": null,
+                "isProcessDefinition": true
             }
         ],
         "testParseAndGateway");
