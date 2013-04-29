@@ -60,7 +60,8 @@ exports.testParseBPMNTask = function(test) {
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null,
-                "isProcessDefinition": true
+                "isProcessDefinition": true,
+                "collaboratingParticipants": []
             }
         ],
         "testParseBPMNTask");

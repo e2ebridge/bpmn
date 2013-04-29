@@ -7,7 +7,8 @@ var bpmnParserModule = require('../../../lib/bpmn/parser.js');
 
 exports.testParseBPMNIntermediateMessageEvent = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/intermediateMessageEvent.bpmn");
+    var fileName = "test/resources/bpmn/intermediateMessageEvent.bpmn";
+    var bpmnProcessDefinitions = bpmnParserModule.parse(fileName);
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
@@ -61,7 +62,8 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                 "sequenceFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null,
-                "isProcessDefinition": true
+                "isProcessDefinition": true,
+                "collaboratingParticipants": []
             },
             {
                 "bpmnId": "COLLABORATION_1",
@@ -70,7 +72,8 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                         "bpmnId": "_7",
                         "name": "Participant",
                         "type": "participant",
-                        "processRef": null
+                        "processRef": null,
+                        "bpmnFileName": fileName
                     }
                 ],
                 "messageFlows": [
@@ -89,7 +92,7 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                         "targetRef": "_7"
                     }
                 ],
-                "isCollaboration": true
+                "isCollaborationDefinition": true
             }
         ],
         "testParseBPMNIntermediateMessageEvent");

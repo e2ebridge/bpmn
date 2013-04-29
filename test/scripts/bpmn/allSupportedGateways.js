@@ -43,7 +43,7 @@ exports.testParseBPMNAllSupportedGateways = function(test) {
                 "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null,
                 "isProcessDefinition": true,
-                "isProcessDefinition": true
+                "collaboratingParticipants": []
             }
         ],
         "testParseBPMNAllSupportedGateways");
