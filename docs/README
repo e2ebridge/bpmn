@@ -47,6 +47,7 @@ Questions:
 - Should we use the currentActivity in the name as well? E.g. instead of having MyTimout, MyTask_MyTimeout?
 - At the moment, the process id is internally calculated by <Process Type Name> + "::" + <process instance id>.
   Process Type Name is just the local name. Should we use a namespaced name?
+- Remove from db after reaching the final state - or shouldn't we?
 
 TODOs:
 
@@ -64,6 +65,7 @@ Missing before we could publish 0.0.1:
 		- Describe Semantics (use docs Token Semantics (Lam).pdf
 		- Describe the process client interface as seen by the handlers and the clients
 - How to handler two processes in two pools respectively?
+- Find processes interfaces in public
 
 Features:
 - Monitoring interface:
