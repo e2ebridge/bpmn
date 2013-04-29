@@ -87,12 +87,12 @@ exports.testXorMerge = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.sendStartEvent("Start Event1");
+    bpmnProcess.sendEvent("Start Event1");
 
     var bpmnProcess2 = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
 
     finalTest = true;
 
-    bpmnProcess2.sendStartEvent("Start Event2");
+    bpmnProcess2.sendEvent("Start Event2");
 
 };

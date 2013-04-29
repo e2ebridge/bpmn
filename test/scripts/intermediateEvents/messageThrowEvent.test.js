@@ -87,6 +87,6 @@ exports.testIntermediateThrowEvent = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myIntermediateThrowEventProcess", processDefinition, handler);
 
-    bpmnProcess.sendStartEvent("MyStart");
+    bpmnProcess.sendEvent("MyStart");
 
 };

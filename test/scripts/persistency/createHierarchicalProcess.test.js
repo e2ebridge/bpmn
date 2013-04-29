@@ -325,5 +325,5 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
     mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
 
-    mainProcess.sendStartEvent("MyStart");
+    mainProcess.sendEvent("MyStart");
 };

@@ -108,6 +108,6 @@ exports.testBPMNTask = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
-    bpmnProcess.sendStartEvent("MyStart");
+    bpmnProcess.sendEvent("MyStart");
 
 };

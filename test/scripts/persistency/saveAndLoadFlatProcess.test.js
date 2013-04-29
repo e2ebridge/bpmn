@@ -102,7 +102,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
     bpmnProcess.setProperty(testPropertyName, {an: "object"});
-    bpmnProcess.sendStartEvent("MyStart");
+    bpmnProcess.sendEvent("MyStart");
   };
 
 exports.testLoadSimpleBPMNProcess = function(test) {

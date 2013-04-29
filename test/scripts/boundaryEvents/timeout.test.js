@@ -121,7 +121,7 @@ exports.testBPMNTimeout = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
-    bpmnProcess.sendStartEvent("MyStart");
+    bpmnProcess.sendEvent("MyStart");
 
 };
 
@@ -171,6 +171,6 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
 
    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
-    bpmnProcess.sendStartEvent("MyStart");
+    bpmnProcess.sendEvent("MyStart");
 
 };

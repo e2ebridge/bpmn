@@ -123,7 +123,7 @@ exports.testAndMerge = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.sendStartEvent("Start Event1");
-    bpmnProcess.sendStartEvent("Start Event2");
+    bpmnProcess.sendEvent("Start Event1");
+    bpmnProcess.sendEvent("Start Event2");
 
 };
