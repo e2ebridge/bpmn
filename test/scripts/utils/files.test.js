@@ -12,7 +12,7 @@ exports.testCleanPath = function(test) {
 
 exports.testTraversingProject = function(test){
 
-    var projectDir = "test/resources/projects/simpleBPMN";
+    var projectDir = "test/resources/projects/simple";
     var files = [];
 
     fileUtilsModule.traverseFileSystem(projectDir, function(filePath, fileName, fullQualifiedName) {
@@ -28,16 +28,22 @@ exports.testTraversingProject = function(test){
     test.deepEqual(files,
         [
             {
-                "filePath": "test/resources/projects/simpleBPMN",
+                "filePath": "test/resources/projects/simple",
                 "fileName": "taskExampleProcess.bpmn",
-                "fullQualifiedName": "test/resources/projects/simpleBPMN/taskExampleProcess.bpmn",
+                "fullQualifiedName": "test/resources/projects/simple/taskExampleProcess.bpmn",
                 "extension": "bpmn"
             },
             {
-                "filePath": "test/resources/projects/simpleBPMN",
+                "filePath": "test/resources/projects/simple",
                 "fileName": "taskExampleProcess.js",
-                "fullQualifiedName": "test/resources/projects/simpleBPMN/taskExampleProcess.js",
+                "fullQualifiedName": "test/resources/projects/simple/taskExampleProcess.js",
                 "extension": "js"
+            },
+            {
+                "filePath": "test/resources/projects/simple",
+                "fileName": "taskExampleProcess.png",
+                "fullQualifiedName": "test/resources/projects/simple/taskExampleProcess.png",
+                "extension": "png"
             }
         ],
         "fileUtilities.testTraversingProject");

@@ -20,7 +20,7 @@ exports.testLoadHandler = function(test) {
     var handlerFilePath = handlerModule.getHandlerFileName("a/b/c.bpmn");
     test.equal(handlerFilePath, "a/b/c.js","testLoadHandler: handlerFilePath");
 
-    var bpmnFilePath = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var bpmnFilePath = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
     var handler = handlerModule.getHandlerFromFile(bpmnFilePath);
     var myTaskHandler = handler["MyTask"];
     var foundMyTask = myTaskHandler && typeof myTaskHandler === 'function';

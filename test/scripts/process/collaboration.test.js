@@ -14,7 +14,7 @@ exports.testSendingWrongEventInCollaboration = function(test) {
         {name: "My First Process", id: "myFirstProcessId_1"},
         {name: "My Second Process", id: "mySecondProcessId_1"}
     ];
-    var collaboratingProcesses = publicModule.createCollaboratingBPMNProcesses(processDescriptors, fileName);
+    var collaboratingProcesses = publicModule.createCollaboratingProcesses(processDescriptors, fileName);
 
     var secondProcess = collaboratingProcesses[0];
     try {
@@ -34,7 +34,7 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
         {name: "My First Process", id: "myFirstProcessId_1"},
         {name: "My Second Process", id: "mySecondProcessId_1"}
     ];
-    var collaboratingProcesses = publicModule.createCollaboratingBPMNProcesses(processDescriptors, fileName);
+    var collaboratingProcesses = publicModule.createCollaboratingProcesses(processDescriptors, fileName);
 
     var firstProcess = collaboratingProcesses[0];
     var secondProcess = collaboratingProcesses[1];

@@ -13,7 +13,7 @@ var pathModule = require('path');
 
 exports.testBPMNCallActivity = function(test) {
     var mainProcess;
-    var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyProcess");

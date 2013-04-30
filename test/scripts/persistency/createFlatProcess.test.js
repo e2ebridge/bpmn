@@ -112,7 +112,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         test.done();
     };
 
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+    var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
     publicModule.clearActiveProcessesCache();
     var persistencyOptions = {
         persistencyPath: persistencyPath,
@@ -120,7 +120,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         doneLoading: loadedState
     };
 
-    bpmnProcess = publicModule.createBPMNProcess("myid", fileName, persistencyOptions);
+    bpmnProcess = publicModule.createProcess("myid", fileName, persistencyOptions);
 
     // we let the process run to the first save state
     bpmnProcess.sendEvent("MyStart");

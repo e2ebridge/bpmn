@@ -14,7 +14,7 @@ var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simpleBPMN/taskExampleProcess.bpmn");
+var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 var persistencyPath = './test/resources/persistency/testHierarchicalProcess';
 var persistency = new Persistency({path: persistencyPath});
 
