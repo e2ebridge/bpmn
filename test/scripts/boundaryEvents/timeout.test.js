@@ -12,6 +12,8 @@ var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenc
 var BPMNBoundaryEvent = require("../../../lib/bpmn/boundaryEvents.js").BPMNBoundaryEvent;
 
 exports.testBPMNTimeout = function(test) {
+    var bpmnProcess;
+
     var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3");
     boundaryEvent.isTimerEvent = true;
 
@@ -59,10 +61,10 @@ exports.testBPMNTimeout = function(test) {
             return 1000.11;
         },
         "MyTimeout": function(data, done) {
-            var activeTimers = bpmnProcess.activeTimers;
-            test.deepEqual(activeTimers.MyTimeout._idleTimeout,
-                1000,
-                "testClearBPMNTimeoutByLeavingTask: active timers should be empty"
+            var pendingTimeouts = bpmnProcess.pendingTimeouts;
+            test.deepEqual(pendingTimeouts,
+                {},
+                "testClearBPMNTimeoutByLeavingTask: there should be no more pending timeouts"
             );
 
             var history = this.getHistory();
@@ -119,7 +121,7 @@ exports.testBPMNTimeout = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendEvent("MyStart");
 
