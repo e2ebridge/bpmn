@@ -78,8 +78,8 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
 
             var maxTimeout = 360 * 24 * 3600 * 1000;
             process.nextTick(function() {
-                var activeTimers = bpmnProcess.pendingTimeouts;
-                test.equal(activeTimers.MyTimeout.timeout,
+                var myTimeout = bpmnProcess.pendingTimeouts.getTimeout("MyTimeout");
+                test.equal(myTimeout.timeout,
                     maxTimeout,
                     "testClearBPMNTimeoutByLeavingTask: maxTimeout"
                 );
@@ -93,9 +93,8 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
         },
         "MyEnd2": function(data, done) {
 
-            var activeTimers = bpmnProcess.pendingTimeouts;
-            test.deepEqual(activeTimers,
-                {},
+            var hasTimeouts = bpmnProcess.pendingTimeouts.hasTimeouts();
+            test.ok(!hasTimeouts,
                 "testClearBPMNTimeoutByLeavingTask: active timers should be empty"
             );
             var state = this.getState();

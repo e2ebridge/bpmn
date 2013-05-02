@@ -61,9 +61,8 @@ exports.testBPMNTimeout = function(test) {
             return 1000.11;
         },
         "MyTimeout": function(data, done) {
-            var pendingTimeouts = bpmnProcess.pendingTimeouts;
-            test.deepEqual(pendingTimeouts,
-                {},
+            var hasTimeouts = bpmnProcess.pendingTimeouts.hasTimeouts();
+            test.ok(!hasTimeouts,
                 "testClearBPMNTimeoutByLeavingTask: there should be no more pending timeouts"
             );
 
