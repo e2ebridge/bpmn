@@ -77,7 +77,8 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                                 "name": "MyTask"
                             }
                         ]
-                    }
+                    },
+                    "eventName2TimeoutMap": {}
                 },
                 "activeCalledProcessParentToken": {
                     "position": "MyCallActivity",
@@ -131,6 +132,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         }
                     ]
                 },
+                "eventName2TimeoutMap": {},
                 "_id": 1
             },
             "testCreatePersistentBPMNProcess: saved data."
@@ -194,7 +196,8 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                                 "name": "MyTask"
                             }
                         ]
-                    }
+                    },
+                    "eventName2TimeoutMap": {}
                 },
                 "activeCalledProcessParentToken": {
                     "position": "MyCallActivity",
@@ -248,6 +251,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         }
                     ]
                 },
+                "eventName2TimeoutMap": {},
                 "_id": 1
             },
             "testCreatePersistentBPMNProcess: loaded data."

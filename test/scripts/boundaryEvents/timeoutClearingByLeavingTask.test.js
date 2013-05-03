@@ -74,12 +74,13 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             done(data);
         },
         "MyTimeout$getTimeout": function() {
-            test.ok(true, "testClearBPMNTimeoutByLeavingTask: getTimout has been called");
+            test.ok(true, "testClearBPMNTimeoutByLeavingTask: getTimeout has been called");
 
             var maxTimeout = 360 * 24 * 3600 * 1000;
             process.nextTick(function() {
                 var myTimeout = bpmnProcess.pendingTimeouts.getTimeout("MyTimeout");
-                test.equal(myTimeout.timeout,
+                var myTimeoutValue = myTimeout ? myTimeout.timeout : -1;
+                test.equal(myTimeoutValue,
                     maxTimeout,
                     "testClearBPMNTimeoutByLeavingTask: maxTimeout"
                 );
@@ -129,7 +130,7 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
         }
     };
 
-   bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.sendEvent("MyStart");
 
