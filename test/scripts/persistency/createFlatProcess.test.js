@@ -64,7 +64,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         );
 
         // this points to the process client interface and not to the process directly
-        this._bpmnProcess.loadState();
+        this._bpmnProcess.loadPersistedData();
     };
 
     var loadedState = function(error, loadedData) {

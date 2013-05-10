@@ -220,7 +220,6 @@ exports.testLoadSimpleBPMNProcess = function(test) {
     };
 
     newBpmnProcess = bpmnProcessModule.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
-    newBpmnProcess.loadState();
 
     newBpmnProcess.taskDone("MyTask");
 
