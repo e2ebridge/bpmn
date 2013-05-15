@@ -28,283 +28,6 @@ processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceF
 
 exports.testCreatePersistentBPMNProcess = function(test) {
     var mainProcess;
-
-    fileUtilsModule.cleanDirectorySync(persistencyPath);
-
-    var savedState = function(error, savedData) {
-        test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
-
-        var state = mainProcess.getState();
-        test.deepEqual(state.tokens,
-            [
-                {
-                    "position": "MyCallActivity",
-                    "substate": {
-                        "tokens": [
-                            {
-                                "position": "MyTask",
-                                "owningProcessId": "mainPid1::MyCallActivity"
-                            }
-                        ]
-                    },
-                    "calledProcessId": "mainPid1::MyCallActivity",
-                    "owningProcessId": "mainPid1"
-                }
-            ],
-            "testCreatePersistentBPMNProcess: reached call activity state."
-        );
-
-        if (savedData.processId === "mainPid1") {
-            test.deepEqual(savedData,
-                {
-                    "processName": "MyProcess",
-                    "processId": "mainPid1",
-                    "data": {},
-                    "state": {
-                        "tokens": [
-                            {
-                                "position": "MyCallActivity",
-                                "substate": {
-                                    "tokens": [
-                                        {
-                                            "position": "MyTask",
-                                            "owningProcessId": "mainPid1::MyCallActivity"
-                                        }
-                                    ]
-                                },
-                                "owningProcessId": "mainPid1",
-                                "calledProcessId": "mainPid1::MyCallActivity"
-                            }
-                        ]
-                    },
-                    "history": {
-                        "historyEntries": [
-                            {
-                                "name": "MyStart"
-                            },
-                            {
-                                "name": "MyCallActivity"
-                            }
-                        ]
-                    },
-                    "eventName2TimeoutMap": {},
-                    "_id": 1
-                },
-                "testCreatePersistentBPMNProcess: saved parent process data."
-            );
-        } else {
-            test.deepEqual(savedData,
-                {
-                    "processName": "TaskExampleProcess",
-                    "processId": "mainPid1::MyCallActivity",
-                    "parentToken": {
-                        "position": "MyCallActivity",
-                        "substate": {
-                            "tokens": [
-                                {
-                                    "position": "MyTask",
-                                    "owningProcessId": "mainPid1::MyCallActivity"
-                                }
-                            ]
-                        },
-                        "owningProcessId": "mainPid1",
-                        "calledProcessId": "mainPid1::MyCallActivity"
-                    },
-                    "data": {},
-                    "state": {
-                        "tokens": [
-                            {
-                                "position": "MyTask",
-                                "owningProcessId": "mainPid1::MyCallActivity"
-                            }
-                        ]
-                    },
-                    "history": {
-                        "historyEntries": [
-                            {
-                                "name": "MyStart"
-                            },
-                            {
-                                "name": "MyTask"
-                            }
-                        ]
-                    },
-                    "eventName2TimeoutMap": {},
-                    "_id": 2
-                },
-                "testCreatePersistentBPMNProcess: saved called process data."
-            );
-
-            var calledProcessId = "mainPid1::MyCallActivity";
-            var calledProcess = mainProcess.calledProcesses[calledProcessId];
-            test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentBPMNProcess: calledProcess exists");
-
-            mainProcess.loadPersistedData();
-        }
-    };
-
-    var loadedState = function(error, loadedData) {
-        test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
-
-        if (loadedData.processId === "mainPid1") {
-            var mainState = mainProcess.getState();
-            // compare this test to the analogous test in the else branch
-            test.deepEqual(mainState.tokens,
-                [
-                    {
-                        "position": "MyCallActivity",
-                        "substate": {
-                            "tokens": [
-                                {
-                                    "position": "MyTask",
-                                    "owningProcessId": "mainPid1::MyCallActivity"
-                                }
-                            ]
-                        },
-                        "owningProcessId": "mainPid1",
-                        "calledProcessId": "mainPid1::MyCallActivity"
-                    }
-                ],
-                "testCreatePersistentBPMNProcess: call activity token after loading the persisted data."
-            );
-
-            test.deepEqual(loadedData,
-                {
-                    "processName": "MyProcess",
-                    "processId": "mainPid1",
-                    "parentToken": null,
-                    "data": {},
-                    "state": {
-                        "tokens": [
-                            {
-                                "position": "MyCallActivity",
-                                "substate": {
-                                    "tokens": [
-                                        {
-                                            "position": "MyTask",
-                                            "owningProcessId": "mainPid1::MyCallActivity"
-                                        }
-                                    ]
-                                },
-                                "owningProcessId": "mainPid1",
-                                "calledProcessId": "mainPid1::MyCallActivity"
-                            }
-                        ]
-                    },
-                    "history": {
-                        "historyEntries": [
-                            {
-                                "name": "MyStart"
-                            },
-                            {
-                                "name": "MyCallActivity"
-                            }
-                        ]
-                    },
-                    "eventName2TimeoutMap": {},
-                    "_id": 1
-                },
-                "testCreatePersistentBPMNProcess: loaded data of main process"
-            );
-
-        } else {
-
-            // we have now loaded the called process. This process should set the parent token
-            var mainState = mainProcess.getState();
-            test.deepEqual(mainState.tokens,
-                [
-                    {
-                        "position": "MyCallActivity",
-                        "substate": {
-                            "tokens": [
-                                {
-                                    "position": "MyTask",
-                                    "owningProcessId": "mainPid1::MyCallActivity"
-                                }
-                            ]
-                        },
-                        "owningProcessId": "mainPid1",
-                        "calledProcessId": "mainPid1::MyCallActivity"
-                    }
-                ],
-                "testCreatePersistentBPMNProcess: call activity token AFTER called process has been called."
-            );
-
-            test.deepEqual(loadedData,
-                {
-                    "processName": "TaskExampleProcess",
-                    "processId": "mainPid1::MyCallActivity",
-                    "parentToken": {
-                        "position": "MyCallActivity",
-                        "substate": {
-                            "tokens": [
-                                {
-                                    "position": "MyTask",
-                                    "owningProcessId": "mainPid1::MyCallActivity"
-                                }
-                            ]
-                        },
-                        "owningProcessId": "mainPid1",
-                        "calledProcessId": "mainPid1::MyCallActivity"
-                    },
-                    "data": {},
-                    "state": {
-                        "tokens": [
-                            {
-                                "position": "MyTask",
-                                "owningProcessId": "mainPid1::MyCallActivity"
-                            }
-                        ]
-                    },
-                    "history": {
-                        "historyEntries": [
-                            {
-                                "name": "MyStart"
-                            },
-                            {
-                                "name": "MyTask"
-                            }
-                        ]
-                    },
-                    "eventName2TimeoutMap": {},
-                    "_id": 2
-                },
-                "testCreatePersistentBPMNProcess: loaded data of called process"
-            );
-
-            var calledProcessId = "mainPid1::MyCallActivity";
-            var calledProcess = mainProcess.calledProcesses[calledProcessId];
-            test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentBPMNProcess: calledProcess exists");
-
-            var history = calledProcess.getHistory();
-            test.deepEqual(history.historyEntries,
-                [
-                    {
-                        "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
-                    }
-                ],
-                "testCreatePersistentBPMNProcess: loaded called process history"
-            );
-
-            var calledProcessState = calledProcess.getState();
-            test.deepEqual(calledProcessState.tokens,
-                [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "mainPid1::MyCallActivity"
-                    }
-                ],
-                "testCreatePersistentBPMNProcess: loaded called process state"
-            );
-
-            calledProcess.taskDone("MyTask");
-        }
-
-    };
-
     var handler = {
         "MyStart": function(data, done) {
             done(data);
@@ -319,7 +42,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             "MyTaskDone": function(data, done) {
                 done(data);
             },
-            "MyEnd": function(data, done) {
+            "MyEnd":function(data, done) {
                 done(data);
             }
         },
@@ -327,9 +50,113 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             done(data);
         },
         "MyEnd": function(data, done) {
-            var history = this.getHistory();
-            test.deepEqual(history.historyEntries,
-                [
+            compareHistoryEntryAtEndOfProcess(this, test);
+            done(data);
+            test.done();
+        }
+    };
+
+    fileUtilsModule.cleanDirectorySync(persistencyPath);
+
+    handler.doneSavingHandler = function(error, savedData) {
+        test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
+
+        compareSavedDataAtMyTask(mainProcess, savedData, test);
+
+        mainProcess.loadPersistedData();
+    };
+
+    handler.doneLoadingHandler = function(error, loadedData) {
+        test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
+
+        compareLoadedDataAtMyTask(mainProcess, loadedData, test);
+
+        var calledProcessId = "mainPid1::MyCallActivity";
+        var calledProcess = mainProcess.calledProcesses[calledProcessId];
+        calledProcess.taskDone("MyTask");
+    };
+
+    mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
+    mainProcess.sendEvent("MyStart");
+};
+
+function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
+    var history = mainProcess.getHistory();
+    test.deepEqual(history.historyEntries,
+        [
+            {
+                "name": "MyStart"
+            },
+            {
+                "name": "MyCallActivity",
+                "subhistory": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        },
+                        {
+                            "name": "MyEnd"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "MyEnd"
+            }
+        ],
+        "testSimpleBPMNProcess: history at MyEnd of main process"
+    );
+}
+
+function compareSavedDataAtMyTask(mainProcess, savedData, test) {
+    var state = mainProcess.getState();
+    test.deepEqual(state.tokens,
+        [
+            {
+                "position": "MyCallActivity",
+                "substate": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "mainPid1::MyCallActivity"
+                        }
+                    ]
+                },
+                "calledProcessId": "mainPid1::MyCallActivity",
+                "owningProcessId": "mainPid1"
+            }
+        ],
+        "testCreatePersistentBPMNProcess: state at MyTask."
+    );
+
+    test.deepEqual(savedData,
+        {
+            "processName": "MyProcess",
+            "processId": "mainPid1",
+            "parentToken": null,
+            "data": {},
+            "state": {
+                "tokens": [
+                    {
+                        "position": "MyCallActivity",
+                        "owningProcessId": "mainPid1",
+                        "substate": {
+                            "tokens": [
+                                {
+                                    "position": "MyTask",
+                                    "owningProcessId": "mainPid1::MyCallActivity"
+                                }
+                            ]
+                        },
+                        "calledProcessId": "mainPid1::MyCallActivity"
+                    }
+                ]
+            },
+            "history": {
+                "historyEntries": [
                     {
                         "name": "MyStart"
                     },
@@ -342,28 +169,118 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                                 },
                                 {
                                     "name": "MyTask"
-                                },
-                                {
-                                    "name": "MyEnd"
                                 }
                             ]
                         }
+                    }
+                ]
+            },
+            "eventName2TimeoutMap": {},
+            "_id": 1
+        },
+        "testCreatePersistentBPMNProcess: savedData."
+    );
+}
+
+function compareLoadedDataAtMyTask(mainProcess, loadedData, test) {
+    var mainState = mainProcess.getState();
+
+    test.deepEqual(mainState.tokens,
+        [
+            {
+                "position": "MyCallActivity",
+                "substate": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "mainPid1::MyCallActivity"
+                        }
+                    ]
+                },
+                "owningProcessId": "mainPid1",
+                "calledProcessId": "mainPid1::MyCallActivity"
+            }
+        ],
+        "testCreatePersistentBPMNProcess: afterLoading: process tokens"
+    );
+
+    test.deepEqual(loadedData,
+        {
+            "processName": "MyProcess",
+            "processId": "mainPid1",
+            "parentToken": null,
+            "data": {},
+            "state": {
+                "tokens": [
+                    {
+                        "position": "MyCallActivity",
+                        "substate": {
+                            "tokens": [
+                                {
+                                    "position": "MyTask",
+                                    "owningProcessId": "mainPid1::MyCallActivity"
+                                }
+                            ]
+                        },
+                        "owningProcessId": "mainPid1",
+                        "calledProcessId": "mainPid1::MyCallActivity"
+                    }
+                ]
+            },
+            "history": {
+                "historyEntries": [
+                    {
+                        "name": "MyStart"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyCallActivity",
+                        "subhistory": {
+                            "historyEntries": [
+                                {
+                                    "name": "MyStart"
+                                },
+                                {
+                                    "name": "MyTask"
+                                }
+                            ]
+                        }
                     }
-                ],
-                "testSimpleBPMNProcess: history at MyEnd of main process"
-            );
-            done(data);
-            test.done();
-        }
-    };
+                ]
+            },
+            "eventName2TimeoutMap": {},
+            "_id": 1
+        },
+        "testCreatePersistentBPMNProcess: loadedData"
+    );
 
-    handler.doneLoadingHandler = loadedState;
-    handler.doneSavingHandler = savedState;
 
-    mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
+    var calledProcessId = "mainPid1::MyCallActivity";
+    var calledProcess = mainProcess.calledProcesses[calledProcessId];
+    test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentBPMNProcess: calledProcess exists");
 
-    mainProcess.sendEvent("MyStart");
-};
+    var history = calledProcess.getHistory();
+    test.deepEqual(history.historyEntries,
+        [
+            {
+                "name": "MyStart"
+            },
+            {
+                "name": "MyTask"
+            }
+        ],
+        "testCreatePersistentBPMNProcess: afterLoading: history"
+    );
+
+    var calledProcessState = calledProcess.getState();
+    test.deepEqual(calledProcessState.tokens,
+        [
+            {
+                "position": "MyTask",
+                "owningProcessId": "mainPid1::MyCallActivity"
+            }
+        ],
+        "testCreatePersistentBPMNProcess: afterLoading: called process state"
+    );
+}
+
+
