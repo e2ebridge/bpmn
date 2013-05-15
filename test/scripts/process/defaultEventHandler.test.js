@@ -29,7 +29,6 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                 [
                     {
                         "position": "MyStart",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
@@ -43,7 +42,6 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],

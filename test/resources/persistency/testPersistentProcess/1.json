@@ -1,1 +1,1 @@
-{"processId":"myid","data":{},"state":{"tokens":[{"position":"MyTask","substate":null,"owningProcessId":"myid"}]},"history":{"historyEntries":[{"name":"MyStart"},{"name":"MyTask"}]},"eventName2TimeoutMap":{},"_id":1}
+{"processName":"TaskExampleProcess","processId":"myid","parentToken":null,"data":{},"state":{"tokens":[{"position":"MyTask","owningProcessId":"myid"}]},"history":{"historyEntries":[{"name":"MyStart"},{"name":"MyTask"}]},"eventName2TimeoutMap":{},"_id":1}

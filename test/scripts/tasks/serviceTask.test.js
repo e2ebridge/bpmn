@@ -28,7 +28,6 @@ exports.testBPMNServiceTask = function(test) {
                 [
                     {
                         "position": "MyStart",
-                        "substate": null,
                         "owningProcessId": "myFirstServiceTaskProcess"
                     }
                 ],
@@ -42,7 +41,6 @@ exports.testBPMNServiceTask = function(test) {
                 [
                     {
                         "position": "MyServiceTask",
-                        "substate": null,
                         "owningProcessId": "myFirstServiceTaskProcess"
                     }
                 ],
@@ -57,7 +55,6 @@ exports.testBPMNServiceTask = function(test) {
                 [
                     {
                         "position": "MyEnd",
-                        "substate": null,
                         "owningProcessId": "myFirstServiceTaskProcess"
                     }
                 ],

@@ -35,7 +35,6 @@ exports.testBPMNCallActivity = function(test) {
                     [
                         {
                             "position": "MyStart",
-                            "substate": null,
                             "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
@@ -49,7 +48,6 @@ exports.testBPMNCallActivity = function(test) {
                     [
                         {
                             "position": "MyTask",
-                            "substate": null,
                             "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
@@ -66,17 +64,18 @@ exports.testBPMNCallActivity = function(test) {
                                 "tokens": [
                                     {
                                         "position": "MyTask",
-                                        "substate": null,
                                         "owningProcessId": "mainPid1::MyCallActivity"
                                     }
                                 ]
                             },
-                            "owningProcessId": "mainPid1"
+                            "owningProcessId": "mainPid1",
+                            "calledProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
                     "testSimpleBPMNProcess: main state at MyTask"
                 );
 
+                // we call taskDone for an activity of the CALLED process in the main process
                 mainProcess.taskDone("MyTask");
             },
             "MyTaskDone": function(data, done) {
@@ -85,7 +84,6 @@ exports.testBPMNCallActivity = function(test) {
                     [
                         {
                             "position": "MyTask",
-                            "substate": null,
                             "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
@@ -99,32 +97,10 @@ exports.testBPMNCallActivity = function(test) {
                     [
                         {
                             "position": "MyEnd",
-                            "substate": null,
                             "owningProcessId": "mainPid1::MyCallActivity"
                         }
                     ],
                     "testSimpleBPMNProcess: state at MyEnd"
-                );
-                var history = this.getParentProcess().getHistory();
-                var callActivityHistory = history.getLastEntry("MyCallActivity");
-                test.deepEqual(callActivityHistory,
-                    {
-                        "name": "MyCallActivity",
-                        "calledProcessHistory": {
-                            "historyEntries": [
-                                {
-                                    "name": "MyStart"
-                                },
-                                {
-                                    "name": "MyTask"
-                                },
-                                {
-                                    "name": "MyEnd"
-                                }
-                            ]
-                        }
-                    },
-                    "testSimpleBPMNProcess: callActivity history"
                 );
                 done(data);
             }
@@ -142,7 +118,7 @@ exports.testBPMNCallActivity = function(test) {
                         },
                         {
                             "name": "MyCallActivity",
-                            "calledProcessHistory": {
+                            "subhistory": {
                                 "historyEntries": [
                                     {
                                         "name": "MyStart"

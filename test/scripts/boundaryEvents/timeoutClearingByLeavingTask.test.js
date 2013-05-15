@@ -35,7 +35,6 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
                 [
                     {
                         "position": "MyStart",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
@@ -49,7 +48,6 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
@@ -64,7 +62,6 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
@@ -103,7 +100,6 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
                 [
                     {
                         "position": "MyEnd2",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],

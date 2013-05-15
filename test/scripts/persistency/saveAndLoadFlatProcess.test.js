@@ -34,7 +34,6 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                 [
                     {
                         "position": "MyStart",
-                        "substate": null,
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
@@ -46,7 +45,6 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
@@ -64,7 +62,9 @@ exports.testPersistSimpleBPMNProcess = function(test) {
 
             test.deepEqual(savedData,
                 {
+                    "processName": "MyTestProcessType",
                     "processId": "myPersistentProcess_1",
+                    "parentToken": null,
                     "data": {
                         "myprop": {
                             "an": "object"
@@ -75,7 +75,6 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                         "tokens": [
                             {
                                 "position": "MyTask",
-                                "substate": null,
                                 "owningProcessId": "myPersistentProcess_1"
                             }
                         ]
@@ -115,7 +114,6 @@ exports.testLoadSimpleBPMNProcess = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
@@ -139,7 +137,6 @@ exports.testLoadSimpleBPMNProcess = function(test) {
                 [
                     {
                         "position": "MyEnd",
-                        "substate": null,
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
@@ -187,7 +184,6 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             [
                 {
                     "position": "MyTask",
-                    "substate": null,
                     "owningProcessId": "myPersistentProcess_1"
                 }
             ],

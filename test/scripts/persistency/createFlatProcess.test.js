@@ -27,7 +27,6 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             [
                 {
                     "position": "MyTask",
-                    "substate": null,
                     "owningProcessId": "myid"
                 }
             ],
@@ -36,13 +35,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
         test.deepEqual(savedData,
             {
+                "processName": "TaskExampleProcess",
                 "processId": "myid",
+                "parentToken": null,
                 "data": {},
                 "state": {
                     "tokens": [
                         {
                             "position": "MyTask",
-                            "substate": null,
                             "owningProcessId": "myid"
                         }
                     ]
@@ -75,7 +75,6 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             [
                 {
                     "position": "MyTask",
-                    "substate": null,
                     "owningProcessId": "myid"
                 }
             ],
@@ -84,13 +83,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
         test.deepEqual(loadedData,
             {
+                "processName": "TaskExampleProcess",
                 "processId": "myid",
+                "parentToken": null,
                 "data": {},
                 "state": {
                     "tokens": [
                         {
                             "position": "MyTask",
-                            "substate": null,
                             "owningProcessId": "myid"
                         }
                     ]

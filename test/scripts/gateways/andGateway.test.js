@@ -32,12 +32,10 @@ exports.testDivergingParallelGatewayProcess = function(test) {
             [
                 {
                     "position": "Task A",
-                    "substate": null,
                     "owningProcessId": "myFirstForkingGatewayProcess"
                 },
                 {
                     "position": "Task B",
-                    "substate": null,
                     "owningProcessId": "myFirstForkingGatewayProcess"
                 }
             ],

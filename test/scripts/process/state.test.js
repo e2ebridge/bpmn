@@ -21,7 +21,6 @@ exports.testBPMNProcessStateFindTokens = function(test) {
                 "tokens": [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myPid1"
                     }
                 ]
@@ -34,7 +33,6 @@ exports.testBPMNProcessStateFindTokens = function(test) {
         [
             {
                 "position": "MyTask",
-                "substate": null,
                 "owningProcessId": "myPid1"
             }
         ],
@@ -53,7 +51,6 @@ exports.testBPMNProcessStateCreateTokens = function(test) {
         [
             {
                 "position": "Start Event1",
-                "substate": null,
                 "owningProcessId": "myPid1"
             }
         ],
@@ -76,17 +73,14 @@ exports.testBPMNProcessStateRemoveToken = function(test) {
         [
             {
                 "position": "Start Event1",
-                "substate": null,
                 "owningProcessId": "myPid1"
             },
             {
                 "position": "Parallel Gateway1",
-                "substate": null,
                 "owningProcessId": "myPid1"
             },
             {
                 "position": "Parallel Gateway1",
-                "substate": null,
                 "owningProcessId": "myPid1"
             }
         ],

@@ -46,7 +46,6 @@ exports.testAndMerge = function(test) {
                 [
                     {
                         "position": "Start Event1",
-                        "substate": null,
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
@@ -62,12 +61,10 @@ exports.testAndMerge = function(test) {
                 [
                     {
                         "position": "Parallel Converging Gateway",
-                        "substate": null,
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     },
                     {
                         "position": "Start Event2",
-                        "substate": null,
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],
@@ -88,7 +85,6 @@ exports.testAndMerge = function(test) {
                 [
                     {
                         "position": "End Event",
-                        "substate": null,
                         "owningProcessId": "myFirstConvergingParallelGatewayProcess"
                     }
                 ],

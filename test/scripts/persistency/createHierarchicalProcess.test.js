@@ -39,7 +39,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
             [
                 {
                     "position": "MyCallActivity",
-                    "substate": null,
+                    "substate": {
+                        "tokens": [
+                            {
+                                "position": "MyTask",
+                                "owningProcessId": "mainPid1::MyCallActivity"
+                            }
+                        ]
+                    },
                     "calledProcessId": "mainPid1::MyCallActivity",
                     "owningProcessId": "mainPid1"
                 }
@@ -52,15 +59,21 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                 {
                     "processName": "MyProcess",
                     "processId": "mainPid1",
-                    "parentToken": null,
                     "data": {},
                     "state": {
                         "tokens": [
                             {
                                 "position": "MyCallActivity",
-                                "substate": null,
-                                "calledProcessId": "mainPid1::MyCallActivity",
-                                "owningProcessId": "mainPid1"
+                                "substate": {
+                                    "tokens": [
+                                        {
+                                            "position": "MyTask",
+                                            "owningProcessId": "mainPid1::MyCallActivity"
+                                        }
+                                    ]
+                                },
+                                "owningProcessId": "mainPid1",
+                                "calledProcessId": "mainPid1::MyCallActivity"
                             }
                         ]
                     },
@@ -86,17 +99,22 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                     "processId": "mainPid1::MyCallActivity",
                     "parentToken": {
                         "position": "MyCallActivity",
-                        "substate": null,
-                        "calledProcessId": "mainPid1::MyCallActivity",
-                        "owningProcessId": "mainPid1"
+                        "substate": {
+                            "tokens": [
+                                {
+                                    "position": "MyTask",
+                                    "owningProcessId": "mainPid1::MyCallActivity"
+                                }
+                            ]
+                        },
+                        "owningProcessId": "mainPid1",
+                        "calledProcessId": "mainPid1::MyCallActivity"
                     },
                     "data": {},
                     "state": {
                         "tokens": [
                             {
                                 "position": "MyTask",
-                                "substate": null,
-                                "calledProcessId": null,
                                 "owningProcessId": "mainPid1::MyCallActivity"
                             }
                         ]
@@ -130,16 +148,24 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
         if (loadedData.processId === "mainPid1") {
             var mainState = mainProcess.getState();
+            // compare this test to the analogous test in the else branch
             test.deepEqual(mainState.tokens,
                 [
                     {
                         "position": "MyCallActivity",
-                        "substate": null,
-                        "calledProcessId": "mainPid1::MyCallActivity",
-                        "owningProcessId": "mainPid1"
+                        "substate": {
+                            "tokens": [
+                                {
+                                    "position": "MyTask",
+                                    "owningProcessId": "mainPid1::MyCallActivity"
+                                }
+                            ]
+                        },
+                        "owningProcessId": "mainPid1",
+                        "calledProcessId": "mainPid1::MyCallActivity"
                     }
                 ],
-                "testCreatePersistentBPMNProcess: reached save state."
+                "testCreatePersistentBPMNProcess: call activity token after loading the persisted data."
             );
 
             test.deepEqual(loadedData,
@@ -152,9 +178,16 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         "tokens": [
                             {
                                 "position": "MyCallActivity",
-                                "substate": null,
-                                "calledProcessId": "mainPid1::MyCallActivity",
-                                "owningProcessId": "mainPid1"
+                                "substate": {
+                                    "tokens": [
+                                        {
+                                            "position": "MyTask",
+                                            "owningProcessId": "mainPid1::MyCallActivity"
+                                        }
+                                    ]
+                                },
+                                "owningProcessId": "mainPid1",
+                                "calledProcessId": "mainPid1::MyCallActivity"
                             }
                         ]
                     },
@@ -176,23 +209,49 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
         } else {
 
+            // we have now loaded the called process. This process should set the parent token
+            var mainState = mainProcess.getState();
+            test.deepEqual(mainState.tokens,
+                [
+                    {
+                        "position": "MyCallActivity",
+                        "substate": {
+                            "tokens": [
+                                {
+                                    "position": "MyTask",
+                                    "owningProcessId": "mainPid1::MyCallActivity"
+                                }
+                            ]
+                        },
+                        "owningProcessId": "mainPid1",
+                        "calledProcessId": "mainPid1::MyCallActivity"
+                    }
+                ],
+                "testCreatePersistentBPMNProcess: call activity token AFTER called process has been called."
+            );
+
             test.deepEqual(loadedData,
                 {
                     "processName": "TaskExampleProcess",
                     "processId": "mainPid1::MyCallActivity",
                     "parentToken": {
                         "position": "MyCallActivity",
-                        "substate": null,
-                        "calledProcessId": "mainPid1::MyCallActivity",
-                        "owningProcessId": "mainPid1"
+                        "substate": {
+                            "tokens": [
+                                {
+                                    "position": "MyTask",
+                                    "owningProcessId": "mainPid1::MyCallActivity"
+                                }
+                            ]
+                        },
+                        "owningProcessId": "mainPid1",
+                        "calledProcessId": "mainPid1::MyCallActivity"
                     },
                     "data": {},
                     "state": {
                         "tokens": [
                             {
                                 "position": "MyTask",
-                                "substate": null,
-                                "calledProcessId": null,
                                 "owningProcessId": "mainPid1::MyCallActivity"
                             }
                         ]
@@ -235,8 +294,6 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
-                        "calledProcessId": null,
                         "owningProcessId": "mainPid1::MyCallActivity"
                     }
                 ],
@@ -266,6 +323,9 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                 done(data);
             }
         },
+        "MyCallActivityDone": function(data, done) {
+            done(data);
+        },
         "MyEnd": function(data, done) {
             var history = this.getHistory();
             test.deepEqual(history.historyEntries,
@@ -274,7 +334,20 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                         "name": "MyStart"
                     },
                     {
-                        "name": "MyCallActivity"
+                        "name": "MyCallActivity",
+                        "subhistory": {
+                            "historyEntries": [
+                                {
+                                    "name": "MyStart"
+                                },
+                                {
+                                    "name": "MyTask"
+                                },
+                                {
+                                    "name": "MyEnd"
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "MyEnd"

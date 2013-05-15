@@ -29,7 +29,6 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "position": "Start Event",
-                        "substate": null,
                         "owningProcessId": "myIntermediateCatchEventTestProcess"
                     }
                 ],
@@ -43,7 +42,6 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "position": "My Intermediate Catch Event",
-                        "substate": null,
                         "owningProcessId": "myIntermediateCatchEventTestProcess"
                     }
                 ],
@@ -57,7 +55,6 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "position": "End Event",
-                        "substate": null,
                         "owningProcessId": "myIntermediateCatchEventTestProcess"
                     }
                 ],

@@ -22,7 +22,6 @@ exports.testCreateVolatileBPMNProcess = function(test) {
             [
                 {
                     "position": "MyTask",
-                    "substate": null,
                     "owningProcessId": "myid"
                 }
             ],

@@ -33,7 +33,6 @@ exports.testBPMNTimeout = function(test) {
                 [
                     {
                         "position": "MyStart",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
@@ -47,7 +46,6 @@ exports.testBPMNTimeout = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
@@ -90,7 +88,6 @@ exports.testBPMNTimeout = function(test) {
                 [
                     {
                         "position": "MyEnd",
-                        "substate": null,
                         "owningProcessId": "myFirstProcess"
                     }
                 ],

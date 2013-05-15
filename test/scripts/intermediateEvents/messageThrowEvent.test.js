@@ -29,7 +29,6 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "position": "MyStart",
-                        "substate": null,
                         "owningProcessId": "myIntermediateThrowEventProcess"
                     }
                 ],
@@ -43,7 +42,6 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "position": "Intermediate Message Event",
-                        "substate": null,
                         "owningProcessId": "myIntermediateThrowEventProcess"
                     }
                 ],
@@ -58,7 +56,6 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "position": "MyEnd",
-                        "substate": null,
                         "owningProcessId": "myIntermediateThrowEventProcess"
                     }
                 ],
