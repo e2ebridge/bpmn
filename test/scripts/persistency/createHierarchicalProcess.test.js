@@ -26,7 +26,7 @@ processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-exports.testCreatePersistentBPMNProcess = function(test) {
+exports.testCreatePersistentHierarchicalProcess = function(test) {
     var mainProcess;
     var handler = {
         "MyStart": function(data, done) {
@@ -60,7 +60,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     fileUtilsModule.cleanDirectorySync(persistencyPath);
 
     handler.doneSavingHandler = function(error, savedData) {
-        test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
+        test.ok(error === null, "testCreatePersistentHierarchicalProcess: no error saving.");
 
         compareSavedStateAtMyTask(mainProcess, savedData, test);
 
@@ -68,7 +68,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     };
 
     handler.doneLoadingHandler = function(error, loadedData) {
-        test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
+        test.ok(error === undefined || error === null, "testCreatePersistentHierarchicalProcess: no error loading.");
 
         compareLoadedStateAtMyTask(mainProcess, loadedData, test);
 
@@ -83,12 +83,12 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 
 function testProcessRemovalFromCache(mainProcess, done, test) {
     var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getFromCache(mainProcess.processId);
-    test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentBPMNProcess: before handler done() call: is process in cache.");
+    test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentHierarchicalProcess: before handler done() call: is process in cache.");
 
     done();
 
     var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getFromCache(mainProcess.processId);
-    test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentBPMNProcess: after handler done() call: is process in cache.");
+    test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentHierarchicalProcess: after handler done() call: is process in cache.");
 }
 
 function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
@@ -140,8 +140,14 @@ function compareSavedStateAtMyTask(mainProcess, savedData, test) {
                 "owningProcessId": "mainPid1"
             }
         ],
-        "testCreatePersistentBPMNProcess: state at MyTask."
+        "testCreatePersistentHierarchicalProcess: state at MyTask."
     );
+
+    test.ok(savedData._saved !== undefined, "testCreatePersistentHierarchicalProcess: saving: _saved exists");
+    savedData._saved = "FIXEDTIMESTAMP4TESTING";
+
+    test.ok(savedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: saving: _updated exists");
+    savedData._updated = "FIXEDTIMESTAMP4TESTING";
 
     test.deepEqual(savedData,
         {
@@ -187,9 +193,11 @@ function compareSavedStateAtMyTask(mainProcess, savedData, test) {
                 ]
             },
             "eventName2TimeoutMap": {},
-            "_id": 1
+            "_id": 1,
+            "_saved": "FIXEDTIMESTAMP4TESTING",
+            "_updated": "FIXEDTIMESTAMP4TESTING"
         },
-        "testCreatePersistentBPMNProcess: savedData."
+        "testCreatePersistentHierarchicalProcess: savedData."
     );
 }
 
@@ -212,8 +220,14 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                 "calledProcessId": "mainPid1::MyCallActivity"
             }
         ],
-        "testCreatePersistentBPMNProcess: afterLoading: process tokens"
+        "testCreatePersistentHierarchicalProcess: afterLoading: process tokens"
     );
+
+    test.ok(loadedData._saved !== undefined, "testCreatePersistentHierarchicalProcess: loading: _saved exists");
+    loadedData._saved = "FIXEDTIMESTAMP4TESTING";
+
+    test.ok(loadedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: loading: _updated exists");
+    loadedData._updated = "FIXEDTIMESTAMP4TESTING";
 
     test.deepEqual(loadedData,
         {
@@ -259,15 +273,17 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                 ]
             },
             "eventName2TimeoutMap": {},
-            "_id": 1
+            "_id": 1,
+            "_saved": "FIXEDTIMESTAMP4TESTING",
+            "_updated": "FIXEDTIMESTAMP4TESTING"
         },
-        "testCreatePersistentBPMNProcess: loadedData"
+        "testCreatePersistentHierarchicalProcess: loadedData"
     );
 
 
     var calledProcessId = "mainPid1::MyCallActivity";
     var calledProcess = mainProcess.calledProcesses[calledProcessId];
-    test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentBPMNProcess: calledProcess exists");
+    test.ok(calledProcess !== undefined && calledProcess !== null, "testCreatePersistentHierarchicalProcess: calledProcess exists");
 
     var history = calledProcess.getHistory();
     test.deepEqual(history.historyEntries,
@@ -279,7 +295,7 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                 "name": "MyTask"
             }
         ],
-        "testCreatePersistentBPMNProcess: afterLoading: history"
+        "testCreatePersistentHierarchicalProcess: afterLoading: history"
     );
 
     var calledProcessState = calledProcess.getState();
@@ -290,7 +306,7 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                 "owningProcessId": "mainPid1::MyCallActivity"
             }
         ],
-        "testCreatePersistentBPMNProcess: afterLoading: called process state"
+        "testCreatePersistentHierarchicalProcess: afterLoading: called process state"
     );
 }
 

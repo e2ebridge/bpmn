@@ -6,21 +6,20 @@
 var pathModule = require('path');
 var fileUtilsModule = require('../../../lib/utils/file.js');
 var publicModule = require('../../../lib/public.js');
-var Persistency = require('../../../lib/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
 
-exports.testCreatePersistentBPMNProcess = function(test) {
+exports.testCreatePersistentFlatProcess = function(test) {
     var bpmnProcess;
 
     var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testPersistentProcess');
     fileUtilsModule.cleanDirectorySync(persistencyPath);
 
     var savedState = function(error, savedData) {
-        test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
+        test.ok(error === null, "testCreatePersistentFlatProcess: no error saving.");
 
         var state = bpmnProcess.getState();
         test.deepEqual(state.tokens,
@@ -30,8 +29,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                     "owningProcessId": "myid"
                 }
             ],
-            "testCreatePersistentBPMNProcess: reached first wait state."
+            "testCreatePersistentFlatProcess: reached first wait state."
         );
+
+        test.ok(savedData._saved !== undefined, "testCreatePersistentFlatProcess: saving: _saved exists");
+        savedData._saved = "FIXEDTIMESTAMP4TESTING";
+
+        test.ok(savedData._updated !== undefined, "testCreatePersistentFlatProcess: saving: _updated exists");
+        savedData._updated = "FIXEDTIMESTAMP4TESTING";
 
         test.deepEqual(savedData,
             {
@@ -58,9 +63,11 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                     ]
                 },
                 "eventName2TimeoutMap": {},
-                "_id": 1
+                "_id": 1,
+                "_saved": "FIXEDTIMESTAMP4TESTING",
+                "_updated": "FIXEDTIMESTAMP4TESTING"
             },
-            "testCreatePersistentBPMNProcess: saved data."
+            "testCreatePersistentFlatProcess: saved data."
         );
 
         // this points to the process client interface and not to the process directly
@@ -68,7 +75,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     };
 
     var loadedState = function(error, loadedData) {
-        test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
+        test.ok(error === undefined || error === null, "testCreatePersistentFlatProcess: no error loading.");
 
         var state = bpmnProcess.getState();
         test.deepEqual(state.tokens,
@@ -78,8 +85,14 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                     "owningProcessId": "myid"
                 }
             ],
-            "testCreatePersistentBPMNProcess: reached save state."
+            "testCreatePersistentFlatProcess: reached save state."
         );
+
+        test.ok(loadedData._saved !== undefined, "testCreatePersistentFlatProcess: loading: _saved exists");
+        loadedData._saved = "FIXEDTIMESTAMP4TESTING";
+
+        test.ok(loadedData._updated !== undefined, "testCreatePersistentFlatProcess: loading: _updated exists");
+        loadedData._updated = "FIXEDTIMESTAMP4TESTING";
 
         test.deepEqual(loadedData,
             {
@@ -106,9 +119,11 @@ exports.testCreatePersistentBPMNProcess = function(test) {
                     ]
                 },
                 "eventName2TimeoutMap": {},
-                "_id": 1
+                "_id": 1,
+                "_saved": "FIXEDTIMESTAMP4TESTING",
+                "_updated": "FIXEDTIMESTAMP4TESTING"
             },
-            "testCreatePersistentBPMNProcess: loaded data."
+            "testCreatePersistentFlatProcess: loaded data."
         );
 
         test.done();

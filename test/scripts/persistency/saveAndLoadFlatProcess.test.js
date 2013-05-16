@@ -24,7 +24,7 @@ var persistency = new Persistency({path: persistencyPath});
 var processId = "myPersistentProcess_1";
 var testPropertyName = "myprop";
 
-exports.testPersistSimpleBPMNProcess = function(test) {
+exports.testPersistSimpleProcess = function(test) {
 
     persistency.cleanAllSync();
 
@@ -37,7 +37,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
-                "testPersistSimpleBPMNProcess: state at MyTask BEFORE SAVING"
+                "testPersistSimpleProcess: state at MyTask BEFORE SAVING"
             );done(data);
         },
         "MyTask": function(data, done) {
@@ -48,7 +48,7 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
-                "testPersistSimpleBPMNProcess: state at MyTask BEFORE SAVING"
+                "testPersistSimpleProcess: state at MyTask BEFORE SAVING"
             );
             this.setProperty("anAdditionalProperty", "Value of an additional property");
 
@@ -56,9 +56,15 @@ exports.testPersistSimpleBPMNProcess = function(test) {
         },
         "doneSavingHandler": function(error, savedData) {
             if (error) {
-                test.ok(false, "testPersistSimpleBPMNProcess: error at saving SAVING");
+                test.ok(false, "testPersistSimpleProcess: error at saving SAVING");
                 test.done();
             }
+
+            test.ok(savedData._saved !== undefined, "testPersistSimpleProcess: _saved exists");
+            savedData._saved = "FIXEDTIMESTAMP4TESTING";
+
+            test.ok(savedData._updated !== undefined, "testPersistSimpleProcess: _updated exists");
+            savedData._updated = "FIXEDTIMESTAMP4TESTING";
 
             test.deepEqual(savedData,
                 {
@@ -90,9 +96,11 @@ exports.testPersistSimpleBPMNProcess = function(test) {
                         ]
                     },
                     "eventName2TimeoutMap": {},
-                    "_id": 1
+                    "_id": 1,
+                    "_saved": "FIXEDTIMESTAMP4TESTING",
+                    "_updated": "FIXEDTIMESTAMP4TESTING"
                 },
-                "testPersistSimpleBPMNProcess: saved data"
+                "testPersistSimpleProcess: saved data"
             );
 
             test.done();
@@ -117,7 +125,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
                         "owningProcessId": "myPersistentProcess_1"
                     }
                 ],
-                "testPersistSimpleBPMNProcess: state at MyTask AFTER LOADING"
+                "testPersistSimpleProcess: state at MyTask AFTER LOADING"
             );
             // data is not in the process client interface. Thus, we have to use the process instance to get it
             test.deepEqual(newBpmnProcess.data,
@@ -127,7 +135,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
                     },
                     "anAdditionalProperty": "Value of an additional property"
                 },
-                "testPersistSimpleBPMNProcess: data at MyTask AFTER LOADING"
+                "testPersistSimpleProcess: data at MyTask AFTER LOADING"
             );
             done(data);
         },
@@ -158,7 +166,9 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             test.done();
         }
 
-        test.equal(loadedData._id, 1, "testLoadSimpleBPMNProcess: _id");
+        test.equal(loadedData._id, 1, "testLoadSimpleBPMNProcess: _id ok");
+        test.ok(loadedData._saved !== undefined, "testLoadSimpleBPMNProcess: _saved exists");
+        test.ok(loadedData._updated !== undefined, "testLoadSimpleBPMNProcess: _updated exists");
         test.equal(loadedData.processId, "myPersistentProcess_1", "testLoadSimpleBPMNProcess:processIdd");
         test.deepEqual(loadedData.history.historyEntries,
             [
