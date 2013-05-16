@@ -10,7 +10,7 @@ exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    publicModule.clearActiveProcessesCache();
+    publicModule.clearCache();
     var bpmnProcess = publicModule.createProcess("myid", fileName);
 
     bpmnProcess.sendEvent("MyStart");

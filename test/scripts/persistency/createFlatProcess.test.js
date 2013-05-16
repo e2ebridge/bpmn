@@ -115,7 +115,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     };
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    publicModule.clearActiveProcessesCache();
+    publicModule.clearCache();
     var persistencyOptions = {
         persistencyPath: persistencyPath,
         doneSaving: savedState,

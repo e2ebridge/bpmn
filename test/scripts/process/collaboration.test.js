@@ -7,7 +7,7 @@ var pathModule = require('path');
 var publicModule = require('../../../lib/public.js');
 
 exports.testSendingWrongEventInCollaboration = function(test) {
-    publicModule.clearActiveProcessesCache();
+    publicModule.clearCache();
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
     var processDescriptors = [
@@ -27,7 +27,7 @@ exports.testSendingWrongEventInCollaboration = function(test) {
 };
 
 exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
-    publicModule.clearActiveProcessesCache();
+    publicModule.clearCache();
 
     var fileName = pathModule.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
     var processDescriptors = [

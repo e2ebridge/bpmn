@@ -82,12 +82,12 @@ exports.testCreatePersistentBPMNProcess = function(test) {
 };
 
 function testProcessRemovalFromCache(mainProcess, done, test) {
-    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getFromActiveProcessesCache(mainProcess.processId);
+    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getFromCache(mainProcess.processId);
     test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentBPMNProcess: before handler done() call: is process in cache.");
 
     done();
 
-    var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getFromActiveProcessesCache(mainProcess.processId);
+    var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getFromCache(mainProcess.processId);
     test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentBPMNProcess: after handler done() call: is process in cache.");
 }
 

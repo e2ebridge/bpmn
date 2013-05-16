@@ -8,7 +8,7 @@ var pathModule = require('path');
 
 exports.testGetOneBPMNProcessDefinition = function(test) {
     var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmnDefinitionsModule.clearBPMNDefinitionsCache();
+    bpmnDefinitionsModule.clearCache();
     var processDefinition = bpmnDefinitionsModule.getBPMNProcessDefinition(fileName);
     test.deepEqual(processDefinition,
         {
@@ -71,7 +71,7 @@ exports.testGetOneBPMNProcessDefinition = function(test) {
 
 exports.testGetAllBPMNProcessDefinitions = function(test) {
     var fileName = pathModule.join(__dirname, "../../resources/bpmn/pool.bpmn");
-    bpmnDefinitionsModule.clearBPMNDefinitionsCache();
+    bpmnDefinitionsModule.clearCache();
     var processDefinitions = bpmnDefinitionsModule.getBPMNProcessDefinitions(fileName);
     test.deepEqual(processDefinitions,
         [
@@ -306,7 +306,7 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
 
 exports.testGetAllBPMNCollaborationDefinitions = function(test) {
     var fileName = pathModule.join(__dirname, "../../resources/bpmn/pool.bpmn");
-    bpmnDefinitionsModule.clearBPMNDefinitionsCache();
+    bpmnDefinitionsModule.clearCache();
     var collaborationDefinitions = bpmnDefinitionsModule.getBPMNCollaborationDefinitions(fileName);
     test.deepEqual(collaborationDefinitions,
         [
