@@ -51,7 +51,8 @@ exports.testCreatePersistentBPMNProcess = function(test) {
         },
         "MyEnd": function(data, done) {
             compareHistoryEntryAtEndOfProcess(this, test);
-            done(data);
+            testProcessRemovalFromCache(mainProcess, done, test);
+
             test.done();
         }
     };
@@ -61,7 +62,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     handler.doneSavingHandler = function(error, savedData) {
         test.ok(error === null, "testCreatePersistentBPMNProcess: no error saving.");
 
-        compareSavedDataAtMyTask(mainProcess, savedData, test);
+        compareSavedStateAtMyTask(mainProcess, savedData, test);
 
         mainProcess.loadPersistedData();
     };
@@ -69,7 +70,7 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     handler.doneLoadingHandler = function(error, loadedData) {
         test.ok(error === undefined || error === null, "testCreatePersistentBPMNProcess: no error loading.");
 
-        compareLoadedDataAtMyTask(mainProcess, loadedData, test);
+        compareLoadedStateAtMyTask(mainProcess, loadedData, test);
 
         var calledProcessId = "mainPid1::MyCallActivity";
         var calledProcess = mainProcess.calledProcesses[calledProcessId];
@@ -79,6 +80,16 @@ exports.testCreatePersistentBPMNProcess = function(test) {
     mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
     mainProcess.sendEvent("MyStart");
 };
+
+function testProcessRemovalFromCache(mainProcess, done, test) {
+    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getFromActiveProcessesCache(mainProcess.processId);
+    test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentBPMNProcess: before handler done() call: is process in cache.");
+
+    done();
+
+    var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getFromActiveProcessesCache(mainProcess.processId);
+    test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentBPMNProcess: after handler done() call: is process in cache.");
+}
 
 function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
     var history = mainProcess.getHistory();
@@ -111,7 +122,7 @@ function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
     );
 }
 
-function compareSavedDataAtMyTask(mainProcess, savedData, test) {
+function compareSavedStateAtMyTask(mainProcess, savedData, test) {
     var state = mainProcess.getState();
     test.deepEqual(state.tokens,
         [
@@ -182,7 +193,7 @@ function compareSavedDataAtMyTask(mainProcess, savedData, test) {
     );
 }
 
-function compareLoadedDataAtMyTask(mainProcess, loadedData, test) {
+function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
     var mainState = mainProcess.getState();
 
     test.deepEqual(mainState.tokens,
