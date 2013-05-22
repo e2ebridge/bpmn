@@ -34,26 +34,20 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                 ],
                 "testIncorrectTaskDoneEvent: state at MyStart"
             );
-            done(data);
-        },
-        "MyTask": function(data, done) {
-            var state = this.getState();
-            test.deepEqual(state.tokens,
-                [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "myFirstProcess"
-                    }
-                ],
-                "testIncorrectTaskDoneEvent: state at MyTask"
-            );
-            this.data = {myproperty: "blah"};
-            done(data);
 
             bpmnProcess.taskDone("MyTask");
+
+            // NOTE: IF we called test.done() we would continue to MyTask!
+            // TODO_CONTINUE: do we want to do this?
+            //done(data);
+        },
+        "MyTask": function(data, done) {
+            test.ok(false, "testIncorrectTaskDoneEvent: we should never reach the MyTask handler.");
+            test.done();
+            done(data);
         },
         "MyTaskDone": function(data, done) {
-            test.ok(false, "testIncorrectTaskDoneEvent: we should never reach this");
+            test.ok(false, "testIncorrectTaskDoneEvent: we should never reach the MyTaskDone handler.");
             test.done();
             done(data);
         },
@@ -61,19 +55,17 @@ exports.testIncorrectTaskDoneEvent = function(test) {
             test.equal(eventType, "activityEndEvent", "testIncorrectTaskDoneEvent: defaultEventHandler: eventType");
             test.equal(flowObjectName, "MyTask", "testIncorrectTaskDoneEvent: defaultEventHandler: flowObjectName");
             test.equal(handlerName, "MyTaskDone", "testIncorrectTaskDoneEvent: defaultEventHandler: handlerName");
-            test.equal(reason, "Found no outgoing flow.", "testIncorrectTaskDoneEvent: defaultEventHandler: reason");
+            test.equal(reason, "Process cannot handle this activity because it is not currently executed.",
+                "testIncorrectTaskDoneEvent: defaultEventHandler: reason");
 
             var history = this.getHistory();
             test.deepEqual(history.historyEntries,
                 [
                     {
                         "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
                     }
                 ],
-                "testIncorrectTaskDoneEvent: history at MyEnd"
+                "testIncorrectTaskDoneEvent: history in defaultEventHandler"
             );
 
             test.done();
