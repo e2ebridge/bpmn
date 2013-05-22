@@ -34,7 +34,7 @@ exports.testParseBPMNServiceTask = function(test) {
                         "type": "serviceTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": false
+                        "isWaitTask": false
                     }
                 ],
                 "sequenceFlows": [

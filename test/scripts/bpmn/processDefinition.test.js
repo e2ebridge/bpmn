@@ -27,7 +27,7 @@ exports.testGetFlowObject = function(test) {
             "type": "task",
             "isFlowObject": true,
             "isActivity": true,
-            "isWaitActivity": true
+            "isWaitTask": true
         },
         "testGetFlowObject");
 

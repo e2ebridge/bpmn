@@ -203,7 +203,7 @@ exports.testParseCollaborationsBetweenPools = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_6",
@@ -272,7 +272,7 @@ exports.testParseCollaborationsBetweenPools = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_9",
@@ -325,7 +325,7 @@ exports.testParseCollaborationsBetweenPools = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_18",

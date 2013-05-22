@@ -29,7 +29,7 @@ exports.testParseBPMNTimeout = function(test) {
                     "type": "task",
                     "isFlowObject": true,
                     "isActivity": true,
-                    "isWaitActivity": true
+                    "isWaitTask": true
                 },
                 {
                     "bpmnId": "_5",

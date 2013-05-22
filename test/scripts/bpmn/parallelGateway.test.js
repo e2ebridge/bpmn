@@ -111,7 +111,7 @@ exports.testParseAndGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_6",
@@ -119,7 +119,7 @@ exports.testParseAndGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     }
                 ],
                 "sequenceFlows": [

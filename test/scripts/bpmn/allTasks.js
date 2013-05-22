@@ -20,7 +20,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_3",
@@ -28,7 +28,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "sendTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": false
+                        "isWaitTask": false
                     },
                     {
                         "bpmnId": "_4",
@@ -36,7 +36,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "receiveTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_7",
@@ -44,7 +44,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "serviceTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": false
+                        "isWaitTask": false
                     },
                     {
                         "bpmnId": "_8",
@@ -52,7 +52,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "userTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_9",
@@ -60,7 +60,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "manualTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_10",
@@ -68,7 +68,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "scriptTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": false
+                        "isWaitTask": false
                     },
                     {
                         "bpmnId": "_11",
@@ -76,7 +76,7 @@ exports.testParseBPMNAllTasks = function(test) {
                         "type": "businessRuleTask",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": false
+                        "isWaitTask": false
                     }
                 ],
                 "sequenceFlows": [],

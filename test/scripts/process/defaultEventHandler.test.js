@@ -58,7 +58,7 @@ exports.testIncorrectTaskDoneEvent = function(test) {
             done(data);
         },
         "defaultEventHandler": function(eventType, flowObjectName, handlerName, reason) {
-            test.equal(eventType, "activityFinishedEvent", "testIncorrectTaskDoneEvent: defaultEventHandler: eventType");
+            test.equal(eventType, "finishedActivityEvent", "testIncorrectTaskDoneEvent: defaultEventHandler: eventType");
             test.equal(flowObjectName, "MyTask", "testIncorrectTaskDoneEvent: defaultEventHandler: flowObjectName");
             test.equal(handlerName, "MyTaskDone", "testIncorrectTaskDoneEvent: defaultEventHandler: handlerName");
             test.equal(reason, "Found no outgoing flow.", "testIncorrectTaskDoneEvent: defaultEventHandler: reason");

@@ -26,8 +26,7 @@ exports.testParseBPMNIntermediateCatchEvent = function(test) {
                         "name": "Intermediate Catch Event",
                         "type": "intermediateCatchEvent",
                         "isFlowObject": true,
-                        "isIntermediateCatchEvent": true,
-                        "isWaitEvent": true
+                        "isIntermediateCatchEvent": true
                     },
                     {
                         "bpmnId": "_5",

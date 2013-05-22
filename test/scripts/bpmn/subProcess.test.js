@@ -27,7 +27,6 @@ exports.testParseBPMNSubProcess = function(test) {
                         "type": "subProcess",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": false,
                         "isSubProcess": true,
                         "processDefinition": {
                             "bpmnId": "_3",
@@ -46,7 +45,7 @@ exports.testParseBPMNSubProcess = function(test) {
                                     "type": "task",
                                     "isFlowObject": true,
                                     "isActivity": true,
-                                    "isWaitActivity": true
+                                    "isWaitTask": true
                                 },
                                 {
                                     "bpmnId": "_7",

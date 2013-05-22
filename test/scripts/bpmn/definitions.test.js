@@ -28,7 +28,7 @@ exports.testGetOneBPMNProcessDefinition = function(test) {
                     "type": "task",
                     "isFlowObject": true,
                     "isActivity": true,
-                    "isWaitActivity": true
+                    "isWaitTask": true
                 },
                 {
                     "bpmnId": "_5",
@@ -92,7 +92,7 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_6",
@@ -177,7 +177,7 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_9",
@@ -246,7 +246,7 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_18",

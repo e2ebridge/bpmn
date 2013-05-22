@@ -104,7 +104,7 @@ exports.testParseXorGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_5",
@@ -119,7 +119,7 @@ exports.testParseXorGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_9",
@@ -127,7 +127,7 @@ exports.testParseXorGateway = function(test) {
                         "type": "task",
                         "isFlowObject": true,
                         "isActivity": true,
-                        "isWaitActivity": true
+                        "isWaitTask": true
                     },
                     {
                         "bpmnId": "_11",
