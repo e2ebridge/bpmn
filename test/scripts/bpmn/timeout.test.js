@@ -66,9 +66,12 @@ exports.testParseBPMNTimeout = function(test) {
                     "isSequenceFlow": true
                 }
             ],
+            "messageFlows": [],
             "processElementIndex": null,
             "sequenceFlowBySourceIndex": null,
             "sequenceFlowByTargetIndex": null,
+            "messageFlowBySourceIndex": null,
+            "messageFlowByTargetIndex": null,
             "boundaryEventsByAttachmentIndex": null,
             "nameMap": null,
             "isProcessDefinition": true,

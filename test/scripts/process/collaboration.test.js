@@ -40,6 +40,40 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
     var secondProcess = collaboratingProcesses[1];
     secondProcess.sendEvent("Start Event 2");
 
+    var firstProcessDefinition = firstProcess.getProcessDefinition();
+    var endEvent1 = firstProcessDefinition.getFlowObjectByName("End Event 1");
+    var outgoingMessageFlows = firstProcessDefinition.getOutgoingMessageFlows(endEvent1);
+    test.deepEqual(outgoingMessageFlows,
+        [
+            {
+                "bpmnId": "_26",
+                "name": "MY_MESSAGE",
+                "type": "messageFlow",
+                "sourceRef": "_6",
+                "targetRef": "_22",
+                "targetProcessDefinitionId": "PROCESS_2",
+                "sourceProcessDefinitionId": "PROCESS_1"
+            }
+        ],
+        "testCreateVolatileCollaborationOfBPMNProcesses: outgoingMessageFlows of endEvent1");
+
+    var secondProcessDefinition = secondProcess.getProcessDefinition();
+    var intermediateCatchEvent = secondProcessDefinition.getFlowObjectByName("Catch MY_MESSAGE");
+    var incomingMessageFlows = secondProcessDefinition.getIncomingMessageFlows(intermediateCatchEvent);
+    test.deepEqual(incomingMessageFlows,
+        [
+            {
+                "bpmnId": "_26",
+                "name": "MY_MESSAGE",
+                "type": "messageFlow",
+                "sourceRef": "_6",
+                "targetRef": "_22",
+                "targetProcessDefinitionId": "PROCESS_2",
+                "sourceProcessDefinitionId": "PROCESS_1"
+            }
+        ],
+        "testCreateVolatileCollaborationOfBPMNProcesses: incomingMessageFlows of intermediateCatchEvent");
+
     process.nextTick(function() {
         var firstHistory = firstProcess.getHistory();
         test.deepEqual(firstHistory,
@@ -69,7 +103,7 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
                         "name": "Task 2"
                     },
                     {
-                        "name": "Catch End Event 1"
+                        "name": "Catch MY_MESSAGE"
                     },
                     {
                         "name": "End Event 2"

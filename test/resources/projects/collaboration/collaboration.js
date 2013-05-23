@@ -18,8 +18,8 @@ exports.Task_1 = function(data, done) {
 
 exports.End_Event_1 = function(data, done) {
     log("End_Event_1");
-    var partnerProcess = this.getParticipantByName("My Second Process");
-    partnerProcess.sendEvent("Catch End Event 1");
+    var messageFlows = this.getOutgoingMessageFlows("End Event 1");
+    this.sendMessage(messageFlows[0], {gugus: "blah"});
     done(data);
 };
 
@@ -40,7 +40,7 @@ exports.End_Event_2 = function(data, done) {
     done(data);
 };
 
-exports.Catch_End_Event_1 = function(data, done) {
-    log("Catch_End_Event_1");
+exports.Catch_MY_MESSAGE = function(data, done) {
+    log("Catch_MY_MESSAGE");
     done(data);
 };

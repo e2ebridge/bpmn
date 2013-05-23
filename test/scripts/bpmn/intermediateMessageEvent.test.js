@@ -57,9 +57,12 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                         "isSequenceFlow": true
                     }
                 ],
+                "messageFlows": [],
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
+                "messageFlowBySourceIndex": null,
+                "messageFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
                 "nameMap": null,
                 "isProcessDefinition": true,
@@ -82,14 +85,18 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                         "name": null,
                         "type": "messageFlow",
                         "sourceRef": "_7",
-                        "targetRef": "_2"
+                        "targetRef": "_2",
+                        "targetProcessDefinitionId": null,
+                        "sourceProcessDefinitionId": null
                     },
                     {
                         "bpmnId": "_9",
                         "name": null,
                         "type": "messageFlow",
                         "sourceRef": "_4",
-                        "targetRef": "_7"
+                        "targetRef": "_7",
+                        "targetProcessDefinitionId": null,
+                        "sourceProcessDefinitionId": null
                     }
                 ],
                 "isCollaborationDefinition": true

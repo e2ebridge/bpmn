@@ -8,16 +8,24 @@ var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
-var pathModule = require('path');
 
-exports.testGetFlowObject = function(test) {
+exports.testProcessDefinitionsAPI = function(test) {
 
+    var startEventObject = new BPMNStartEvent("_2", "MyStart", "startEvent");
+    var endEventObject = new BPMNEndEvent("_5", "MyEnd", "endEvent");
+    
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(startEventObject);
     processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
+    processDefinition.addFlowObject(endEventObject);
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
+
+    var hasOutgoingSequenceFlows1 = processDefinition.hasOutgoingSequenceFlows(startEventObject);
+    test.ok(hasOutgoingSequenceFlows1, "testProcessDefinitionsAPI: hasOutgoingSequenceFlows: true");
+
+    var hasOutgoingSequenceFlows2 = processDefinition.hasOutgoingSequenceFlows(endEventObject);
+    test.ok(!hasOutgoingSequenceFlows2, "testProcessDefinitionsAPI: hasOutgoingSequenceFlows: false");
 
     var flowObject = processDefinition.getProcessElement("_3");
     test.deepEqual(flowObject,
@@ -29,7 +37,7 @@ exports.testGetFlowObject = function(test) {
             "isActivity": true,
             "isWaitTask": true
         },
-        "testGetFlowObject");
+        "testProcessDefinitionsAPI: getProcessElement");
 
     var nextFlowObjects = processDefinition.getNextFlowObjects(flowObject);
     test.deepEqual(nextFlowObjects,
@@ -42,7 +50,7 @@ exports.testGetFlowObject = function(test) {
                 "isEndEvent": true
             }
         ],
-        "testGetNextFlowObjects");
+        "testProcessDefinitionsAPI: getNextFlowObjects");
 
     test.done();
 };

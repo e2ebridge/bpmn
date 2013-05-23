@@ -181,7 +181,7 @@ These processes must be created together:
     var secondProcess = collaboratingProcesses[1];
     secondProcess.sendEvent("Start Event 2");
 
-The collaboration of the processes is then implemented in the handlers. For example:
+The collaboration of the processes is then implemented in the handlers. For example, it is possible to get a partner process by name and then send an event to this process. This is frequently done to start the partner process:
 
 	exports.Task_2 = function(data, done) {
     	// after arriving ot "Task 2" we start process 1
@@ -190,10 +190,12 @@ The collaboration of the processes is then implemented in the handlers. For exam
     	done(data);
 	};
 
+However, another option is to get all outgoing message flows and send a message along these flows. In the current example we have exactly one flow, so sending the message is done by:
+
 	exports.End_Event_1 = function(data, done) {
-    	// after reaching the end of process 1, we send an event to the second process
-    	var partnerProcess = this.getParticipantByName("My Second Process");
-    	partnerProcess.sendEvent("Catch End Event 1");
+    	// after reaching the end of process 1, we send a message
+    	var messageFlows = this.getOutgoingMessageFlows("End Event 1");
+    	this.sendMessage(messageFlows[0], {gugus: "blah"});
     	done(data);
 	};
 
