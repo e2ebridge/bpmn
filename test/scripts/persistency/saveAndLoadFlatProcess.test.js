@@ -217,7 +217,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
         test.deepEqual(deferredEvents,
             [
                 {
-                    "type": "activityEndEvent",
+                    "type": "ACTIVITY_END_EVENT",
                     "name": "MyTask",
                     "data": {}
                 }

@@ -52,7 +52,7 @@ exports.testIncorrectTaskDoneEvent = function(test) {
             done(data);
         },
         "defaultEventHandler": function(eventType, flowObjectName, handlerName, reason) {
-            test.equal(eventType, "activityEndEvent", "testIncorrectTaskDoneEvent: defaultEventHandler: eventType");
+            test.equal(eventType, "ACTIVITY_END_EVENT", "testIncorrectTaskDoneEvent: defaultEventHandler: eventType");
             test.equal(flowObjectName, "MyTask", "testIncorrectTaskDoneEvent: defaultEventHandler: flowObjectName");
             test.equal(handlerName, "MyTaskDone", "testIncorrectTaskDoneEvent: defaultEventHandler: handlerName");
             test.equal(reason, "Process cannot handle this activity because it is not currently executed.",
