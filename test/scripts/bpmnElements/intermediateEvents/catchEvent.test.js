@@ -3,13 +3,13 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnProcessModule = require('../../../lib/process.js');
-var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNIntermediateCatchEvent = require("../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
+var bpmnProcessModule = require('../../../../lib/process.js');
+var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+var BPMNIntermediateCatchEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
 
 
 exports.testIntermediateThrowEvent = function(test) {

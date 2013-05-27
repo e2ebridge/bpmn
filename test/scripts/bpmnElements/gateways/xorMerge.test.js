@@ -3,14 +3,14 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnProcessModule = require('../../../lib/process.js');
-var Persistency = require('../../../lib/persistency.js').Persistency;
-var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNExclusiveGateway = require("../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
+var bpmnProcessModule = require('../../../../lib/process.js');
+var Persistency = require('../../../../lib/persistency.js').Persistency;
+var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+var BPMNExclusiveGateway = require("../../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
 
 exports.testXorMerge = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");

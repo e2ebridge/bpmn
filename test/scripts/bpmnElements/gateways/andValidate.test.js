@@ -3,13 +3,13 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNParallelGateway = require("../../../lib/parsing/gateways.js").BPMNParallelGateway;
-var errorQueueModule = require("../../../lib/errors.js");
+var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+var BPMNParallelGateway = require("../../../../lib/parsing/gateways.js").BPMNParallelGateway;
+var errorQueueModule = require("../../../../lib/errors.js");
 
 exports.testParallelGatewayValidate_OK = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcessWithParallelGateway");
