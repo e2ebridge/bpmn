@@ -3,12 +3,12 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNBoundaryEvent = require("../../../lib/bpmn/boundaryEvents.js").BPMNBoundaryEvent;
+var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+var BPMNBoundaryEvent = require("../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
 var errorQueueModule = require("../../../lib/errors.js");
 
 exports.testBPMNMessageBoundaryEventValidate_OK = function(test) {

@@ -3,18 +3,18 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../lib/bpmn/parser.js');
+var bpmnParserModule = require('../../../lib/parsing/parser.js');
 
-exports.testParseBPMNMessageBoundaryEvent = function(test) {
+exports.testParseBPMNTimeout = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/messageBoundaryEvent.bpmn");
-    test.equal(bpmnProcessDefinitions.length, 1, "testParseBPMNMessageBoundaryEvent: number of processDefinitions");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/timeout.bpmn");
+    test.equal(bpmnProcessDefinitions.length, 1, "testParseBPMNTimeout: number of processDefinitions");
     var bpmnProcessDefinition = bpmnProcessDefinitions[0];
 
     test.deepEqual(bpmnProcessDefinition,
         {
             "bpmnId": "PROCESS_1",
-            "name": "MessageBoundaryEvent",
+            "name": "Timeout",
             "flowObjects": [
                 {
                     "bpmnId": "_2",
@@ -39,13 +39,13 @@ exports.testParseBPMNMessageBoundaryEvent = function(test) {
                     "isEndEvent": true
                 },
                 {
-                    "bpmnId": "_6",
-                    "name": "My Message Boundary Event",
+                    "bpmnId": "_7",
+                    "name": "MyTimeout",
                     "type": "boundaryEvent",
                     "isFlowObject": true,
                     "isBoundaryEvent": true,
                     "attachedToRef": "_3",
-                    "isMessageEvent": true
+                    "isTimerEvent": true
                 }
             ],
             "sequenceFlows": [
@@ -58,10 +58,10 @@ exports.testParseBPMNMessageBoundaryEvent = function(test) {
                     "isSequenceFlow": true
                 },
                 {
-                    "bpmnId": "_9",
+                    "bpmnId": "_8",
                     "name": null,
                     "type": "sequenceFlow",
-                    "sourceRef": "_6",
+                    "sourceRef": "_7",
                     "targetRef": "_5",
                     "isSequenceFlow": true
                 }
@@ -77,6 +77,6 @@ exports.testParseBPMNMessageBoundaryEvent = function(test) {
             "isProcessDefinition": true,
             "collaboratingParticipants": []
         },
-        "testParseBPMNMessageBoundaryEvent");
+        "testParseBPMNTimeout");
     test.done();
 };

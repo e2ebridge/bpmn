@@ -3,35 +3,34 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnParserModule = require('../../../lib/bpmn/parser.js');
+var bpmnParserModule = require('../../../lib/parsing/parser.js');
 
-exports.testParseBPMNTask = function(test) {
+exports.testParseBPMNIntermediateCatchEvent = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/task.bpmn");
+    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/intermediateCatchEvent.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
-                "bpmnId": "MyTaskExampleProcess",
-                "name": "Task",
+                "bpmnId": "PROCESS_1",
+                "name": "IntermediateCatchEvent",
                 "flowObjects": [
                     {
                         "bpmnId": "_2",
-                        "name": "MyStart",
+                        "name": "Start Event",
                         "type": "startEvent",
                         "isFlowObject": true,
                         "isStartEvent": true
                     },
                     {
                         "bpmnId": "_3",
-                        "name": "MyTask",
-                        "type": "task",
+                        "name": "Intermediate Catch Event",
+                        "type": "intermediateCatchEvent",
                         "isFlowObject": true,
-                        "isActivity": true,
-                        "isWaitTask": true
+                        "isIntermediateCatchEvent": true
                     },
                     {
                         "bpmnId": "_5",
-                        "name": "MyEnd",
+                        "name": "End Event",
                         "type": "endEvent",
                         "isFlowObject": true,
                         "isEndEvent": true
@@ -40,7 +39,7 @@ exports.testParseBPMNTask = function(test) {
                 "sequenceFlows": [
                     {
                         "bpmnId": "_4",
-                        "name": "flow1",
+                        "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_2",
                         "targetRef": "_3",
@@ -48,14 +47,14 @@ exports.testParseBPMNTask = function(test) {
                     },
                     {
                         "bpmnId": "_6",
-                        "name": "flow2",
+                        "name": null,
                         "type": "sequenceFlow",
                         "sourceRef": "_3",
                         "targetRef": "_5",
                         "isSequenceFlow": true
                     }
                 ],
-                "messageFlows": [],
+               "messageFlows": [],
                 "processElementIndex": null,
                 "sequenceFlowBySourceIndex": null,
                 "sequenceFlowByTargetIndex": null,
@@ -67,6 +66,6 @@ exports.testParseBPMNTask = function(test) {
                 "collaboratingParticipants": []
             }
         ],
-        "testParseBPMNTask");
+        "testParseBPMNIntermediateCatchEvent");
     test.done();
 };

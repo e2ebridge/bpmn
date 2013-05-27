@@ -4,12 +4,12 @@
  */
 
 var bpmnProcessModule = require('../../../lib/process.js');
-var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNExclusiveGateway = require("../../../lib/bpmn/gateways.js").BPMNExclusiveGateway;
+var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+var BPMNExclusiveGateway = require("../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
 
 
 exports.testBPMNServiceTask = function(test) {

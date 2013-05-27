@@ -5,12 +5,12 @@
 
 var bpmnProcessModule = require('../../../lib/process.js');
 var Persistency = require('../../../lib/persistency.js').Persistency;
-var BPMNProcessDefinition = require('../../../lib/bpmn/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/bpmn/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../../lib/bpmn/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../lib/bpmn/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../../lib/bpmn/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNParallelGateway = require("../../../lib/bpmn/gateways.js").BPMNParallelGateway;
+var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
+var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
+var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
+var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+var BPMNParallelGateway = require("../../../lib/parsing/gateways.js").BPMNParallelGateway;
 
 exports.testAndMerge = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");

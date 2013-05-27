@@ -3,7 +3,7 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var bpmnDefinitionsModule = require('../../../lib/bpmn/definitions.js');
+var bpmnDefinitionsModule = require('../../../lib/parsing/definitions.js');
 var pathModule = require('path');
 
 exports.testGetOneBPMNProcessDefinition = function(test) {

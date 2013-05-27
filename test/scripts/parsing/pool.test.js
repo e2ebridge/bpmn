@@ -4,8 +4,8 @@
  */
 
 var pathModule = require('path');
-var bpmnDefinitionsModule = require('../../../lib/bpmn/definitions.js');
-var bpmnParserModule = require('../../../lib/bpmn/parser.js');
+var bpmnDefinitionsModule = require('../../../lib/parsing/definitions.js');
+var bpmnParserModule = require('../../../lib/parsing/parser.js');
 
 var fileName = pathModule.join(__dirname, "../../resources/bpmn/pool.bpmn");
 var collaborations = bpmnDefinitionsModule.getBPMNCollaborationDefinitions(fileName);

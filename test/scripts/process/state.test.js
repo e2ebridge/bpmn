@@ -4,7 +4,7 @@
  */
 
 var BPMNProcessState = require("../../../lib/state.js").BPMNProcessState;
-var BPMNFlowObject = require("../../../lib/bpmn/flowObject.js").BPMNFlowObject;
+var BPMNFlowObject = require("../../../lib/parsing/flowObject.js").BPMNFlowObject;
 
 var gateway = new BPMNFlowObject("_2", "Parallel Gateway1", "parallelGateway");
 var startEvent = new BPMNFlowObject("_1", "Start Event1", "startEvent");
