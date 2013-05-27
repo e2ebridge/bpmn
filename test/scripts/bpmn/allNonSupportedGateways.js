@@ -16,27 +16,22 @@ exports.testParseBPMNAllNonSupportedGateways = function(test) {
         [
             {
                 "code": "UnsupportedGateway",
-                "fileName": "test/resources/bpmn/allNonSupportedGateways.bpmn",
                 "description": "The gateway 'Inclusive Gateway' is not supported yet."
             },
             {
                 "code": "UnsupportedGateway",
-                "fileName": "test/resources/bpmn/allNonSupportedGateways.bpmn",
                 "description": "The gateway 'Complex Gateway' is not supported yet."
             },
             {
                 "code": "UnsupportedGateway",
-                "fileName": "test/resources/bpmn/allNonSupportedGateways.bpmn",
                 "description": "The gateway 'Event Gateway' is not supported yet."
             },
             {
                 "code": "UnsupportedGateway",
-                "fileName": "test/resources/bpmn/allNonSupportedGateways.bpmn",
                 "description": "The gateway 'Event Gateway (Instantiate)' is not supported yet."
             },
             {
                 "code": "UnsupportedGateway",
-                "fileName": "test/resources/bpmn/allNonSupportedGateways.bpmn",
                 "description": "The gateway 'Parallel Event Gateway (Instantiate)' is not supported yet."
             }
         ],

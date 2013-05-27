@@ -58,8 +58,50 @@ exports.testGetOneBPMNProcessDefinition = function(test) {
             ],
             "messageFlows": [],
             "processElementIndex": null,
-            "sequenceFlowBySourceIndex": null,
-            "sequenceFlowByTargetIndex": null,
+            "sequenceFlowBySourceIndex": {
+                "_2": [
+                    {
+                        "bpmnId": "_4",
+                        "name": "flow1",
+                        "type": "sequenceFlow",
+                        "sourceRef": "_2",
+                        "targetRef": "_3",
+                        "isSequenceFlow": true
+                    }
+                ],
+                "_3": [
+                    {
+                        "bpmnId": "_6",
+                        "name": "flow2",
+                        "type": "sequenceFlow",
+                        "sourceRef": "_3",
+                        "targetRef": "_5",
+                        "isSequenceFlow": true
+                    }
+                ]
+            },
+            "sequenceFlowByTargetIndex": {
+                "_3": [
+                    {
+                        "bpmnId": "_4",
+                        "name": "flow1",
+                        "type": "sequenceFlow",
+                        "sourceRef": "_2",
+                        "targetRef": "_3",
+                        "isSequenceFlow": true
+                    }
+                ],
+                "_5": [
+                    {
+                        "bpmnId": "_6",
+                        "name": "flow2",
+                        "type": "sequenceFlow",
+                        "sourceRef": "_3",
+                        "targetRef": "_5",
+                        "isSequenceFlow": true
+                    }
+                ]
+            },
             "messageFlowBySourceIndex": null,
             "messageFlowByTargetIndex": null,
             "boundaryEventsByAttachmentIndex": null,
@@ -196,8 +238,90 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "isSequenceFlow": true
                     }
                 },
-                "sequenceFlowBySourceIndex": null,
-                "sequenceFlowByTargetIndex": null,
+                "sequenceFlowBySourceIndex": {
+                    "_3": [
+                        {
+                            "bpmnId": "_5",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_3",
+                            "targetRef": "_4",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_4": [
+                        {
+                            "bpmnId": "_7",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_4",
+                            "targetRef": "_6",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_11": [
+                        {
+                            "bpmnId": "_12",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_11",
+                            "targetRef": "_10",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_10": [
+                        {
+                            "bpmnId": "_13",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_10",
+                            "targetRef": "_9",
+                            "isSequenceFlow": true
+                        }
+                    ]
+                },
+                "sequenceFlowByTargetIndex": {
+                    "_4": [
+                        {
+                            "bpmnId": "_5",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_3",
+                            "targetRef": "_4",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_6": [
+                        {
+                            "bpmnId": "_7",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_4",
+                            "targetRef": "_6",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_10": [
+                        {
+                            "bpmnId": "_12",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_11",
+                            "targetRef": "_10",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_9": [
+                        {
+                            "bpmnId": "_13",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_10",
+                            "targetRef": "_9",
+                            "isSequenceFlow": true
+                        }
+                    ]
+                },
                 "messageFlowBySourceIndex": null,
                 "messageFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
@@ -325,8 +449,50 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "isSequenceFlow": true
                     }
                 },
-                "sequenceFlowBySourceIndex": null,
-                "sequenceFlowByTargetIndex": null,
+                "sequenceFlowBySourceIndex": {
+                    "_11": [
+                        {
+                            "bpmnId": "_12",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_11",
+                            "targetRef": "_10",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_10": [
+                        {
+                            "bpmnId": "_13",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_10",
+                            "targetRef": "_9",
+                            "isSequenceFlow": true
+                        }
+                    ]
+                },
+                "sequenceFlowByTargetIndex": {
+                    "_10": [
+                        {
+                            "bpmnId": "_12",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_11",
+                            "targetRef": "_10",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_9": [
+                        {
+                            "bpmnId": "_13",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_10",
+                            "targetRef": "_9",
+                            "isSequenceFlow": true
+                        }
+                    ]
+                },
                 "messageFlowBySourceIndex": null,
                 "messageFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,
@@ -435,8 +601,50 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "isSequenceFlow": true
                     }
                 },
-                "sequenceFlowBySourceIndex": null,
-                "sequenceFlowByTargetIndex": null,
+                "sequenceFlowBySourceIndex": {
+                    "_15": [
+                        {
+                            "bpmnId": "_17",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_15",
+                            "targetRef": "_16",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_16": [
+                        {
+                            "bpmnId": "_19",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_16",
+                            "targetRef": "_18",
+                            "isSequenceFlow": true
+                        }
+                    ]
+                },
+                "sequenceFlowByTargetIndex": {
+                    "_16": [
+                        {
+                            "bpmnId": "_17",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_15",
+                            "targetRef": "_16",
+                            "isSequenceFlow": true
+                        }
+                    ],
+                    "_18": [
+                        {
+                            "bpmnId": "_19",
+                            "name": null,
+                            "type": "sequenceFlow",
+                            "sourceRef": "_16",
+                            "targetRef": "_18",
+                            "isSequenceFlow": true
+                        }
+                    ]
+                },
                 "messageFlowBySourceIndex": null,
                 "messageFlowByTargetIndex": null,
                 "boundaryEventsByAttachmentIndex": null,

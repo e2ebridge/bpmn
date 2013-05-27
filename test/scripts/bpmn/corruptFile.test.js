@@ -13,18 +13,17 @@ exports.testParseCorruptFile = function(test) {
 
     test.deepEqual(errorQueue,
         {
-            "buildErrors": [
+            "bpmnErrors": [
                 {
                     "code": "ParseBPMN",
-                    "fileName": "test/resources/bpmn/corruptFile.bpmn",
                     "description": "Unquoted attribute value\nLine: 6\nColumn: 30\nChar: 1"
                 },
                 {
                     "code": "ParseBPMN",
-                    "fileName": "test/resources/bpmn/corruptFile.bpmn",
                     "description": "Unquoted attribute value\nLine: 14\nColumn: 50\nChar: _"
                 }
-            ]
+            ],
+            "fileName": "test/resources/bpmn/corruptFile.bpmn"
         },
         "testParseCorruptFile");
     test.done();
