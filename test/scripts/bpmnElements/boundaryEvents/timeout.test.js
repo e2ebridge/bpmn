@@ -163,11 +163,23 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
             test.equal(error.message,
                 "The getTimeout handler 'MyTimeout$getTimeout' does not return a number but '1000x'",
                 "testBPMNWrongGetTimeoutResponse: test error message.");
+
+            test.deepEqual(logMessages,
+                [
+                    "[Error][myProcess][myFirstProcess][Error in handler 'MyTask': Error: The getTimeout handler 'MyTimeout$getTimeout' does not return a number but '1000x']\n"
+                ],
+                "testBPMNWrongGetTimeoutResponse: test log messages.");
             test.done();
         }
     };
 
-   var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+
+    var logMessages = [];
+    var logAppender = function(logMessage) {
+        logMessages.push(logMessage);
+    };
+    bpmnProcess.setLogAppender(logAppender);
 
     bpmnProcess.sendEvent("MyStart");
 
