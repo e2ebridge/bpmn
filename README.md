@@ -38,7 +38,7 @@ then this process can be created by
 	var myProcess = bpmn.createProcess("myid", "path/to/myProcess.bpmn");
 
     // we start the process
-    myProcess.sendEvent("MyStart");
+    myProcess.triggerEvent("MyStart");
 
 The handler file looks like:
 
@@ -97,14 +97,14 @@ Handler Context (this)
 Each handler is called in the context of the current process. More formally: `this` is bound to `BPMNProcessClient`. This object offers the following interface to the current process instance:
 
 - `taskDone(taskName, data)`: notify the process that a task has been done. This triggers calling the event handler: `taskName` + "Done"
-- `sendEvent(eventName, data)`: send an event to the process
+- `triggerEvent(eventName, data)`: send an event to the process
 - `getState()`: get the state of the current process. The state object is `BPMNProcessState`.
 - `getHistory()`: get the history of the current process. Basically a list of all visited activities and events encapsulated in `BPMNProcessHistory`
 - `setProperty(name, value)`: set a process property. This property is also persisted together with the process. The value is a valid JS data object. That is, we do not persist functions.
 - `getProperty(name)`: get property.
 - `getParentProcess()`: if this process has been called by a `callActivity` activity, this call returns a `BPMNProcessClient` instance of the calling process. Otherwise it returns `null`.
 - `getParticipantByName(participantName)`: if this process collaborates with other processes (see section *Collaboration Processes*), this call returns a `BPMNProcessClient` instance of a participating process instance having the name `participantName`. This allows to send for example an event to a participating process by
-	this.getParticipantName("Another process").sendEvent("my event");
+	this.getParticipantName("Another process").triggerEvent("my event");
 
 Handler Names
 -------------
@@ -179,14 +179,14 @@ These processes must be created together:
 
     // start the second process
     var secondProcess = collaboratingProcesses[1];
-    secondProcess.sendEvent("Start Event 2");
+    secondProcess.triggerEvent("Start Event 2");
 
 The collaboration of the processes is then implemented in the handlers. For example, it is possible to get a partner process by name and then send an event to this process. This is frequently done to start the partner process:
 
 	exports.Task_2 = function(data, done) {
     	// after arriving ot "Task 2" we start process 1
     	var partnerProcess = this.getParticipantByName("My First Process");
-    	partnerProcess.sendEvent("Start Event 1");
+    	partnerProcess.triggerEvent("Start Event 1");
     	done(data);
 	};
 

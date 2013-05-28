@@ -140,5 +140,5 @@ exports.testCreatePersistentFlatProcess = function(test) {
     bpmnProcess = publicModule.createProcess("myid", fileName, persistencyOptions);
 
     // we let the process run to the first save state
-    bpmnProcess.sendEvent("MyStart");
+    bpmnProcess.triggerEvent("MyStart");
 };

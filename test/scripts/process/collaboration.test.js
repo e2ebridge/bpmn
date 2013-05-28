@@ -18,7 +18,7 @@ exports.testSendingWrongEventInCollaboration = function(test) {
 
     var secondProcess = collaboratingProcesses[0];
     try {
-        secondProcess.sendEvent("Wrong Event!");
+        secondProcess.triggerEvent("Wrong Event!");
     } catch (e) {
         var message = e.message;
         test.equal(message, "The process 'My First Process' does not know the event 'Wrong Event!'", "testSendingWrongEventInCollaboration");
@@ -38,7 +38,7 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
 
     var firstProcess = collaboratingProcesses[0];
     var secondProcess = collaboratingProcesses[1];
-    secondProcess.sendEvent("Start Event 2");
+    secondProcess.triggerEvent("Start Event 2");
 
     var firstProcessDefinition = firstProcess.getProcessDefinition();
     var endEvent1 = firstProcessDefinition.getFlowObjectByName("End Event 1");

@@ -110,7 +110,7 @@ exports.testXorGateway = function(test) {
 
     var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstXGatewayProcess", processDefinition, handler);
 
-    bpmnProcess.sendEvent("Start Event");
+    bpmnProcess.triggerEvent("Start Event");
     bpmnProcess.taskDone("First Task");
 
 };

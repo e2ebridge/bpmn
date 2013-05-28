@@ -22,7 +22,7 @@ exports.testLogger = function(test) {
     bpmnProcess.setLogLevel(LogLevel.Debug);
     bpmnProcess.setLogAppender(logAppender);
 
-    bpmnProcess.sendEvent("MyStart");
+    bpmnProcess.triggerEvent("MyStart");
 
     process.nextTick(function() {
         test.deepEqual(logMessages,

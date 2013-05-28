@@ -59,7 +59,7 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
                 "testBPMNMessageBoundaryEvent: at MyTask: there should be one boundary event"
             );
 
-            bpmnProcess.sendEvent("MyMessageBoundaryEvent", {gugus: "blah"});
+            bpmnProcess.triggerEvent("MyMessageBoundaryEvent", {gugus: "blah"});
             done(data);
         },
         "MyMessageBoundaryEvent": function(data, done) {
@@ -130,6 +130,6 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
 
     bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
-    bpmnProcess.sendEvent("MyStart");
+    bpmnProcess.triggerEvent("MyStart");
 
 };

@@ -13,7 +13,7 @@ exports.testCreateVolatileBPMNProcess = function(test) {
     publicModule.clearCache();
     var bpmnProcess = publicModule.createProcess("myid", fileName);
 
-    bpmnProcess.sendEvent("MyStart");
+    bpmnProcess.triggerEvent("MyStart");
 
     process.nextTick(function() {
         //console.log("Comparing result after start event");

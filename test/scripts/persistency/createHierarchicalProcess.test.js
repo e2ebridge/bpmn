@@ -78,7 +78,7 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
     };
 
     mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
-    mainProcess.sendEvent("MyStart");
+    mainProcess.triggerEvent("MyStart");
 };
 
 function testProcessRemovalFromCache(mainProcess, done, test) {

@@ -31,7 +31,7 @@ exports.Start_Event_2 = function(data, done) {
 exports.Task_2 = function(data, done) {
     log("Task_2");
     var partnerProcess = this.getParticipantByName("My First Process");
-    partnerProcess.sendEvent("Start Event 1");
+    partnerProcess.triggerEvent("Start Event 1");
     done(data);
 };
 

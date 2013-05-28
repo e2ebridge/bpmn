@@ -128,6 +128,6 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
 
     bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
-    bpmnProcess.sendEvent("MyStart");
+    bpmnProcess.triggerEvent("MyStart");
 
 };
