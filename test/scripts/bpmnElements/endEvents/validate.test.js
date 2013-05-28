@@ -25,7 +25,10 @@ exports.testValidateBPMNEndEvent_FO5 = function(test) {
         [
             {
                 "code": "FO5",
-                "description": "The endEvent 'MyEnd' must have at least one incoming sequence flow."
+                "description": "The endEvent 'MyEnd' must have at least one incoming sequence flow.",
+                "bpmnId": "_5",
+                "bpmnName": "MyEnd",
+                "bpmnType": "endEvent"
             }
         ],
         "testValidateBPMNEndEvent_FO5");
@@ -51,7 +54,10 @@ exports.testValidateBPMNEndEvent_FO4 = function(test) {
         [
             {
                 "code": "FO4",
-                "description": "The endEvent 'MyEnd' must not have outgoing sequence flows."
+                "description": "The endEvent 'MyEnd' must not have outgoing sequence flows.",
+                "bpmnId": "_5",
+                "bpmnName": "MyEnd",
+                "bpmnType": "endEvent"
             }
         ],
         "testValidateBPMNEndEvent_FO4");

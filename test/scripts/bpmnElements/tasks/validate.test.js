@@ -49,7 +49,10 @@ exports.testValidateBPMNTask_FO1 = function(test) {
         [
             {
                 "code": "FO1",
-                "description": "Found a task flow object having no name. BPMN id='_3'."
+                "description": "Found a task flow object having no name. BPMN id='_3'.",
+                "bpmnId": "_3",
+                "bpmnName": "",
+                "bpmnType": "task"
             }
         ],
         "testValidateBPMNTask_FO1");
@@ -72,7 +75,10 @@ exports.testValidateBPMNTask_FO2 = function(test) {
         [
             {
                 "code": "FO2",
-                "description": "The task 'MyTask' must have at least one outgoing sequence flow."
+                "description": "The task 'MyTask' must have at least one outgoing sequence flow.",
+                "bpmnId": "_3",
+                "bpmnName": "MyTask",
+                "bpmnType": "task"
             }
         ],
         "testValidateBPMNTask_FO2");
@@ -95,7 +101,10 @@ exports.testValidateBPMNTask_FO5 = function(test) {
         [
             {
                 "code": "FO5",
-                "description": "The task 'MyTask' must have at least one incoming sequence flow."
+                "description": "The task 'MyTask' must have at least one incoming sequence flow.",
+                "bpmnId": "_3",
+                "bpmnName": "MyTask",
+                "bpmnType": "task"
             }
         ],
         "testValidateBPMNTask_F05");

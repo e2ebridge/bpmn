@@ -24,15 +24,24 @@ exports.testInvalidProcessErrors = function(test) {
         [
             {
                 "code": "FO3",
-                "description": "The startEvent 'MyStart' must have exactly one outgoing sequence flow."
+                "description": "The startEvent 'MyStart' must have exactly one outgoing sequence flow.",
+                "bpmnId": "_2",
+                "bpmnName": "MyStart",
+                "bpmnType": "startEvent"
             },
             {
                 "code": "FO5",
-                "description": "The task 'MyTask' must have at least one incoming sequence flow."
+                "description": "The task 'MyTask' must have at least one incoming sequence flow.",
+                "bpmnId": "_3",
+                "bpmnName": "MyTask",
+                "bpmnType": "task"
             },
             {
                 "code": "FO2",
-                "description": "The task 'MyTask' must have at least one outgoing sequence flow."
+                "description": "The task 'MyTask' must have at least one outgoing sequence flow.",
+                "bpmnId": "_3",
+                "bpmnName": "MyTask",
+                "bpmnType": "task"
             }
         ],
         "testInvalidProcessErrors");

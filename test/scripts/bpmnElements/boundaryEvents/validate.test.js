@@ -59,11 +59,17 @@ exports.testBPMNMessageBoundaryEventValidate_FO3_FO5 = function(test) {
         [
             {
                 "code": "FO5",
-                "description": "The boundaryEvent 'MyMessageBoundaryEvent' must not have incoming sequence flows."
+                "description": "The boundaryEvent 'MyMessageBoundaryEvent' must not have incoming sequence flows.",
+                "bpmnId": "_7",
+                "bpmnName": "MyMessageBoundaryEvent",
+                "bpmnType": "boundaryEvent"
             },
             {
                 "code": "FO3",
-                "description": "The boundaryEvent 'MyMessageBoundaryEvent' must have exactly one outgoing sequence flow."
+                "description": "The boundaryEvent 'MyMessageBoundaryEvent' must have exactly one outgoing sequence flow.",
+                "bpmnId": "_7",
+                "bpmnName": "MyMessageBoundaryEvent",
+                "bpmnType": "boundaryEvent"
             }
         ],
         "testBPMNMessageBoundaryEventValidate_FO3_FO5");

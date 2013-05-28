@@ -25,7 +25,10 @@ exports.testValidateBPMNStartEvent_FO3 = function(test) {
         [
             {
                 "code": "FO3",
-                "description": "The startEvent 'MyStart' must have exactly one outgoing sequence flow."
+                "description": "The startEvent 'MyStart' must have exactly one outgoing sequence flow.",
+                "bpmnId": "_2",
+                "bpmnName": "MyStart",
+                "bpmnType": "startEvent"
             }
         ],
         "testValidateBPMNStartEvent_FO3");
@@ -49,7 +52,10 @@ exports.testValidateBPMNStartEvent_FO5 = function(test) {
         [
             {
                 "code": "FO5",
-                "description": "The startEvent 'MyStart' must not have incoming sequence flows."
+                "description": "The startEvent 'MyStart' must not have incoming sequence flows.",
+                "bpmnId": "_2",
+                "bpmnName": "MyStart",
+                "bpmnType": "startEvent"
             }
         ],
         "testValidateBPMNStartEvent_FO5");

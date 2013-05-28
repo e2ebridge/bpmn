@@ -15,12 +15,18 @@ exports.testParseCorruptFile = function(test) {
         {
             "bpmnErrors": [
                 {
-                    "code": "ParseBPMN",
-                    "description": "Unquoted attribute value\nLine: 6\nColumn: 30\nChar: 1"
+                    "code": "NOPARSE",
+                    "description": "Unquoted attribute value\nLine: 6\nColumn: 30\nChar: 1",
+                    "bpmnId": "Unknown",
+                    "bpmnName": "",
+                    "bpmnType": "Unknown"
                 },
                 {
-                    "code": "ParseBPMN",
-                    "description": "Unquoted attribute value\nLine: 14\nColumn: 50\nChar: _"
+                    "code": "NOPARSE",
+                    "description": "Unquoted attribute value\nLine: 14\nColumn: 50\nChar: _",
+                    "bpmnId": "Unknown",
+                    "bpmnName": "",
+                    "bpmnType": "Unknown"
                 }
             ],
             "fileName": "test/resources/bpmn/corruptFile.bpmn"

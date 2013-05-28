@@ -52,7 +52,10 @@ exports.testParallelGatewayValidate_GW1 = function(test) {
         [
             {
                 "code": "GW1",
-                "description": "The parallelGateway 'Parallel Gateway' must have more than one incoming or outgoing flow to work as gateway."
+                "description": "The parallelGateway 'Parallel Gateway' must have more than one incoming or outgoing flow to work as gateway.",
+                "bpmnId": "_3",
+                "bpmnName": "Parallel Gateway",
+                "bpmnType": "parallelGateway"
             }
         ],
         "testParallelGatewayValidate_GW1");

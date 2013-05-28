@@ -57,7 +57,10 @@ exports.testXorGatewayValidate_GW1 = function(test) {
         [
             {
                 "code": "GW1",
-                "description": "The exclusiveGateway 'Is it ok?' must have more than one incoming or outgoing flow to work as gateway."
+                "description": "The exclusiveGateway 'Is it ok?' must have more than one incoming or outgoing flow to work as gateway.",
+                "bpmnId": "_5",
+                "bpmnName": "Is it ok?",
+                "bpmnType": "exclusiveGateway"
             }
         ],
         "testXorGatewayValidate_GW1");
@@ -88,11 +91,17 @@ exports.testXorGatewayValidate_XG1 = function(test) {
         [
             {
                 "code": "XG1",
-                "description": "Outgoing flows of the exclusiveGateway 'Is it ok?' must have names."
+                "description": "Outgoing flows of the exclusiveGateway 'Is it ok?' must have names.",
+                "bpmnId": "_8",
+                "bpmnName": "",
+                "bpmnType": "sequenceFlow"
             },
             {
                 "code": "XG1",
-                "description": "Outgoing flows of the exclusiveGateway 'Is it ok?' must have names."
+                "description": "Outgoing flows of the exclusiveGateway 'Is it ok?' must have names.",
+                "bpmnId": "_10",
+                "bpmnName": "",
+                "bpmnType": "sequenceFlow"
             }
         ],
         "testXorGatewayValidate_XG1");

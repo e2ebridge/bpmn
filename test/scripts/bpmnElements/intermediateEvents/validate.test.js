@@ -44,11 +44,17 @@ exports.testIntermediateEventValidation_FO3_FO5 = function(test) {
         [
             {
                 "code": "FO5",
-                "description": "The intermediateCatchEvent 'My Intermediate Catch Event' must have at least one incoming sequence flow."
+                "description": "The intermediateCatchEvent 'My Intermediate Catch Event' must have at least one incoming sequence flow.",
+                "bpmnId": "_3",
+                "bpmnName": "My Intermediate Catch Event",
+                "bpmnType": "intermediateCatchEvent"
             },
             {
                 "code": "FO3",
-                "description": "The intermediateCatchEvent 'My Intermediate Catch Event' must have exactly one outgoing sequence flow."
+                "description": "The intermediateCatchEvent 'My Intermediate Catch Event' must have exactly one outgoing sequence flow.",
+                "bpmnId": "_3",
+                "bpmnName": "My Intermediate Catch Event",
+                "bpmnType": "intermediateCatchEvent"
             }
         ],
         "testIntermediateEventValidation_FO3_FO5");
