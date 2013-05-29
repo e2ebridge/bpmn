@@ -5,53 +5,61 @@
 
 var bpmnProcessModule = require('../../../../lib/process.js');
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNCallActivity = require("../../../../lib/parsing/callActivity.js").BPMNCallActivity;
+var BPMNSubProcess = require("../../../../lib/parsing/subProcess.js").BPMNSubProcess;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
+var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
+
 var pathModule = require('path');
 
-exports.testBPMNCallActivity = function(test) {
+exports.testBPMNSubProcess = function(test) {
     var mainProcess;
-    var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../../resources/projects/simple/taskExampleProcess.bpmn");
 
     /** @type {BPMNProcessDefinition} */
-    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyProcess");
-    processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
-    processDefinition.addFlowObject(new BPMNCallActivity("_3", "MyCallActivity", "callActivity",
-        "MyTaskExampleProcess", "http://sourceforge.net/parsing/definitions/_1363693864276", bpmnCalledProcessFileName));
-    processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
-    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
-    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
+    var subprocessDefinition = new BPMNProcessDefinition("SUB_PROCESS_1", "MySubProcess");
+    subprocessDefinition.addFlowObject(new BPMNStartEvent("_sub2", "MySubStart", "startEvent"));
+    subprocessDefinition.addFlowObject(new BPMNTask("_sub3", "MySubTask", "task"));
+    subprocessDefinition.addFlowObject(new BPMNEndEvent("_sub5", "MySubEnd", "endEvent"));
+    subprocessDefinition.addSequenceFlow(new BPMNSequenceFlow("_sub4", "", "sequenceFlow", "_sub2", "_sub3"));
+    subprocessDefinition.addSequenceFlow(new BPMNSequenceFlow("_sub6", "", "sequenceFlow", "_sub3", "_sub5"));
+
+    /** @type {BPMNProcessDefinition} */
+    var processDefinition = new BPMNProcessDefinition("MAIN_PROCESS_1", "MyProcess");
+    processDefinition.addFlowObject(new BPMNStartEvent("_main2", "MyStart", "startEvent"));
+    processDefinition.addFlowObject(new BPMNSubProcess("_main3", "MySubProcess", "subProcess", subprocessDefinition));
+    processDefinition.addFlowObject(new BPMNEndEvent("_main5", "MyEnd", "endEvent"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_main4", "", "sequenceFlow", "_main2", "_main3"));
+    processDefinition.addSequenceFlow(new BPMNSequenceFlow("_main6", "", "sequenceFlow", "_main3", "_main5"));
 
     var handler = {
         "MyStart": function(data, done) {
             done(data);
         },
-        "MyCallActivity": { // calledProcess handler start here
-            "MyStart": function(data, done) {
+        "MySubProcess": { // subProcess handler start here
+            "MySubStart": function(data, done) {
                 var localState = this.getState();
                 test.deepEqual(localState.tokens,
                     [
                         {
-                            "position": "MyStart",
-                            "owningProcessId": "mainPid1::MyCallActivity"
+                            "position": "MySubStart",
+                            "owningProcessId": "mainPid1::MySubProcess"
                         }
                     ],
-                    "testBPMNCallActivity: local state at MyCallActivity"
+                    "testBPMNSubProcess: local state at MySubStart"
                 );
                 done(data);
             },
-            "MyTask": function(data, done) {
+            "MySubTask": function(data, done) {
                 var localState = this.getState();
                 test.deepEqual(localState.tokens,
                     [
                         {
-                            "position": "MyTask",
-                            "owningProcessId": "mainPid1::MyCallActivity"
+                            "position": "MySubTask",
+                            "owningProcessId": "mainPid1::MySubProcess"
                         }
                     ],
-                    "testBPMNCallActivity: local state at MyTask"
+                    "testBPMNSubProcess: local state at MySubTask"
                 );
                 done(data);
 
@@ -59,53 +67,53 @@ exports.testBPMNCallActivity = function(test) {
                 test.deepEqual(mainState.tokens,
                     [
                         {
-                            "position": "MyCallActivity",
+                            "position": "MySubProcess",
                             "substate": {
                                 "tokens": [
                                     {
-                                        "position": "MyTask",
-                                        "owningProcessId": "mainPid1::MyCallActivity"
+                                        "position": "MySubTask",
+                                        "owningProcessId": "mainPid1::MySubProcess"
                                     }
                                 ]
                             },
                             "owningProcessId": "mainPid1",
-                            "calledProcessId": "mainPid1::MyCallActivity"
+                            "calledProcessId": "mainPid1::MySubProcess"
                         }
                     ],
-                    "testBPMNCallActivity: main state at MyTask"
+                    "testBPMNSubProcess: main state at MySubTask"
                 );
 
-                // we call taskDone for an activity of the CALLED process in the main process
-                mainProcess.taskDone("MyTask");
+                // we call taskDone for an activity of the sub-process in the main process
+                mainProcess.taskDone("MySubTask");
             },
-            "MyTaskDone": function(data, done) {
+            "MySubTaskDone": function(data, done) {
                 var localState = this.getState();
                 test.deepEqual(localState.tokens,
                     [
                         {
-                            "position": "MyTask",
-                            "owningProcessId": "mainPid1::MyCallActivity"
+                            "position": "MySubTask",
+                            "owningProcessId": "mainPid1::MySubProcess"
                         }
                     ],
-                    "testBPMNCallActivity: local state at MyTaskDone"
+                    "testBPMNSubProcess: local state at MySubTaskDone"
                 );
                 done(data);
             },
-            "MyEnd": function(data, done) {
+            "MySubEnd": function(data, done) {
                 var state = this.getState();
                 test.deepEqual(state.tokens,
                     [
                         {
-                            "position": "MyEnd",
-                            "owningProcessId": "mainPid1::MyCallActivity"
+                            "position": "MySubEnd",
+                            "owningProcessId": "mainPid1::MySubProcess"
                         }
                     ],
-                    "testBPMNCallActivity: state at MyEnd"
+                    "testBPMNSubProcess: state at MySubEnd"
                 );
                 done(data);
             }
         },
-        "MyCallActivityDone": function(data, done) {
+        "MySubProcessDone": function(data, done) {
             done(data);
         },
         "MyEnd": function(data, done) {
@@ -117,17 +125,17 @@ exports.testBPMNCallActivity = function(test) {
                             "name": "MyStart"
                         },
                         {
-                            "name": "MyCallActivity",
+                            "name": "MySubProcess",
                             "subhistory": {
                                 "historyEntries": [
                                     {
-                                        "name": "MyStart"
+                                        "name": "MySubStart"
                                     },
                                     {
-                                        "name": "MyTask"
+                                        "name": "MySubTask"
                                     },
                                     {
-                                        "name": "MyEnd"
+                                        "name": "MySubEnd"
                                     }
                                 ]
                             }
@@ -137,7 +145,7 @@ exports.testBPMNCallActivity = function(test) {
                         }
                     ]
                 },
-                "testBPMNCallActivity: history at MyEnd of main process"
+                "testBPMNSubProcess: history at MyEnd of main process"
             );
             done(data);
             test.done();
