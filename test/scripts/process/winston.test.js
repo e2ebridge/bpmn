@@ -29,11 +29,11 @@ exports.testDefaultFileLogger = function(test) {
          });
         test.deepEqual(linesWOTimestamps,
             [
-                "{\"level\":\"trace\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyTask'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at task 'MyTask'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
+                "{\"level\":\"trace\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyTask'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at task 'MyTask'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
                 ""
             ],
             "testDefaultFileLogger");
@@ -44,7 +44,6 @@ exports.testDefaultFileLogger = function(test) {
 
 exports.testNewWinstonTransport = function(test) {
     var logFile = "./logs/process.log";
-    var fileName = pathModule.basename(logFile);
     var baseDir = pathModule.dirname(logFile);
 
     // we have to make sure, that the directory exists. It would be inefficient if the logger would test for the
@@ -74,11 +73,11 @@ exports.testNewWinstonTransport = function(test) {
         var loggedLines = fileUtilsModule.readLines(logFile);
         test.deepEqual(loggedLines,
             [
-                "{\"level\":\"trace\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyTask'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at task 'MyTask'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"level\":\"trace\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyTask'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at task 'MyTask'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
                 ""
             ],
             "testNewWinstonTransport");
