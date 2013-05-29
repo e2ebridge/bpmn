@@ -201,7 +201,65 @@ However, another option is to get all outgoing message flows and send a message 
 
 **Note**: all task and event names must be unique
 
-Supported BPMN Elements
+Logging
+=======
+By default, only errors are logged. However, it is easy to change the log level:
+
+	var logLevels = require('bpmn').logLevels;
+	
+	myProcess.setLogLevel(logLevels.debug);
+
+By default, logs are written to the console and `./process.log`. Of course, this can be changed. For details see the section *Log Transports*.
+
+The supported log levels are:
+
+- **error** (default): Errors, error handler calls, and default event handler calls are logged
+- **trace**: process actions are logged: sendMessage, triggerEvent, callHandler, callHandlerDone, taskDone, catchBoundaryEvent
+- **debug**: internal process actions are logged, such as putTokenAt, tokenArrivedAt, doneSaving, etc.
+- **silly, verbose, info, warn**: these levels are reserved for further use but not yet implemented: 
+
+Log Transports
+--------------
+We use [winston](https://github.com/flatiron/winston) as log library. This allows as to define different ways of storing our logs by defining so called winston transports (for details see [here](https://github.com/flatiron/winston/blob/master/docs/transports.md)). The default transports used by this library are
+
+	transports: [
+            new (winston.transports.Console)({
+                colorize: true
+            }),
+            new (winston.transports.File)({
+                level: 'verbose',
+                filename: './process.log',
+                maxsize: 64 * 1024 * 1024,
+                maxFiles: 100,
+                timestamp: function() {
+                    return Date.now();
+                }
+            })
+        ]
+
+However, these transports can be overridden or completely new transports can be added. For example, the following code snippet adds a file transport used for errors, max size of one megabyte, and not writing timestamps:
+
+	var winston = require('winston'); 
+	myProcess.addLogTransport(winston.transports.File,
+        {
+            level: 'error',
+            filename: "my/log/file.log",
+            maxsize: 1024 * 1024,
+            timestamp: false
+        }
+    );
+
+**Note**: the directory containing the log file must exist, otherwise an error is thrown. 
+
+Of course, transports can be removed as well, e.g.:
+
+	bpmnProcess.removeLogTransport(winston.transports.File);
+
+
+BPMN
+====
+
+Supported Elements
 -----------------------
 - Start events: all kind of start events are mapped to the none start event. Any further specialization is then done in the implementation of the handler.
 - End events: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.

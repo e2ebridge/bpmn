@@ -5,7 +5,7 @@
 
 var pathModule = require('path');
 var publicModule = require('../../../lib/public.js');
-var LogLevel = require('../../../lib/logger.js').ProcessLogLevel;
+var LogLevels = require('../../../lib/logger.js').logLevels;
 
 exports.testLogger = function(test) {
     var state;
@@ -19,7 +19,7 @@ exports.testLogger = function(test) {
         logMessages.push(logMessage);
     };
 
-    bpmnProcess.setLogLevel(LogLevel.Debug);
+    bpmnProcess.setLogLevel(logLevels.debug);
     bpmnProcess.setLogAppender(logAppender);
 
     bpmnProcess.triggerEvent("MyStart");
@@ -27,11 +27,11 @@ exports.testLogger = function(test) {
     process.nextTick(function() {
         test.deepEqual(logMessages,
             [
-                "[Trace][TaskExampleProcess][myid][Trigger startEvent 'MyStart']\n",
-                "[Debug][TaskExampleProcess][myid][Token was put on 'MyStart']\n",
-                "[Debug][TaskExampleProcess][myid][Token arrived at startEvent 'MyStart'][{}]\n",
-                "[Debug][TaskExampleProcess][myid][Token was put on 'MyTask'][{}]\n",
-                "[Debug][TaskExampleProcess][myid][Token arrived at task 'MyTask'][{}]\n"
+                "[trace][TaskExampleProcess][myid][Trigger startEvent 'MyStart']",
+                "[debug][TaskExampleProcess][myid][Token was put on 'MyStart']",
+                "[debug][TaskExampleProcess][myid][Token arrived at startEvent 'MyStart'][{}]",
+                "[debug][TaskExampleProcess][myid][Token was put on 'MyTask'][{}]",
+                "[debug][TaskExampleProcess][myid][Token arrived at task 'MyTask'][{}]"
             ],
             "testLogger"
         );

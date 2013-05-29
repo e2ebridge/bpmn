@@ -71,7 +71,7 @@ exports.testCreatePersistentFlatProcess = function(test) {
         );
 
         // this points to the process client interface and not to the process directly
-        this._bpmnProcess.loadPersistedData();
+        this._implementation.loadPersistedData();
     };
 
     var loadedState = function(error, loadedData) {

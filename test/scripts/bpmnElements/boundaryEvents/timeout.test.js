@@ -166,7 +166,7 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
 
             test.deepEqual(logMessages,
                 [
-                    "[Error][myProcess][myFirstProcess][Error in handler 'MyTask': Error: The getTimeout handler 'MyTimeout$getTimeout' does not return a number but '1000x']\n"
+                    "[error][myProcess][myFirstProcess][Error in handler 'MyTask': Error: The getTimeout handler 'MyTimeout$getTimeout' does not return a number but '1000x']"
                 ],
                 "testBPMNWrongGetTimeoutResponse: test log messages.");
             test.done();
