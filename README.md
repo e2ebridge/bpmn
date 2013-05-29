@@ -213,6 +213,7 @@ By default, logs are written to the console and `./process.log`. Of course, this
 
 The supported log levels are:
 
+- **none**: switches logging off
 - **error** (default): Errors, error handler calls, and default event handler calls are logged
 - **trace**: process actions are logged: sendMessage, triggerEvent, callHandler, callHandlerDone, taskDone, catchBoundaryEvent
 - **debug**: internal process actions are logged, such as putTokenAt, tokenArrivedAt, doneSaving, etc.

@@ -19,16 +19,16 @@ exports.testDefaultFileLogger = function(test) {
     var bpmnFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
     var bpmnProcess = publicModule.createProcess("myid", bpmnFileName);
     bpmnProcess.setLogLevel(logLevels.debug);
+    bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
     bpmnProcess.triggerEvent("MyStart");
 
-    afterLogfileCreation(bpmnProcess, function() {
+     afterLogfileCreation(bpmnProcess, function() {
         var loggedLines = fileUtilsModule.readLines(pathModule.join(defaultLogFilePath, defaultLogFileName));
         var linesWOTimestamps = loggedLines.map(function(line) {
             return line.replace(/timestamp.+[^}]/, "\"timestamp\":TIMESTAMP");
          });
         test.deepEqual(linesWOTimestamps,
             [
-                "{\"level\":\"error\",\"message\":\"{\\\"processName\\\":\\\"myProcess\\\",\\\"processId\\\":\\\"myFirstProcess\\\",\\\"description\\\":\\\"Unhandled event: 'ACTIVITY_END_EVENT' for flow object 'MyTask'. Handler name: MyTaskDone'. Reason: Process cannot handle this activity because it is not currently executed.\\\"}\",\"\"timestamp\":TIMESTAMP}",
                 "{\"level\":\"trace\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
                 "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
                 "{\"level\":\"debug\",\"message\":\"{\\\"processName\\\":\\\"TaskExampleProcess\\\",\\\"processId\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
@@ -56,6 +56,7 @@ exports.testNewWinstonTransport = function(test) {
     var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
     var bpmnProcess = publicModule.createProcess("myid", fileName);
     bpmnProcess.setLogLevel(logLevels.debug);
+    bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
     bpmnProcess.addLogTransport(winston.transports.File,
         {
             level: 'verbose',

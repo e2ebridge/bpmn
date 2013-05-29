@@ -10,7 +10,7 @@ var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEve
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
-
+var logLevels = require('../../../lib/public.js').logLevels;
 
 exports.testIncorrectTaskDoneEvent = function(test) {
     /** @type {BPMNProcessDefinition} */
@@ -35,6 +35,7 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                 "testIncorrectTaskDoneEvent: state at MyStart"
             );
 
+            bpmnProcess.setLogLevel(logLevels.none);
             bpmnProcess.taskDone("MyTask");
 
             // NOTE: IF we called test.done() we would continue to MyTask!
