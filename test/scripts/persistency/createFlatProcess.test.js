@@ -62,7 +62,7 @@ exports.testCreatePersistentFlatProcess = function(test) {
                         }
                     ]
                 },
-                "eventName2TimeoutMap": {},
+                "pendingTimeouts": {},
                 "_id": 1,
                 "_saved": "FIXEDTIMESTAMP4TESTING",
                 "_updated": "FIXEDTIMESTAMP4TESTING"
@@ -118,7 +118,7 @@ exports.testCreatePersistentFlatProcess = function(test) {
                         }
                     ]
                 },
-                "eventName2TimeoutMap": {},
+                "pendingTimeouts": {},
                 "_id": 1,
                 "_saved": "FIXEDTIMESTAMP4TESTING",
                 "_updated": "FIXEDTIMESTAMP4TESTING"

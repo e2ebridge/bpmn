@@ -45,7 +45,7 @@ exports.testBPMNCatchTimerEvent = function(test) {
             return 1000;
         },
         "MyCatchTimerEvent": function(data, done) {
-            var hasTimeouts = bpmnProcess.pendingTimeouts.hasTimeouts();
+            var hasTimeouts = bpmnProcess.pendingTimerEvents.hasTimeouts();
             test.ok(!hasTimeouts,
                 "testClearBPMNTimeoutByLeavingTask: there should be no more pending timeouts"
             );

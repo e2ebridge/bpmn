@@ -75,7 +75,7 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
 
             var maxTimeout = 360 * 24 * 3600 * 1000;
             process.nextTick(function() {
-                var myTimeout = bpmnProcess.pendingTimeouts.getTimeout("MyTimeout");
+                var myTimeout = bpmnProcess.pendingTimerEvents.getTimeout("MyTimeout");
                 var myTimeoutValue = myTimeout ? myTimeout.timeout : -1;
                 test.equal(myTimeoutValue,
                     maxTimeout,
@@ -91,7 +91,7 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
         },
         "MyEnd2": function(data, done) {
 
-            var hasTimeouts = bpmnProcess.pendingTimeouts.hasTimeouts();
+            var hasTimeouts = bpmnProcess.pendingTimerEvents.hasTimeouts();
             test.ok(!hasTimeouts,
                 "testClearBPMNTimeoutByLeavingTask: active timers should be empty"
             );
