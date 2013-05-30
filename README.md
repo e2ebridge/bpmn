@@ -141,10 +141,13 @@ If the following process has to be implemented, we have to provide three handler
 For each outgoing transition we have a condition handler that hast to evaluate synchronously. So if backend data are required, fetch them in the gateway callback.
 Furthermore, BPMN does not specify the order of evaluating the flow conditions, so the implementer has to make sure, that only one operation returns `true`. Additionally, we ignore the condition expression. We consider this as part of the implementation.
 
-Timeouts
-========
+Timer Events
+============
 
-To implement timeouts use two handlers:
+Boundary Timer Events
+---------------------
+
+Boundary timer events are timeouts on the activity they are attached to. To implement timeouts use two handlers:
 
 	exports.MyTimeout$getTimeout = function(data, done) {
     	// called when arriving on "MyTask"
@@ -158,6 +161,24 @@ To implement timeouts use two handlers:
 	};
 
 ![](test/resources/bpmn/timeout.png)
+
+Intermediate Timer Events
+-------------------------
+Intermediate catch timer events are used to stop the process for a given time. If the timer event occurs, the process proceeds. The implementation is very similar to boundary timer events:
+
+	exports.MyTimeout$getTimeout = function(data, done) {
+    	// called when arriving on "Intermediate Catch Timer Event"
+		// should return wait time in ms.
+    	done(data);
+	};
+
+	exports.Intermediate_Catch_Timer_Event = function(data, done) {
+    	// called if the timeout triggers
+    	done(data);
+	};
+
+![](test/resources/bpmn/intermediateCatchTimerEvent.png)
+
 
 Collaborations
 ==============

@@ -12,7 +12,7 @@ var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNS
 var BPMNIntermediateCatchEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
 
 
-exports.testIntermediateThrowEvent = function(test) {
+exports.testIntermediateCatchEvent = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myIntermediateCatchEventTestProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
@@ -31,7 +31,7 @@ exports.testIntermediateThrowEvent = function(test) {
                         "owningProcessId": "myIntermediateCatchEventTestProcess"
                     }
                 ],
-                "testIntermediateThrowEvent: state at Start Event"
+                "testIntermediateCatchEvent: state at Start Event"
             );
             done(data);
         },
@@ -44,7 +44,7 @@ exports.testIntermediateThrowEvent = function(test) {
                         "owningProcessId": "myIntermediateCatchEventTestProcess"
                     }
                 ],
-                "testIntermediateThrowEvent: state at My Intermediate Catch Event"
+                "testIntermediateCatchEvent: state at My Intermediate Catch Event"
             );
             done(data);
         },
@@ -57,7 +57,7 @@ exports.testIntermediateThrowEvent = function(test) {
                         "owningProcessId": "myIntermediateCatchEventTestProcess"
                     }
                 ],
-                "testIntermediateThrowEvent: state at End Event"
+                "testIntermediateCatchEvent: state at End Event"
             );
             var history = this.getHistory();
             test.deepEqual(history.historyEntries,
@@ -72,7 +72,7 @@ exports.testIntermediateThrowEvent = function(test) {
                         "name": "End Event"
                     }
                 ],
-                "testIntermediateThrowEvent: history at End Event"
+                "testIntermediateCatchEvent: history at End Event"
             );
             done(data);
 
