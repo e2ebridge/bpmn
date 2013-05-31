@@ -70,7 +70,8 @@ exports.testCreatePersistentFlatProcess = function(test) {
             "testCreatePersistentFlatProcess: saved data."
         );
 
-        // this points to the process client interface and not to the process directly
+        // 'this' points to the process client interface and not to the process
+        // thus, we access the process implementation directly
         this._implementation.loadPersistedData();
     };
 
