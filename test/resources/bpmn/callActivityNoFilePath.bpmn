@@ -1,0 +1,35 @@
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <bpmn:process id="PROCESS_1">
+    <bpmn:startEvent name="none" id="92">
+      <mxCell style="shape=mxgraph.bpmn.none_start_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+        <mxGeometry x="111" y="91" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:startEvent>
+    <bpmn:callActivity name="call activity" subProcess="" calledElement=":PROCESS_1" id="93">
+      <mxCell style="shape=mxgraph.bpmn.call_activity;" vertex="1" parent="1">
+        <mxGeometry x="241" y="91" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow name="" sourceRef="92" targetRef="93" id="94">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="92" target="93">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="160" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent name="end" id="95">
+      <mxCell style="shape=mxgraph.bpmn.none_end_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+        <mxGeometry x="480" y="100" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow name="" sourceRef="93" targetRef="95" id="96">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="93" target="95">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="160" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+</bpmn:definitions>
