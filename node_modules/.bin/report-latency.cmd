@@ -1,0 +1,5 @@
+@IF EXIST "%~dp0\node.exe" (
+  "%~dp0\node.exe"  "%~dp0\..\restify\bin\report-latency" %*
+) ELSE (
+  node  "%~dp0\..\restify\bin\report-latency" %*
+)
