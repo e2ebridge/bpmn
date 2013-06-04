@@ -278,26 +278,45 @@ Of course, transports can be removed as well, e.g.:
 	bpmnProcess.removeLogTransport(winston.transports.File);
 
 
+Finding processes
+=================
+
+All loaded processes can be found by invoking one of the following functions:
+	
+	// returns all processes having the property names
+	var processes = bpmn.findByProperty({propName1: propValue1, propName2: propValue2, ...});
+
+	// returns all processes that are executing a task 
+	var processes = bpmn.findByTask(taskName);
+
+	// returns all processes being in the intermediate event
+	var processes = bpmn.findByEvent(eventName);
+	
+	// returns all processes that are executing the activity (callActivity, tasks, ...) 
+	var processes = bpmn.findByTask(activityName);
+
+**Note**, processes that are not loaded in memory are not yet found.
+
 BPMN
 ====
 
 Supported Elements
 -----------------------
-- Start events: all kind of start events are mapped to the none start event. Any further specialization is then done in the implementation of the handler.
-- End events: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
-- Gateways: Parallel- and exclusive gateways are supported.
-- Task, User Task, Manual Task, Receive Task: These tasks call an event handler when the task starts and then wait until `taskDone(taskName, data)` is invoked on the process.
+- **Start events**: all kind of start events are mapped to the none start event. Any further specialization is then done in the implementation of the handler.
+- **End events**: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
+- **Gateways**: Parallel- and exclusive gateways are supported.
+- **Task, User Task, Manual Task, Receive Task**: These tasks call an event handler when the task starts and then wait until `taskDone(taskName, data)` is invoked on the process.
 - Service Task, Script Task, Business Rule Task, Send Task (Wait Tasks): These tasks call an event handler when the task starts and proceed immediately after the the handler finishes.
-- Throw Intermediate Events: the handler is triggered when the intermediate event is reached. All types of intermediate events are treated the same.
-- Catch Intermediate Events: the handler is triggered if the event is sent to process 
-- Call Activity: an external sub-process is called. The sub-process must not be a collaboration and must have exactly one start event.
-- Boundary Events: message and timeout boundary elements are supported for all wait tasks (Task, User Task, Manual Task, Receive Task).
+- **Throw Intermediate Events**: the handler is triggered when the intermediate event is reached. All types of intermediate events are treated the same.
+- **Catch Intermediate Events**: the handler is triggered if the event is catched and not when it is reached. For example, if we have an intermediate catch message event, the handler is triggered when the message arrives. If we have an intermediate catch timer event, the handler is triggered when the timout occurs. However, in both cases, no handler is triggered when the intermediate event is reached.
+- **Call Activity**: an external sub-process is called. The sub-process must not be a collaboration and must have exactly one start event.
+- **Boundary Events**: message and timeout boundary elements are supported for all wait tasks (Task, User Task, Manual Task, Receive Task). The handler is triggered if the events occur.
 
 Limitations 
 -----------
-- Start events: all kind of start events are mapped to the none start event. Any further specialization is then done in the implementation of the handler.
-- End events: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
-- Gateways: only parallel- and exclusive gateways are supported yet.
+- **Start events**: all kind of start events are mapped to the none start event. Any further specialization is then done in the implementation of the handler.
+- **End events**: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
+- **Gateway**s: only parallel- and exclusive gateways are supported yet.
 - Data objects: are ignored by the engine
 
 
