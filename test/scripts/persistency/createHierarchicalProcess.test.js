@@ -82,12 +82,12 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
 };
 
 function testProcessRemovalFromCache(mainProcess, done, test) {
-    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getFromCache(mainProcess.processId);
+    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getById(mainProcess.processId);
     test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentHierarchicalProcess: before handler done() call: is process in cache.");
 
     done();
 
-    var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getFromCache(mainProcess.processId);
+    var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getById(mainProcess.processId);
     test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentHierarchicalProcess: after handler done() call: is process in cache.");
 }
 
