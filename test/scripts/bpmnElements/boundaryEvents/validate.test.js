@@ -3,13 +3,13 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var errorQueueModule = require("../../../../lib/parsing/errors.js");
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
-var errorQueueModule = require("../../../../lib/errors.js");
 
 exports.testBPMNMessageBoundaryEventValidate_OK = function(test) {
 
@@ -26,7 +26,7 @@ exports.testBPMNMessageBoundaryEventValidate_OK = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_9", null, "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createErrorQueue();
+    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -51,7 +51,7 @@ exports.testBPMNMessageBoundaryEventValidate_FO3_FO5 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_3", "_7"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_9", null, "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createErrorQueue();
+    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();

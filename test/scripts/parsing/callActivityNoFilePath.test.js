@@ -4,17 +4,17 @@
  */
 
 var bpmnParserModule = require('../../../lib/parsing/parser.js');
-var errorsModule = require('../../../lib/errors.js');
+var errorsModule = require('../../../lib/parsing/errors.js');
 
 exports.testCallActivityNoFilePath = function(test) {
 
-    var errorQueue = errorsModule.createErrorQueue();
+    var errorQueue = errorsModule.createBPMNParseErrorQueue();
     var bpmnDefinitions =bpmnParserModule.parse("test/resources/bpmn/callActivityNoFilePath.bpmn", errorQueue);
 
     var bpmnDefinition = bpmnDefinitions[0];
     bpmnDefinition.validate(errorQueue);
 
-    test.deepEqual(errorQueue.bpmnErrors,
+    test.deepEqual(errorQueue.bpmnParseErrors,
         [
             {
                 "code": "CA1",

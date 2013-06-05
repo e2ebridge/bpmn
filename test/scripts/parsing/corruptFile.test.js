@@ -4,16 +4,16 @@
  */
 
 var bpmnParserModule = require('../../../lib/parsing/parser.js');
-var errorsModule = require('../../../lib/errors.js');
+var errorsModule = require('../../../lib/parsing/errors.js');
 
 exports.testParseCorruptFile = function(test) {
 
-    var errorQueue = errorsModule.createErrorQueue();
+    var errorQueue = errorsModule.createBPMNParseErrorQueue();
     bpmnParserModule.parse("test/resources/bpmn/corruptFile.bpmn", errorQueue);
 
     test.deepEqual(errorQueue,
         {
-            "bpmnErrors": [
+            "bpmnParseErrors": [
                 {
                     "code": "NOPARSE",
                     "description": "Unquoted attribute value\nLine: 6\nColumn: 30\nChar: 1",

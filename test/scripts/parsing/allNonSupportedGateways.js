@@ -4,11 +4,11 @@
  */
 
 var bpmnParserModule = require('../../../lib/parsing/parser.js');
-var errorQueueModule = require("../../../lib/errors.js");
+var errorQueueModule = require("../../../lib/parsing/errors.js");
 
 exports.testParseBPMNAllNonSupportedGateways = function(test) {
 
-    var errorQueue = errorQueueModule.createErrorQueue();
+    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
     bpmnParserModule.parse("test/resources/bpmn/allNonSupportedGateways.bpmn", errorQueue);
 
     var errors = errorQueue.getErrors();
