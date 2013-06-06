@@ -22,11 +22,11 @@ exports.testDefaultFileLogger = function(test) {
     bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
     bpmnProcess.triggerEvent("MyStart");
 
-     afterLogfileCreation(bpmnProcess, function() {
+    afterLogfileCreation(bpmnProcess, function() {
         var loggedLines = fileUtilsModule.readLines(pathModule.join(defaultLogFilePath, defaultLogFileName));
         var linesWOTimestamps = loggedLines.map(function(line) {
             return line.replace(/timestamp.+[^}]/, "\"timestamp\":TIMESTAMP");
-         });
+        });
         test.deepEqual(linesWOTimestamps,
             [
                 "{\"level\":\"trace\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
