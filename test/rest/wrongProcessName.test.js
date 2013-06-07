@@ -41,7 +41,6 @@ exports.testWrongProcessName = function(test) {
 
             client.close();
             server.close(function() {
-                //console.log("\nstopping server on port " + port);
                 test.done();
             });
         });

@@ -25,11 +25,7 @@ exports.testCreateProcessByREST = function(test) {
 
         var client = restify.createJsonClient({url: "http://localhost:" + port});
         client.post('/taskexampleprocess', function(err, req, res, obj) {
-            if (err) {
-                 test.ok(false, "testCreateProcessByREST: nok");
-            } else {
-                test.ok(true, "testCreateProcessByREST: ok");
-            }
+            test.ok(!err, "testCreateProcessByREST: noError");
 
             test.deepEqual(obj,
                 {
@@ -40,7 +36,6 @@ exports.testCreateProcessByREST = function(test) {
             client.close();
             server.close(function() {
                 test.done();
-                //console.log("\nstopping server on port " + port);
             });
         });
     });

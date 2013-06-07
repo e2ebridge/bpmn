@@ -300,6 +300,7 @@ All loaded processes can be found by invoking one of the following functions:
 REST
 ====
 
+
 The above API can also be called by REST HTTP calls. To do this, you have first to instantiate a server:
 
 	var urlMap = {
@@ -313,18 +314,35 @@ The above API can also be called by REST HTTP calls. To do this, you have first 
     	console.log('%s listening at %s', server.name, server.url);
 	});
 
-The server is a node restify server. So all features of this package can be used. It is  now possible to send requests, such as the following POST request using the restify client
+The server is a node restify server. So all features of this package can be used.
 
+Creating a process
+------------------
+
+It is  now possible create process by sending POST requests
+
+	// This example used the node-restify client
 	var client = restify.createJsonClient({url: "http://localhost:9009"});
+
+	// Note: the process name is not case sensitive
     client.post('/taskexampleprocess', function(err, req, res, obj) { ... });
 
-If you do this, the server will use the urlMap to find the BPMN file associated with the process name in the URL, instantiate this process and return the process id in the response body as a JSON object:
+When receiving this request the server will use the urlMap to find the BPMN file associated with the process name in the URL, instantiate this process and return the process id in the response body as a JSON object:
 
 	{
     	"processId": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
 	}
 
-**Note**: the process name is not case sensitive
+The process has now been created but not yet started! To do this, you have either to send a start event using a PUT request or you can also put this event into the creating POST request:
+
+       var startEvent = {
+            "MyStart": { // start event name
+                "gugus": "blah", // data
+				"sugus": "foo", // and so on
+            }
+        };
+
+        client.post('/taskexampleprocess', startEvent, { ... });
 
 The full signature of `createProcess`  is
 
@@ -336,7 +354,40 @@ The parameters are:
 	* **urlMap**: Contains for each process name occurring in the URL the BPMN file path. If not given, the file name is derived by `processName + '.bpmn'`
  	* **getProcessId**: Function that returns a UUID. Default: node-uuid.v1()
  	* **logLevel**: used log level. Default: Error. Use logger.logLevels to set.
-- **restifyOptions**: these options are given to the restify.createServer call. If not given, the log property is set to the internal winston logger and the name property is set to 'bpmnRESTServer'
+- **restifyOptions**: these options are given to the restify.createServer call. If not given, the log property is set to the internal winston logger and the name property is set to 'bpmnRESTServer'.
+
+Getting the process state, history, and properties
+--------------------------------------------------
+
+After creating a process its current state, history, and properties can be accessed by
+
+	client.get('/taskexampleprocess/_my_custom_id_0', function(err, req, res, obj) {...});
+
+The returned object looks like:
+
+	{
+        "state": {
+            "tokens": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_0"
+                }
+            ]
+        },
+        "history": {
+            "historyEntries": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ]
+        },
+        "data": {}
+    }
+
+
 
 BPMN
 ====

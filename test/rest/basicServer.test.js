@@ -22,18 +22,11 @@ exports.testBasicRESTServer = function(test) {
         });
 
         client.get('/echo/gugus', function(err, req, res, obj) {
-            if (err) {
-                //console.log(err);
-                test.ok(false, "testBasicRESTServer: nok");
-            } else {
-                //console.log(JSON.stringify(obj, null, 2));
-                test.ok(true, "testBasicRESTServer: ok");
-            }
+            test.ok(!err, "testBasicRESTServer: noError");
 
             client.close();
             server.close(function() {
                 test.done();
-                //console.log("\nstopping server on port " + port);
             });
         });
     });
