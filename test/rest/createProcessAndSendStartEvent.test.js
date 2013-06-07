@@ -30,52 +30,102 @@ exports.testCreateProcessAndSendStartEvent = function(test) {
         };
 
         var client = restify.createJsonClient({url: "http://localhost:" + port});
-        client.post('/taskexampleprocess', startEvent, function(err, req, res, obj) {
-            test.ok(!err, "testCreateProcessAndSendStartEvent: noError");
+        client.post('/taskexampleprocess', startEvent, function(error, req, res, obj) {
 
-            test.deepEqual(obj,
-                {
-                    "processId": "_my_custom_id_0"
-                },
-                "testCreateProcessAndSendStartEvent: response object"
-            );
+            compareCreateProcessResult(test, error, obj);
 
-            client.get('/taskexampleprocess/_my_custom_id_0', function(err, req, res, obj) {
-                test.ok(!err, "testCreateProcessAndSendStartEvent: noError");
+            client.get('/taskexampleprocess/_my_custom_id_0', function(error, req, res, obj) {
 
-                test.deepEqual(obj,
-                    {
-                        "state": {
-                            "tokens": [
-                                {
-                                    "position": "MyTask",
-                                    "owningProcessId": "_my_custom_id_0"
-                                }
-                            ]
-                        },
-                        "history": {
-                            "historyEntries": [
-                                {
-                                    "name": "MyStart"
-                                },
-                                {
-                                    "name": "MyTask"
-                                }
-                            ]
-                        },
-                        "data": {}
-                    },
-                    "testCreateProcessAndSendStartEvent: process state"
-                );
+                compareGetProcessResult(test, error, obj);
 
-                client.close();
-                server.close(function() {
-                    test.done();
+                client.get('/taskexampleprocess', function(error, req, res, obj) {
+
+                    compareGetProcessesResult(test, error, obj);
+
+                    client.close();
+                    server.close(function() {
+                        test.done();
+                    });
+
                 });
-            });
+             });
 
         });
     });
 };
 
+function compareCreateProcessResult(test, error, result) {
 
+    test.ok(!error, "testCreateProcessAndSendStartEvent: noError");
+
+    test.deepEqual(result,
+        {
+            "processId": "_my_custom_id_0"
+        },
+        "testCreateProcessAndSendStartEvent: response object"
+    );
+}
+
+function compareGetProcessResult(test, error, result) {
+
+    test.ok(!error, "testCreateProcessAndSendStartEvent: getProcess: noError");
+
+    test.deepEqual(result,
+        {
+            "state": {
+                "tokens": [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "_my_custom_id_0"
+                    }
+                ]
+            },
+            "history": {
+                "historyEntries": [
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
+                ]
+            },
+            "data": {}
+        },
+        "testCreateProcessAndSendStartEvent: getProcess: result"
+    );
+
+}
+
+function compareGetProcessesResult(test, error, result) {
+
+    test.ok(!error, "testCreateProcessAndSendStartEvent: getProcesses: noError");
+
+    test.deepEqual(result,
+        [
+            {
+                "state": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "_my_custom_id_0"
+                        }
+                    ]
+                },
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        }
+                    ]
+                },
+                "data": {}
+            }
+        ],
+        "testCreateProcessAndSendStartEvent: getProcesses: result"
+    );
+
+}

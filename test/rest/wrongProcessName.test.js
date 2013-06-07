@@ -24,7 +24,7 @@ exports.testWrongProcessName = function(test) {
             url: "http://localhost:" + port
         });
 
-        client.post('/unknownProcess', function(error, req, res, obj) {
+        client.post('/unknownProcess', function(error) {
             if (error) {
                 test.equal(error.statusCode, 409, "testWrongProcessName: statusCode");
                 test.equal(error.restCode, "InvalidArgument", "testWrongProcessName: restCode");

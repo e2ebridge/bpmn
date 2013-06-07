@@ -387,7 +387,9 @@ The returned object looks like:
         "data": {}
     }
 
+Following REST convetions, the operation giving all processes of a given type looks like
 
+	client.get('/taskexampleprocess', function(err, req, res, obj) {...});
 
 BPMN
 ====

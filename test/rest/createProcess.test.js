@@ -33,6 +33,7 @@ exports.testCreateProcessByREST = function(test) {
                 },
                 "testCreateProcessByREST: response object"
             );
+
             client.close();
             server.close(function() {
                 test.done();
