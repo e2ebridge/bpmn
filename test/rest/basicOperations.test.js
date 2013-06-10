@@ -138,7 +138,8 @@ function compareCreateProcessResult(test, error, result) {
 
     test.deepEqual(result,
         {
-            "processId": "_my_custom_id_0"
+            "name": "TaskExampleProcess",
+            "id": "_my_custom_id_0"
         },
         "testBasicOperations: createProcess: result"
     );
@@ -150,7 +151,8 @@ function compareCreateAnotherProcessResult(test, error, result) {
 
     test.deepEqual(result,
         {
-            "processId": "_my_custom_id_1"
+            "name": "TaskExampleProcess",
+            "id": "_my_custom_id_1"
         },
         "testBasicOperations: createProcess (2): result"
     );
@@ -162,6 +164,7 @@ function compareGetProcessResult(test, error, result) {
 
     test.deepEqual(result,
         {
+            "id": "_my_custom_id_0",
             "state": {
                 "tokens": [
                     {
@@ -198,6 +201,7 @@ function compareGetAllProcessesResult(test, error, result) {
     test.deepEqual(result,
         [
             {
+                "id": "_my_custom_id_0",
                 "state": {
                     "tokens": [
                         {
@@ -223,6 +227,7 @@ function compareGetAllProcessesResult(test, error, result) {
                 }
             },
             {
+                "id": "_my_custom_id_1",
                 "state": {
                     "tokens": [
                         {
@@ -260,6 +265,7 @@ function compareFindProcessesByPropertyResult(test, error, result) {
     test.deepEqual(result,
         [
             {
+                "id": "_my_custom_id_0",
                 "state": {
                     "tokens": [
                         {
@@ -297,6 +303,7 @@ function compareFindProcessesByStateResult(test, error, result) {
     test.deepEqual(result,
         [
             {
+                "id": "_my_custom_id_0",
                 "state": {
                     "tokens": [
                         {
@@ -333,6 +340,7 @@ function comparePutEventResult(test, error, result) {
 
     test.deepEqual(result,
         {
+            "id": "_my_custom_id_1",
             "state": {
                 "tokens": [
                     {
