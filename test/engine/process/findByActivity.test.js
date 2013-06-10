@@ -8,16 +8,16 @@ var publicModule = require('../../../lib/public.js');
 
 var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 
-exports.testFindByActivity_Empty = function(test) {
+exports.testFindByState_Empty = function(test) {
     publicModule.clearCache();
-    var foundProcesses = publicModule.findByActivity();
+    var foundProcesses = publicModule.findByState();
 
-    test.equal(foundProcesses.length, 0, "testFindByActivity_Empty");
+    test.equal(foundProcesses.length, 0, "testFindByState_Empty");
 
     test.done();
 };
 
-exports.testFindByActivity_All = function(test) {
+exports.testFindByState_All = function(test) {
     publicModule.clearCache();
 
     var p1 = publicModule.createProcess("p1", fileName);
@@ -27,16 +27,16 @@ exports.testFindByActivity_All = function(test) {
     var p2 = publicModule.createProcess("p2", fileName);
     p2.setProperty("myprop2", "blah");
 
-    var foundProcesses = publicModule.findByActivity();
+    var foundProcesses = publicModule.findByState();
 
-    test.equal(foundProcesses.length, 2, "testFindByActivity_All");
-    test.equal(foundProcesses[0]._implementation.data["myprop1"], "gugus", "testFindByActivity_OneMatch");
-    test.equal(foundProcesses[1]._implementation.data["myprop2"], "blah", "testFindByActivity_OneMatch");
+    test.equal(foundProcesses.length, 2, "testFindByState_All");
+    test.equal(foundProcesses[0]._implementation.data["myprop1"], "gugus", "testFindByState_OneMatch");
+    test.equal(foundProcesses[1]._implementation.data["myprop2"], "blah", "testFindByState_OneMatch");
 
     test.done();
 };
 
-exports.testFindByActivity_OneMatch = function(test) {
+exports.testFindByState_OneMatch = function(test) {
     publicModule.clearCache();
 
     var p1 = publicModule.createProcess("p1", fileName);
@@ -46,10 +46,10 @@ exports.testFindByActivity_OneMatch = function(test) {
     var p2 = publicModule.createProcess("p2", fileName);
     p2.setProperty("myprop1", "blah");
 
-    var foundProcessesAtMyStart = publicModule.findByActivity("MyTask");
+    var foundProcessesAtMyStart = publicModule.findByState("MyTask");
 
-    test.equal(foundProcessesAtMyStart.length, 1, "testFindByActivity_OneMatch");
-    test.equal(foundProcessesAtMyStart[0]._implementation.processId, "p1", "testFindByActivity_OneMatch");
+    test.equal(foundProcessesAtMyStart.length, 1, "testFindByState_OneMatch");
+    test.equal(foundProcessesAtMyStart[0]._implementation.processId, "p1", "testFindByState_OneMatch");
 
     test.done();
 };

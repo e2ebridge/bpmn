@@ -66,10 +66,19 @@ exports.testCreateAnotherProcess = function(test) {
     });
 };
 
-exports.testQueryProcesses = function(test) {
+exports.testFindProcessesByProperty = function(test) {
     var client = createClient();
     client.get('/taskexampleprocess?myFirstProperty.gugus=blah', function(error, req, res, obj) {
-        compareQueryProcessesResult(test, error, obj);
+        compareFindProcessesByPropertyResult(test, error, obj);
+        client.close();
+        test.done();
+    });
+};
+
+exports.testFindProcessesByState = function(test) {
+    var client = createClient();
+    client.get('/taskexampleprocess?_state_=MyTask', function(error, req, res, obj) {
+        compareFindProcessesByStateResult(test, error, obj);
         client.close();
         test.done();
     });
@@ -189,9 +198,9 @@ function compareGetAllProcessesResult(test, error, result) {
 
 }
 
-function compareQueryProcessesResult(test, error, result) {
+function compareFindProcessesByPropertyResult(test, error, result) {
 
-    test.ok(!error, "testBasicOperations: queryProcesses: noError");
+    test.ok(!error, "testBasicOperations: compareFindProcessesByPropertyResult: noError");
 
     test.deepEqual(result,
         [
@@ -221,7 +230,44 @@ function compareQueryProcessesResult(test, error, result) {
                 }
             }
         ],
-        "testBasicOperations: queryProcesses: result"
+        "testBasicOperations: compareFindProcessesByPropertyResult: result"
+    );
+
+}
+
+function compareFindProcessesByStateResult(test, error, result) {
+
+    test.ok(!error, "testBasicOperations: compareFindProcessesByStateResult: noError");
+
+    test.deepEqual(result,
+        [
+            {
+                "state": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "_my_custom_id_0"
+                        }
+                    ]
+                },
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        }
+                    ]
+                },
+                "data": {
+                    "myFirstProperty": {
+                        "gugus": "blah"
+                    }
+                }
+            }
+        ],
+        "testBasicOperations: compareFindProcessesByStateResult: result"
     );
 
 }

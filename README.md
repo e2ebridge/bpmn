@@ -395,6 +395,12 @@ Or if is also possible using query strings. For example, the following query ret
 
 	client.get('/taskexampleprocess?x.y=uvw', function(err, req, res, obj) {...});
 
+It is also possible to query processes executing a task, an activity, or waiting for an event to happen by sending the following request:
+
+	client.get('/taskexampleprocess?_state_=MyTask', function(err, req, res, obj) {...});
+
+Of course, all queries can be combined in one request.
+
 BPMN
 ====
 
