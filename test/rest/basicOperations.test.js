@@ -66,10 +66,19 @@ exports.testCreateAnotherProcess = function(test) {
     });
 };
 
-exports.testGetProcesses = function(test) {
+exports.testQueryProcesses = function(test) {
+    var client = createClient();
+    client.get('/taskexampleprocess?myFirstProperty.gugus=blah', function(error, req, res, obj) {
+        compareQueryProcessesResult(test, error, obj);
+        client.close();
+        test.done();
+    });
+};
+
+exports.testGetAllProcesses = function(test) {
     var client = createClient();
     client.get('/taskexampleprocess', function(error, req, res, obj) {
-        compareGetProcessesResult(test, error, obj);
+        compareGetAllProcessesResult(test, error, obj);
         client.close();
         closeServer(test);
     });
@@ -123,16 +132,20 @@ function compareGetProcessResult(test, error, result) {
                     }
                 ]
             },
-            "data": {}
+            "data": {
+                "myFirstProperty": {
+                    "gugus": "blah"
+                }
+            }
         },
         "testBasicOperations: getProcess: result"
     );
 
 }
 
-function compareGetProcessesResult(test, error, result) {
+function compareGetAllProcessesResult(test, error, result) {
 
-    test.ok(!error, "testBasicOperations: getProcesses: noError");
+    test.ok(!error, "testBasicOperations: getAllProcesses: noError");
 
     test.deepEqual(result,
         [
@@ -155,7 +168,11 @@ function compareGetProcessesResult(test, error, result) {
                         }
                     ]
                 },
-                "data": {}
+                "data": {
+                    "myFirstProperty": {
+                        "gugus": "blah"
+                    }
+                }
             },
             {
                 "state": {
@@ -167,7 +184,44 @@ function compareGetProcessesResult(test, error, result) {
                 "data": {}
             }
         ],
-        "testBasicOperations: getProcesses: result"
+        "testBasicOperations: getAllProcesses: result"
+    );
+
+}
+
+function compareQueryProcessesResult(test, error, result) {
+
+    test.ok(!error, "testBasicOperations: queryProcesses: noError");
+
+    test.deepEqual(result,
+        [
+            {
+                "state": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "_my_custom_id_0"
+                        }
+                    ]
+                },
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        }
+                    ]
+                },
+                "data": {
+                    "myFirstProperty": {
+                        "gugus": "blah"
+                    }
+                }
+            }
+        ],
+        "testBasicOperations: queryProcesses: result"
     );
 
 }

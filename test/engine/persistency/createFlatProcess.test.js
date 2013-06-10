@@ -43,7 +43,9 @@ exports.testCreatePersistentFlatProcess = function(test) {
                 "processName": "TaskExampleProcess",
                 "processId": "myid",
                 "parentToken": null,
-                "data": {},
+                "data": {
+                    "myFirstProperty": {}
+                },
                 "state": {
                     "tokens": [
                         {
@@ -63,11 +65,11 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     ]
                 },
                 "pendingTimeouts": {},
-                "_id": 1,
                 "_saved": "FIXEDTIMESTAMP4TESTING",
-                "_updated": "FIXEDTIMESTAMP4TESTING"
+                "_updated": "FIXEDTIMESTAMP4TESTING",
+                "_id": 1
             },
-            "testCreatePersistentFlatProcess: saved data."
+            "testCreatePersistentFlatProcess: savedData."
         );
 
         // 'this' points to the process client interface and not to the process
@@ -100,7 +102,9 @@ exports.testCreatePersistentFlatProcess = function(test) {
                 "processName": "TaskExampleProcess",
                 "processId": "myid",
                 "parentToken": null,
-                "data": {},
+                "data": {
+                    "myFirstProperty": {}
+                },
                 "state": {
                     "tokens": [
                         {
@@ -120,11 +124,11 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     ]
                 },
                 "pendingTimeouts": {},
-                "_id": 1,
                 "_saved": "FIXEDTIMESTAMP4TESTING",
-                "_updated": "FIXEDTIMESTAMP4TESTING"
+                "_updated": "FIXEDTIMESTAMP4TESTING",
+                "_id": 1
             },
-            "testCreatePersistentFlatProcess: loaded data."
+            "testCreatePersistentFlatProcess: loadedData."
         );
 
         test.done();

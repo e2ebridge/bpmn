@@ -391,6 +391,10 @@ Following REST convetions, the operation giving all processes of a given type lo
 
 	client.get('/taskexampleprocess', function(err, req, res, obj) {...});
 
+Or if is also possible using query strings. For example, the following query returns all processes having property `x` containing the attribute `y` having the value `uvw`
+
+	client.get('/taskexampleprocess?x.y=uvw', function(err, req, res, obj) {...});
+
 BPMN
 ====
 

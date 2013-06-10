@@ -8,6 +8,10 @@ function log(eventName) {
 
 exports.MyStart = function(data, done) {
     log("MyStart");
+    if (data) {
+        log("Data: " + JSON.stringify(data, null, "  "));
+        this.setProperty("myFirstProperty", data);
+    }
     done(data);
 };
 
