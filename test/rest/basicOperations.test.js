@@ -84,6 +84,45 @@ exports.testFindProcessesByState = function(test) {
     });
 };
 
+exports.testPutEvent = function(test) {
+    var startEvent = {
+        "MyStart": { // start event name
+            "gugus": "blah"
+        }
+    };
+
+    var client = createClient();
+    client.put('/taskexampleprocess/_my_custom_id_1', startEvent, function(error, req, res, obj) {
+        comparePutEventResult(test, error, obj);
+        client.close();
+        test.done();
+    });
+};
+
+exports.testWrongPutEvent = function(test) {
+    var startEvent = {
+        "wrong": { // start event name
+            "gugus": "blah"
+        }
+    };
+
+    var client = createClient();
+    client.put('/taskexampleprocess/_my_custom_id_1', startEvent, function(error, req, res, obj) {
+        compareWrongPutEventResult(test, error, obj);
+        client.close();
+        test.done();
+    });
+};
+
+exports.testNoBodyPutRequest = function(test) {
+    var client = createClient();
+    client.put('/taskexampleprocess/_my_custom_id_1', null, function(error, req, res, obj) {
+        compareNoBodyPutRequestResult(test, error, obj);
+        client.close();
+        test.done();
+    });
+};
+
 exports.testGetAllProcesses = function(test) {
     var client = createClient();
     client.get('/taskexampleprocess', function(error, req, res, obj) {
@@ -185,12 +224,28 @@ function compareGetAllProcessesResult(test, error, result) {
             },
             {
                 "state": {
-                    "tokens": []
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "_my_custom_id_1"
+                        }
+                    ]
                 },
                 "history": {
-                    "historyEntries": []
+                    "historyEntries": [
+                        {
+                            "name": "MyStart"
+                        },
+                        {
+                            "name": "MyTask"
+                        }
+                    ]
                 },
-                "data": {}
+                "data": {
+                    "myFirstProperty": {
+                        "gugus": "blah"
+                    }
+                }
             }
         ],
         "testBasicOperations: getAllProcesses: result"
@@ -270,4 +325,76 @@ function compareFindProcessesByStateResult(test, error, result) {
         "testBasicOperations: compareFindProcessesByStateResult: result"
     );
 
+}
+
+function comparePutEventResult(test, error, result) {
+
+    test.ok(!error, "testBasicOperations: comparePutEventResult: noError");
+
+    test.deepEqual(result,
+        {
+            "state": {
+                "tokens": [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "_my_custom_id_1"
+                    }
+                ]
+            },
+            "history": {
+                "historyEntries": [
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
+                ]
+            },
+            "data": {
+                "myFirstProperty": {
+                    "gugus": "blah"
+                }
+            }
+        },
+        "testBasicOperations: comparePutEventResult: result"
+    );
+}
+
+function compareWrongPutEventResult(test, error, result) {
+
+    test.ok(error !== undefined && error, "testBasicOperations: compareWrongPutEventResult: error occurred");
+
+    test.deepEqual(error,
+        {
+            "message": "Error: The process 'TaskExampleProcess' does not know the event 'wrong'",
+            "statusCode": 500,
+            "body": {
+                "code": "BPMNExecutionError",
+                "message": "Error: The process 'TaskExampleProcess' does not know the event 'wrong'"
+            },
+            "restCode": "BPMNExecutionError",
+            "name": "BPMNExecutionError"
+        },
+        "testBasicOperations: compareWrongPutEventResult: error"
+    );
+}
+
+function compareNoBodyPutRequestResult(test, error, result) {
+
+    test.ok(error !== undefined && error, "testBasicOperations: compareNoBodyPutRequestResult: error occurred");
+
+    test.deepEqual(error,
+        {
+            "message": "PUT: no body found.",
+            "statusCode": 409,
+            "body": {
+                "code": "InvalidArgument",
+                "message": "PUT: no body found."
+            },
+            "restCode": "InvalidArgument",
+            "name": "InvalidArgumentError"
+        },
+        "testBasicOperations: compareNoBodyPutRequestResult: error"
+    );
 }

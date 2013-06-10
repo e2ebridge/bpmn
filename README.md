@@ -401,6 +401,27 @@ It is also possible to query processes executing a task, an activity, or waiting
 
 Of course, all queries can be combined in one request.
 
+Sending messages and triggering events
+--------------------------------------
+
+Both is done by send a put request containing the send message or triggered event as body:
+
+	var startEvent = {
+        "MyStart": { // start event name
+            "gugus": "blah"
+        }
+    };
+	client.get('/taskexampleprocess/myprocessid', startEvent, function(err, req, res, obj) {...});
+
+or 
+
+	var message = {
+        "MyMessage": { // message name
+            "gugus": "blah"
+        }
+    };
+	client.get('/taskexampleprocess/myprocessid', message, function(err, req, res, obj) {...});
+
 BPMN
 ====
 
