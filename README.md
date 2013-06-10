@@ -319,7 +319,7 @@ The server is a node restify server. So all features of this package can be used
 Creating a process
 ------------------
 
-It is  now possible create process by sending POST requests
+It is  now possible create process by sending `POST` requests
 
 	// This example used the node-restify client
 	var client = restify.createJsonClient({url: "http://localhost:9009"});
@@ -333,7 +333,7 @@ When receiving this request the server will use the urlMap to find the BPMN file
     	"processId": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
 	}
 
-The process has now been created but not yet started! To do this, you have either to send a start event using a PUT request or you can also put this event into the creating POST request:
+The process has now been created but not yet started! To do this, you have either to send a start event using a PUT request or you can also put this event into the creating `POST` request:
 
        var startEvent = {
             "MyStart": { // start event name
@@ -404,14 +404,14 @@ Of course, all queries can be combined in one request.
 Sending messages and triggering events
 --------------------------------------
 
-Both is done by send a put request containing the send message or triggered event as body:
+Both is done by send a `PUT` request containing the send message or triggered event as body:
 
 	var startEvent = {
         "MyStart": { // start event name
             "gugus": "blah"
         }
     };
-	client.get('/taskexampleprocess/myprocessid', startEvent, function(err, req, res, obj) {...});
+	client.put('/taskexampleprocess/myprocessid', startEvent, function(err, req, res, obj) {...});
 
 or 
 
@@ -420,7 +420,17 @@ or
             "gugus": "blah"
         }
     };
-	client.get('/taskexampleprocess/myprocessid', message, function(err, req, res, obj) {...});
+	client.put('/taskexampleprocess/myprocessid', message, function(err, req, res, obj) {...});
+
+**Note**, by default, the `PUT` request is not idempotent but if you add `_requestId_` to the request:
+
+	var startEvent = {
+        _requestId_: "my_unique_test_request_id",
+        "MyStart": { // start event name
+            "gugus": "blah"
+        }
+    };
+	client.put('/taskexampleprocess/myprocessid', message, function(err, req, res, obj) {...});
 
 BPMN
 ====

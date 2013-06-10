@@ -84,8 +84,9 @@ exports.testFindProcessesByState = function(test) {
     });
 };
 
-exports.testPutEvent = function(test) {
+function sendEvent(test) {
     var startEvent = {
+        _requestId_: "my_test_request_id",
         "MyStart": { // start event name
             "gugus": "blah"
         }
@@ -97,6 +98,15 @@ exports.testPutEvent = function(test) {
         client.close();
         test.done();
     });
+}
+
+exports.testPutEvent = function(test) {
+    sendEvent(test);
+};
+
+exports.testPutIdempotence = function(test) {
+    // send exactly the same request again.
+    sendEvent(test);
 };
 
 exports.testWrongPutEvent = function(test) {
@@ -369,7 +379,7 @@ function comparePutEventResult(test, error, result) {
     );
 }
 
-function compareWrongPutEventResult(test, error, result) {
+function compareWrongPutEventResult(test, error) {
 
     test.ok(error !== undefined && error, "testBasicOperations: compareWrongPutEventResult: error occurred");
 
@@ -388,7 +398,7 @@ function compareWrongPutEventResult(test, error, result) {
     );
 }
 
-function compareNoBodyPutRequestResult(test, error, result) {
+function compareNoBodyPutRequestResult(test, error) {
 
     test.ok(error !== undefined && error, "testBasicOperations: compareNoBodyPutRequestResult: error occurred");
 
