@@ -230,6 +230,14 @@ By default, only errors are logged. However, it is easy to change the log level:
 	
 	myProcess.setLogLevel(logLevels.debug);
 
+It is also possible to use log level strings instead of the log level enumeration:
+
+	myProcess.setLogLevel("debug");
+
+Or within a handler:
+
+	this.setLogLevel("trace");
+
 By default, logs are written to the console and `./process.log`. Of course, this can be changed. For details see the section *Log Transports*.
 
 The supported log levels are:
