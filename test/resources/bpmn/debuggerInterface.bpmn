@@ -1,0 +1,40 @@
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:debugger="http://e2e.ch/bpmneditor/debugger">
+  <bpmn:extensionElements>
+    <debugger:position href="http://localhost:7261/grapheditor/debugger/position"/>
+  </bpmn:extensionElements>
+  <bpmn:process id="PROCESS_1">
+    <bpmn:startEvent name="connect" label="connect" id="3">
+
+            <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_start_event;verticalLabelPosition=bottom;verticalAlign=top;" parent="1" vertex="1">
+        <mxGeometry x="111" y="201" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:startEvent>
+    <bpmn:serviceTask name="Say hello" label="Say hello" id="4">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" parent="1" vertex="1">
+        <mxGeometry x="300" y="190" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow name="flow" sourceRef="3" targetRef="4" id="5">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" parent="1" source="3" target="4" edge="1">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="160" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent name="end" id="6">
+      <mxCell style="shape=mxgraph.bpmn.none_end_event;verticalLabelPosition=bottom;verticalAlign=top;" parent="1" vertex="1">
+        <mxGeometry x="620" y="200" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow name="flow" sourceRef="4" targetRef="6" id="7">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" parent="1" source="4" target="6" edge="1">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="160" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+</bpmn:definitions>
