@@ -10,21 +10,18 @@ var pathModule = require('path');
 
 var port = 8099;
 var urlMap = {
-    "myProcess": pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn")
+    "TaskExampleProcess": pathModule.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
 };
 
 var server = bpmn.createServer({urlMap: urlMap, logLevel: logModule.logLevels.error});
+var client = restify.createJsonClient({
+    url: "http://localhost:" + port
+});
 
 exports.testWrongProcessName = function(test) {
 
      server.listen(port, function() {
-        //console.log('%s listening at %s', server.name, server.url);
-
-        var client = restify.createJsonClient({
-            url: "http://localhost:" + port
-        });
-
-        client.post('/unknownProcess', function(error) {
+         client.post('/unknownProcess', function(error) {
             if (error) {
                 test.equal(error.statusCode, 409, "testWrongProcessName: statusCode");
                 test.equal(error.restCode, "InvalidArgument", "testWrongProcessName: restCode");
@@ -40,9 +37,30 @@ exports.testWrongProcessName = function(test) {
             }
 
             client.close();
-            server.close(function() {
-                test.done();
-            });
+            test.done();
+        });
+    });
+};
+
+exports.testWrongStartEvent = function(test) {
+    client.post('/TaskExampleProcess/blah', function(error) {
+        if (error) {
+            test.equal(error.statusCode, 500, "testWrongProcessName: statusCode");
+            test.equal(error.restCode, "BPMNExecutionError", "testWrongProcessName: restCode");
+            test.equal(error.message, "Error: The process 'TaskExampleProcess' does not know the event 'blah'");
+            test.deepEqual(error.body,
+                {
+                    "code": "BPMNExecutionError",
+                    "message": "Error: The process 'TaskExampleProcess' does not know the event 'blah'"
+                },
+                "testWrongProcessName: body");
+        } else {
+            test.ok(false, "testWrongProcessName: nok: no error occurred");
+        }
+
+        client.close();
+        server.close(function() {
+            test.done();
         });
     });
 };

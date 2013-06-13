@@ -7,16 +7,16 @@ var bpmn = require('../../lib/public.js');
 var restify = require('restify');
 var pathModule = require('path');
 
+bpmn.clearCache();
+
 var port = 8099;
 var urlMap = {
     "TaskExampleProcess": pathModule.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
 };
 var counter = 0;
-var getProcessId = function() {
-  return ("_my_custom_id_" + counter++);
-};
-
-var server = bpmn.createServer({urlMap: urlMap, logLevel: bpmn.logLevels.error, getProcessId: getProcessId});
+var server = bpmn.createServer({urlMap: urlMap, logLevel: bpmn.logLevels.error, createProcessId: function() {
+    return ("_my_custom_id_" + counter++);
+}});
 
 exports.testCreateProcessByREST = function(test) {
 

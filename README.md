@@ -308,50 +308,23 @@ All loaded processes can be found by invoking one of the following functions:
 REST
 ====
 
+Server
+------
 
-The above API can also be called by REST HTTP calls. To do this, you have first to instantiate a server:
+The above API can also be called by REST HTTP calls. To do this, you have first to instantiate a server. For example:
 
+	// Used to map URI path names to BPMN definition files. Default: <path name>.bpmn
 	var urlMap = {
     	"TaskExampleProcess": pathModule.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
 	};
 
 	// Returns a restify server.
 	var server = bpmn.createServer({urlMap: urlMap});
-
 	server.listen(9009, function() {
     	console.log('%s listening at %s', server.name, server.url);
 	});
 
 The server is a node restify server. So all features of this package can be used.
-
-Creating a process
-------------------
-
-It is  now possible create process by sending `POST` requests
-
-	// This example used the node-restify client
-	var client = restify.createJsonClient({url: "http://localhost:9009"});
-
-	// Note: the process name is not case sensitive
-    client.post('/taskexampleprocess', function(err, req, res, obj) { ... });
-
-When receiving this request the server will use the urlMap to find the BPMN file associated with the process name in the URL, instantiate this process and return the process id in the response body as a JSON object:
-
-	{
-    	"processId": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
-	}
-
-The process has now been created but not yet started! To do this, you have either to send a start event using a PUT request or you can also put this event into the creating `POST` request:
-
-       var startEvent = {
-            "MyStart": { // start event name
-                "gugus": "blah", // data
-				"sugus": "foo", // and so on
-            }
-        };
-
-        client.post('/taskexampleprocess', startEvent, { ... });
-
 The full signature of `createProcess`  is
 
 	var server = bpmn.createServer(options, restifyOptions);
@@ -360,16 +333,45 @@ The parameters are:
 
 - **options**: optional object having the following optional properties
 	* **urlMap**: Contains for each process name occurring in the URL the BPMN file path. If not given, the file name is derived by `processName + '.bpmn'`
- 	* **getProcessId**: Function that returns a UUID. Default: node-uuid.v1()
+ 	* **createProcessId**: Function that returns a UUID. Default: `node-uuid.v1()`
  	* **logLevel**: used log level. Default: Error. Use logger.logLevels to set.
 - **restifyOptions**: these options are given to the restify.createServer call. If not given, the log property is set to the internal winston logger and the name property is set to 'bpmnRESTServer'.
 
-Getting the process state, history, and properties
---------------------------------------------------
+Client
+------
+
+The following sections describe how a client would use the REST API provided by the server above. The API calls are illustrated using the [restify client library](http://mcavage.github.io/node-restify/#client-api).
+
+**Creating a process**
+
+To create a process send a `POST` request:
+
+	// This example used the node-restify client
+	var client = restify.createJsonClient({url: "http://localhost:9009"});
+
+    client.post('/TaskExampleProcess', function(err, req, res, obj) { ... });
+
+When receiving this request the server will use the `urlMap` to find the BPMN file associated with the process name in the URL, instantiate this process and return the process id in the response body as a JSON object:
+
+	{
+    	"processId": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
+	}
+
+The process has now been created but not yet started! To do this, you have either to send a start event using a PUT request (see below) or you can use:
+
+       var message = {
+			"gugus": "blah", // a process property ...
+			"sugus": "foo", // and another one.
+        };
+
+        client.post('/TaskExampleProcess/MyStart', message, function(err, req, res, obj) { ... });
+
+
+**Getting the process state, history, and properties**
 
 After creating a process its current state, history, and properties can be accessed by
 
-	client.get('/taskexampleprocess/_my_custom_id_0', function(err, req, res, obj) {...});
+	client.get('/TaskExampleProcess/_my_custom_id_0', function(err, req, res, obj) {...});
 
 The returned object looks like:
 
@@ -397,48 +399,33 @@ The returned object looks like:
 
 Following REST convetions, the operation giving all processes of a given type looks like
 
-	client.get('/taskexampleprocess', function(err, req, res, obj) {...});
+	client.get('/TaskExampleProcess', function(err, req, res, obj) {...});
 
 Or if is also possible using query strings. For example, the following query returns all processes having property `x` containing the attribute `y` having the value `uvw`
 
-	client.get('/taskexampleprocess?x.y=uvw', function(err, req, res, obj) {...});
+	client.get('/TaskExampleProcess?x.y=uvw', function(err, req, res, obj) {...});
 
 It is also possible to query processes executing a task, an activity, or waiting for an event to happen by sending the following request:
 
-	client.get('/taskexampleprocess?_state_=MyTask', function(err, req, res, obj) {...});
+	client.get('/TaskExampleProcess?_state_=MyTask', function(err, req, res, obj) {...});
 
 Of course, all queries can be combined in one request.
 
-Sending messages and triggering events
---------------------------------------
+**Sending messages and triggering events**
 
-Both is done by send a `PUT` request containing the send message or triggered event as body:
+Both is done by send a `PUT` request containing the send message or triggered event data as body:
 
-	var startEvent = {
-        "MyStart": { // start event name
-            "gugus": "blah"
-        }
+	var data = {
+        "gugus": "blah"
     };
-	client.put('/taskexampleprocess/myprocessid', startEvent, function(err, req, res, obj) {...});
+	client.put('/TaskExampleProcess/myprocessid/MyStart/myeventid', data, function(err, req, res, obj) {...});
 
 or 
 
 	var message = {
-        "MyMessage": { // message name
-            "gugus": "blah"
-        }
+        "gugus": "blah"
     };
-	client.put('/taskexampleprocess/myprocessid', message, function(err, req, res, obj) {...});
-
-**Note**, by default, the `PUT` request is not idempotent but if you add `_requestId_` to the request:
-
-	var startEvent = {
-        _requestId_: "my_unique_test_request_id",
-        "MyStart": { // start event name
-            "gugus": "blah"
-        }
-    };
-	client.put('/taskexampleprocess/myprocessid', message, function(err, req, res, obj) {...});
+	client.put('/TaskExampleProcess/myprocessid/MyStart/mymessageid', data, function(err, req, res, obj) {...});
 
 BPMN
 ====
