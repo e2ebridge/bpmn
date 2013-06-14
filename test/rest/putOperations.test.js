@@ -106,8 +106,15 @@ function compareCreateProcess1Result(test, error, statusCode, result) {
 
     test.deepEqual(result,
         {
+            "id": "_my_custom_id_0",
             "name": "TaskExampleProcess",
-            "id": "_my_custom_id_0"
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_0"
+            },
+            "state": [],
+            "history": [],
+            "properties": {}
         },
         "compareCreateProcess1Result: result"
     );
@@ -121,8 +128,15 @@ function compareCreateProcess2Result(test, error, statusCode, result) {
 
     test.deepEqual(result,
         {
+            "id": "_my_custom_id_1",
             "name": "TaskExampleProcess",
-            "id": "_my_custom_id_1"
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_1"
+            },
+            "state": [],
+            "history": [],
+            "properties": {}
         },
         "compareCreateProcess2Result: result"
     );
@@ -137,25 +151,26 @@ function comparePutEventResult(test, error, statusCode, result) {
     test.deepEqual(result,
         {
             "id": "_my_custom_id_0",
-            "state": {
-                "tokens": [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "_my_custom_id_0"
-                    }
-                ]
+            "name": "TaskExampleProcess",
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_0"
             },
-            "history": {
-                "historyEntries": [
-                    {
-                        "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
-                    }
-                ]
-            },
-            "data": {
+            "state": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_0"
+                }
+            ],
+            "history": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "properties": {
                 "myFirstProperty": {
                     "gugus": "blah"
                 }
@@ -174,25 +189,26 @@ function compareIdempotentPutEventResult(test, error, statusCode, result) {
     test.deepEqual(result,
         {
             "id": "_my_custom_id_0",
-            "state": {
-                "tokens": [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "_my_custom_id_0"
-                    }
-                ]
+            "name": "TaskExampleProcess",
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_0"
             },
-            "history": {
-                "historyEntries": [
-                    {
-                        "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
-                    }
-                ]
-            },
-            "data": {
+            "state": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_0"
+                }
+            ],
+            "history": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "properties": {
                 "myFirstProperty": {
                     "gugus": "blah"
                 }
@@ -249,25 +265,26 @@ function compareNoBodyPutRequestResult(test, error, statusCode, result) {
     test.deepEqual(result,
         {
             "id": "_my_custom_id_1",
-            "state": {
-                "tokens": [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "_my_custom_id_1"
-                    }
-                ]
+            "name": "TaskExampleProcess",
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_1"
             },
-            "history": {
-                "historyEntries": [
-                    {
-                        "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
-                    }
-                ]
-            },
-            "data": {
+            "state": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_1"
+                }
+            ],
+            "history": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "properties": {
                 "myFirstProperty": {}
             }
         },

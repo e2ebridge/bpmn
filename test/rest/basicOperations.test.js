@@ -113,8 +113,31 @@ function compareCreateProcessResult(test, error, statusCode, result) {
 
     test.deepEqual(result,
         {
+            "id": "_my_custom_id_0",
             "name": "TaskExampleProcess",
-            "id": "_my_custom_id_0"
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_0"
+            },
+            "state": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_0"
+                }
+            ],
+            "history": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "properties": {
+                "myFirstProperty": {
+                    "gugus": "blah"
+                }
+            }
         },
         "testBasicOperations: createProcess: result"
     );
@@ -129,25 +152,26 @@ function compareGetProcessResult(test, error, statusCode, result) {
     test.deepEqual(result,
         {
             "id": "_my_custom_id_0",
-            "state": {
-                "tokens": [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "_my_custom_id_0"
-                    }
-                ]
+            "name": "TaskExampleProcess",
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_0"
             },
-            "history": {
-                "historyEntries": [
-                    {
-                        "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
-                    }
-                ]
-            },
-            "data": {
+            "state": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_0"
+                }
+            ],
+            "history": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "properties": {
                 "myFirstProperty": {
                     "gugus": "blah"
                 }
@@ -166,8 +190,15 @@ function compareCreateAnotherProcessResult(test, error, statusCode, result) {
 
     test.deepEqual(result,
         {
+            "id": "_my_custom_id_1",
             "name": "TaskExampleProcess",
-            "id": "_my_custom_id_1"
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_1"
+            },
+            "state": [],
+            "history": [],
+            "properties": {}
         },
         "testBasicOperations: createProcess (2): result"
     );
@@ -181,25 +212,26 @@ function compareGetAllProcessesResult(test, error, result) {
         [
             {
                 "id": "_my_custom_id_0",
-                "state": {
-                    "tokens": [
-                        {
-                            "position": "MyTask",
-                            "owningProcessId": "_my_custom_id_0"
-                        }
-                    ]
+                "name": "TaskExampleProcess",
+                "link": {
+                    "rel": "self",
+                    "href": "/TaskExampleProcess/_my_custom_id_0"
                 },
-                "history": {
-                    "historyEntries": [
-                        {
-                            "name": "MyStart"
-                        },
-                        {
-                            "name": "MyTask"
-                        }
-                    ]
-                },
-                "data": {
+                "state": [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "_my_custom_id_0"
+                    }
+                ],
+                "history": [
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
+                ],
+                "properties": {
                     "myFirstProperty": {
                         "gugus": "blah"
                     }
@@ -207,25 +239,26 @@ function compareGetAllProcessesResult(test, error, result) {
             },
             {
                 "id": "_my_custom_id_1",
-                "state": {
-                    "tokens": [
-                        {
-                            "position": "MyTask",
-                            "owningProcessId": "_my_custom_id_1"
-                        }
-                    ]
+                "name": "TaskExampleProcess",
+                "link": {
+                    "rel": "self",
+                    "href": "/TaskExampleProcess/_my_custom_id_1"
                 },
-                "history": {
-                    "historyEntries": [
-                        {
-                            "name": "MyStart"
-                        },
-                        {
-                            "name": "MyTask"
-                        }
-                    ]
-                },
-                "data": {
+                "state": [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "_my_custom_id_1"
+                    }
+                ],
+                "history": [
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
+                ],
+                "properties": {
                     "myFirstProperty": {
                         "gugus": "blah"
                     }
@@ -245,25 +278,26 @@ function compareFindProcessesByPropertyResult(test, error, result) {
         [
             {
                 "id": "_my_custom_id_0",
-                "state": {
-                    "tokens": [
-                        {
-                            "position": "MyTask",
-                            "owningProcessId": "_my_custom_id_0"
-                        }
-                    ]
+                "name": "TaskExampleProcess",
+                "link": {
+                    "rel": "self",
+                    "href": "/TaskExampleProcess/_my_custom_id_0"
                 },
-                "history": {
-                    "historyEntries": [
-                        {
-                            "name": "MyStart"
-                        },
-                        {
-                            "name": "MyTask"
-                        }
-                    ]
-                },
-                "data": {
+                "state": [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "_my_custom_id_0"
+                    }
+                ],
+                "history": [
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
+                ],
+                "properties": {
                     "myFirstProperty": {
                         "gugus": "blah"
                     }
@@ -283,25 +317,26 @@ function compareFindProcessesByStateResult(test, error, result) {
         [
             {
                 "id": "_my_custom_id_0",
-                "state": {
-                    "tokens": [
-                        {
-                            "position": "MyTask",
-                            "owningProcessId": "_my_custom_id_0"
-                        }
-                    ]
+                "name": "TaskExampleProcess",
+                "link": {
+                    "rel": "self",
+                    "href": "/TaskExampleProcess/_my_custom_id_0"
                 },
-                "history": {
-                    "historyEntries": [
-                        {
-                            "name": "MyStart"
-                        },
-                        {
-                            "name": "MyTask"
-                        }
-                    ]
-                },
-                "data": {
+                "state": [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "_my_custom_id_0"
+                    }
+                ],
+                "history": [
+                    {
+                        "name": "MyStart"
+                    },
+                    {
+                        "name": "MyTask"
+                    }
+                ],
+                "properties": {
                     "myFirstProperty": {
                         "gugus": "blah"
                     }
@@ -322,25 +357,26 @@ function comparePutEventResult(test, error, statusCode, result) {
     test.deepEqual(result,
         {
             "id": "_my_custom_id_1",
-            "state": {
-                "tokens": [
-                    {
-                        "position": "MyTask",
-                        "owningProcessId": "_my_custom_id_1"
-                    }
-                ]
+            "name": "TaskExampleProcess",
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_1"
             },
-            "history": {
-                "historyEntries": [
-                    {
-                        "name": "MyStart"
-                    },
-                    {
-                        "name": "MyTask"
-                    }
-                ]
-            },
-            "data": {
+            "state": [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "_my_custom_id_1"
+                }
+            ],
+            "history": [
+                {
+                    "name": "MyStart"
+                },
+                {
+                    "name": "MyTask"
+                }
+            ],
+            "properties": {
                 "myFirstProperty": {
                     "gugus": "blah"
                 }

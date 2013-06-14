@@ -351,13 +351,21 @@ To create a process send a `POST` request:
 
     client.post('/TaskExampleProcess', function(err, req, res, obj) { ... });
 
-When receiving this request the server will use the `urlMap` to find the BPMN file associated with the process name in the URL, instantiate this process and return the process id in the response body as a JSON object:
+When receiving this request the server will use the `urlMap` to find the BPMN file associated with the process name in the URL, instantiate this process and return the process state in the response body as a JSON object:
 
 	{
-    	"processId": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
+		"id": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f",
+		"name": "TaskExampleProcess",
+		"link": {
+		    "rel": "self",
+		    "href": "/TaskExampleProcess/3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
+		},
+		"state": [],
+		"history": [],
+		"properties": {}
 	}
 
-The process has now been created but not yet started! To do this, you have either to send a start event using a PUT request (see below) or you can use:
+The process has now been created but not yet started! Thus, `state`, `history`, and `properties` are empty. To do this, you have either to send a start event using a PUT request (see below) or you can use:
 
        var message = {
 			"gugus": "blah", // a process property ...
@@ -366,38 +374,53 @@ The process has now been created but not yet started! To do this, you have eithe
 
         client.post('/TaskExampleProcess/MyStart', message, function(err, req, res, obj) { ... });
 
+If the `MyStart` event handler sets a process property such as
+
+	exports.MyStart = function(data, done) {
+    	this.setProperty("myFirstProperty", data);
+    	done(data);
+	};
+
+The result of above POST request may look like:
+
+	{
+	    "id": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f",
+	    "name": "TaskExampleProcess",
+	    "link": {
+	        "rel": "self",
+	        "href": "/TaskExampleProcess/3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
+	    },
+	    "state": [
+	        {
+	            "position": "MyTask",
+	            "owningProcessId": "3c5e28f0-cec1-11e2-b076-31b0fecf7b6f"
+	        }
+	    ],
+	    "history": [
+	        {
+	            "name": "MyStart"
+	        },
+	        {
+	            "name": "MyTask"
+	        }
+	    ],
+	    "properties": {
+	        "myFirstProperty": {
+	            "gugus": "blah",
+				"sugus": "foo"
+	        }
+	    }
+	}
+
+**Note**: all REST request return either the process state or an array of process states.
 
 **Getting the process state, history, and properties**
 
-After creating a process its current state, history, and properties can be accessed by
+To the current state, history, and properties of process use
 
-	client.get('/TaskExampleProcess/_my_custom_id_0', function(err, req, res, obj) {...});
+	client.get('/TaskExampleProcess/3c5e28f0-cec1-11e2-b076-31b0fecf7b6f', function(err, req, res, obj) {...});
 
-The returned object looks like:
-
-	{
-        "state": {
-            "tokens": [
-                {
-                    "position": "MyTask",
-                    "owningProcessId": "_my_custom_id_0"
-                }
-            ]
-        },
-        "history": {
-            "historyEntries": [
-                {
-                    "name": "MyStart"
-                },
-                {
-                    "name": "MyTask"
-                }
-            ]
-        },
-        "data": {}
-    }
-
-Following REST convetions, the operation giving all processes of a given type looks like
+The returned object is the same as in the last POST request. Following REST convetions, the operation giving all processes of a given type is
 
 	client.get('/TaskExampleProcess', function(err, req, res, obj) {...});
 

@@ -29,8 +29,15 @@ exports.testCreateProcessByREST = function(test) {
 
             test.deepEqual(obj,
                 {
+                    "id": "_my_custom_id_0",
                     "name": "TaskExampleProcess",
-                    "id": "_my_custom_id_0"
+                    "link": {
+                        "rel": "self",
+                        "href": "/TaskExampleProcess/_my_custom_id_0"
+                    },
+                    "state": [],
+                    "history": [],
+                    "properties": {}
                 },
                 "testCreateProcessByREST: response object"
             );
