@@ -102,7 +102,7 @@ function compareCreateProcess1Result(test, error, statusCode, result) {
 
     test.ok(!error, "compareCreateProcess1Result: noError");
 
-    test.equal(statusCode, 200, "compareCreateProcess1Result: statusCode");
+    test.equal(statusCode, 201, "compareCreateProcess1Result: statusCode");
 
     test.deepEqual(result,
         {
@@ -124,7 +124,7 @@ function compareCreateProcess2Result(test, error, statusCode, result) {
 
     test.ok(!error, "compareCreateProcess2Result: noError");
 
-    test.equal(statusCode, 200, "compareCreateProcess2Result: statusCode");
+    test.equal(statusCode, 201, "compareCreateProcess2Result: statusCode");
 
     test.deepEqual(result,
         {
