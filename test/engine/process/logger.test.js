@@ -5,7 +5,16 @@
 
 var pathModule = require('path');
 var publicModule = require('../../../lib/public.js');
-var LogLevels = require('../../../lib/logger.js').logLevels;
+var loggerModule = require('../../../lib/logger.js');
+
+var LogLevels = loggerModule.logLevels;
+var Logger = loggerModule.Logger
+
+exports.testSetTextualLogLevel = function(test) {
+    var logger = new Logger(null, {logLevel: "debug"});
+    test.equal(logger.logLevel, 4, "testSetTextualLogLevel");
+    test.done();
+};
 
 exports.testLogger = function(test) {
     var state;

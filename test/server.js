@@ -13,7 +13,7 @@ var urlMap = {
 };
 
 // Returns a restify server.
-var server = bpmn.createServer({urlMap: urlMap});
+var server = bpmn.createServer({urlMap: urlMap, logLevel: "debug"});
 
 server.listen(port, function() {
     console.log('%s listening at %s', server.name, server.url);

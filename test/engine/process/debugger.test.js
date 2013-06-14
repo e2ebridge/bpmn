@@ -24,7 +24,7 @@ exports.testSendingPositionToBPMNEditor = function(test) {
         var flowObject = {bpmnId: "_123"};
         var debuggerInterface = new DebuggerInterface('http://localhost:7261/grapheditor/debugger/position', "dummyFileName");
         var logger = new loggerModule.Logger();
-        logger.setDefaultTransportsLogLevel('debug');
+        logger.setLogLevel('debug');
 
 
         debuggerInterface.sendPosition(flowObject, logger, function(error, req, res, obj) {
