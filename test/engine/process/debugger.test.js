@@ -6,6 +6,7 @@
 var restify = require('restify');
 var loggerModule = require('../../../lib/logger.js');
 var DebuggerInterface = require('../../../lib/debugger.js').DebuggerInterface;
+var winston = require('winston');
 
 exports.testSendingPositionToBPMNEditor = function(test) {
 
@@ -25,7 +26,7 @@ exports.testSendingPositionToBPMNEditor = function(test) {
         var debuggerInterface = new DebuggerInterface('http://localhost:7261/grapheditor/debugger/position', "dummyFileName");
         var logger = new loggerModule.Logger();
         logger.setLogLevel('debug');
-
+        logger.removeTransport(winston.transports.Console); // keeping the output clean
 
         debuggerInterface.sendPosition(flowObject, logger, function(error, req, res, obj) {
             test.ok(!error, "testSendingPositionToBPMNEditor: sendPosition: noError");
