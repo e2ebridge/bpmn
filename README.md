@@ -124,14 +124,14 @@ If the following process has to be implemented, we have to provide three handler
     	// has to return true or false
 		// the name of the sequence flow follows after "$".
 		// if there is no name, an error is thrown 
-    	done(data);
+    	return true;
 	};
 
 	exports.Is_it_ok_$nok = function(data, done) {
     	// has to return true or false
 		// the name of the sequence flow follows after "$".
 		// if there is no name, an error is thrown 
-    	done(data);
+    	return false;
 	};
 
 
@@ -152,7 +152,7 @@ Boundary timer events are timeouts on the activity they are attached to. To impl
 	exports.MyTimeout$getTimeout = function(data, done) {
     	// called when arriving on "MyTask"
 		// should return timeout in ms.
-    	done(data);
+    	return 1000;
 	};
 
 	exports.MyTimeout = function(data, done) {
@@ -169,7 +169,7 @@ Intermediate catch timer events are used to stop the process for a given time. I
 	exports.MyTimeout$getTimeout = function(data, done) {
     	// called when arriving on "Intermediate Catch Timer Event"
 		// should return wait time in ms.
-    	done(data);
+    	return 10000;
 	};
 
 	exports.Intermediate_Catch_Timer_Event = function(data, done) {
