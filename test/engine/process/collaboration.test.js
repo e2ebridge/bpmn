@@ -80,15 +80,22 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
             {
                 "historyEntries": [
                     {
-                        "name": "Start Event 1"
+                        "name": "Start Event 1",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Task 1"
+                        "name": "Task 1",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "End Event 1"
+                        "name": "End Event 1",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     }
-                ]
+                ],
+                "createdAt": "_dummy_ts_"
             },
             "testCreateVolatileCollaborationOfBPMNProcesses: history of process 1"
         );
@@ -97,18 +104,27 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
             {
                 "historyEntries": [
                     {
-                        "name": "Start Event 2"
+                        "name": "Start Event 2",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Task 2"
+                        "name": "Task 2",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Catch MY_MESSAGE"
+                        "name": "Catch MY_MESSAGE",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "End Event 2"
+                        "name": "End Event 2",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     }
-                ]
+                ],
+                "createdAt": "_dummy_ts_"
             },
             "testCreateVolatileCollaborationOfBPMNProcesses: history of process 2"
         );

@@ -12,6 +12,8 @@ var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequ
 var BPMNBoundaryEvent = require("../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
 var logLevels = require('../../../lib/public.js').logLevels;
 
+require("../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testIncorrectTaskDoneEvent = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
@@ -63,7 +65,9 @@ exports.testIncorrectTaskDoneEvent = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "testIncorrectTaskDoneEvent: history in defaultEventHandler"

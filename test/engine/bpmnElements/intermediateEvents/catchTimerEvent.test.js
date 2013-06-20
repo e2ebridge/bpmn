@@ -11,6 +11,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNIntermediateCatchEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testBPMNCatchTimerEvent = function(test) {
     var bpmnProcess;
 
@@ -54,10 +56,14 @@ exports.testBPMNCatchTimerEvent = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyCatchTimerEvent"
+                        "name": "MyCatchTimerEvent",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "testBPMNCatchTimerEvent: history at MyCatchTimerEvent"
@@ -80,13 +86,19 @@ exports.testBPMNCatchTimerEvent = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyCatchTimerEvent"
+                        "name": "MyCatchTimerEvent",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "testBPMNCatchTimerEvent: history at MyEnd"

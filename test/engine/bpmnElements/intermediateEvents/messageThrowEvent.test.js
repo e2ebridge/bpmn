@@ -9,9 +9,9 @@ var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNExclusiveGateway = require("../../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
 var BPMNIntermediateThrowEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateThrowEvent;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testIntermediateThrowEvent = function(test) {
     /** @type {BPMNProcessDefinition} */
@@ -65,13 +65,19 @@ exports.testIntermediateThrowEvent = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Intermediate Message Event"
+                        "name": "Intermediate Message Event",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": null // set in done()
                     }
                 ],
                 "testIntermediateThrowEvent: history at MyEnd"

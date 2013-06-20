@@ -12,6 +12,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNParallelGateway = require("../../../../lib/parsing/gateways.js").BPMNParallelGateway;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testDivergingParallelGatewayProcess = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcessWithParallelGateway");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
@@ -46,16 +48,24 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         test.deepEqual(history.historyEntries,
             [
                 {
-                    "name": "Start Event"
+                    "name": "Start Event",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "Parallel Gateway"
+                    "name": "Parallel Gateway",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "Task A"
+                    "name": "Task A",
+                    "begin": "_dummy_ts_",
+                    "end": null // set after done()
                 },
                 {
-                    "name": "Task B"
+                    "name": "Task B",
+                    "begin": "_dummy_ts_",
+                    "end": null // set after done()
                 }
             ],
             "testDivergingParallelGatewayProcess: history after forking A and B"

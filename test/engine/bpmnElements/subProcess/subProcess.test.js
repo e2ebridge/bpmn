@@ -10,8 +10,9 @@ var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStart
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-
 var pathModule = require('path');
+
+require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testBPMNSubProcess = function(test) {
     var mainProcess;
@@ -122,28 +123,42 @@ exports.testBPMNSubProcess = function(test) {
                 {
                     "historyEntries": [
                         {
-                            "name": "MyStart"
+                            "name": "MyStart",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
                             "name": "MySubProcess",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_",
                             "subhistory": {
                                 "historyEntries": [
                                     {
-                                        "name": "MySubStart"
+                                        "name": "MySubStart",
+                                        "begin": "_dummy_ts_",
+                                        "end": "_dummy_ts_"
                                     },
                                     {
-                                        "name": "MySubTask"
+                                        "name": "MySubTask",
+                                        "begin": "_dummy_ts_",
+                                        "end": "_dummy_ts_"
                                     },
                                     {
-                                        "name": "MySubEnd"
+                                        "name": "MySubEnd",
+                                        "begin": "_dummy_ts_",
+                                        "end": "_dummy_ts_"
                                     }
-                                ]
+                                ],
+                                "createdAt": "_dummy_ts_"
                             }
                         },
                         {
-                            "name": "MyEnd"
+                            "name": "MyEnd",
+                            "begin": "_dummy_ts_",
+                            "end": null // set after done()
                         }
-                    ]
+                    ],
+                    "createdAt": "_dummy_ts_"
                 },
                 "testBPMNSubProcess: history at MyEnd of main process"
             );

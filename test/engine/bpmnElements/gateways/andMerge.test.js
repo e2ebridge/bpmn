@@ -4,13 +4,14 @@
  */
 
 var bpmnProcessModule = require('../../../../lib/process.js');
-var Persistency = require('../../../../lib/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNParallelGateway = require("../../../../lib/parsing/gateways.js").BPMNParallelGateway;
+
+require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testAndMerge = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
@@ -95,19 +96,29 @@ exports.testAndMerge = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "Start Event1"
+                        "name": "Start Event1",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Parallel Converging Gateway"
+                        "name": "Parallel Converging Gateway",
+                        "begin": "_dummy_ts_",
+                        "end": null // is set only after both tokens arrived - see next "Parallel Converging Gateway" entry
                     },
                     {
-                        "name": "Start Event2"
+                        "name": "Start Event2",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Parallel Converging Gateway"
+                        "name": "Parallel Converging Gateway",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "End Event"
+                        "name": "End Event",
+                        "begin": "_dummy_ts_",
+                        "end": null // set after done()
                     }]                ,
                 "testAndMerge: history at End Event"
             );

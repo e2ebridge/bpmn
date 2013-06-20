@@ -11,6 +11,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testBPMNTimeout = function(test) {
     var bpmnProcess;
 
@@ -68,19 +70,51 @@ exports.testBPMNTimeout = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     },
                     {
-                        "name": "MyTimeout"
+                        "name": "MyTimeout",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
-                "testBPMNTimeout: history at MyTimeout"
+                "testBPMNTimeout: history at MyTimeout BEFORE done()"
             );
 
             done(data);
+
+            test.deepEqual(history.historyEntries,
+                [
+                    {
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    {
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    {
+                        "name": "MyTimeout",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    {
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    }
+                ],
+                "testBPMNTimeout: history at MyTimeout AFTER done()"
+            );
         },
         "MyEnd": function(data, done) {
             var state = this.getState();
@@ -97,16 +131,24 @@ exports.testBPMNTimeout = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTimeout"
+                        "name": "MyTimeout",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "testBPMNTimeout: history at MyEnd"

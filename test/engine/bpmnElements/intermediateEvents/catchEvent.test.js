@@ -11,6 +11,7 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNIntermediateCatchEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testIntermediateCatchEvent = function(test) {
     /** @type {BPMNProcessDefinition} */
@@ -63,13 +64,19 @@ exports.testIntermediateCatchEvent = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "Start Event"
+                        "name": "Start Event",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "My Intermediate Catch Event"
+                        "name": "My Intermediate Catch Event",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "End Event"
+                        "name": "End Event",
+                        "begin": "_dummy_ts_",
+                        "end": null // set after done()
                     }
                 ],
                 "testIntermediateCatchEvent: history at End Event"

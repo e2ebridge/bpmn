@@ -11,6 +11,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testBPMNMessageBoundaryEvent = function(test) {
     var bpmnProcess;
 
@@ -79,13 +81,19 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     },
                     {
-                        "name": "MyMessageBoundaryEvent"
+                        "name": "MyMessageBoundaryEvent",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "testBPMNMessageBoundaryEvent: history at MyMessageBoundaryEvent"
@@ -104,25 +112,36 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
                 ],
                 "testBPMNMessageBoundaryEvent: state at MyEnd"
             );
+
+            // to set the end time stamp in the history, we have to call done() BEFORE comparing the history entries
+            done(data);
+
             var history = this.getHistory();
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyMessageBoundaryEvent"
+                        "name": "MyMessageBoundaryEvent",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     }
                 ],
                 "testBPMNMessageBoundaryEvent: history at MyEnd"
             );
-            done(data);
 
             test.done();
         }

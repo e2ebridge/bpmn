@@ -12,6 +12,8 @@ var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEve
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
+require("../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testCreatePersistentFlatProcess = function(test) {
     var bpmnProcess;
 
@@ -57,12 +59,17 @@ exports.testCreatePersistentFlatProcess = function(test) {
                 "history": {
                     "historyEntries": [
                         {
-                            "name": "MyStart"
+                            "name": "MyStart",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "MyTask"
+                            "name": "MyTask",
+                            "begin": "_dummy_ts_",
+                            "end": null
                         }
-                    ]
+                    ],
+                    "createdAt": "_dummy_ts_"
                 },
                 "pendingTimeouts": {},
                 "_saved": "FIXEDTIMESTAMP4TESTING",
@@ -116,12 +123,17 @@ exports.testCreatePersistentFlatProcess = function(test) {
                 "history": {
                     "historyEntries": [
                         {
-                            "name": "MyStart"
+                            "name": "MyStart",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "MyTask"
+                            "name": "MyTask",
+                            "begin": "_dummy_ts_",
+                            "end": null
                         }
-                    ]
+                    ],
+                    "createdAt": "_dummy_ts_"
                 },
                 "pendingTimeouts": {},
                 "_saved": "FIXEDTIMESTAMP4TESTING",

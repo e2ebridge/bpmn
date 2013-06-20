@@ -29,12 +29,12 @@ exports.testDefaultFileLogger = function(test) {
         });
         test.deepEqual(linesWOTimestamps,
             [
-                "{\"level\":\"debug\",\"message\":\"{\\\"id\\\":\\\"unknown\\\",\\\"description\\\":\\\"DebuggerInterface: Sending '{\\\\\\\"filename\\\\\\\":\\\\\\\"dummyFileName\\\\\\\",\\\\\\\"position\\\\\\\":{\\\\\\\"bpmnId\\\\\\\":\\\\\\\"_123\\\\\\\"}}' to 'http://localhost:7261/grapheditor/debugger/position'\\\"}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"trace\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyTask'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at task 'MyTask'\\\",\\\"data\\\":{}}\",\"\"timestamp\":TIMESTAMP}",
+                "{\"id\":\"unknown\",\"description\":\"DebuggerInterface: Sending '{\\\"filename\\\":\\\"dummyFileName\\\",\\\"position\\\":{\\\"bpmnId\\\":\\\"_123\\\"}}' to 'http://localhost:7261/grapheditor/debugger/position'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
                 ""
             ],
             "testDefaultFileLogger");
@@ -74,11 +74,11 @@ exports.testNewWinstonTransport = function(test) {
         var loggedLines = fileUtilsModule.readLines(logFile);
         test.deepEqual(loggedLines,
             [
-                "{\"level\":\"trace\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Trigger startEvent 'MyStart'\\\"}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyStart'\\\"}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at startEvent 'MyStart'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token was put on 'MyTask'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"level\":\"debug\",\"message\":\"{\\\"process\\\":\\\"TaskExampleProcess\\\",\\\"id\\\":\\\"myid\\\",\\\"description\\\":\\\"Token arrived at task 'MyTask'\\\",\\\"data\\\":{}}\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
                 ""
             ],
             "testNewWinstonTransport");

@@ -10,6 +10,8 @@ var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStart
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testBPMNTask = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
@@ -83,13 +85,19 @@ exports.testBPMNTask = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": null // set in done()
                     }
                 ],
                 "testBPMNTask: history at MyEnd"

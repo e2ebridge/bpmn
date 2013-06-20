@@ -11,6 +11,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var pathModule = require('path');
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testBPMNCallActivity = function(test) {
     var mainProcess;
     var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../../resources/projects/simple/taskExampleProcess.bpmn");
@@ -114,28 +116,42 @@ exports.testBPMNCallActivity = function(test) {
                 {
                     "historyEntries": [
                         {
-                            "name": "MyStart"
+                            "name": "MyStart",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyCallActivity",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_",
                             "subhistory": {
                                 "historyEntries": [
                                     {
-                                        "name": "MyStart"
+                                        "name": "MyStart",
+                                        "begin": "_dummy_ts_",
+                                        "end": "_dummy_ts_"
                                     },
                                     {
-                                        "name": "MyTask"
+                                        "name": "MyTask",
+                                        "begin": "_dummy_ts_",
+                                        "end": "_dummy_ts_"
                                     },
                                     {
-                                        "name": "MyEnd"
+                                        "name": "MyEnd",
+                                        "begin": "_dummy_ts_",
+                                        "end": "_dummy_ts_"
                                     }
-                                ]
+                                ],
+                                "createdAt": "_dummy_ts_"
                             }
                         },
                         {
-                            "name": "MyEnd"
+                            "name": "MyEnd",
+                            "begin": "_dummy_ts_",
+                            "end": null // set after done()
                         }
-                    ]
+                    ],
+                    "createdAt": "_dummy_ts_"
                 },
                 "testBPMNCallActivity: history at MyEnd of main process"
             );

@@ -9,8 +9,8 @@ var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var BPMNExclusiveGateway = require("../../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testBPMNServiceTask = function(test) {
     /** @type {BPMNProcessDefinition} */
@@ -64,13 +64,19 @@ exports.testBPMNServiceTask = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyServiceTask"
+                        "name": "MyServiceTask",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd"
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": null // set in done()
                     }
                 ],
                 "testBPMNServiceTask: history at MyEnd"

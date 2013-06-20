@@ -12,6 +12,8 @@ var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEve
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
+require("../../../lib/history.js").setDummyTimestampFunction();
+
 var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyTestProcessType");
 processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
 processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
@@ -88,17 +90,22 @@ exports.testPersistSimpleProcess = function(test) {
                     "history": {
                         "historyEntries": [
                             {
-                                "name": "MyStart"
+                                "name": "MyStart",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
                             },
                             {
-                                "name": "MyTask"
+                                "name": "MyTask",
+                                "begin": "_dummy_ts_",
+                                "end": null
                             }
-                        ]
+                        ],
+                        "createdAt": "_dummy_ts_"
                     },
                     "pendingTimeouts": {},
-                    "_id": 1,
                     "_saved": "FIXEDTIMESTAMP4TESTING",
-                    "_updated": "FIXEDTIMESTAMP4TESTING"
+                    "_updated": "FIXEDTIMESTAMP4TESTING",
+                    "_id": 1
                 },
                 "testPersistSimpleProcess: saved data"
             );
@@ -173,10 +180,14 @@ exports.testLoadSimpleBPMNProcess = function(test) {
         test.deepEqual(loadedData.history.historyEntries,
             [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "testLoadSimpleBPMNProcess: history"

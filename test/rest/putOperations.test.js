@@ -8,6 +8,8 @@ var rest = require('../../lib/rest.js');
 var restify = require('restify');
 var pathModule = require('path');
 
+require("../../lib/history.js").setDummyTimestampFunction();
+
 bpmn.clearCache();
 rest.clearReceivedMessageIds();
 
@@ -164,10 +166,14 @@ function comparePutEventResult(test, error, statusCode, result) {
             ],
             "history": [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "properties": {
@@ -202,10 +208,14 @@ function compareIdempotentPutEventResult(test, error, statusCode, result) {
             ],
             "history": [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "properties": {
@@ -278,10 +288,14 @@ function compareNoBodyPutRequestResult(test, error, statusCode, result) {
             ],
             "history": [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "properties": {

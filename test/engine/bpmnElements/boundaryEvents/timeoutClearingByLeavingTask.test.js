@@ -11,6 +11,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testClearBPMNTimeoutByLeavingTask = function(test) {
     var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3");
     boundaryEvent.isTimerEvent = true;
@@ -109,13 +111,19 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyEnd2"
+                        "name": "MyEnd2",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "testClearBPMNTimeoutByLeavingTask: history at MyEnd"

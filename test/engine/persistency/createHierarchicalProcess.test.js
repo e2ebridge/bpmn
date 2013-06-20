@@ -14,6 +14,8 @@ var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEve
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
+require("../../../lib/history.js").setDummyTimestampFunction();
+
 var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 var persistencyPath = './test/resources/persistency/testHierarchicalProcess';
 var persistency = new Persistency({path: persistencyPath});
@@ -96,26 +98,39 @@ function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
     test.deepEqual(history.historyEntries,
         [
             {
-                "name": "MyStart"
+                "name": "MyStart",
+                "begin": "_dummy_ts_",
+                "end": "_dummy_ts_"
             },
             {
                 "name": "MyCallActivity",
+                "begin": "_dummy_ts_",
+                "end": "_dummy_ts_",
                 "subhistory": {
                     "historyEntries": [
                         {
-                            "name": "MyStart"
+                            "name": "MyStart",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "MyTask"
+                            "name": "MyTask",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "MyEnd"
+                            "name": "MyEnd",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         }
-                    ]
+                    ],
+                    "createdAt": "_dummy_ts_"
                 }
             },
             {
-                "name": "MyEnd"
+                "name": "MyEnd",
+                "begin": "_dummy_ts_",
+                "end": null
             }
         ],
         "testSimpleBPMNProcess: history at MyEnd of main process"
@@ -175,22 +190,32 @@ function compareSavedStateAtMyTask(mainProcess, savedData, test) {
             "history": {
                 "historyEntries": [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCallActivity",
+                        "begin": "_dummy_ts_",
+                        "end": null,
                         "subhistory": {
                             "historyEntries": [
                                 {
-                                    "name": "MyStart"
+                                    "name": "MyStart",
+                                    "begin": "_dummy_ts_",
+                                    "end": "_dummy_ts_"
                                 },
                                 {
-                                    "name": "MyTask"
+                                    "name": "MyTask",
+                                    "begin": "_dummy_ts_",
+                                    "end": null
                                 }
-                            ]
+                            ],
+                            "createdAt": "_dummy_ts_"
                         }
                     }
-                ]
+                ],
+                "createdAt": "_dummy_ts_"
             },
             "pendingTimeouts": {},
             "_id": 1,
@@ -255,22 +280,32 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
             "history": {
                 "historyEntries": [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCallActivity",
+                        "begin": "_dummy_ts_",
+                        "end": null,
                         "subhistory": {
                             "historyEntries": [
                                 {
-                                    "name": "MyStart"
+                                    "name": "MyStart",
+                                    "begin": "_dummy_ts_",
+                                    "end": "_dummy_ts_"
                                 },
                                 {
-                                    "name": "MyTask"
+                                    "name": "MyTask",
+                                    "begin": "_dummy_ts_",
+                                    "end": null
                                 }
-                            ]
+                            ],
+                            "createdAt": "_dummy_ts_"
                         }
                     }
-                ]
+                ],
+                "createdAt": "_dummy_ts_"
             },
             "pendingTimeouts": {},
             "_id": 1,
@@ -289,10 +324,14 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
     test.deepEqual(history.historyEntries,
         [
             {
-                "name": "MyStart"
+                "name": "MyStart",
+                "begin": "_dummy_ts_",
+                "end": "_dummy_ts_"
             },
             {
-                "name": "MyTask"
+                "name": "MyTask",
+                "begin": "_dummy_ts_",
+                "end": null
             }
         ],
         "testCreatePersistentHierarchicalProcess: afterLoading: history"

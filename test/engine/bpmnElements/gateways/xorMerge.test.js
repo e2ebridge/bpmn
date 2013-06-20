@@ -4,13 +4,14 @@
  */
 
 var bpmnProcessModule = require('../../../../lib/process.js');
-var Persistency = require('../../../../lib/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNExclusiveGateway = require("../../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
+
+require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testXorMerge = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
@@ -52,13 +53,19 @@ exports.testXorMerge = function(test) {
                 test.deepEqual(history.historyEntries,
                     [
                         {
-                            "name": "Start Event2"
+                            "name": "Start Event2",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "Exclusive Converging Gateway"
+                            "name": "Exclusive Converging Gateway",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "End Event"
+                            "name": "End Event",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         }
                     ],
                     "testXorMerge: history at End Event"
@@ -69,13 +76,19 @@ exports.testXorMerge = function(test) {
                 test.deepEqual(history.historyEntries,
                     [
                         {
-                            "name": "Start Event1"
+                            "name": "Start Event1",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "Exclusive Converging Gateway"
+                            "name": "Exclusive Converging Gateway",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         },
                         {
-                            "name": "End Event"
+                            "name": "End Event",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
                         }
                     ],
                     "testXorMerge: history at End Event"

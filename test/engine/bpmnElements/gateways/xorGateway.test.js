@@ -12,6 +12,8 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNExclusiveGateway = require("../../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
 
+require("../../../../lib/history.js").setDummyTimestampFunction();
+
 exports.testXorGateway = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
@@ -75,16 +77,24 @@ exports.testXorGateway = function(test) {
             test.deepEqual(history.historyEntries,
                 [
                     {
-                        "name": "Start Event"
+                        "name": "Start Event",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "First Task"
+                        "name": "First Task",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Is it ok?"
+                        "name": "Is it ok?",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "Task B"
+                        "name": "Task B",
+                        "begin": "_dummy_ts_",
+                        "end": null // set after done()
                     }
                 ],
                 "testXorGateway: history at End Event B"

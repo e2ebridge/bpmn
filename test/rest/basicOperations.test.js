@@ -7,6 +7,7 @@ var bpmn = require('../../lib/public.js');
 var restify = require('restify');
 var pathModule = require('path');
 
+require("../../lib/history.js").setDummyTimestampFunction();
 bpmn.clearCache();
 
 var port = 8099;
@@ -127,10 +128,14 @@ function compareCreateProcessResult(test, error, statusCode, result) {
             ],
             "history": [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "properties": {
@@ -165,10 +170,14 @@ function compareGetProcessResult(test, error, statusCode, result) {
             ],
             "history": [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "properties": {
@@ -225,10 +234,14 @@ function compareGetAllProcessesResult(test, error, result) {
                 ],
                 "history": [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "properties": {
@@ -252,10 +265,14 @@ function compareGetAllProcessesResult(test, error, result) {
                 ],
                 "history": [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "properties": {
@@ -291,10 +308,14 @@ function compareFindProcessesByPropertyResult(test, error, result) {
                 ],
                 "history": [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "properties": {
@@ -330,10 +351,14 @@ function compareFindProcessesByStateResult(test, error, result) {
                 ],
                 "history": [
                     {
-                        "name": "MyStart"
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
                     },
                     {
-                        "name": "MyTask"
+                        "name": "MyTask",
+                        "begin": "_dummy_ts_",
+                        "end": null
                     }
                 ],
                 "properties": {
@@ -370,10 +395,14 @@ function comparePutEventResult(test, error, statusCode, result) {
             ],
             "history": [
                 {
-                    "name": "MyStart"
+                    "name": "MyStart",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
                 },
                 {
-                    "name": "MyTask"
+                    "name": "MyTask",
+                    "begin": "_dummy_ts_",
+                    "end": null
                 }
             ],
             "properties": {
