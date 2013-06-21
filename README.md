@@ -91,6 +91,18 @@ Besides the default event handler, it is also possible to specify a default erro
     	done();
 	};
 
+Sometimes it is useful to call handlers before or after each activity, task, or catch event. To do this specify
+
+	"onBeginHandler":  function(currentFlowObjectName, data, done) {
+        // do something
+		done(data);
+    },
+    "onEndHandler":  function(currentFlowObjectName, data, done) {
+        // do something
+		done(data);
+    }
+
+
 Handler Context (this)
 ----------------------
 
