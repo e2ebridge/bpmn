@@ -29,7 +29,7 @@ exports.testDefaultFileLogger = function(test) {
         });
         test.deepEqual(linesWOTimestamps,
             [
-                "{\"id\":\"unknown\",\"description\":\"DebuggerInterface: Sending '{\\\"filename\\\":\\\"dummyFileName\\\",\\\"position\\\":{\\\"bpmnId\\\":\\\"_123\\\"}}' to 'http://localhost:7261/grapheditor/debugger/position'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"id\":\"unknown\",\"description\":\"DebuggerInterface: Sending '{\\\"filename\\\":\\\"dummyFileName\\\",\\\"position\\\":{\\\"bpmnId\\\":\\\"_123\\\"}}' to 'http://localhost:57261/grapheditor/debugger/position'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
