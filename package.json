@@ -20,9 +20,6 @@
         "bunyan": ">= 0.21.3",
         "node-uuid": ">= 1.4.0"
     },
-    "optionalDependencies": {
-        "mongoose": ">= 3.6.11"
-    },
     "devDependencies": {
         "nodeunit": ">= 0.7.4"
     },
