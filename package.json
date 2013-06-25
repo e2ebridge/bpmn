@@ -3,6 +3,14 @@
     "version": "0.0.1",
     "description": "BPMN 2.0 Execution Engine",
     "main": "./lib/public.js",
+    "keywords": [
+        "bpmn",
+        "workflow",
+        "process",
+        "automation",
+        "integration",
+        "system integration"
+    ],
     "dependencies": {
         "sax": ">= 0.5.2",
         "node-fs": ">= 0.1.5",
@@ -11,6 +19,9 @@
         "restify": ">= 2.5.1",
         "bunyan": ">= 0.21.3",
         "node-uuid": ">= 1.4.0"
+    },
+    "optionalDependencies": {
+        "mongoose": ">= 3.6.11"
     },
     "devDependencies": {
         "nodeunit": ">= 0.7.4"
