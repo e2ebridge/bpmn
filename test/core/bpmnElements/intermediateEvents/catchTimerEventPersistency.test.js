@@ -13,7 +13,7 @@ var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStart
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNIntermediateCatchEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
-var Persistency = require('../../../../lib/persistency.js').Persistency;
+var Persistency = require('../../../../lib/persistency/persistency.js').Persistency;
 
 /** @type {BPMNProcessDefinition} */
 var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");

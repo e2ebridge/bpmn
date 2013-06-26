@@ -13,7 +13,7 @@ var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStart
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
-var Persistency = require('../../../../lib/persistency.js').Persistency;
+var Persistency = require('../../../../lib/persistency/persistency.js').Persistency;
 
 var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3");
 boundaryEvent.isTimerEvent = true;

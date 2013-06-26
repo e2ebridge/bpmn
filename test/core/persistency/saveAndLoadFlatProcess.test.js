@@ -3,9 +3,10 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
+var fileUtils = require('../../../lib/utils/file.js');
 var pathModule = require('path');
 var bpmnProcessModule = require('../../../lib/process.js');
-var Persistency = require('../../../lib/persistency.js').Persistency;
+var Persistency = require('../../../lib/persistency/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -28,7 +29,7 @@ var testPropertyName = "myprop";
 
 exports.testPersistSimpleProcess = function(test) {
 
-    persistency.cleanAllSync();
+    fileUtils.cleanDirectorySync(persistencyPath);
 
     var handler = {
         "MyStart": function(data, done) {

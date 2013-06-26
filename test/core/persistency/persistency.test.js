@@ -3,12 +3,14 @@
  * COPYRIGHT: E2E Technologies Ltd.
  */
 
-var Persistency = require('../../../lib/persistency.js').Persistency;
+var Persistency = require('../../../lib/persistency/persistency.js').Persistency;
+var fileUtils = require('../../../lib/utils/file.js');
 var persistencyPath = './test/resources/persistency/testPersistency';
 
 exports.testFilePersistencyInsert = function(test) {
+    fileUtils.cleanDirectorySync(persistencyPath);
+
     var persistency = new Persistency({path: persistencyPath});
-    persistency.cleanAllSync();
 
     var persistentData = {
         processId: "mypid",

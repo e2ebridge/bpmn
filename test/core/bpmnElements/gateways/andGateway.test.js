@@ -4,7 +4,7 @@
  */
 
 var bpmnProcessModule = require('../../../../lib/process.js');
-var Persistency = require('../../../../lib/persistency.js').Persistency;
+var Persistency = require('../../../../lib/persistency/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
