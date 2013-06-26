@@ -54,20 +54,33 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
         "MyEnd": function(data, done) {
             compareHistoryEntryAtEndOfProcess(this, test);
             testProcessRemovalFromCache(mainProcess, done, test);
-
-            test.done();
         }
     };
 
     fileUtilsModule.cleanDirectorySync(persistencyUri);
 
     handler.doneSavingHandler = function(error, savedData) {
+
         test.ok(error === null, "testCreatePersistentHierarchicalProcess: no error saving.");
 
-        compareSavedStateAtMyTask(mainProcess, savedData, test);
+        var state = this.getState();
+        if (state.tokens[0]) {
+            var currentActivity = state.tokens[0].position;
 
-        mainProcess.loadPersistedData();
-    };
+            if (currentActivity === "MyCallActivity") {
+                var currentSubActivity = state.tokens[0].substate.tokens[0].position;
+                if (currentSubActivity === "MyTask") {
+                    // doneSavingHandler is called at least twice: after saving in MyTask and at the very end of the process
+                    compareStateSavedAtMyTask(mainProcess, savedData, test);
+
+                    // triggering the next test
+                    mainProcess.loadPersistedData();
+                }
+            }
+        } else {
+            compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test);
+        }
+     };
 
     handler.doneLoadingHandler = function(error, loadedData) {
         test.ok(error === undefined || error === null, "testCreatePersistentHierarchicalProcess: no error loading.");
@@ -137,7 +150,7 @@ function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
     );
 }
 
-function compareSavedStateAtMyTask(mainProcess, savedData, test) {
+function compareStateSavedAtMyTask(mainProcess, savedData, test) {
     var state = mainProcess.getState();
     test.deepEqual(state.tokens,
         [
@@ -349,4 +362,76 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
     );
 }
 
+function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
+    var state = mainProcess.getState();
+    test.deepEqual(state.tokens,
+        [],
+        "compareStateSavedAtEndOfMainProcess: state at end of main process."
+    );
+
+    test.ok(savedData._saved !== undefined, "testCreatePersistentHierarchicalProcess: saving: _saved exists");
+    savedData._saved = "FIXEDTIMESTAMP4TESTING";
+
+    test.ok(savedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: saving: _updated exists");
+    savedData._updated = "FIXEDTIMESTAMP4TESTING";
+
+    test.deepEqual(savedData,
+        {
+            "processName": "MyProcess",
+            "processId": "mainPid1",
+            "parentToken": null,
+            "data": {},
+            "state": {
+                "tokens": []
+            },
+            "history": {
+                "historyEntries": [
+                    {
+                        "name": "MyStart",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    {
+                        "name": "MyCallActivity",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_",
+                        "subhistory": {
+                            "historyEntries": [
+                                {
+                                    "name": "MyStart",
+                                    "begin": "_dummy_ts_",
+                                    "end": "_dummy_ts_"
+                                },
+                                {
+                                    "name": "MyTask",
+                                    "begin": "_dummy_ts_",
+                                    "end": "_dummy_ts_"
+                                },
+                                {
+                                    "name": "MyEnd",
+                                    "begin": "_dummy_ts_",
+                                    "end": "_dummy_ts_"
+                                }
+                            ],
+                            "createdAt": "_dummy_ts_"
+                        }
+                    },
+                    {
+                        "name": "MyEnd",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    }
+                ],
+                "createdAt": "_dummy_ts_"
+            },
+            "pendingTimeouts": {},
+            "_id": 1,
+            "_saved": "FIXEDTIMESTAMP4TESTING",
+            "_updated": "FIXEDTIMESTAMP4TESTING"
+        },
+        "compareStateSavedAtEndOfMainProcess: savedData."
+    );
+
+    test.done();
+}
 
