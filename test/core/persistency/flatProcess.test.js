@@ -2,6 +2,7 @@
  * AUTHOR: mrassinger
  * COPYRIGHT: E2E Technologies Ltd.
  */
+"use strict";
 
 var pathModule = require('path');
 var fileUtilsModule = require('../../../lib/utils/file.js');
