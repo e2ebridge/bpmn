@@ -17,8 +17,8 @@ require("../../../lib/history.js").setDummyTimestampFunction();
 exports.testCreatePersistentFlatProcess = function(test) {
     var bpmnProcess;
 
-    var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testPersistentProcess');
-    fileUtilsModule.cleanDirectorySync(persistencyPath);
+    var persistencyUri = pathModule.join(__dirname, '../../resources/persistency/testPersistentProcess');
+    fileUtilsModule.cleanDirectorySync(persistencyUri);
 
     var savedState = function(error, savedData) {
         test.ok(error === null, "testCreatePersistentFlatProcess: no error saving.");
@@ -149,7 +149,7 @@ exports.testCreatePersistentFlatProcess = function(test) {
     var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
     publicModule.clearCache();
     var persistencyOptions = {
-        persistencyPath: persistencyPath,
+        uri: persistencyUri,
         doneSaving: savedState,
         doneLoading: loadedState
     };

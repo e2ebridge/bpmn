@@ -17,8 +17,8 @@ var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequ
 require("../../../lib/history.js").setDummyTimestampFunction();
 
 var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-var persistencyPath = './test/resources/persistency/testHierarchicalProcess';
-var persistency = new Persistency({path: persistencyPath});
+var persistencyUri = './test/resources/persistency/testHierarchicalProcess';
+var persistency = new Persistency({uri: persistencyUri});
 
 var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyProcess");
 processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
@@ -59,7 +59,7 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
         }
     };
 
-    fileUtilsModule.cleanDirectorySync(persistencyPath);
+    fileUtilsModule.cleanDirectorySync(persistencyUri);
 
     handler.doneSavingHandler = function(error, savedData) {
         test.ok(error === null, "testCreatePersistentHierarchicalProcess: no error saving.");

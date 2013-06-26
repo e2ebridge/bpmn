@@ -5,12 +5,12 @@
 
 var Persistency = require('../../../lib/persistency/persistency.js').Persistency;
 var fileUtils = require('../../../lib/utils/file.js');
-var persistencyPath = './test/resources/persistency/testPersistency';
+var persistencyUri = './test/resources/persistency/testPersistency';
 
 exports.testFilePersistencyInsert = function(test) {
-    fileUtils.cleanDirectorySync(persistencyPath);
+    fileUtils.cleanDirectorySync(persistencyUri);
 
-    var persistency = new Persistency({path: persistencyPath});
+    var persistency = new Persistency({uri: persistencyUri});
 
     var persistentData = {
         processId: "mypid",
@@ -53,7 +53,7 @@ exports.testFilePersistencyInsert = function(test) {
 };
 
 exports.testFilePersistencyUpdate = function(test) {
-    var persistency = new Persistency({path: persistencyPath});
+    var persistency = new Persistency({uri: persistencyUri});
 
     var persistentData = {
         processId: "mypid",

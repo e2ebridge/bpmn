@@ -22,14 +22,14 @@ processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-var persistencyPath = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
-var persistency = new Persistency({path: persistencyPath});
+var persistencyUri = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
+var persistency = new Persistency({uri: persistencyUri});
 var processId = "myPersistentProcess_1";
 var testPropertyName = "myprop";
 
 exports.testPersistSimpleProcess = function(test) {
 
-    fileUtils.cleanDirectorySync(persistencyPath);
+    fileUtils.cleanDirectorySync(persistencyUri);
 
     var handler = {
         "MyStart": function(data, done) {

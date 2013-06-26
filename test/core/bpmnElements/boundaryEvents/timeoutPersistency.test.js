@@ -27,7 +27,7 @@ processDefinition.addFlowObject(boundaryEvent);
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
 
-var persistencyPath = pathModule.join(__dirname, '../../../resources/persistency/testPersistentTimeout');
+var persistencyUri = pathModule.join(__dirname, '../../../resources/persistency/testPersistentTimeout');
 
 exports.testBPMNTimeoutPersistency_Save = function(test) {
     var bpmnProcess;
@@ -56,10 +56,10 @@ exports.testBPMNTimeoutPersistency_Save = function(test) {
         }
     };
 
-    fileUtilsModule.cleanDirectorySync(persistencyPath);
+    fileUtilsModule.cleanDirectorySync(persistencyUri);
     publicModule.clearCache();
 
-    var persistency = new Persistency({path: persistencyPath});
+    var persistency = new Persistency({uri: persistencyUri});
     bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
     //bpmnProcess.setLogLevel(publicModule.logLevels.debug);
     bpmnProcess.triggerEvent("MyStart");
@@ -108,6 +108,6 @@ exports.testBPMNTimeoutPersistency_Load = function(test) {
 
     publicModule.clearCache();
 
-    var persistency = new Persistency({path: persistencyPath});
+    var persistency = new Persistency({uri: persistencyUri});
     bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
 };
