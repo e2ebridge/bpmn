@@ -172,10 +172,10 @@ function compareStateSavedAtMyTask(mainProcess, savedData, test) {
     );
 
     test.ok(savedData._saved !== undefined, "testCreatePersistentHierarchicalProcess: saving: _saved exists");
-    savedData._saved = "FIXEDTIMESTAMP4TESTING";
+    savedData._saved = "_dummy_ts_";
 
     test.ok(savedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: saving: _updated exists");
-    savedData._updated = "FIXEDTIMESTAMP4TESTING";
+    savedData._updated = "_dummy_ts_";
 
     test.deepEqual(savedData,
         {
@@ -232,8 +232,8 @@ function compareStateSavedAtMyTask(mainProcess, savedData, test) {
             },
             "pendingTimeouts": {},
             "_id": 1,
-            "_saved": "FIXEDTIMESTAMP4TESTING",
-            "_updated": "FIXEDTIMESTAMP4TESTING"
+            "_saved": "_dummy_ts_",
+            "_updated": "_dummy_ts_"
         },
         "testCreatePersistentHierarchicalProcess: savedData."
     );
@@ -262,10 +262,10 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
     );
 
     test.ok(loadedData._saved !== undefined, "testCreatePersistentHierarchicalProcess: loading: _saved exists");
-    loadedData._saved = "FIXEDTIMESTAMP4TESTING";
+    loadedData._saved = "_dummy_ts_";
 
     test.ok(loadedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: loading: _updated exists");
-    loadedData._updated = "FIXEDTIMESTAMP4TESTING";
+    loadedData._updated = "_dummy_ts_";
 
     test.deepEqual(loadedData,
         {
@@ -322,8 +322,8 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
             },
             "pendingTimeouts": {},
             "_id": 1,
-            "_saved": "FIXEDTIMESTAMP4TESTING",
-            "_updated": "FIXEDTIMESTAMP4TESTING"
+            "_saved": "_dummy_ts_",
+            "_updated": "_dummy_ts_"
         },
         "testCreatePersistentHierarchicalProcess: loadedData"
     );
@@ -370,10 +370,10 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
     );
 
     test.ok(savedData._saved !== undefined, "testCreatePersistentHierarchicalProcess: saving: _saved exists");
-    savedData._saved = "FIXEDTIMESTAMP4TESTING";
+    savedData._saved = "_dummy_ts_";
 
     test.ok(savedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: saving: _updated exists");
-    savedData._updated = "FIXEDTIMESTAMP4TESTING";
+    savedData._updated = "_dummy_ts_";
 
     test.deepEqual(savedData,
         {
@@ -426,8 +426,8 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
             },
             "pendingTimeouts": {},
             "_id": 1,
-            "_saved": "FIXEDTIMESTAMP4TESTING",
-            "_updated": "FIXEDTIMESTAMP4TESTING"
+            "_saved": "_dummy_ts_",
+            "_updated": "_dummy_ts_"
         },
         "compareStateSavedAtEndOfMainProcess: savedData."
     );

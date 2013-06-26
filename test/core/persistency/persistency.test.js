@@ -22,10 +22,10 @@ exports.testFilePersistencyInsert = function(test) {
     var done = function(error, persistedData) {
 
         test.ok(persistedData._saved !== undefined, "testFilePersistencyInsert: _saved exists");
-        persistedData._saved = "FIXEDTIMESTAMP4TESTING";
+        persistedData._saved = "_dummy_ts_";
 
         test.ok(persistedData._updated !== undefined, "testFilePersistencyInsert: _updated exists");
-        persistedData._updated = "FIXEDTIMESTAMP4TESTING";
+        persistedData._updated = "_dummy_ts_";
 
         test.deepEqual(
             persistedData,
@@ -37,8 +37,8 @@ exports.testFilePersistencyInsert = function(test) {
                 "state": ["a", "b"],
                 "history": ["a", "b", "c", "d"],
                 "_id": 1,
-                "_saved": "FIXEDTIMESTAMP4TESTING",
-                "_updated": "FIXEDTIMESTAMP4TESTING"
+                "_saved": "_dummy_ts_",
+                "_updated": "_dummy_ts_"
             },
             "testFilePersistencyInsert"
         );
@@ -65,10 +65,10 @@ exports.testFilePersistencyUpdate = function(test) {
     var done = function(error, persistedData) {
 
         test.ok(persistedData._saved !== undefined, "testFilePersistencyUpdate: _saved exists");
-        persistedData._saved = "FIXEDTIMESTAMP4TESTING";
+        persistedData._saved = "_dummy_ts_";
 
         test.ok(persistedData._updated !== undefined, "testFilePersistencyUpdate: _updated exists");
-        persistedData._updated = "FIXEDTIMESTAMP4TESTING";
+        persistedData._updated = "_dummy_ts_";
 
         test.deepEqual(
             persistedData,
@@ -80,8 +80,8 @@ exports.testFilePersistencyUpdate = function(test) {
                 "state": ["a", "CHANGED"],
                 "history": ["a", "b", "c", "d"],
                 "_id": 1,
-                "_saved": "FIXEDTIMESTAMP4TESTING",
-                "_updated": "FIXEDTIMESTAMP4TESTING"
+                "_saved": "_dummy_ts_",
+                "_updated": "_dummy_ts_"
             },
             "testFilePersistencyUpdate"
         );

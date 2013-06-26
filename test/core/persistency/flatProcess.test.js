@@ -35,10 +35,10 @@ exports.testCreatePersistentFlatProcess = function(test) {
         );
 
         test.ok(savedData._saved !== undefined, "testCreatePersistentFlatProcess: saving: _saved exists");
-        savedData._saved = "FIXEDTIMESTAMP4TESTING";
+        savedData._saved = "_dummy_ts_";
 
         test.ok(savedData._updated !== undefined, "testCreatePersistentFlatProcess: saving: _updated exists");
-        savedData._updated = "FIXEDTIMESTAMP4TESTING";
+        savedData._updated = "_dummy_ts_";
 
         test.deepEqual(savedData,
             {
@@ -72,8 +72,8 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     "createdAt": "_dummy_ts_"
                 },
                 "pendingTimeouts": {},
-                "_saved": "FIXEDTIMESTAMP4TESTING",
-                "_updated": "FIXEDTIMESTAMP4TESTING",
+                "_saved": "_dummy_ts_",
+                "_updated": "_dummy_ts_",
                 "_id": 1
             },
             "testCreatePersistentFlatProcess: savedData."
@@ -99,10 +99,10 @@ exports.testCreatePersistentFlatProcess = function(test) {
         );
 
         test.ok(loadedData._saved !== undefined, "testCreatePersistentFlatProcess: loading: _saved exists");
-        loadedData._saved = "FIXEDTIMESTAMP4TESTING";
+        loadedData._saved = "_dummy_ts_";
 
         test.ok(loadedData._updated !== undefined, "testCreatePersistentFlatProcess: loading: _updated exists");
-        loadedData._updated = "FIXEDTIMESTAMP4TESTING";
+        loadedData._updated = "_dummy_ts_";
 
         test.deepEqual(loadedData,
             {
@@ -136,8 +136,8 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     "createdAt": "_dummy_ts_"
                 },
                 "pendingTimeouts": {},
-                "_saved": "FIXEDTIMESTAMP4TESTING",
-                "_updated": "FIXEDTIMESTAMP4TESTING",
+                "_saved": "_dummy_ts_",
+                "_updated": "_dummy_ts_",
                 "_id": 1
             },
             "testCreatePersistentFlatProcess: loadedData."

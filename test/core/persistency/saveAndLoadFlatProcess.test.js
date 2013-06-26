@@ -64,10 +64,10 @@ exports.testPersistSimpleProcess = function(test) {
             }
 
             test.ok(savedData._saved !== undefined, "testPersistSimpleProcess: _saved exists");
-            savedData._saved = "FIXEDTIMESTAMP4TESTING";
+            savedData._saved = "_dummy_ts_";
 
             test.ok(savedData._updated !== undefined, "testPersistSimpleProcess: _updated exists");
-            savedData._updated = "FIXEDTIMESTAMP4TESTING";
+            savedData._updated = "_dummy_ts_";
 
             test.deepEqual(savedData,
                 {
@@ -104,8 +104,8 @@ exports.testPersistSimpleProcess = function(test) {
                         "createdAt": "_dummy_ts_"
                     },
                     "pendingTimeouts": {},
-                    "_saved": "FIXEDTIMESTAMP4TESTING",
-                    "_updated": "FIXEDTIMESTAMP4TESTING",
+                    "_saved": "_dummy_ts_",
+                    "_updated": "_dummy_ts_",
                     "_id": 1
                 },
                 "testPersistSimpleProcess: saved data"
