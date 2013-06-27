@@ -6,11 +6,6 @@
 
 var path = require('path');
 var publicModule = require('../../lib/public.js');
-var BPMNProcessDefinition = require('../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../lib/parsing/tasks.js").BPMNTask;
-var BPMNStartEvent = require("../../lib/parsing/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../lib/parsing/endEvents.js").BPMNEndEvent;
-var BPMNSequenceFlow = require("../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
 require("../../lib/history.js").setDummyTimestampFunction();
 
@@ -23,7 +18,7 @@ var bpmnProcess1, bpmnProcess2;
 exports.resetMongoDb = function(test) {
     publicModule.clearCache();
     mongodb.MongoClient.connect(persistencyUri, function(err, db) {
-        db.dropDatabase(function(err) {
+        db.dropDatabase(function() {
             db.close();
             test.done();
         });
@@ -203,7 +198,7 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
     });
 };
 
-exports.testMongoDBPersistentProcess2_persistAtEnd = function(test) {
+exports.testMongoDBPersistentProcess2persistAtEnd = function() {
     // we let the process run to the very end
     bpmnProcess2.taskDone("MyTask");
     // test.done(); this called in the doneSaving handler
