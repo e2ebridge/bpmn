@@ -10,10 +10,18 @@ var publicModule = require('../../lib/public.js');
 require("../../lib/history.js").setDummyTimestampFunction();
 
 var mongodb = require('mongodb');
-var persistencyUri = 'mongodb://127.0.0.1:27017/processtestdb';
+var persistencyUri = 'mongodb://127.0.0.1:27017/ut_flatprocess';
 var bpmnFileName = path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn");
 
 var bpmnProcess1, bpmnProcess2;
+
+var executionTrace = [];
+var logger = {
+    trace: function(message) {
+        //console.log(message);
+        executionTrace.push(message);
+    }
+};
 
 exports.resetMongoDb = function(test) {
     publicModule.clearCache();
@@ -33,7 +41,8 @@ exports.testMongoDBPersistProcess1 = function(test) {
 
     bpmnProcess1 = publicModule.createProcess("myid1", bpmnFileName, {
         uri: persistencyUri,
-        doneSaving: doneSaving
+        doneSaving: doneSaving,
+        logger: logger
     });
 
     // we let the process run to the first save state
@@ -45,6 +54,8 @@ exports.testMongoDBAfterPersistingProcess1 = function(test) {
         var collection = db.collection('TaskExampleProcess');
         collection.find().toArray(function(err, results) {
             db.close();
+
+            test.ok(results[0] !== undefined, "testMongoDBAfterPersistingProcess1: got results");
 
             test.ok(results[0]._id !== undefined, "testMongoDBAfterPersistingProcess1: _id 1 exists");
             results[0]._id = "_dummy_id_";
@@ -100,7 +111,8 @@ exports.testMongoDBPersistProcess2 = function(test) {
 
     bpmnProcess2 = publicModule.createProcess("myid2", bpmnFileName, {
         uri: persistencyUri,
-        doneSaving: doneSaving
+        doneSaving: doneSaving,
+        logger: logger
     });
 
     // we let the process run to the first save state
@@ -293,7 +305,93 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
     });
 };
 
+exports.testMongoDBLoadProcess1 = function(test) {
+    // clear cache otherwise we wouldn't load process one from the db
+    publicModule.clearCache();
+
+    var doneLoading = function(error, loadedData) {
+        test.ok(error === null, "testMongoDBLoadProcess1: no error loading.");
+
+        test.ok(loadedData._id !== undefined, "testMongoDBLoadProcess1: _id 1 exists");
+        loadedData._id = "_dummy_id_";
+
+        test.deepEqual(loadedData,
+            {
+                "_id": "_dummy_id_",
+                "processName": "TaskExampleProcess",
+                "processId": "myid1",
+                "parentToken": null,
+                "data": {
+                    "myFirstProperty": {}
+                },
+                "state": {
+                    "tokens": [
+                        {
+                            "position": "MyTask",
+                            "owningProcessId": "myid1"
+                        }
+                    ]
+                },
+                "history": {
+                    "historyEntries": [
+                        {
+                            "name": "MyStart",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        },
+                        {
+                            "name": "MyTask",
+                            "begin": "_dummy_ts_",
+                            "end": null
+                        }
+                    ],
+                    "createdAt": "_dummy_ts_"
+                },
+                "pendingTimeouts": {}
+            },
+            "testMongoDBAfterPersistingProcess2");
+
+        test.done();
+    };
+
+    bpmnProcess1 = publicModule.createProcess("myid1", bpmnFileName, {
+        uri: persistencyUri,
+        doneLoading: doneLoading,
+        logger: logger
+    });
+};
+
+exports.testMongoDBFlatProcessPersistenceExecutionTrace = function(test) {
+    test.deepEqual(executionTrace,
+        [
+            "Trying to get connection for URI: mongodb://127.0.0.1:27017/ut_flatprocess ...",
+            "Got connection 'ut_flatprocess' URI: mongodb://127.0.0.1:27017/ut_flatprocess",
+            "Start finding 'TaskExampleProcess' ('myid1').",
+            "Didn't find 'TaskExampleProcess' ('myid1').",
+            "\nUsing existing connection 'ut_flatprocess'",
+            "Start persisting 'TaskExampleProcess'",
+            "Persisted 'TaskExampleProcess' ('myid1').",
+            "\nUsing existing connection 'ut_flatprocess'",
+            "Start finding 'TaskExampleProcess' ('myid2').",
+            "Didn't find 'TaskExampleProcess' ('myid2').",
+            "\nUsing existing connection 'ut_flatprocess'",
+            "Start persisting 'TaskExampleProcess'",
+            "Persisted 'TaskExampleProcess' ('myid2').",
+            "\nUsing existing connection 'ut_flatprocess'",
+            "Start persisting 'TaskExampleProcess'",
+            "Persisted 'TaskExampleProcess' ('myid2').",
+            "Trying to get connection for URI: mongodb://127.0.0.1:27017/ut_flatprocess ...",
+            "Got connection 'ut_flatprocess' URI: mongodb://127.0.0.1:27017/ut_flatprocess",
+            "Start finding 'TaskExampleProcess' ('myid1').",
+            "Found 'TaskExampleProcess' ('myid1')."
+        ],
+        "testMongoDBFlatProcessPersistenceExecutionTrace"
+    );
+    test.done();
+};
+
 exports.closeConnections = function(test) {
+
     bpmnProcess2.closeConnection(function() {
         bpmnProcess1.closeConnection(function() {
            test.done();
