@@ -2,9 +2,9 @@
  * AUTHOR: mrassinger
  * COPYRIGHT: E2E Technologies Ltd.
  */
+"use strict";
 
 var bpmn = require('../lib/public.js');
-var restify = require('restify');
 var pathModule = require('path');
 
 var port = 9998;
