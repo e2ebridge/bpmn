@@ -10,8 +10,16 @@
 var mongodb = require('mongodb');
 var MongoDBPersistency = require('../../lib/persistency/mongodb.js').Persistency;
 
+var executionTrace = [];
+var logger = {
+    trace: function(message) {
+        //console.log(message);
+        executionTrace.push(message);
+    }
+};
+
 var dbUri = 'mongodb://127.0.0.1:27017/ut_connection';
-var persistency = new MongoDBPersistency(dbUri);
+var persistency = new MongoDBPersistency(dbUri, {logger: logger});
 
 exports.resetMongoDb = function(test) {
     mongodb.MongoClient.connect(dbUri, function(err, db) {
@@ -25,7 +33,7 @@ exports.resetMongoDb = function(test) {
     });
 };
 
-exports.testMongoDBPersistencyOK = function(test) {
+exports.testMongoDBConnectionOK = function(test) {
 
     var data = {
         processId: "myId",
@@ -35,15 +43,10 @@ exports.testMongoDBPersistencyOK = function(test) {
         }
     };
 
-    var originalConnect = persistency._connect;
-    persistency._connect = function(persistentData, done) {
-        originalConnect.call(this, persistentData, done);
-    };
-
     persistency.persist(data, function(error, document) {
-        test.ok(error === undefined || error === null, "testMongoDBPersistencyOK: no error");
+        test.ok(error === undefined || error === null, "testMongoDBConnectionOK: no error");
 
-        test.ok(document._id !== undefined, "testMongoDBPersistencyOK: _id 1 exists");
+        test.ok(document._id !== undefined, "testMongoDBConnectionOK: _id 1 exists");
         document._id = "_dummy_id_";
 
         test.deepEqual(document,
@@ -55,11 +58,23 @@ exports.testMongoDBPersistencyOK = function(test) {
                     "x": "test data"
                 }
             },
-            "testMongoDBPersistencyOK: data");
+            "testMongoDBConnectionOK: data");
         test.done();
     });
 };
 
+exports.testMongoDBConnectionOKExecutionTrace = function(test) {
+    test.deepEqual(executionTrace,
+        [
+            "Trying to get connection for URI: mongodb://127.0.0.1:27017/ut_connection ...",
+            "Got connection 'ut_connection' URI: mongodb://127.0.0.1:27017/ut_connection",
+            "Start persisting 'testprocess'",
+            "Persisted 'testprocess' ('myId')."
+        ],
+        "testMongoDBConnectionOKExecutionTrace"
+    );
+    test.done();
+};
 
 exports.testMongoDBClose = function(test) {
     persistency.close(function() {
