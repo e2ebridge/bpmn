@@ -210,10 +210,16 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
     });
 };
 
-exports.testMongoDBPersistentProcess2persistAtEnd = function() {
+exports.testMongoDBPersistentProcess2persistAtEnd = function(test) {
+    var doneSaving = function(error) {
+        test.ok(error === null, "testMongoDBPersistentProcess2persistAtEnd: no error saving.");
+        test.done();
+    };
+
+    bpmnProcess2._implementation.doneSavingHandler = doneSaving;
+
     // we let the process run to the very end
     bpmnProcess2.taskDone("MyTask");
-    // test.done(); this called in the doneSaving handler
 };
 
 exports.testMongoDBAfterEndOfProcess2 = function(test) {
