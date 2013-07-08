@@ -81,16 +81,19 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
                 "historyEntries": [
                     {
                         "name": "Start Event 1",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Task 1",
+                        "type": "serviceTask",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "End Event 1",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     }
@@ -105,21 +108,25 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
                 "historyEntries": [
                     {
                         "name": "Start Event 2",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Task 2",
+                        "type": "serviceTask",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Catch MY_MESSAGE",
+                        "type": "intermediateCatchEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "End Event 2",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     }

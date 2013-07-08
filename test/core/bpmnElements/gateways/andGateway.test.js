@@ -48,21 +48,25 @@ exports.testDivergingParallelGatewayProcess = function(test) {
             [
                 {
                     "name": "Start Event",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "Parallel Gateway",
+                    "type": "parallelGateway",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "Task A",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null // set after done()
                 },
                 {
                     "name": "Task B",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null // set after done()
                 }

@@ -55,11 +55,13 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     "historyEntries": [
                         {
                             "name": "MyStart",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyTask",
+                            "type": "task",
                             "begin": "_dummy_ts_",
                             "end": null
                         }
@@ -119,11 +121,13 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     "historyEntries": [
                         {
                             "name": "MyStart",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyTask",
+                            "type": "task",
                             "begin": "_dummy_ts_",
                             "end": null
                         }

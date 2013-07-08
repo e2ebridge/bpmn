@@ -52,16 +52,19 @@ exports.testXorMerge = function(test) {
                     [
                         {
                             "name": "Start Event2",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "Exclusive Converging Gateway",
+                            "type": "exclusiveGateway",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "End Event",
+                            "type": "endEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         }
@@ -75,16 +78,19 @@ exports.testXorMerge = function(test) {
                     [
                         {
                             "name": "Start Event1",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "Exclusive Converging Gateway",
+                            "type": "exclusiveGateway",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "End Event",
+                            "type": "endEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         }

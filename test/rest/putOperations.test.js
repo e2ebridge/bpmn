@@ -167,11 +167,13 @@ function comparePutEventResult(test, error, statusCode, result) {
             "history": [
                 {
                     "name": "MyStart",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "MyTask",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
@@ -209,11 +211,13 @@ function compareIdempotentPutEventResult(test, error, statusCode, result) {
             "history": [
                 {
                     "name": "MyStart",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "MyTask",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
@@ -289,11 +293,13 @@ function compareNoBodyPutRequestResult(test, error, statusCode, result) {
             "history": [
                 {
                     "name": "MyStart",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "MyTask",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null
                 }

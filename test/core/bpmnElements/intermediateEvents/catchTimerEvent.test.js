@@ -57,11 +57,13 @@ exports.testBPMNCatchTimerEvent = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCatchTimerEvent",
+                        "type": "intermediateCatchEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -87,16 +89,19 @@ exports.testBPMNCatchTimerEvent = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCatchTimerEvent",
+                        "type": "intermediateCatchEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyEnd",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }

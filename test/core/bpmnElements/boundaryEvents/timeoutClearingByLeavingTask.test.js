@@ -113,16 +113,19 @@ exports.testClearBPMNTimeoutByLeavingTask = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyEnd2",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }

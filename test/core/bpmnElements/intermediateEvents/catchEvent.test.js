@@ -65,16 +65,19 @@ exports.testIntermediateCatchEvent = function(test) {
                 [
                     {
                         "name": "Start Event",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "My Intermediate Catch Event",
+                        "type": "intermediateCatchEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "End Event",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": null // set after done()
                     }

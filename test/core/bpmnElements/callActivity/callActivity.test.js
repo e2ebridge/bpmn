@@ -119,27 +119,32 @@ exports.testBPMNCallActivity = function(test) {
                     "historyEntries": [
                         {
                             "name": "MyStart",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyCallActivity",
+                            "type": "callActivity",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_",
                             "subhistory": {
                                 "historyEntries": [
                                     {
                                         "name": "MyStart",
+                                        "type": "startEvent",
                                         "begin": "_dummy_ts_",
                                         "end": "_dummy_ts_"
                                     },
                                     {
                                         "name": "MyTask",
+                                        "type": "task",
                                         "begin": "_dummy_ts_",
                                         "end": "_dummy_ts_"
                                     },
                                     {
                                         "name": "MyEnd",
+                                        "type": "endEvent",
                                         "begin": "_dummy_ts_",
                                         "end": "_dummy_ts_"
                                     }
@@ -149,6 +154,7 @@ exports.testBPMNCallActivity = function(test) {
                         },
                         {
                             "name": "MyEnd",
+                            "type": "endEvent",
                             "begin": "_dummy_ts_",
                             "end": null // set after done()
                         }

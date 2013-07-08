@@ -76,23 +76,27 @@ exports.testXorGateway = function(test) {
                 [
                     {
                         "name": "Start Event",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "First Task",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Is it ok?",
+                        "type": "exclusiveGateway",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Task B",
+                        "type": "task",
                         "begin": "_dummy_ts_",
-                        "end": null // set after done()
+                        "end": null
                     }
                 ],
                 "testXorGateway: history at End Event B"

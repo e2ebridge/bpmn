@@ -129,11 +129,13 @@ function compareCreateProcessResult(test, error, statusCode, result) {
             "history": [
                 {
                     "name": "MyStart",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "MyTask",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
@@ -171,11 +173,13 @@ function compareGetProcessResult(test, error, statusCode, result) {
             "history": [
                 {
                     "name": "MyStart",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "MyTask",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
@@ -235,11 +239,13 @@ function compareGetAllProcessesResult(test, error, result) {
                 "history": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -266,11 +272,13 @@ function compareGetAllProcessesResult(test, error, result) {
                 "history": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -309,11 +317,13 @@ function compareFindProcessesByPropertyResult(test, error, result) {
                 "history": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -352,11 +362,13 @@ function compareFindProcessesByStateResult(test, error, result) {
                 "history": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -396,11 +408,13 @@ function comparePutEventResult(test, error, statusCode, result) {
             "history": [
                 {
                     "name": "MyStart",
+                    "type": "startEvent",
                     "begin": "_dummy_ts_",
                     "end": "_dummy_ts_"
                 },
                 {
                     "name": "MyTask",
+                    "type": "task",
                     "begin": "_dummy_ts_",
                     "end": null
                 }

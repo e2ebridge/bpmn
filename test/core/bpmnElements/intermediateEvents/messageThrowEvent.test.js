@@ -66,16 +66,19 @@ exports.testIntermediateThrowEvent = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Intermediate Message Event",
+                        "type": "intermediateThrowEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyEnd",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": null // set in done()
                     }

@@ -80,11 +80,13 @@ exports.testMongoDBAfterPersistingProcess1 = function(test) {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": null
                                 }
@@ -151,11 +153,13 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": null
                                 }
@@ -184,11 +188,13 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": null
                                 }
@@ -254,11 +260,13 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": null
                                 }
@@ -282,16 +290,19 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyEnd",
+                                    "type": "endEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 }
@@ -340,11 +351,13 @@ exports.testMongoDBLoadProcess1 = function(test) {
                     "historyEntries": [
                         {
                             "name": "MyStart",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyTask",
+                            "type": "task",
                             "begin": "_dummy_ts_",
                             "end": null
                         }

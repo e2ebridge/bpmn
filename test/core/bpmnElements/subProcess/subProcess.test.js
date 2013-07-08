@@ -124,27 +124,32 @@ exports.testBPMNSubProcess = function(test) {
                     "historyEntries": [
                         {
                             "name": "MyStart",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MySubProcess",
+                            "type": "subProcess",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_",
                             "subhistory": {
                                 "historyEntries": [
                                     {
                                         "name": "MySubStart",
+                                        "type": "startEvent",
                                         "begin": "_dummy_ts_",
                                         "end": "_dummy_ts_"
                                     },
                                     {
                                         "name": "MySubTask",
+                                        "type": "task",
                                         "begin": "_dummy_ts_",
                                         "end": "_dummy_ts_"
                                     },
                                     {
                                         "name": "MySubEnd",
+                                        "type": "endEvent",
                                         "begin": "_dummy_ts_",
                                         "end": "_dummy_ts_"
                                     }
@@ -154,6 +159,7 @@ exports.testBPMNSubProcess = function(test) {
                         },
                         {
                             "name": "MyEnd",
+                            "type": "endEvent",
                             "begin": "_dummy_ts_",
                             "end": null // set after done()
                         }

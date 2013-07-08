@@ -74,7 +74,7 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
                         "owningProcessId": "myFirstProcess"
                     }
                 ],
-                "testBPMNMessageBoundaryEvent: state at MyEnd"
+                "testBPMNMessageBoundaryEvent: state at MyMessageBoundaryEvent"
             );
 
             var history = this.getHistory();
@@ -82,16 +82,19 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": null
                     },
                     {
                         "name": "MyMessageBoundaryEvent",
+                        "type": "boundaryEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -121,21 +124,25 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyMessageBoundaryEvent",
+                        "type": "boundaryEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyEnd",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     }

@@ -18,7 +18,7 @@ exports.testAndMerge = function(test) {
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event1", "startEvent"));
     processDefinition.addFlowObject(new BPMNStartEvent("_3", "Start Event2", "startEvent"));
     processDefinition.addFlowObject(new BPMNEndEvent("_9", "End Event", "endEvent"));
-    processDefinition.addFlowObject(new BPMNParallelGateway("_4", "Parallel Converging Gateway", "exclusiveGateway"));
+    processDefinition.addFlowObject(new BPMNParallelGateway("_4", "Parallel Converging Gateway", "parallelGateway"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_5", null, "sequenceFlow", "_2", "_4"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", null, "sequenceFlow", "_3", "_4"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_4", "_9"));
@@ -95,26 +95,31 @@ exports.testAndMerge = function(test) {
                 [
                     {
                         "name": "Start Event1",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Parallel Converging Gateway",
+                        "type": "parallelGateway",
                         "begin": "_dummy_ts_",
                         "end": null // is set only after both tokens arrived - see next "Parallel Converging Gateway" entry
                     },
                     {
                         "name": "Start Event2",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "Parallel Converging Gateway",
+                        "type": "parallelGateway",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "End Event",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": null // set after done()
                     }]                ,

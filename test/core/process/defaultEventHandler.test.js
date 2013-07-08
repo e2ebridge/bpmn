@@ -68,6 +68,7 @@ exports.testIncorrectTaskDoneEvent = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }

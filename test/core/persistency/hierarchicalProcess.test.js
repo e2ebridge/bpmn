@@ -112,27 +112,32 @@ function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
         [
             {
                 "name": "MyStart",
+                "type": "startEvent",
                 "begin": "_dummy_ts_",
                 "end": "_dummy_ts_"
             },
             {
                 "name": "MyCallActivity",
+                "type": "callActivity",
                 "begin": "_dummy_ts_",
                 "end": "_dummy_ts_",
                 "subhistory": {
                     "historyEntries": [
                         {
                             "name": "MyStart",
+                            "type": "startEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyTask",
+                            "type": "task",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         },
                         {
                             "name": "MyEnd",
+                            "type": "endEvent",
                             "begin": "_dummy_ts_",
                             "end": "_dummy_ts_"
                         }
@@ -142,6 +147,7 @@ function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
             },
             {
                 "name": "MyEnd",
+                "type": "endEvent",
                 "begin": "_dummy_ts_",
                 "end": null
             }
@@ -204,22 +210,26 @@ function compareStateSavedAtMyTask(mainProcess, savedData, test) {
                 "historyEntries": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCallActivity",
+                        "type": "callActivity",
                         "begin": "_dummy_ts_",
                         "end": null,
                         "subhistory": {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": null
                                 }
@@ -294,22 +304,26 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                 "historyEntries": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCallActivity",
+                        "type": "callActivity",
                         "begin": "_dummy_ts_",
                         "end": null,
                         "subhistory": {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": null
                                 }
@@ -338,11 +352,13 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
         [
             {
                 "name": "MyStart",
+                "type": "startEvent",
                 "begin": "_dummy_ts_",
                 "end": "_dummy_ts_"
             },
             {
                 "name": "MyTask",
+                "type": "task",
                 "begin": "_dummy_ts_",
                 "end": null
             }
@@ -388,27 +404,32 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
                 "historyEntries": [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyCallActivity",
+                        "type": "callActivity",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_",
                         "subhistory": {
                             "historyEntries": [
                                 {
                                     "name": "MyStart",
+                                    "type": "startEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyTask",
+                                    "type": "task",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 },
                                 {
                                     "name": "MyEnd",
+                                    "type": "endEvent",
                                     "begin": "_dummy_ts_",
                                     "end": "_dummy_ts_"
                                 }
@@ -418,6 +439,7 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
                     },
                     {
                         "name": "MyEnd",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     }

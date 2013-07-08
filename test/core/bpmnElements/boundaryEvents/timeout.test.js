@@ -72,16 +72,19 @@ exports.testBPMNTimeout = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": null
                     },
                     {
                         "name": "MyTimeout",
+                        "type": "boundaryEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
@@ -95,21 +98,25 @@ exports.testBPMNTimeout = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTimeout",
+                        "type": "boundaryEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyEnd",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     }
@@ -133,21 +140,25 @@ exports.testBPMNTimeout = function(test) {
                 [
                     {
                         "name": "MyStart",
+                        "type": "startEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTask",
+                        "type": "task",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyTimeout",
+                        "type": "boundaryEvent",
                         "begin": "_dummy_ts_",
                         "end": "_dummy_ts_"
                     },
                     {
                         "name": "MyEnd",
+                        "type": "endEvent",
                         "begin": "_dummy_ts_",
                         "end": null
                     }
