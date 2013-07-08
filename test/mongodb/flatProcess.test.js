@@ -1,11 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
 "use strict";
 
 var path = require('path');
-var publicModule = require('../../lib/public.js');
+var bpmn = require('../../lib/public.js');
 
 require("../../lib/history.js").setDummyTimestampFunction();
 
@@ -18,13 +17,12 @@ var bpmnProcess1, bpmnProcess2;
 var executionTrace = [];
 var logger = {
     trace: function(message) {
-        //console.log(message);
         executionTrace.push(message);
     }
 };
 
 exports.resetMongoDb = function(test) {
-    publicModule.clearCache();
+    bpmn.clearCache();
     mongodb.MongoClient.connect(persistencyUri, function(err, db) {
         db.dropDatabase(function() {
             db.close();
@@ -39,7 +37,7 @@ exports.testMongoDBPersistProcess1 = function(test) {
         test.done();
     };
 
-    bpmnProcess1 = publicModule.createProcess("myid1", bpmnFileName, {
+    bpmnProcess1 = bpmn.createProcess("myid1", bpmnFileName, {
         uri: persistencyUri,
         doneSaving: doneSaving,
         logger: logger
@@ -109,7 +107,7 @@ exports.testMongoDBPersistProcess2 = function(test) {
         test.done();
     };
 
-    bpmnProcess2 = publicModule.createProcess("myid2", bpmnFileName, {
+    bpmnProcess2 = bpmn.createProcess("myid2", bpmnFileName, {
         uri: persistencyUri,
         doneSaving: doneSaving,
         logger: logger
@@ -313,7 +311,7 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
 
 exports.testMongoDBLoadProcess1 = function(test) {
     // clear cache otherwise we wouldn't load process one from the db
-    publicModule.clearCache();
+    bpmn.clearCache();
 
     var doneLoading = function(error, loadedData) {
         test.ok(error === null, "testMongoDBLoadProcess1: no error loading.");
@@ -360,7 +358,7 @@ exports.testMongoDBLoadProcess1 = function(test) {
         test.done();
     };
 
-    bpmnProcess1 = publicModule.createProcess("myid1", bpmnFileName, {
+    bpmnProcess1 = bpmn.createProcess("myid1", bpmnFileName, {
         uri: persistencyUri,
         doneLoading: doneLoading,
         logger: logger

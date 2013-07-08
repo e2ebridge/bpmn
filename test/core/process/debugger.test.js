@@ -1,18 +1,19 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../lib/process.js');
+var bpmnProcesses = require('../../../lib/process.js');
+var log = require('../../../lib/logger.js');
+var restify = require('restify');
+var winston = require('winston');
+
+var DebuggerInterface = require('../../../lib/debugger.js').DebuggerInterface;
 var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var loggerModule = require('../../../lib/logger.js');
-var DebuggerInterface = require('../../../lib/debugger.js').DebuggerInterface;
-var restify = require('restify');
-var winston = require('winston');
 
 exports.testSendingPositionToBPMNEditor = function(test) {
 
@@ -30,7 +31,7 @@ exports.testSendingPositionToBPMNEditor = function(test) {
 
         var flowObject = {bpmnId: "_123"};
         var debuggerInterface = new DebuggerInterface('http://localhost:57261/grapheditor/debugger/position', "dummyFileName");
-        var logger = new loggerModule.Logger();
+        var logger = new log.Logger();
         logger.setLogLevel('debug');
         logger.removeTransport(winston.transports.Console); // keeping the output clean
 
@@ -104,7 +105,7 @@ exports.testDebuggerRunThrough = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("testDebuggerRunThrough1", processDefinition, handler);
+    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("testDebuggerRunThrough1", processDefinition, handler);
 
     test.ok(bpmnProcess.isDebuggerEnabled(), "testDebuggerRunThrough: isDebuggerEnabled");
     bpmnProcess.triggerEvent("MyStart");

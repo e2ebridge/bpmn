@@ -1,15 +1,15 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
-var errorsModule = require('../../../lib/parsing/errors.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
+var error = require('../../../lib/parsing/errors.js');
 
 exports.testCallActivityNoFilePath = function(test) {
 
-    var errorQueue = errorsModule.createBPMNParseErrorQueue();
-    var bpmnDefinitions =bpmnParserModule.parse("test/resources/bpmn/callActivityNoFilePath.bpmn", errorQueue);
+    var errorQueue = error.createBPMNParseErrorQueue();
+    var bpmnDefinitions =bpmnParser.parse("test/resources/bpmn/callActivityNoFilePath.bpmn", errorQueue);
 
     var bpmnDefinition = bpmnDefinitions[0];
     bpmnDefinition.validate(errorQueue);

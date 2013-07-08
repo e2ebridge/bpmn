@@ -1,17 +1,17 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var publicModule = require('../../../lib/public.js');
+var path = require('path');
+var bpmn = require('../../../lib/public.js');
 
 exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    publicModule.clearCache();
-    var bpmnProcess = publicModule.createProcess("myid", fileName);
+    var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    bpmn.clearCache();
+    var bpmnProcess = bpmn.createProcess("myid", fileName);
 
     bpmnProcess.triggerEvent("MyStart");
 

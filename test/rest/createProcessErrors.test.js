@@ -1,19 +1,19 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
 var bpmn = require('../../lib/public.js');
-var logModule = require('../../lib/logger');
+var log = require('../../lib/logger');
 var restify = require('restify');
-var pathModule = require('path');
+var path = require('path');
 
 var port = 8099;
 var urlMap = {
-    "TaskExampleProcess": pathModule.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
+    "TaskExampleProcess": path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
 };
 
-var server = bpmn.createServer({urlMap: urlMap, logLevel: logModule.logLevels.error});
+var server = bpmn.createServer({urlMap: urlMap, logLevel: log.logLevels.error});
 var client = restify.createJsonClient({
     url: "http://localhost:" + port
 });

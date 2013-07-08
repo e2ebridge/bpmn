@@ -1,14 +1,14 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var bpmnDefinitionsModule = require('../../../lib/parsing/definitions.js');
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
+var path = require('path');
+var bpmnDefinitions = require('../../../lib/parsing/definitions.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
 
-var fileName = pathModule.join(__dirname, "../../resources/bpmn/poolNotExecutable.bpmn");
-var collaborations = bpmnDefinitionsModule.getBPMNCollaborationDefinitions(fileName);
+var fileName = path.join(__dirname, "../../resources/bpmn/poolNotExecutable.bpmn");
+var collaborations = bpmnDefinitions.getBPMNCollaborationDefinitions(fileName);
 
 exports.testGetNonExecutableCollaborationParticipants = function(test) {
     var collaboration = collaborations[0];
@@ -74,7 +74,7 @@ exports.testGetNonExecutableParticipantByProcessId = function(test) {
 };
 
 exports.testGetBPMNProcessDefinitionsOfNonExecutableCollaboratingProcesses = function(test) {
-    var processDefinitions = bpmnDefinitionsModule.getBPMNProcessDefinitions(fileName);
+    var processDefinitions = bpmnDefinitions.getBPMNProcessDefinitions(fileName);
 
     test.equal(processDefinitions.length, 1, "testGetBPMNProcessDefinitionsOfNonExecutableCollaboratingProcesses: we have one executable process");
 
@@ -164,7 +164,7 @@ exports.testGetBPMNNonExecutableCollaborationDefinitions = function(test) {
 
 exports.testParseCollaborationsBetweenExecutableAndNonExecutablePools = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse(fileName);
+    var bpmnProcessDefinitions = bpmnParser.parse(fileName);
     test.deepEqual(bpmnProcessDefinitions,
         [
             {

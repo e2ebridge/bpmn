@@ -1,12 +1,12 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
 var bpmn = require('../../lib/public.js');
 var rest = require('../../lib/rest.js');
 var restify = require('restify');
-var pathModule = require('path');
+var path = require('path');
 
 require("../../lib/history.js").setDummyTimestampFunction();
 
@@ -15,7 +15,7 @@ rest.clearReceivedMessageIds();
 
 var port = 9099;
 var urlMap = {
-    "TaskExampleProcess": pathModule.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
+    "TaskExampleProcess": path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
 };
 var counter = 0;
 var server = bpmn.createServer({urlMap: urlMap, logLevel: bpmn.logLevels.error, createProcessId: function() {

@@ -1,10 +1,6 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
-
-// See https://github.com/mongodb/node-mongodb-native and
-// http://mongodb.github.io/node-mongodb-native/api-articles/nodekoarticle1.html
 "use strict";
 
 var mongodb = require('mongodb');
@@ -13,7 +9,6 @@ var MongoDBPersistency = require('../../lib/persistency/mongodb.js').Persistency
 var executionTrace = [];
 var logger = {
     trace: function(message) {
-        //console.log(message);
         executionTrace.push(message);
     }
 };
@@ -22,7 +17,7 @@ var dbUri = 'mongodb://127.0.0.1:27017/ut_connection';
 var persistency = new MongoDBPersistency(dbUri, {logger: logger});
 
 exports.resetMongoDb = function(test) {
-    mongodb.MongoClient.connect(dbUri, function(err, db) {
+     mongodb.MongoClient.connect(dbUri, function(err, db) {
         db.dropDatabase(function(error) {
             if (error) {
                test.ok(false, "resetMongoDb: nok");

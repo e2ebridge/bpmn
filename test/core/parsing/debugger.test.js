@@ -1,13 +1,13 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
 
 exports.testParseDebuggerInterface = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/debuggerInterface.bpmn");
+    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/debuggerInterface.bpmn");
     var debuggerInterface = bpmnProcessDefinitions[0].debuggerInterface;
 
     test.equal(debuggerInterface.fileName, "test/resources/bpmn/debuggerInterface.bpmn", "testParseDebuggerInterface: fileName");

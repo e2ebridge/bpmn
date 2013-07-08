@@ -1,20 +1,20 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var publicModule = require('../../../lib/public.js');
+var path = require('path');
+var bpmn = require('../../../lib/public.js');
 
 exports.testSendingWrongEventInCollaboration = function(test) {
-    publicModule.clearCache();
+    bpmn.clearCache();
 
-    var fileName = pathModule.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
+    var fileName = path.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
     var processDescriptors = [
         {name: "My First Process", id: "myFirstProcessId_1"},
         {name: "My Second Process", id: "mySecondProcessId_1"}
     ];
-    var collaboratingProcesses = publicModule.createCollaboratingProcesses(processDescriptors, fileName);
+    var collaboratingProcesses = bpmn.createCollaboratingProcesses(processDescriptors, fileName);
 
     var secondProcess = collaboratingProcesses[0];
     try {
@@ -27,14 +27,14 @@ exports.testSendingWrongEventInCollaboration = function(test) {
 };
 
 exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
-    publicModule.clearCache();
+    bpmn.clearCache();
 
-    var fileName = pathModule.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
+    var fileName = path.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
     var processDescriptors = [
         {name: "My First Process", id: "myFirstProcessId_1"},
         {name: "My Second Process", id: "mySecondProcessId_1"}
     ];
-    var collaboratingProcesses = publicModule.createCollaboratingProcesses(processDescriptors, fileName);
+    var collaboratingProcesses = bpmn.createCollaboratingProcesses(processDescriptors, fileName);
 
     var firstProcess = collaboratingProcesses[0];
     var secondProcess = collaboratingProcesses[1];

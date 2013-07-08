@@ -1,10 +1,6 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
-
-// See https://github.com/mongodb/node-mongodb-native and
-// http://mongodb.github.io/node-mongodb-native/api-articles/nodekoarticle1.html
 "use strict";
 
 var mongodb = require('mongodb');
@@ -21,6 +17,8 @@ exports.resetMongoDb = function(test) {
 
 exports.testMongoDBInsert = function(test) {
 
+    // See https://github.com/mongodb/node-mongodb-native and
+    // http://mongodb.github.io/node-mongodb-native/api-articles/nodekoarticle1.html
     mongodb.MongoClient.connect('mongodb://127.0.0.1:27017/ut_mongodb', function(err, db) {
        if(err) {
             test.ok(false, "testMongoDBInsert: cannot connect");

@@ -1,9 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
+var bpmnProcesses = require('../../../../lib/process.js');
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -28,9 +29,7 @@ exports.testXorGateway = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", "ok", "sequenceFlow", "_5", "_9"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
 
-    var log = function(eventType) {
-        //console.log("testXorGateway: Calling handler for '" + eventType + "'");
-    };
+    var log = function() {};
 
     var handler = {
         "Start_Event": function(data, done) {
@@ -117,7 +116,7 @@ exports.testXorGateway = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstXGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstXGatewayProcess", processDefinition, handler);
 
     bpmnProcess.triggerEvent("Start Event");
     bpmnProcess.taskDone("First Task");

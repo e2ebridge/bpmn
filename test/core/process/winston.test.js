@@ -1,29 +1,30 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var fileUtilsModule =  require('../../../lib/utils/file.js');
-var publicModule = require('../../../lib/public.js');
-var logLevels = require('../../../lib/logger.js').logLevels;
+var path = require('path');
+var fileUtils =  require('../../../lib/utils/file.js');
+var bpmn = require('../../../lib/public.js');
 var winston = require('winston');
+
+var logLevels = require('../../../lib/logger.js').logLevels;
 
 exports.testDefaultFileLogger = function(test) {
     var defaultLogFileName = "process.log";
     var defaultLogFilePath = ".";
 
-    fileUtilsModule.removeFileSync(defaultLogFilePath, defaultLogFileName);
-    publicModule.clearCache();
+    fileUtils.removeFileSync(defaultLogFilePath, defaultLogFileName);
+    bpmn.clearCache();
 
-    var bpmnFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = publicModule.createProcess("myid", bpmnFileName);
+    var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    var bpmnProcess = bpmn.createProcess("myid", bpmnFileName);
     bpmnProcess.setLogLevel(logLevels.debug);
     bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
     bpmnProcess.triggerEvent("MyStart");
 
     afterLogfileCreation(bpmnProcess, function() {
-        var loggedLines = fileUtilsModule.readLines(pathModule.join(defaultLogFilePath, defaultLogFileName));
+        var loggedLines = fileUtils.readLines(path.join(defaultLogFilePath, defaultLogFileName));
         var linesWOTimestamps = loggedLines.map(function(line) {
             return line.replace(/timestamp.+[^}]/, "\"timestamp\":TIMESTAMP");
         });
@@ -45,16 +46,16 @@ exports.testDefaultFileLogger = function(test) {
 
 exports.testNewWinstonTransport = function(test) {
     var logFile = "./logs/process.log";
-    var baseDir = pathModule.dirname(logFile);
+    var baseDir = path.dirname(logFile);
 
     // we have to make sure, that the directory exists. It would be inefficient if the logger would test for the
     // directory all the time
-    fileUtilsModule.writeDirSync(baseDir);
-    fileUtilsModule.cleanDirectorySync(baseDir);
-    publicModule.clearCache();
+    fileUtils.writeDirSync(baseDir);
+    fileUtils.cleanDirectorySync(baseDir);
+    bpmn.clearCache();
 
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = publicModule.createProcess("myid", fileName);
+    var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    var bpmnProcess = bpmn.createProcess("myid", fileName);
     bpmnProcess.setLogLevel(logLevels.debug);
     bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
     bpmnProcess.addLogTransport(winston.transports.File,
@@ -71,7 +72,7 @@ exports.testNewWinstonTransport = function(test) {
     bpmnProcess.triggerEvent("MyStart");
 
     afterLogfileCreation(bpmnProcess, function() {
-        var loggedLines = fileUtilsModule.readLines(logFile);
+        var loggedLines = fileUtils.readLines(logFile);
         test.deepEqual(loggedLines,
             [
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
@@ -88,19 +89,19 @@ exports.testNewWinstonTransport = function(test) {
 };
 
 exports.testRemoveFileLogger = function(test) {
-    publicModule.clearCache();
+    bpmn.clearCache();
 
-    var bpmnFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = publicModule.createProcess("myid", bpmnFileName);
+    var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    var bpmnProcess = bpmn.createProcess("myid", bpmnFileName);
 
     var winstonLogger = bpmnProcess._implementation.logger.winstonLogger;
 
-    var fileTransportBefore = winstonLogger.transports["file"];
+    var fileTransportBefore = winstonLogger.transports.file;
     test.ok(fileTransportBefore !== undefined, "testRemoveFileLogger: before");
 
     bpmnProcess.removeLogTransport(winston.transports.File);
 
-    var fileTransportAfter = winstonLogger.transports["file"];
+    var fileTransportAfter = winstonLogger.transports.file;
     test.ok(fileTransportAfter === undefined, "testRemoveFileLogger: after");
 
     test.done();

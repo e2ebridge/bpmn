@@ -1,14 +1,14 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var fileUtilsModule = require('../../../lib/utils/file.js');
-var bpmnProcessModule = require('../../../lib/process.js');
+var path = require('path');
+var fileUtils = require('../../../lib/utils/file.js');
+var bpmnProcesses = require('../../../lib/process.js');
+
 var Persistency = require('../../../lib/persistency/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNCallActivity = require("../../../lib/parsing/callActivity.js").BPMNCallActivity;
 var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
@@ -16,7 +16,7 @@ var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequ
 
 require("../../../lib/history.js").setDummyTimestampFunction();
 
-var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+var bpmnCalledProcessFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 var persistencyUri = './test/resources/persistency/testHierarchicalProcess';
 var persistency = new Persistency({uri: persistencyUri});
 
@@ -57,7 +57,7 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
         }
     };
 
-    fileUtilsModule.cleanDirectorySync(persistencyUri);
+    fileUtils.cleanDirectorySync(persistencyUri);
 
     handler.doneSavingHandler = function(error, savedData) {
 
@@ -92,17 +92,17 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
         calledProcess.taskDone("MyTask");
     };
 
-    mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
+    mainProcess = bpmnProcesses.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
     mainProcess.triggerEvent("MyStart");
 };
 
 function testProcessRemovalFromCache(mainProcess, done, test) {
-    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcessModule.getById(mainProcess.processId);
+    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcesses.getById(mainProcess.processId);
     test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentHierarchicalProcess: before handler done() call: is process in cache.");
 
     done();
 
-    var mainProcessFromCacheAFTERDoneHandler = bpmnProcessModule.getById(mainProcess.processId);
+    var mainProcessFromCacheAFTERDoneHandler = bpmnProcesses.getById(mainProcess.processId);
     test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentHierarchicalProcess: after handler done() call: is process in cache.");
 }
 

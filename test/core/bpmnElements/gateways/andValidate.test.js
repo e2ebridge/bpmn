@@ -1,9 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var errorQueueModule = require("../../../../lib/parsing/errors.js");
+var error = require("../../../../lib/parsing/errors.js");
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -11,7 +12,7 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNParallelGateway = require("../../../../lib/parsing/gateways.js").BPMNParallelGateway;
 
-exports.testParallelGatewayValidate_OK = function(test) {
+exports.testParallelGatewayValidateOK = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcessWithParallelGateway");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
     processDefinition.addFlowObject(new BPMNParallelGateway("_3", "Parallel Gateway", "parallelGateway"));
@@ -24,17 +25,17 @@ exports.testParallelGatewayValidate_OK = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_5", "_9"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_11", null, "sequenceFlow", "_6", "_9"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
     test.deepEqual(errors,
         [],
-        "testParallelGatewayValidate_OK");
+        "testParallelGatewayValidateOK");
     test.done();
 };
 
-exports.testParallelGatewayValidate_GW1 = function(test) {
+exports.testParallelGatewayValidateGW1 = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcessWithParallelGateway");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
     processDefinition.addFlowObject(new BPMNParallelGateway("_3", "Parallel Gateway", "parallelGateway"));
@@ -44,7 +45,7 @@ exports.testParallelGatewayValidate_GW1 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_7", null, "sequenceFlow", "_3", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_5", "_9"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -58,6 +59,6 @@ exports.testParallelGatewayValidate_GW1 = function(test) {
                 "bpmnType": "parallelGateway"
             }
         ],
-        "testParallelGatewayValidate_GW1");
+        "testParallelGatewayValidateGW1");
     test.done();
 };

@@ -1,11 +1,12 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
 var fileUtils = require('../../../lib/utils/file.js');
-var pathModule = require('path');
-var bpmnProcessModule = require('../../../lib/process.js');
+var path = require('path');
+var bpmnProcesses = require('../../../lib/process.js');
+
 var Persistency = require('../../../lib/persistency/persistency.js').Persistency;
 var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../lib/parsing/tasks.js").BPMNTask;
@@ -22,7 +23,7 @@ processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-var persistencyUri = pathModule.join(__dirname, '../../resources/persistency/testProcessEngine');
+var persistencyUri = path.join(__dirname, '../../resources/persistency/testProcessEngine');
 var persistency = new Persistency({uri: persistencyUri});
 var processId = "myPersistentProcess_1";
 var testPropertyName = "myprop";
@@ -115,7 +116,7 @@ exports.testPersistSimpleProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
+    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
     bpmnProcess.setProperty(testPropertyName, {an: "object"});
     bpmnProcess.triggerEvent("MyStart");
   };
@@ -237,7 +238,7 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
-    newBpmnProcess = bpmnProcessModule.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
+    newBpmnProcess = bpmnProcesses.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
 
     newBpmnProcess.taskDone("MyTask");
 

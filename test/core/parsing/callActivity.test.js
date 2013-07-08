@@ -1,13 +1,13 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
 
 exports.testParseBPMNCallActivity = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/callActivity.bpmn");
+    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/callActivity.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {

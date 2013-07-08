@@ -1,21 +1,22 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../lib/process.js');
+var bpmnProcesses = require('../../../lib/process.js');
+var path = require('path');
+
 var BPMNProcessDefinition = require('../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNCallActivity = require("../../../lib/parsing/callActivity.js").BPMNCallActivity;
 var BPMNStartEvent = require("../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var pathModule = require('path');
 
 require("../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testOnBeginOnEndHandler = function(test) {
     var mainProcess;
-    var bpmnCalledProcessFileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    var bpmnCalledProcessFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "MyProcess");
@@ -67,7 +68,7 @@ exports.testOnBeginOnEndHandler = function(test) {
         }
     };
 
-    mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
+    mainProcess = bpmnProcesses.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
 
     mainProcess.triggerEvent("MyMainStart");
 

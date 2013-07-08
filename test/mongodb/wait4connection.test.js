@@ -1,10 +1,6 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
-
-// See https://github.com/mongodb/node-mongodb-native and
-// http://mongodb.github.io/node-mongodb-native/api-articles/nodekoarticle1.html
 "use strict";
 
 var mongodb = require('mongodb');
@@ -13,7 +9,6 @@ var MongoDBPersistency = require('../../lib/persistency/mongodb.js').Persistency
 var executionTrace = [];
 var logger = {
     trace: function(message) {
-        //console.log(message);
         executionTrace.push(message);
     }
 };

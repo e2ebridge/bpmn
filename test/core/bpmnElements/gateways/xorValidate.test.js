@@ -1,9 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var errorQueueModule = require("../../../../lib/parsing/errors.js");
+var error = require("../../../../lib/parsing/errors.js");
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -11,7 +12,7 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNExclusiveGateway = require("../../../../lib/parsing/gateways.js").BPMNExclusiveGateway;
 
-exports.testXorGatewayValidate_OK = function(test) {
+exports.testXorGatewayValidateOK = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
     processDefinition.addFlowObject(new BPMNTask("_3", "First Task", "task"));
@@ -27,17 +28,17 @@ exports.testXorGatewayValidate_OK = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_15", null, "sequenceFlow", "_9", "_12"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
     test.deepEqual(errors,
         [],
-        "testXorGatewayValidate_OK");
+        "testXorGatewayValidateOK");
     test.done();
 };
 
-exports.testXorGatewayValidate_GW1 = function(test) {
+exports.testXorGatewayValidateGW1 = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
     processDefinition.addFlowObject(new BPMNTask("_3", "First Task", "task"));
@@ -49,7 +50,7 @@ exports.testXorGatewayValidate_GW1 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", "nok", "sequenceFlow", "_5", "_7"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -63,11 +64,11 @@ exports.testXorGatewayValidate_GW1 = function(test) {
                 "bpmnType": "exclusiveGateway"
             }
         ],
-        "testXorGatewayValidate_GW1");
+        "testXorGatewayValidateGW1");
     test.done();
 };
 
-exports.testXorGatewayValidate_XG1 = function(test) {
+exports.testXorGatewayValidateXG1 = function(test) {
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
     processDefinition.addFlowObject(new BPMNTask("_3", "First Task", "task"));
@@ -83,7 +84,7 @@ exports.testXorGatewayValidate_XG1 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_14", null, "sequenceFlow", "_7", "_11"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_15", null, "sequenceFlow", "_9", "_12"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -104,6 +105,6 @@ exports.testXorGatewayValidate_XG1 = function(test) {
                 "bpmnType": "sequenceFlow"
             }
         ],
-        "testXorGatewayValidate_XG1");
+        "testXorGatewayValidateXG1");
     test.done();
 };

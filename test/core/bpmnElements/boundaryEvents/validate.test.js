@@ -1,9 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var errorQueueModule = require("../../../../lib/parsing/errors.js");
+var error = require("../../../../lib/parsing/errors.js");
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -11,7 +12,7 @@ var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPMNBoundaryEvent;
 
-exports.testBPMNMessageBoundaryEventValidate_OK = function(test) {
+exports.testBPMNMessageBoundaryEventValidateOK = function(test) {
 
     var boundaryEvent = new BPMNBoundaryEvent("_7", "MyMessageBoundaryEvent", "boundaryEvent", "_3");
     boundaryEvent.isMessageEvent = true;
@@ -26,17 +27,17 @@ exports.testBPMNMessageBoundaryEventValidate_OK = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_9", null, "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
     test.deepEqual(errors,
         [],
-        "testBPMNMessageBoundaryEventValidate_OK");
+        "testBPMNMessageBoundaryEventValidateOK");
     test.done();
 };
 
-exports.testBPMNMessageBoundaryEventValidate_FO3_FO5 = function(test) {
+exports.testBPMNMessageBoundaryEventValidateFO3FO5 = function(test) {
 
     var boundaryEvent = new BPMNBoundaryEvent("_7", "MyMessageBoundaryEvent", "boundaryEvent", "_3");
     boundaryEvent.isMessageEvent = true;
@@ -51,7 +52,7 @@ exports.testBPMNMessageBoundaryEventValidate_FO3_FO5 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_3", "_7"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_9", null, "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -72,6 +73,6 @@ exports.testBPMNMessageBoundaryEventValidate_FO3_FO5 = function(test) {
                 "bpmnType": "boundaryEvent"
             }
         ],
-        "testBPMNMessageBoundaryEventValidate_FO3_FO5");
+        "testBPMNMessageBoundaryEventValidateFO3FO5");
     test.done();
 };

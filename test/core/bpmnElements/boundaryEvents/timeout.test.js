@@ -1,9 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
+var bpmnProcesses = require('../../../../lib/process.js');
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -159,7 +160,7 @@ exports.testBPMNTimeout = function(test) {
         }
     };
 
-    bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.triggerEvent("MyStart");
 
@@ -215,7 +216,7 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     var logMessages = [];
     var logAppender = function(logMessage) {

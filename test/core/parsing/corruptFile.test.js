@@ -1,15 +1,15 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
-var errorsModule = require('../../../lib/parsing/errors.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
+var error = require('../../../lib/parsing/errors.js');
 
 exports.testParseCorruptFile = function(test) {
 
-    var errorQueue = errorsModule.createBPMNParseErrorQueue();
-    bpmnParserModule.parse("test/resources/bpmn/corruptFile.bpmn", errorQueue);
+    var errorQueue = error.createBPMNParseErrorQueue();
+    bpmnParser.parse("test/resources/bpmn/corruptFile.bpmn", errorQueue);
 
     test.deepEqual(errorQueue,
         {

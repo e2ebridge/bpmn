@@ -1,13 +1,13 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
 
 exports.testParseAndMerge = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse("test/resources/bpmn/andMerge.bpmn");
+    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/andMerge.bpmn");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
@@ -87,7 +87,7 @@ exports.testParseAndMerge = function(test) {
 
 exports.testParseAndGateway = function(test) {
 
-    var bpmnProcesses = bpmnParserModule.parse("test/resources/bpmn/andGateway.bpmn");
+    var bpmnProcesses = bpmnParser.parse("test/resources/bpmn/andGateway.bpmn");
     test.deepEqual(bpmnProcesses,
         [
             {

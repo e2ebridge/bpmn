@@ -1,22 +1,22 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
-var errorQueueModule = require("../../../../lib/parsing/errors.js");
+var error = require("../../../../lib/parsing/errors.js");
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
-exports.testValidateBPMNEndEvent_FO5 = function(test) {
+exports.testValidateBPMNEndEventFO5 = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -30,12 +30,12 @@ exports.testValidateBPMNEndEvent_FO5 = function(test) {
                 "bpmnType": "endEvent"
             }
         ],
-        "testValidateBPMNEndEvent_FO5");
+        "testValidateBPMNEndEventFO5");
     test.done();
 
 };
 
-exports.testValidateBPMNEndEvent_FO4 = function(test) {
+exports.testValidateBPMNEndEventFO4 = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
@@ -45,7 +45,7 @@ exports.testValidateBPMNEndEvent_FO4 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_7", "flow3", "sequenceFlow", "_5", "_3"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -59,7 +59,7 @@ exports.testValidateBPMNEndEvent_FO4 = function(test) {
                 "bpmnType": "endEvent"
             }
         ],
-        "testValidateBPMNEndEvent_FO4");
+        "testValidateBPMNEndEventFO4");
     test.done();
 
 };

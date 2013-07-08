@@ -1,14 +1,13 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
-var Persistency = require('../../../../lib/persistency/persistency.js').Persistency;
+var bpmnProcesses = require('../../../../lib/process.js');
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
-var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNParallelGateway = require("../../../../lib/parsing/gateways.js").BPMNParallelGateway;
 
@@ -74,9 +73,7 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         test.done();
     };
 
-    var log = function(eventType) {
-        //console.log("testDivergingParallelGatewayProcess: Calling handler for '" + eventType + "'");
-    };
+    var log = function() {};
 
     var handler = {
         "Start_Event": function(data, done) {
@@ -85,12 +82,16 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         },
         "Task_A": function(data, done) {
             log("Task A");
-            if (--counter === 0) testOk(this);
+            if (--counter === 0) {
+                testOk(this);
+            }
             done(data);
         },
         "Task_B": function(data, done) {
             log("Task B");
-            if (--counter === 0) testOk(this);
+            if (--counter === 0) {
+                testOk(this);
+            }
             done(data);
         },
         "Parallel_Gateway": function(data, done) {
@@ -99,7 +100,7 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstForkingGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstForkingGatewayProcess", processDefinition, handler);
 
     bpmnProcess.triggerEvent("Start Event");
 };

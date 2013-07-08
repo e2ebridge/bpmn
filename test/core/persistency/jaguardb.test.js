@@ -1,22 +1,26 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var fileUtilsModule = require('../../../lib/utils/file.js');
+var fileUtils = require('../../../lib/utils/file.js');
 var JaguarDb = require('jaguarDb').JaguarDb;
 var jaguarDbPath = './test/resources/persistency/testJaguardb';
 
 exports.testJaguarDBInsert = function(test) {
 
-    fileUtilsModule.cleanDirectorySync(jaguarDbPath);
+    fileUtils.cleanDirectorySync(jaguarDbPath);
 
     var db = new JaguarDb();
     db.connect(jaguarDbPath, function(err) {
-        if(err) return;
+        if(err) {
+            return;
+        }
         var data = {title: 'hello', content: 'blah blah blah'};
         db.insert(data, function(err, insertedData) {
-            if(err) return;
+            if(err) {
+                return;
+            }
             test.deepEqual(insertedData,
                 {
                     "title": "hello",
@@ -36,7 +40,9 @@ exports.testJaguarDBQuery = function(test) {
 
     var db = new JaguarDb();
     db.connect(jaguarDbPath, function(err) {
-        if(err) return;
+        if(err) {
+            return;
+        }
         var query = {}; // all records
         var fields = {}; // all fields
         db.find(query, fields, function(err, documents) {
@@ -86,7 +92,9 @@ exports.testJaguarDBFindById = function(test) {
 
     var db = new JaguarDb();
     db.connect(jaguarDbPath, function(err) {
-        if(err) return;
+        if(err) {
+            return;
+        }
         db.findById("1", function(err, updatedData) {
             test.deepEqual(updatedData,
                 {

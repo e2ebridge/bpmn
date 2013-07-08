@@ -1,20 +1,20 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnDefinitionsModule = require('../../../lib/parsing/definitions.js');
-var pathModule = require('path');
+var bpmnDefinitions = require('../../../lib/parsing/definitions.js');
+var path = require('path');
 
 exports.testInvalidProcessErrors = function(test) {
 
-    var fileName = pathModule.join(__dirname, "../../resources/bpmn/invalidProcess.bpmn");
-    bpmnDefinitionsModule.clearCache();
+    var fileName = path.join(__dirname, "../../resources/bpmn/invalidProcess.bpmn");
+    bpmnDefinitions.clearCache();
 
     /** {BPMNParseErrorQueue} */
     var errorQueue;
     try {
-        bpmnDefinitionsModule.getBPMNProcessDefinitions(fileName);
+        bpmnDefinitions.getBPMNProcessDefinitions(fileName);
     } catch (e) {
         errorQueue = e;
     }

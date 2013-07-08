@@ -1,15 +1,16 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnDefinitionsModule = require('../../../lib/parsing/definitions.js');
-var pathModule = require('path');
+var bpmnDefinitions = require('../../../lib/parsing/definitions.js');
+var path = require('path');
 
 exports.testGetOneBPMNProcessDefinition = function(test) {
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmnDefinitionsModule.clearCache();
-    var processDefinition = bpmnDefinitionsModule.getBPMNProcessDefinition(fileName);
+    var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    bpmnDefinitions.clearCache();
+    var processDefinition = bpmnDefinitions.getBPMNProcessDefinition(fileName);
+
     test.deepEqual(processDefinition,
         {
             "bpmnId": "PROCESS_1",
@@ -115,9 +116,10 @@ exports.testGetOneBPMNProcessDefinition = function(test) {
 };
 
 exports.testGetAllBPMNProcessDefinitions = function(test) {
-    var fileName = pathModule.join(__dirname, "../../resources/bpmn/pool.bpmn");
-    bpmnDefinitionsModule.clearCache();
-    var processDefinitions = bpmnDefinitionsModule.getBPMNProcessDefinitions(fileName);
+    var fileName = path.join(__dirname, "../../resources/bpmn/pool.bpmn");
+    bpmnDefinitions.clearCache();
+    var processDefinitions = bpmnDefinitions.getBPMNProcessDefinitions(fileName);
+
     test.deepEqual(processDefinitions,
         [
             {
@@ -674,9 +676,10 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
 };
 
 exports.testGetAllBPMNCollaborationDefinitions = function(test) {
-    var fileName = pathModule.join(__dirname, "../../resources/bpmn/pool.bpmn");
-    bpmnDefinitionsModule.clearCache();
-    var collaborationDefinitions = bpmnDefinitionsModule.getBPMNCollaborationDefinitions(fileName);
+    var fileName = path.join(__dirname, "../../resources/bpmn/pool.bpmn");
+    bpmnDefinitions.clearCache();
+    var collaborationDefinitions = bpmnDefinitions.getBPMNCollaborationDefinitions(fileName);
+
     test.deepEqual(collaborationDefinitions,
         [
             {

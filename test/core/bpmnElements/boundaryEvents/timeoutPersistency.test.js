@@ -1,12 +1,13 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var fileUtilsModule = require('../../../../lib/utils/file.js');
-var publicModule = require('../../../../lib/public.js');
-var bpmnProcessModule = require('../../../../lib/process.js');
+var path = require('path');
+var fileUtils = require('../../../../lib/utils/file.js');
+var bpmn = require('../../../../lib/public.js');
+var bpmnProcesses = require('../../../../lib/process.js');
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -27,9 +28,9 @@ processDefinition.addFlowObject(boundaryEvent);
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
 processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
 
-var persistencyUri = pathModule.join(__dirname, '../../../resources/persistency/testPersistentTimeout');
+var persistencyUri = path.join(__dirname, '../../../resources/persistency/testPersistentTimeout');
 
-exports.testBPMNTimeoutPersistency_Save = function(test) {
+exports.testBPMNTimeoutPersistencySave = function(test) {
     var bpmnProcess;
 
     var handler = {
@@ -46,9 +47,9 @@ exports.testBPMNTimeoutPersistency_Save = function(test) {
              done(data);
         },
         doneSavingHandler: function(error, savedData) {
-            test.ok(error === null, "testBPMNTimeoutPersistency_Save: no error saving.");
+            test.ok(error === null, "testBPMNTimeoutPersistencySave: no error saving.");
 
-            test.equal(savedData.pendingTimeouts["MyTimeout"].timeout, 1000000, "testBPMNTimeoutPersistency_Save: saved timeout.");
+            test.equal(savedData.pendingTimeouts.MyTimeout.timeout, 1000000, "testBPMNTimeoutPersistencySave: saved timeout.");
 
             bpmnProcess.pendingTimerEvents.removeTimeout("MyTimeout");
 
@@ -56,48 +57,48 @@ exports.testBPMNTimeoutPersistency_Save = function(test) {
         }
     };
 
-    fileUtilsModule.cleanDirectorySync(persistencyUri);
-    publicModule.clearCache();
+    fileUtils.cleanDirectorySync(persistencyUri);
+    bpmn.clearCache();
 
     var persistency = new Persistency({uri: persistencyUri});
-    bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
-    //bpmnProcess.setLogLevel(publicModule.logLevels.debug);
+    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
+    //bpmnProcess.setLogLevel(bpmn.logLevels.debug);
     bpmnProcess.triggerEvent("MyStart");
 };
 
 
-exports.testBPMNTimeoutPersistency_Load = function(test) {
+exports.testBPMNTimeoutPersistencyLoad = function(test) {
     var bpmnProcess;
 
     var handler = {
         "MyTimeout$getTimeout": function() {
-            test.ok(bpmnProcess.pendingTimerEvents.pendingTimeouts["MyTimeout"] === undefined,
-                "testBPMNTimeoutPersistency_Load: 'MyTimeout$getTimeout': pendingTimeouts not yet defined"
+            test.ok(bpmnProcess.pendingTimerEvents.pendingTimeouts.MyTimeout === undefined,
+                "testBPMNTimeoutPersistencyLoad: 'MyTimeout$getTimeout': pendingTimeouts not yet defined"
             );
             return 1000000; // means: never
         },
         doneLoadingHandler: function(error, loadedData) {
-            test.ok(error === null, "testBPMNTimeoutPersistency_Load: no error loading.");
+            test.ok(error === null, "testBPMNTimeoutPersistencyLoad: no error loading.");
 
-            test.equal(loadedData.pendingTimeouts["MyTimeout"].timeout, 1000000,
-                "testBPMNTimeoutPersistency_Load: loaded timeout."
+            test.equal(loadedData.pendingTimeouts.MyTimeout.timeout, 1000000,
+                "testBPMNTimeoutPersistencyLoad: loaded timeout."
             );
 
             var pendingTimerEvents = bpmnProcess.pendingTimerEvents;
             test.ok(pendingTimerEvents !== undefined,
-                "testBPMNTimeoutPersistency_Load: created pendingTimerEvents."
+                "testBPMNTimeoutPersistencyLoad: created pendingTimerEvents."
             );
 
-            test.ok(pendingTimerEvents.pendingTimeouts["MyTimeout"] !== undefined,
-                "testBPMNTimeoutPersistency_Load: 'MyTimeout$getTimeout': pendingTimeouts after loading"
+            test.ok(pendingTimerEvents.pendingTimeouts.MyTimeout !== undefined,
+                "testBPMNTimeoutPersistencyLoad: 'MyTimeout$getTimeout': pendingTimeouts after loading"
             );
 
-            test.equal(pendingTimerEvents.pendingTimeouts["MyTimeout"].timeout, 1000000,
-                "testBPMNTimeoutPersistency_Load: added 'MyTimeout' to pendingTimerEvents."
+            test.equal(pendingTimerEvents.pendingTimeouts.MyTimeout.timeout, 1000000,
+                "testBPMNTimeoutPersistencyLoad: added 'MyTimeout' to pendingTimerEvents."
             );
 
-            test.ok(pendingTimerEvents.setTimeoutIds["MyTimeout"]._onTimeout !== undefined,
-                "testBPMNTimeoutPersistency_Load: created timers."
+            test.ok(pendingTimerEvents.setTimeoutIds.MyTimeout._onTimeout !== undefined,
+                "testBPMNTimeoutPersistencyLoad: created timers."
             );
 
             pendingTimerEvents.removeTimeout("MyTimeout");
@@ -106,8 +107,8 @@ exports.testBPMNTimeoutPersistency_Load = function(test) {
         }
     };
 
-    publicModule.clearCache();
+    bpmn.clearCache();
 
     var persistency = new Persistency({uri: persistencyUri});
-    bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
+    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
 };

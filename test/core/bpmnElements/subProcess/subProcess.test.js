@@ -1,16 +1,16 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
+var bpmnProcesses = require('../../../../lib/process.js');
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNSubProcess = require("../../../../lib/parsing/subProcess.js").BPMNSubProcess;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
-var pathModule = require('path');
 
 require("../../../../lib/history.js").setDummyTimestampFunction();
 
@@ -167,7 +167,7 @@ exports.testBPMNSubProcess = function(test) {
         }
     };
 
-    mainProcess = bpmnProcessModule.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
+    mainProcess = bpmnProcesses.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
 
     mainProcess.triggerEvent("MyStart");
 

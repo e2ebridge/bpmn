@@ -1,9 +1,9 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
+var bpmnProcesses = require('../../../../lib/process.js');
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
@@ -14,15 +14,15 @@ var BPMNBoundaryEvent = require("../../../../lib/parsing/boundaryEvents.js").BPM
 require("../../../../lib/history.js").setDummyTimestampFunction();
 
 exports.testBPMNMessageBoundaryEvent = function(test) {
-    var bpmnProcess;
+    var bpmnProcess, boundaryEvent, myTask, processDefinition, handler;
 
-    var boundaryEvent = new BPMNBoundaryEvent("_7", "MyMessageBoundaryEvent", "boundaryEvent", "_3");
+    boundaryEvent = new BPMNBoundaryEvent("_7", "MyMessageBoundaryEvent", "boundaryEvent", "_3");
     boundaryEvent.isMessageEvent = true;
 
-    var myTask = new BPMNTask("_3", "MyTask", "task");
+    myTask = new BPMNTask("_3", "MyTask", "task");
 
     /** @type {BPMNProcessDefinition} */
-    var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
+    processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
     processDefinition.addFlowObject(myTask);
     processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
@@ -30,7 +30,7 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
 
-    var handler = {
+    handler = {
         "MyStart": function(data, done) {
             var state = this.getState();
             test.deepEqual(state.tokens,
@@ -147,7 +147,7 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
         }
     };
 
-    bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
 
     bpmnProcess.triggerEvent("MyStart");
 

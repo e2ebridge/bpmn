@@ -1,17 +1,17 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var errorQueueModule = require("../../../../lib/parsing/errors.js");
+var error = require("../../../../lib/parsing/errors.js");
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 var BPMNIntermediateCatchEvent = require("../../../../lib/parsing/intermediateEvents.js").BPMNIntermediateCatchEvent;
 
-exports.testIntermediateEventValidation_OK = function(test) {
+exports.testIntermediateEventValidationOK = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myIntermediateCatchEventTestProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "Start Event", "startEvent"));
@@ -20,23 +20,23 @@ exports.testIntermediateEventValidation_OK = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
     test.deepEqual(errors,
         [],
-        "testIntermediateEventValidation_OK");
+        "testIntermediateEventValidationOK");
     test.done();
 
 };
 
-exports.testIntermediateEventValidation_FO3_FO5 = function(test) {
+exports.testIntermediateEventValidationFO3FO5 = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myIntermediateCatchEventTestProcess");
     processDefinition.addFlowObject(new BPMNIntermediateCatchEvent("_3", "My Intermediate Catch Event", "intermediateCatchEvent"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -57,7 +57,7 @@ exports.testIntermediateEventValidation_FO3_FO5 = function(test) {
                 "bpmnType": "intermediateCatchEvent"
             }
         ],
-        "testIntermediateEventValidation_FO3_FO5");
+        "testIntermediateEventValidationFO3FO5");
     test.done();
 
 };

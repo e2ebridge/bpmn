@@ -1,11 +1,11 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
+var bpmnProcesses = require('../../../../lib/process.js');
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
-var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
@@ -23,9 +23,7 @@ exports.testXorMerge = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", null, "sequenceFlow", "_3", "_4"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_10", null, "sequenceFlow", "_4", "_9"));
 
-    var log = function(eventType) {
-        //console.log("testXorMerge: Calling handler for '" + eventType + "'");
-    };
+    var log = function() {};
 
     var finalTest = false;
 
@@ -98,11 +96,11 @@ exports.testXorMerge = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess", processDefinition, handler);
+    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess", processDefinition, handler);
 
     bpmnProcess.triggerEvent("Start Event1");
 
-    var bpmnProcess2 = bpmnProcessModule.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
+    var bpmnProcess2 = bpmnProcesses.createBPMNProcess4Testing("myFirstConvergingXorGatewayProcess2", processDefinition, handler);
 
     finalTest = true;
 

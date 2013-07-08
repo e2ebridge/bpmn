@@ -1,17 +1,17 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var bpmnProcessModule = require('../../../../lib/process.js');
-var errorQueueModule = require("../../../../lib/parsing/errors.js");
+var error = require("../../../../lib/parsing/errors.js");
+
 var BPMNProcessDefinition = require('../../../../lib/parsing/processDefinition.js').BPMNProcessDefinition;
 var BPMNTask = require("../../../../lib/parsing/tasks.js").BPMNTask;
 var BPMNStartEvent = require("../../../../lib/parsing/startEvents.js").BPMNStartEvent;
 var BPMNEndEvent = require("../../../../lib/parsing/endEvents.js").BPMNEndEvent;
 var BPMNSequenceFlow = require("../../../../lib/parsing/sequenceFlows.js").BPMNSequenceFlow;
 
-exports.testValidateBPMNTask_OK = function(test) {
+exports.testValidateBPMNTaskOK = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
@@ -20,18 +20,18 @@ exports.testValidateBPMNTask_OK = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
     test.deepEqual(errors,
         [],
-        "testValidateBPMNTask_OK");
+        "testValidateBPMNTaskOK");
     test.done();
 
 };
 
-exports.testValidateBPMNTask_FO1 = function(test) {
+exports.testValidateBPMNTaskFO1 = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
@@ -40,7 +40,7 @@ exports.testValidateBPMNTask_FO1 = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -54,19 +54,19 @@ exports.testValidateBPMNTask_FO1 = function(test) {
                 "bpmnType": "task"
             }
         ],
-        "testValidateBPMNTask_FO1");
+        "testValidateBPMNTaskFO1");
     test.done();
 
 };
 
-exports.testValidateBPMNTask_FO2 = function(test) {
+exports.testValidateBPMNTaskFO2 = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNStartEvent("_2", "MyStart", "startEvent"));
     processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();
@@ -80,19 +80,19 @@ exports.testValidateBPMNTask_FO2 = function(test) {
                 "bpmnType": "task"
             }
         ],
-        "testValidateBPMNTask_FO2");
+        "testValidateBPMNTaskFO2");
     test.done();
 
 };
 
-exports.testValidateBPMNTask_FO5 = function(test) {
+exports.testValidateBPMNTaskFO5 = function(test) {
     /** @type {BPMNProcessDefinition} */
     var processDefinition = new BPMNProcessDefinition("PROCESS_1", "myProcess");
     processDefinition.addFlowObject(new BPMNTask("_3", "MyTask", "task"));
     processDefinition.addFlowObject(new BPMNEndEvent("_5", "MyEnd", "endEvent"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
-    var errorQueue = errorQueueModule.createBPMNParseErrorQueue();
+    var errorQueue = error.createBPMNParseErrorQueue();
     processDefinition.validate(errorQueue);
 
     var errors = errorQueue.getErrors();

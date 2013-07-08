@@ -1,11 +1,10 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
 var bpmn = require('../../lib/public.js');
 var restify = require('restify');
-var pathModule = require('path');
 
 var port = 8099;
 var server = bpmn.createServer();
@@ -21,7 +20,7 @@ exports.testBasicRESTServer = function(test) {
             url: "http://localhost:" + port
         });
 
-        client.get('/echo/gugus', function(err, req, res, obj) {
+        client.get('/echo/gugus', function(err) {
             test.ok(!err, "testBasicRESTServer: noError");
 
             client.close();

@@ -1,7 +1,7 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
 var BPMNProcessState = require("../../../lib/state.js").BPMNProcessState;
 var BPMNFlowObject = require("../../../lib/parsing/flowObject.js").BPMNFlowObject;
@@ -10,8 +10,6 @@ var gateway = new BPMNFlowObject("_2", "Parallel Gateway1", "parallelGateway");
 var startEvent = new BPMNFlowObject("_1", "Start Event1", "startEvent");
 
 exports.testBPMNProcessStateFindTokens = function(test) {
-
-    var callActivity = new BPMNFlowObject("_1", "My Call Activity", "callActivity");
 
     var state = new BPMNProcessState();
     state.tokens = [

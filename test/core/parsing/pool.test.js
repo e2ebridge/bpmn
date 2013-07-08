@@ -1,14 +1,14 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var bpmnDefinitionsModule = require('../../../lib/parsing/definitions.js');
-var bpmnParserModule = require('../../../lib/parsing/parser.js');
+var path = require('path');
+var bpmnDefinitions = require('../../../lib/parsing/definitions.js');
+var bpmnParser = require('../../../lib/parsing/parser.js');
 
-var fileName = pathModule.join(__dirname, "../../resources/bpmn/pool.bpmn");
-var collaborations = bpmnDefinitionsModule.getBPMNCollaborationDefinitions(fileName);
+var fileName = path.join(__dirname, "../../resources/bpmn/pool.bpmn");
+var collaborations = bpmnDefinitions.getBPMNCollaborationDefinitions(fileName);
 
 exports.testGetCollaboratingParticipants = function(test) {
     var collaboration = collaborations[0];
@@ -56,7 +56,7 @@ exports.testGetParticipantByProcessId = function(test) {
 };
 
 exports.testGetBPMNProcessDefinitionsOfCollaboratingProcesses = function(test) {
-    var processDefinitions = bpmnDefinitionsModule.getBPMNProcessDefinitions(fileName);
+    var processDefinitions = bpmnDefinitions.getBPMNProcessDefinitions(fileName);
 
     var process1 = processDefinitions[0];
     test.equal(process1.name, "My First Process", "testGetBPMNProcessDefinitionsOfCollaboratingProcesses: process 1 name == pool 1 name");
@@ -146,7 +146,7 @@ exports.testGetBPMNCollaborationDefinitions = function(test) {
 
 exports.testParseCollaborationsBetweenPools = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParserModule.parse(fileName);
+    var bpmnProcessDefinitions = bpmnParser.parse(fileName);
     test.deepEqual(bpmnProcessDefinitions,
         [
             {

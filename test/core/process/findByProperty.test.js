@@ -1,16 +1,16 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var publicModule = require('../../../lib/public.js');
+var path = require('path');
+var bpmn = require('../../../lib/public.js');
 
-var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 
 exports.testFindByValue_Empty = function(test) {
-    publicModule.clearCache();
-    var foundProcesses = publicModule.findByProperty();
+    bpmn.clearCache();
+    var foundProcesses = bpmn.findByProperty();
 
     test.equal(foundProcesses.length, 0, "testFindByValue_Empty");
 
@@ -18,16 +18,16 @@ exports.testFindByValue_Empty = function(test) {
 };
 
 exports.testFindByValue_All = function(test) {
-     publicModule.clearCache();
+     bpmn.clearCache();
 
-    var p1 = publicModule.createProcess("p1", fileName);
+    var p1 = bpmn.createProcess("p1", fileName);
     p1.setProperty("myprop1", "gugus");
     p1.triggerEvent("MyStart");
 
-    var p2 = publicModule.createProcess("p2", fileName);
+    var p2 = bpmn.createProcess("p2", fileName);
     p2.setProperty("myprop2", "blah");
 
-    var foundProcesses = publicModule.findByProperty();
+    var foundProcesses = bpmn.findByProperty();
 
     test.equal(foundProcesses.length, 2, "testFindByValue_All");
     test.equal(foundProcesses[0]._implementation.data["myprop1"], "gugus", "testFindByValue_OneMatch");
@@ -37,16 +37,16 @@ exports.testFindByValue_All = function(test) {
 };
 
 exports.testFindByValue_OneMatch = function(test) {
-     publicModule.clearCache();
+     bpmn.clearCache();
 
-    var p1 = publicModule.createProcess("p1", fileName);
+    var p1 = bpmn.createProcess("p1", fileName);
     p1.setProperty("myprop1", "gugus");
     p1.triggerEvent("MyStart");
 
-    var p2 = publicModule.createProcess("p2", fileName);
+    var p2 = bpmn.createProcess("p2", fileName);
     p2.setProperty("myprop1", "blah");
 
-    var foundProcesses = publicModule.findByProperty({myprop1: "gugus"});
+    var foundProcesses = bpmn.findByProperty({myprop1: "gugus"});
 
     test.equal(foundProcesses.length, 1, "testFindByValue_OneMatch");
     test.equal(foundProcesses[0]._implementation.data["myprop1"], "gugus", "testFindByValue_OneMatch");
