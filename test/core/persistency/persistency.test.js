@@ -1,7 +1,7 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
 var Persistency = require('../../../lib/persistency/persistency.js').Persistency;
 var fileUtils = require('../../../lib/utils/file.js');
@@ -11,14 +11,12 @@ exports.testFilePersistencyInsert = function(test) {
     fileUtils.cleanDirectorySync(persistencyUri);
 
     var persistency = new Persistency({uri: persistencyUri});
-
     var persistentData = {
         processId: "mypid",
         data: {myattr: "x"},
         state: ["a", "b"],
         history: ["a", "b", "c", "d"]
     };
-
     var done = function(error, persistedData) {
 
         test.ok(persistedData._saved !== undefined, "testFilePersistencyInsert: _saved exists");
@@ -45,7 +43,6 @@ exports.testFilePersistencyInsert = function(test) {
         test.done();
     };
 
-
     process.nextTick(function() {
         persistency.persist(persistentData, done);
     });
@@ -54,14 +51,12 @@ exports.testFilePersistencyInsert = function(test) {
 
 exports.testFilePersistencyUpdate = function(test) {
     var persistency = new Persistency({uri: persistencyUri});
-
     var persistentData = {
         processId: "mypid",
         data: {myattr: "CHANGED"},
         state: ["a", "CHANGED"],
         history: ["a", "b", "c", "d"]
     };
-
     var done = function(error, persistedData) {
 
         test.ok(persistedData._saved !== undefined, "testFilePersistencyUpdate: _saved exists");

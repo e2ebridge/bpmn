@@ -442,7 +442,7 @@ Or if is also possible using query strings. For example, the following query ret
 
 It is also possible to query processes executing a task, an activity, or waiting for an event to happen by sending the following request:
 
-	client.get('/TaskExampleProcess?_state_=MyTask', function(err, req, res, obj) {...});
+	client.get('/TaskExampleProcess?state=MyTask', function(err, req, res, obj) {...});
 
 Of course, all queries can be combined in one request.
 

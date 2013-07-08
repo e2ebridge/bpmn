@@ -77,7 +77,7 @@ exports.testFindProcessesByProperty = function(test) {
 
 exports.testFindProcessesByState = function(test) {
     var client = createClient();
-    client.get('/TaskExampleProcess?_state_=MyTask', function(error, req, res, obj) {
+    client.get('/TaskExampleProcess?state=MyTask', function(error, req, res, obj) {
         compareFindProcessesByStateResult(test, error, obj);
         client.close();
         test.done();

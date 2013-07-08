@@ -1,14 +1,14 @@
 /**
- * AUTHOR: mrassinger
- * COPYRIGHT: E2E Technologies Ltd.
+ * Copyright: E2E Technologies Ltd
  */
+"use strict";
 
-var pathModule = require('path');
-var publicModule = require('../../../lib/public.js');
-var loggerModule = require('../../../lib/logger.js');
+var path = require('path');
+var bpmn = require('../../../lib/public.js');
+var log = require('../../../lib/logger.js');
 
-var LogLevels = loggerModule.logLevels;
-var Logger = loggerModule.Logger
+var logLevels = log.logLevels;
+var Logger = log.Logger;
 
 exports.testSetTextualLogLevel = function(test) {
     var logger = new Logger(null, {logLevel: "debug"});
@@ -17,20 +17,18 @@ exports.testSetTextualLogLevel = function(test) {
 };
 
 exports.testLogger = function(test) {
-    var state;
-
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    publicModule.clearCache();
-    var bpmnProcess = publicModule.createProcess("myid", fileName);
-
+    var fileName, bpmnProcess;
     var logMessages = [];
     var logAppender = function(logMessage) {
         logMessages.push(logMessage);
     };
 
+    bpmn.clearCache();
+
+    fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    bpmnProcess = bpmn.createProcess("myid", fileName);
     bpmnProcess.setLogLevel(logLevels.debug);
     bpmnProcess.setLogAppender(logAppender);
-
     bpmnProcess.triggerEvent("MyStart");
 
     process.nextTick(function() {
@@ -50,20 +48,18 @@ exports.testLogger = function(test) {
 };
 
 exports.testLoggerStringLevel = function(test) {
-    var state;
-
-    var fileName = pathModule.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    publicModule.clearCache();
-    var bpmnProcess = publicModule.createProcess("myid", fileName);
-
+    var fileName, bpmnProcess;
     var logMessages = [];
     var logAppender = function(logMessage) {
         logMessages.push(logMessage);
     };
 
+    bpmn.clearCache();
+
+    fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
+    bpmnProcess = bpmn.createProcess("myid", fileName);
     bpmnProcess.setLogLevel("debug");
     bpmnProcess.setLogAppender(logAppender);
-
     bpmnProcess.triggerEvent("MyStart");
 
     process.nextTick(function() {
