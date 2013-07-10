@@ -8,16 +8,16 @@ var bpmn = require('../../../lib/public.js');
 
 var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
 
-exports.testFindByValue_Empty = function(test) {
+exports.testFindByValueEmpty = function(test) {
     bpmn.clearCache();
     var foundProcesses = bpmn.findByProperty();
 
-    test.equal(foundProcesses.length, 0, "testFindByValue_Empty");
+    test.equal(foundProcesses.length, 0, "testFindByValueEmpty");
 
     test.done();
 };
 
-exports.testFindByValue_All = function(test) {
+exports.testFindByValueAll = function(test) {
      bpmn.clearCache();
 
     var p1 = bpmn.createProcess("p1", fileName);
@@ -29,14 +29,14 @@ exports.testFindByValue_All = function(test) {
 
     var foundProcesses = bpmn.findByProperty();
 
-    test.equal(foundProcesses.length, 2, "testFindByValue_All");
-    test.equal(foundProcesses[0]._implementation.data["myprop1"], "gugus", "testFindByValue_OneMatch");
-    test.equal(foundProcesses[1]._implementation.data["myprop2"], "blah", "testFindByValue_OneMatch");
+    test.equal(foundProcesses.length, 2, "testFindByValueAll");
+    test.equal(foundProcesses[0]._implementation.properties.myprop1, "gugus", "testFindByValueAll");
+    test.equal(foundProcesses[1]._implementation.properties.myprop2, "blah", "testFindByValueAll");
 
     test.done();
 };
 
-exports.testFindByValue_OneMatch = function(test) {
+exports.testFindByValueOneMatch = function(test) {
      bpmn.clearCache();
 
     var p1 = bpmn.createProcess("p1", fileName);
@@ -48,8 +48,8 @@ exports.testFindByValue_OneMatch = function(test) {
 
     var foundProcesses = bpmn.findByProperty({myprop1: "gugus"});
 
-    test.equal(foundProcesses.length, 1, "testFindByValue_OneMatch");
-    test.equal(foundProcesses[0]._implementation.data["myprop1"], "gugus", "testFindByValue_OneMatch");
+    test.equal(foundProcesses.length, 1, "testFindByValueOneMatch");
+    test.equal(foundProcesses[0]._implementation.properties.myprop1, "gugus", "testFindByValueOneMatch");
 
     test.done();
 };

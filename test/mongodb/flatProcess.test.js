@@ -65,7 +65,7 @@ exports.testMongoDBAfterPersistingProcess1 = function(test) {
                         "processName": "TaskExampleProcess",
                         "processId": "myid1",
                         "parentToken": null,
-                        "data": {
+                        "properties": {
                             "myFirstProperty": {}
                         },
                         "state": {
@@ -138,7 +138,7 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                         "processName": "TaskExampleProcess",
                         "processId": "myid1",
                         "parentToken": null,
-                        "data": {
+                        "properties": {
                             "myFirstProperty": {}
                         },
                         "state": {
@@ -173,7 +173,7 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                         "processName": "TaskExampleProcess",
                         "processId": "myid2",
                         "parentToken": null,
-                        "data": {
+                        "properties": {
                             "myFirstProperty": {}
                         },
                         "state": {
@@ -245,7 +245,7 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                         "processName": "TaskExampleProcess",
                         "processId": "myid1",
                         "parentToken": null,
-                        "data": {
+                        "properties": {
                             "myFirstProperty": {}
                         },
                         "state": {
@@ -280,7 +280,7 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                         "processName": "TaskExampleProcess",
                         "processId": "myid2",
                         "parentToken": null,
-                        "data": {
+                        "properties": {
                             "myFirstProperty": {}
                         },
                         "state": {
@@ -336,7 +336,7 @@ exports.testMongoDBLoadProcess1 = function(test) {
                 "processName": "TaskExampleProcess",
                 "processId": "myid1",
                 "parentToken": null,
-                "data": {
+                "properties": {
                     "myFirstProperty": {}
                 },
                 "state": {

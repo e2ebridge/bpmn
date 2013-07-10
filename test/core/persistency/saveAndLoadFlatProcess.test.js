@@ -42,7 +42,8 @@ exports.testPersistSimpleProcess = function(test) {
                     }
                 ],
                 "testPersistSimpleProcess: state at MyTask BEFORE SAVING"
-            );done(data);
+            );
+            done(data);
         },
         "MyTask": function(data, done) {
             test.deepEqual(this.getState().tokens,
@@ -75,7 +76,7 @@ exports.testPersistSimpleProcess = function(test) {
                     "processName": "MyTestProcessType",
                     "processId": "myPersistentProcess_1",
                     "parentToken": null,
-                    "data": {
+                    "properties": {
                         "myprop": {
                             "an": "object"
                         },
@@ -138,15 +139,14 @@ exports.testLoadSimpleBPMNProcess = function(test) {
                 ],
                 "testPersistSimpleProcess: state at MyTask AFTER LOADING"
             );
-            // data is not in the process client interface. Thus, we have to use the process instance to get it
-            test.deepEqual(newBpmnProcess.data,
+            test.deepEqual(newBpmnProcess.properties,
                 {
                     "myprop": {
                         "an": "object"
                     },
                     "anAdditionalProperty": "Value of an additional property"
                 },
-                "testPersistSimpleProcess: data at MyTask AFTER LOADING"
+                "testPersistSimpleProcess: properties at MyTask AFTER LOADING"
             );
             done(data);
         },
@@ -198,14 +198,14 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             ],
             "testLoadSimpleBPMNProcess: history"
         );
-        test.deepEqual(loadedData.data,
+        test.deepEqual(loadedData.properties,
             {
                 "myprop": {
                     "an": "object"
                 },
                 "anAdditionalProperty": "Value of an additional property"
             },
-            "testLoadSimpleBPMNProcess: data"
+            "testLoadSimpleBPMNProcess: properties"
         );
         test.deepEqual(loadedData.state.tokens,
             [

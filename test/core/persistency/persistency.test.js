@@ -13,7 +13,7 @@ exports.testFilePersistencyInsert = function(test) {
     var persistency = new Persistency({uri: persistencyUri});
     var persistentData = {
         processId: "mypid",
-        data: {myattr: "x"},
+        properties: {myattr: "x"},
         state: ["a", "b"],
         history: ["a", "b", "c", "d"]
     };
@@ -29,7 +29,7 @@ exports.testFilePersistencyInsert = function(test) {
             persistedData,
             {
                 "processId": "mypid",
-                "data": {
+                "properties": {
                     "myattr": "x"
                 },
                 "state": ["a", "b"],
@@ -53,7 +53,7 @@ exports.testFilePersistencyUpdate = function(test) {
     var persistency = new Persistency({uri: persistencyUri});
     var persistentData = {
         processId: "mypid",
-        data: {myattr: "CHANGED"},
+        properties: {myattr: "CHANGED"},
         state: ["a", "CHANGED"],
         history: ["a", "b", "c", "d"]
     };
@@ -69,7 +69,7 @@ exports.testFilePersistencyUpdate = function(test) {
             persistedData,
             {
                 "processId": "mypid",
-                "data": {
+                "properties": {
                     "myattr": "CHANGED"
                 },
                 "state": ["a", "CHANGED"],

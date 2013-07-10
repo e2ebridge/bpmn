@@ -40,7 +40,7 @@ exports.testCreatePersistentFlatProcess = function(test) {
                 "processName": "TaskExampleProcess",
                 "processId": "myid",
                 "parentToken": null,
-                "data": {
+                "properties": {
                     "myFirstProperty": {}
                 },
                 "state": {
@@ -106,7 +106,7 @@ exports.testCreatePersistentFlatProcess = function(test) {
                 "processName": "TaskExampleProcess",
                 "processId": "myid",
                 "parentToken": null,
-                "data": {
+                "properties": {
                     "myFirstProperty": {}
                 },
                 "state": {

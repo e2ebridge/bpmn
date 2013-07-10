@@ -30,8 +30,8 @@ exports.testFindByStateAll = function(test) {
     var foundProcesses = bpmn.findByState();
 
     test.equal(foundProcesses.length, 2, "testFindByStateAll");
-    test.equal(foundProcesses[0]._implementation.data.myprop1, "gugus", "testFindByStateAll");
-    test.equal(foundProcesses[1]._implementation.data.myprop2, "blah", "testFindByStateAll");
+    test.equal(foundProcesses[0]._implementation.properties.myprop1, "gugus", "testFindByStateAll");
+    test.equal(foundProcesses[1]._implementation.properties.myprop2, "blah", "testFindByStateAll");
 
     test.done();
 };

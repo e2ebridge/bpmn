@@ -49,7 +49,7 @@ exports.testMongoDBWait4Connection = function(test) {
     var data1 = {
         processId: "myId001",
         processName: "testwait4connection",
-        data: {
+        properties: {
             x: "test data"
         }
     };
@@ -65,7 +65,7 @@ exports.testMongoDBWait4Connection = function(test) {
                 "_id": "_dummy_id_",
                 "processId": "myId001",
                 "processName": "testwait4connection",
-                "data": {
+                "properties": {
                     "x": "test data"
                 }
             },
@@ -76,7 +76,7 @@ exports.testMongoDBWait4Connection = function(test) {
     var data2 = {
         processId: "myId002",
         processName: "testwait4connection",
-        data: {
+        properties: {
             x: "test data"
         }
     };
@@ -92,7 +92,7 @@ exports.testMongoDBWait4Connection = function(test) {
                 "_id": "_dummy_id_",
                 "processId": "myId002",
                 "processName": "testwait4connection",
-                "data": {
+                "properties": {
                     "x": "test data"
                 }
             },

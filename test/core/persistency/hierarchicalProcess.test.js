@@ -188,7 +188,7 @@ function compareStateSavedAtMyTask(mainProcess, savedData, test) {
             "processName": "MyProcess",
             "processId": "mainPid1",
             "parentToken": null,
-            "data": {},
+            "properties": {},
             "state": {
                 "tokens": [
                     {
@@ -282,7 +282,7 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
             "processName": "MyProcess",
             "processId": "mainPid1",
             "parentToken": null,
-            "data": {},
+            "properties": {},
             "state": {
                 "tokens": [
                     {
@@ -396,7 +396,7 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
             "processName": "MyProcess",
             "processId": "mainPid1",
             "parentToken": null,
-            "data": {},
+            "properties": {},
             "state": {
                 "tokens": []
             },

@@ -33,7 +33,7 @@ exports.testMongoDBConnectionOK = function(test) {
     var data = {
         processId: "myId",
         processName: "testprocess",
-        data: {
+        properties: {
             x: "test data"
         }
     };
@@ -49,7 +49,7 @@ exports.testMongoDBConnectionOK = function(test) {
                 "_id": "_dummy_id_",
                 "processId": "myId",
                 "processName": "testprocess",
-                "data": {
+                "properties": {
                     "x": "test data"
                 }
             },
