@@ -1,6 +1,6 @@
 {
     "name": "bpmn",
-    "version": "0.0.2-RES-41",
+    "version": "0.0.2-RES-48",
     "description": "BPMN 2.0 Execution Engine",
     "main": "./lib/public.js",
     "keywords": [
