@@ -142,7 +142,8 @@ function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
                             "end": "_dummy_ts_"
                         }
                     ],
-                    "createdAt": "_dummy_ts_"
+                    "createdAt": "_dummy_ts_",
+                    "finishedAt": "_dummy_ts_"
                 }
             },
             {
@@ -234,11 +235,13 @@ function compareStateSavedAtMyTask(mainProcess, savedData, test) {
                                     "end": null
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": null
                         }
                     }
                 ],
-                "createdAt": "_dummy_ts_"
+                "createdAt": "_dummy_ts_",
+                "finishedAt": null
             },
             "pendingTimeouts": {},
             "_id": 1,
@@ -328,11 +331,13 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                                     "end": null
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": null
                         }
                     }
                 ],
-                "createdAt": "_dummy_ts_"
+                "createdAt": "_dummy_ts_",
+                "finishedAt": null
             },
             "pendingTimeouts": {},
             "_id": 1,
@@ -434,7 +439,8 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
                                     "end": "_dummy_ts_"
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": "_dummy_ts_"
                         }
                     },
                     {
@@ -444,7 +450,8 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
                         "end": "_dummy_ts_"
                     }
                 ],
-                "createdAt": "_dummy_ts_"
+                "createdAt": "_dummy_ts_",
+                "finishedAt": "_dummy_ts_"
             },
             "pendingTimeouts": {},
             "_id": 1,

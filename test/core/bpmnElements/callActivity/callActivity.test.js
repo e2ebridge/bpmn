@@ -149,7 +149,8 @@ exports.testBPMNCallActivity = function(test) {
                                         "end": "_dummy_ts_"
                                     }
                                 ],
-                                "createdAt": "_dummy_ts_"
+                                "createdAt": "_dummy_ts_",
+                                "finishedAt": "_dummy_ts_"
                             }
                         },
                         {
@@ -159,7 +160,8 @@ exports.testBPMNCallActivity = function(test) {
                             "end": null // set after done()
                         }
                     ],
-                    "createdAt": "_dummy_ts_"
+                    "createdAt": "_dummy_ts_",
+                    "finishedAt": null
                 },
                 "testBPMNCallActivity: history at MyEnd of main process"
             );

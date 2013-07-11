@@ -91,7 +91,8 @@ exports.testMongoDBAfterPersistingProcess1 = function(test) {
                                     "end": null
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": null
                         },
                         "pendingTimeouts": {}
                     }
@@ -164,7 +165,8 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                                     "end": null
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": null
                         },
                         "pendingTimeouts": {}
                     },
@@ -199,7 +201,8 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                                     "end": null
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": null
                         },
                         "pendingTimeouts": {}
                     }
@@ -271,7 +274,8 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                                     "end": null
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": null
                         },
                         "pendingTimeouts": {}
                     },
@@ -307,7 +311,8 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                                     "end": "_dummy_ts_"
                                 }
                             ],
-                            "createdAt": "_dummy_ts_"
+                            "createdAt": "_dummy_ts_",
+                            "finishedAt": "_dummy_ts_"
                         },
                         "pendingTimeouts": {}
                     }
@@ -362,7 +367,8 @@ exports.testMongoDBLoadProcess1 = function(test) {
                             "end": null
                         }
                     ],
-                    "createdAt": "_dummy_ts_"
+                    "createdAt": "_dummy_ts_",
+                    "finishedAt": null
                 },
                 "pendingTimeouts": {}
             },

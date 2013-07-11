@@ -98,7 +98,8 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
                         "end": "_dummy_ts_"
                     }
                 ],
-                "createdAt": "_dummy_ts_"
+                "createdAt": "_dummy_ts_",
+                "finishedAt": "_dummy_ts_"
             },
             "testCreateVolatileCollaborationOfBPMNProcesses: history of process 1"
         );
@@ -131,7 +132,8 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
                         "end": "_dummy_ts_"
                     }
                 ],
-                "createdAt": "_dummy_ts_"
+                "createdAt": "_dummy_ts_",
+                "finishedAt": "_dummy_ts_"
             },
             "testCreateVolatileCollaborationOfBPMNProcesses: history of process 2"
         );

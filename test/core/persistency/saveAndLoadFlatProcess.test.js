@@ -105,7 +105,8 @@ exports.testPersistSimpleProcess = function(test) {
                                 "end": null
                             }
                         ],
-                        "createdAt": "_dummy_ts_"
+                        "createdAt": "_dummy_ts_",
+                        "finishedAt": null
                     },
                     "pendingTimeouts": {},
                     "_saved": "_dummy_ts_",

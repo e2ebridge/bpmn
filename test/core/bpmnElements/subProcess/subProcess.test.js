@@ -154,7 +154,8 @@ exports.testBPMNSubProcess = function(test) {
                                         "end": "_dummy_ts_"
                                     }
                                 ],
-                                "createdAt": "_dummy_ts_"
+                                "createdAt": "_dummy_ts_",
+                                "finishedAt": "_dummy_ts_"
                             }
                         },
                         {
@@ -164,7 +165,8 @@ exports.testBPMNSubProcess = function(test) {
                             "end": null // set after done()
                         }
                     ],
-                    "createdAt": "_dummy_ts_"
+                    "createdAt": "_dummy_ts_",
+                    "finishedAt": null
                 },
                 "testBPMNSubProcess: history at MyEnd of main process"
             );
