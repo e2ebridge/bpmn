@@ -1,0 +1,39 @@
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:debugger="http://e2e.ch/bpmneditor/debugger">
+  <bpmn:extensionElements>
+    <debugger:position href="http://localhost:7261/grapheditor/debugger/position"/>
+  </bpmn:extensionElements>
+  <bpmn:process id="PROCESS_1">
+    <bpmn:startEvent name="Start Event" label="Start Event" id="2">
+      <mxCell style="shape=mxgraph.bpmn.none_start_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+        <mxGeometry x="61" y="151" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent name="Intermediate Catch Timer Event" label="Intermediate Catch Timer Event" id="3">
+      <bpmn:timerEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.time_intermediate_catch_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+        <mxGeometry x="230" y="151" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow name="" sourceRef="2" targetRef="3" id="4">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="2" target="3">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent name="End Event" label="End Event" id="5">
+      <mxCell style="shape=mxgraph.bpmn.none_end_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+        <mxGeometry x="401" y="151" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow name="" sourceRef="3" targetRef="5" id="6">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="3" target="5">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+</bpmn:definitions>

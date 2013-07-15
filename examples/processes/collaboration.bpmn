@@ -1,0 +1,119 @@
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:debugger="http://e2e.ch/bpmneditor/debugger">
+  <bpmn:extensionElements>
+    <debugger:position href="http://localhost:7261/grapheditor/debugger/position"/>
+  </bpmn:extensionElements>
+  <bpmn:collaboration id="COLLABORATION_1">
+    <bpmn:participant name="My First Process" label="My First Process" id="2" processRef="PROCESS_2">
+      <mxCell style="swimlane;horizontal=0;" vertex="1" parent="1">
+        <mxGeometry x="161" y="41" width="589" height="160" as="geometry"/>
+      </mxCell>
+    </bpmn:participant>
+    <bpmn:participant name="My Second Process" label="My Second Process" id="3" processRef="PROCESS_3">
+      <mxCell style="swimlane;horizontal=0;" vertex="1" parent="1">
+        <mxGeometry x="161" y="251" width="589" height="149" as="geometry"/>
+      </mxCell>
+    </bpmn:participant>
+    <bpmn:messageFlow name="MY_MESSAGE" sourceRef="8" targetRef="13" label="MY_MESSAGE" id="15">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="8" target="13">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow name="" sourceRef="22" targetRef="17" label="" id="16">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="22" target="17">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="420" y="230"/>
+            <mxPoint x="240" y="230"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+  </bpmn:collaboration>
+  <bpmn:process id="PROCESS_2" isExecutable="true">
+    <bpmn:sequenceFlow name="" sourceRef="17" targetRef="20" id="6">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="2" source="17" target="20">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent name="End Event 1" label="End Event 1" id="8">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_end_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="2">
+        <mxGeometry x="429" y="50" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:endEvent>
+    <bpmn:startEvent name="Start Event 1" label="Start Event 1" id="17">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_start_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="2">
+        <mxGeometry x="59" y="50" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:startEvent>
+    <bpmn:serviceTask name="Task 1" label="Task 1" id="20">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" vertex="1" parent="2">
+        <mxGeometry x="199" y="40" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow name="" sourceRef="20" targetRef="8" id="21">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="2" source="20" target="8">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmn:process id="PROCESS_3" isExecutable="true">
+    <bpmn:startEvent name="Start Event 2" label="Start Event 2" id="10">
+      <mxCell style="shape=mxgraph.bpmn.none_start_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="3">
+        <mxGeometry x="60" y="50" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent name="catch MY_MESSAGE" label="catch MY_MESSAGE" id="13">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_intermediate_catch_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="3">
+        <mxGeometry x="389" y="50" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent name="End Event 2" label="End Event 2" id="18">
+      <mxCell style="shape=mxgraph.bpmn.none_end_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="3">
+        <mxGeometry x="519" y="50" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow name="" sourceRef="13" targetRef="18" id="19">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="3" source="13" target="18">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask name="Task 2" label="Task 2" id="22">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" vertex="1" parent="3">
+        <mxGeometry x="189" y="40" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow name="" sourceRef="10" targetRef="22" id="12">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="3" source="10" target="22">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow name="" sourceRef="22" targetRef="13" id="14">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="3" source="22" target="13">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+</bpmn:definitions>

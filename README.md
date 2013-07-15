@@ -27,7 +27,7 @@ These following samples assume that you installed bpmn.js via NPM.
 
 Assume myProcess.bpmn describes the following process
 
-![](test/resources/projects/simple/taskExampleProcess.png)
+![](examples/processes/task.png)
 
 then this process can be created by
 
@@ -93,14 +93,14 @@ Besides the default event handler, it is also possible to specify a default erro
 
 Sometimes it is useful to call handlers before or after each activity, task, or catch event. To do this specify
 
-	"onBeginHandler":  function(currentFlowObjectName, data, done) {
+	exports.onBeginHandler = function(currentFlowObjectName, data, done) {
         // do something
 		done(data);
-    },
-    "onEndHandler":  function(currentFlowObjectName, data, done) {
+    };
+    exports.onEndHandler = function(currentFlowObjectName, data, done) {
         // do something
 		done(data);
-    }
+    };
 
 
 Handler Context (this)
@@ -132,14 +132,14 @@ If the following process has to be implemented, we have to provide three handler
     	done(data);
 	};
 
-	exports.Is_it_ok_$ok = function(data, done) {
+	exports.Is_it_ok_$ok = function(data) {
     	// has to return true or false
 		// the name of the sequence flow follows after "$".
 		// if there is no name, an error is thrown 
     	return true;
 	};
 
-	exports.Is_it_ok_$nok = function(data, done) {
+	exports.Is_it_ok_$nok = function(data) {
     	// has to return true or false
 		// the name of the sequence flow follows after "$".
 		// if there is no name, an error is thrown 
@@ -147,7 +147,7 @@ If the following process has to be implemented, we have to provide three handler
 	};
 
 
-![](test/resources/bpmn/xorGateway.png)
+![](examples/processes/exclusiveGateway.png)
 
 **Note**: 
 For each outgoing transition we have a condition handler that hast to evaluate synchronously. So if backend data are required, fetch them in the gateway callback.
@@ -172,7 +172,7 @@ Boundary timer events are timeouts on the activity they are attached to. To impl
     	done(data);
 	};
 
-![](test/resources/bpmn/timeout.png)
+![](examples/processes/timeout.png)
 
 Intermediate Timer Events
 -------------------------
@@ -189,7 +189,7 @@ Intermediate catch timer events are used to stop the process for a given time. I
     	done(data);
 	};
 
-![](test/resources/bpmn/intermediateCatchTimerEvent.png)
+![](examples/processes/intermediateTimerEvent.png)
 
 
 Collaborations
@@ -197,7 +197,7 @@ Collaborations
 
 BPMN also supports collaborating processes as depicted below.
 
-![](test/resources/projects/collaboration/collaboration.png)
+![](examples/processes/collaboration.png)
 
 These processes must be created together:
 
