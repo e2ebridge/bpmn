@@ -11,7 +11,7 @@ Installation
 ------------
 The easiest way to install it is via NPM:
 
-    npm install bpmn.js
+    npm install bpmn
 
 Assumptions
 -----------
@@ -23,7 +23,7 @@ Assumptions
 Basic Example
 =============
 
-These following samples assume that you installed bpmn.js via NPM.
+These following samples assume that you installed bpmn via npm.
 
 Assume myProcess.bpmn describes the following process
 
@@ -32,7 +32,7 @@ Assume myProcess.bpmn describes the following process
 then this process can be created by
 
    
-	var bpmn = require("bpmn.js");
+	var bpmn = require("bpmn");
 	// We assume there is a myProcess.js besides myProcess.bpmn that contains the handlers
 	// Furthermore, the user must ensure that the process ID is unique
 	var myProcess = bpmn.createProcess("myid", "path/to/myProcess.bpmn");
