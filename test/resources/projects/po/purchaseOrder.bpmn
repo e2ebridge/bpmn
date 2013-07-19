@@ -1,0 +1,259 @@
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:debugger="http://e2e.ch/bpmneditor/debugger">
+  <bpmn:extensionElements>
+    <debugger:position href="http://localhost:7261/grapheditor/debugger/position"/>
+  </bpmn:extensionElements>
+  <bpmn:collaboration id="COLLABORATION_1">
+    <bpmn:participant name="PurchaseOrder" label="PurchaseOrder" processRef="PROCESS_8" id="8">
+      <mxCell style="swimlane;horizontal=0;dashed=0" parent="1" vertex="1">
+        <mxGeometry x="59.99999999999999" y="249.93009839993897" width="1595.0687018925714" height="230" as="geometry"/>
+      </mxCell>
+    </bpmn:participant>
+    <bpmn:participant name="Shipping &#xa;Provider" label="Shipping &#xa;Provider" id="37" processRef="PROCESS_37">
+      <mxCell style="swimlane;horizontal=0;dashed=1" vertex="1" parent="1">
+        <mxGeometry x="390" y="122.10812717909059" width="570" height="71.18003778106919" as="geometry"/>
+      </mxCell>
+    </bpmn:participant>
+    <bpmn:participant name="Customer" label="Customer" id="40" processRef="PROCESS_40">
+      <mxCell style="swimlane;horizontal=0;dashed=1" vertex="1" parent="1">
+        <mxGeometry x="76.91977331358497" y="40" width="1573.080226686415" height="67.81996221893084" as="geometry"/>
+      </mxCell>
+    </bpmn:participant>
+    <bpmn:participant name="SAP" label="SAP" id="41" processRef="PROCESS_41">
+      <mxCell style="swimlane;horizontal=0;dashed=1" vertex="1" parent="1">
+        <mxGeometry x="293.6007556213834" y="537.8199622189308" width="286.3992443786166" height="67.81996221893087" as="geometry"/>
+      </mxCell>
+    </bpmn:participant>
+    <bpmn:messageFlow name="shipping price" sourceRef="16" targetRef="18" label="shipping price" id="29">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="16" target="18">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="729" y="110"/>
+            <mxPoint x="644" y="110"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow name="" sourceRef="10" targetRef="37" label="" id="38">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="10" target="37">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="450" y="227"/>
+            <mxPoint x="550" y="227"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow name="Shipping Info" sourceRef="37" targetRef="12" label="Shipping Info" id="39">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="37" target="12">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow name="product" sourceRef="14" targetRef="41" label="product" id="42">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="14" target="41">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="444" y="489"/>
+            <mxPoint x="390" y="489"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow name="price" sourceRef="41" targetRef="14" label="price" id="43">
+      <mxCell style="dashed=1;startArrow=oval;startFill=0;endArrow=block;endFill=0;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="41" target="14">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="500" y="490"/>
+            <mxPoint x="480" y="490"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:messageFlow>
+  </bpmn:collaboration>
+  <bpmn:process id="PROCESS_8" isExecutable="true">
+    <bpmn:startEvent name="Order&#xa;Message&#xa;Received" label="Order&#xa;Message&#xa;Received" id="3">
+
+
+                  <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_start_event;verticalLabelPosition=bottom;verticalAlign=top;" parent="8" vertex="1">
+        <mxGeometry x="49" y="90" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </bpmn:startEvent>
+    <bpmn:parallelGateway name="start processing" label="start processing" id="4">
+      <mxCell style="shape=mxgraph.bpmn.parallel_gateway;verticalLabelPosition=bottom;verticalAlign=top;" parent="8" vertex="1">
+        <mxGeometry x="199" y="85" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow name="" sourceRef="3" targetRef="4" id="5">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" parent="8" source="3" target="4" edge="1">
+        <mxGeometry x="-90" y="-250" as="geometry">
+          <mxPoint x="-91" y="-251" as="sourcePoint"/>
+          <mxPoint x="-61" y="-221" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask name="initiate shipping" label="initiate shipping" id="10">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" vertex="1" parent="8">
+        <mxGeometry x="320" y="10.000000000000005" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow name="" sourceRef="4" targetRef="10" id="11">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="4" target="10">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="219" y="40"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:intermediateCatchEvent name="Wait for shipping &#xa;schedule &amp; price" label="Wait for shipping &#xa;schedule &amp; price" id="12">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_intermediate_catch_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="8">
+        <mxGeometry x="569" y="24.999999999999986" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow name="" sourceRef="10" targetRef="12" id="13">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="10" target="12">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask name="initiate price &#xa;calculation" label="initiate price &#xa;calculation" id="14">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" vertex="1" parent="8">
+        <mxGeometry x="269" y="130" width="231" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow name="" sourceRef="4" targetRef="14" id="15">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="4" target="14">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="219" y="160"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:intermediateThrowEvent name="Shipping info arrived" label="Shipping info arrived" id="16">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_intermediate_throw_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="8">
+        <mxGeometry x="709" y="24.999999999999986" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow name="" sourceRef="12" targetRef="16" id="17">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="12" target="16">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:intermediateCatchEvent name="shipping price arrived" label="shipping price arrived" id="18">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_intermediate_catch_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="8">
+        <mxGeometry x="629" y="144.99999999999997" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow name="" sourceRef="14" targetRef="18" id="19">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="14" target="18">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow name="" sourceRef="16" targetRef="21" id="20">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="16" target="21">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+          <Array as="points"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask name="calculate schedule" label="calculate schedule" id="21">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" vertex="1" parent="8">
+        <mxGeometry x="849" y="10.000000000000005" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:userTask name="caculate invoice" label="caculate invoice" id="22">
+      <mxCell style="shape=mxgraph.bpmn.user_task;" vertex="1" parent="8">
+        <mxGeometry x="859" y="130" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow name="" sourceRef="18" targetRef="22" id="23">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="18" target="22">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:parallelGateway name="wait for all infos" label="wait for all infos" id="24">
+      <mxCell style="shape=mxgraph.bpmn.parallel_gateway;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="8">
+        <mxGeometry x="1050" y="70.99999999999999" width="40" height="40" as="geometry"/>
+      </mxCell>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow name="" sourceRef="21" targetRef="24" id="25">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="21" target="24">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow name="" sourceRef="22" targetRef="24" id="26">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="22" target="24">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask name="prepare purchase &#xa;confirmation&#xa;email" label="prepare purchase &#xa;confirmation&#xa;email" id="27">
+      <mxCell style="shape=mxgraph.bpmn.service_task;" vertex="1" parent="8">
+        <mxGeometry x="1168.9918245376634" y="60.99999999999998" width="140" height="60" as="geometry"/>
+      </mxCell>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow name="" sourceRef="24" targetRef="27" id="28">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="24" target="27">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent name="send po &#xa;confirmation" label="send po &#xa;confirmation" id="35">
+      <bpmn:messageEventDefinition/>
+      <mxCell style="shape=mxgraph.bpmn.message_end_event;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="8">
+        <mxGeometry x="1404.2061056777145" y="75.99999999999997" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow name="" sourceRef="27" targetRef="35" id="36">
+      <mxCell style="endArrow=block;endFill=1;endSize=6;edgeStyle=orthogonalEdgeStyle" edge="1" parent="8" source="27" target="35">
+        <mxGeometry x="1" y="1" as="geometry">
+          <mxPoint as="sourcePoint"/>
+          <mxPoint x="30" y="30" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmn:process id="PROCESS_37" isExecutable="false"/>
+  <bpmn:process id="PROCESS_40" isExecutable="false"/>
+  <bpmn:process id="PROCESS_41" isExecutable="false"/>
+</bpmn:definitions>
