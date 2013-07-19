@@ -73,7 +73,7 @@ exports.testDebuggerRunThrough = function(test) {
     debuggerInterface.isInDebugger = function() {
         return true;
     };
-    debuggerInterface.getRestClient = function() {
+    debuggerInterface.createRestClient = function() {
         return {
             post: function(path, message, done) {
                test.equal(path, "/grapheditor/debugger/position", "testDebuggerRunThrough: path");
@@ -86,7 +86,9 @@ exports.testDebuggerRunThrough = function(test) {
                 }
                 done();
             },
-            close: function() {}
+            close: function() {
+                traceOfBPMNIds += "::CLOSED";
+            }
         };
     };
     processDefinition.debuggerInterface = debuggerInterface;
@@ -99,7 +101,7 @@ exports.testDebuggerRunThrough = function(test) {
             done(data);
         },
         "MyEnd": function(data, done) {
-            test.equal(traceOfBPMNIds, "::_2::_3::_5", "testDebuggerRunThrough: traceOfBPMNIds");
+            test.equal(traceOfBPMNIds, "::_2::CLOSED::_3::CLOSED::_5::CLOSED", "testDebuggerRunThrough: traceOfBPMNIds");
             test.done();
             done(data);
         }
