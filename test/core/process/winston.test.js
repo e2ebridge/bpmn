@@ -38,7 +38,7 @@ exports.testDefaultFileLogger = function(test) {
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
                 "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}"
              ],
             "testDefaultFileLogger");
 
