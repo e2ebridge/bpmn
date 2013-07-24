@@ -22,7 +22,6 @@ exports.testMongoDBConnectionNOK = function(test) {
 
     persistency.persist({}, function(error) {
         test.ok(error !== undefined || error !== null, "testMongoDBConnectionNOK: error occurred");
-        test.equal(error.message, "failed to connect to [gugus:27017]", "testMongoDBConnectionNOK: error message");
         test.done();
     });
 };
