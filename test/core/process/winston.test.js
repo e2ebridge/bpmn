@@ -11,6 +11,7 @@ var winston = require('winston');
 var logLevels = require('../../../lib/logger.js').logLevels;
 
 exports.testDefaultFileLogger = function(test) {
+    var processId = "testdefaultfileloggerprocessid";
     var defaultLogFileName = "process.log";
     var defaultLogFilePath = ".";
 
@@ -18,26 +19,27 @@ exports.testDefaultFileLogger = function(test) {
     bpmn.clearCache();
 
     var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = bpmn.createProcess("myid", bpmnFileName);
+    var bpmnProcess = bpmn.createProcess(processId, bpmnFileName);
     bpmnProcess.setLogLevel(logLevels.debug);
     bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
     bpmnProcess.triggerEvent("MyStart");
 
     afterLogfileCreation(bpmnProcess, function() {
         var loggedLines = fileUtils.readLines(path.join(defaultLogFilePath, defaultLogFileName));
-        var linesWOTimestamps = loggedLines.map(function(line) {
+        var taskExampleProcessLines = loggedLines.filter(function(line) {
+            return (line.indexOf(processId) > -1);
+        });
+        var linesWOTimestamps = taskExampleProcessLines.map(function(line) {
             return line.replace(/timestamp.+[^}]/, "\"timestamp\":TIMESTAMP");
         });
         test.deepEqual(linesWOTimestamps,
             [
-                "{\"id\":\"unknown\",\"description\":\"DebuggerInterface: Sending '{\\\"filename\\\":\\\"dummyFileName\\\",\\\"position\\\":{\\\"bpmnId\\\":\\\"_123\\\"}}' to 'http://localhost:57261/grapheditor/debugger/position'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                ""
-            ],
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+             ],
             "testDefaultFileLogger");
 
         test.done();
