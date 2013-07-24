@@ -65,7 +65,7 @@ exports.testGetNonExecutableParticipantByProcessId = function(test) {
             "name": "My Second Process",
             "type": "participant",
             "processRef": "PROCESS_2",
-            "bpmnFileName": "D:\\Projects\\bpmn.js\\test\\resources\\bpmn\\poolNotExecutable.bpmn"
+            "bpmnFileName": fileName
         },
         "testGetNonExecutableParticipantByProcessId."
     );
@@ -175,21 +175,21 @@ exports.testParseCollaborationsBetweenExecutableAndNonExecutablePools = function
                         "name": "My First Process",
                         "type": "participant",
                         "processRef": "PROCESS_1",
-                        "bpmnFileName": "D:\\Projects\\bpmn.js\\test\\resources\\bpmn\\poolNotExecutable.bpmn"
+                        "bpmnFileName": fileName
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
                         "processRef": "PROCESS_2",
-                        "bpmnFileName": "D:\\Projects\\bpmn.js\\test\\resources\\bpmn\\poolNotExecutable.bpmn"
+                        "bpmnFileName": fileName
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
                         "processRef": "PROCESS_3",
-                        "bpmnFileName": "D:\\Projects\\bpmn.js\\test\\resources\\bpmn\\poolNotExecutable.bpmn"
+                        "bpmnFileName": fileName
                     }
                 ],
                 "messageFlows": [

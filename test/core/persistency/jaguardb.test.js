@@ -4,7 +4,7 @@
 "use strict";
 
 var fileUtils = require('../../../lib/utils/file.js');
-var JaguarDb = require('jaguarDb').JaguarDb;
+var JaguarDb = require('jaguardb').JaguarDb;
 var jaguarDbPath = './test/resources/persistency/testJaguardb';
 
 exports.testJaguarDBInsert = function(test) {
