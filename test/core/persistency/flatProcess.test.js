@@ -70,6 +70,16 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     "finishedAt": null
                 },
                 "pendingTimeouts": {},
+                "views": {
+                    "startEvent": {
+                        "name": "MyStart",
+                        "type": "startEvent",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    "endEvent": null,
+                    "duration": null
+                },
                 "_saved": "_dummy_ts_",
                 "_updated": "_dummy_ts_",
                 "_id": 1
@@ -137,6 +147,16 @@ exports.testCreatePersistentFlatProcess = function(test) {
                     "finishedAt": null
                 },
                 "pendingTimeouts": {},
+                "views": {
+                    "startEvent": {
+                        "name": "MyStart",
+                        "type": "startEvent",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    "endEvent": null,
+                    "duration": null
+                },
                 "_saved": "_dummy_ts_",
                 "_updated": "_dummy_ts_",
                 "_id": 1

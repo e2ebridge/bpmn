@@ -244,9 +244,19 @@ function compareStateSavedAtMyTask(mainProcess, savedData, test) {
                 "finishedAt": null
             },
             "pendingTimeouts": {},
-            "_id": 1,
+            "views": {
+                "startEvent": {
+                    "name": "MyStart",
+                    "type": "startEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                "endEvent": null,
+                "duration": null
+            },
             "_saved": "_dummy_ts_",
-            "_updated": "_dummy_ts_"
+            "_updated": "_dummy_ts_",
+            "_id": 1
         },
         "testCreatePersistentHierarchicalProcess: savedData."
     );
@@ -340,6 +350,16 @@ function compareLoadedStateAtMyTask(mainProcess, loadedData, test) {
                 "finishedAt": null
             },
             "pendingTimeouts": {},
+            "views": {
+                "startEvent": {
+                    "name": "MyStart",
+                    "type": "startEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                "endEvent": null,
+                "duration": null
+            },
             "_id": 1,
             "_saved": "_dummy_ts_",
             "_updated": "_dummy_ts_"
@@ -395,6 +415,10 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
 
     test.ok(savedData._updated !== undefined, "testCreatePersistentHierarchicalProcess: saving: _updated exists");
     savedData._updated = "_dummy_ts_";
+
+    // "_dummy_ts_" - "_dummy_ts_" = NaN, but NaN != NaN, so deepEqualFails
+    test.ok(isNaN(savedData.views.duration), "testCreatePersistentHierarchicalProcess: saving: duration calculated" );
+    savedData.views.duration = "_calculated_";
 
     test.deepEqual(savedData,
         {
@@ -454,6 +478,21 @@ function compareStateSavedAtEndOfMainProcess(mainProcess, savedData, test) {
                 "finishedAt": "_dummy_ts_"
             },
             "pendingTimeouts": {},
+            "views": {
+                "startEvent": {
+                    "name": "MyStart",
+                    "type": "startEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                "endEvent": {
+                    "name": "MyEnd",
+                    "type": "endEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                "duration": "_calculated_"
+            },
             "_id": 1,
             "_saved": "_dummy_ts_",
             "_updated": "_dummy_ts_"

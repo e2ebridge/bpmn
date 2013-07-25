@@ -94,7 +94,17 @@ exports.testMongoDBAfterPersistingProcess1 = function(test) {
                             "createdAt": "_dummy_ts_",
                             "finishedAt": null
                         },
-                        "pendingTimeouts": {}
+                        "pendingTimeouts": {},
+                        "views": {
+                            "startEvent": {
+                                "name": "MyStart",
+                                "type": "startEvent",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
+                            },
+                            "endEvent": null,
+                            "duration": null
+                        }
                     }
                 ],
                 "testMongoDBAfterPersistingProcess1");
@@ -168,7 +178,17 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                             "createdAt": "_dummy_ts_",
                             "finishedAt": null
                         },
-                        "pendingTimeouts": {}
+                        "pendingTimeouts": {},
+                        "views": {
+                            "startEvent": {
+                                "name": "MyStart",
+                                "type": "startEvent",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
+                            },
+                            "endEvent": null,
+                            "duration": null
+                        }
                     },
                     {
                         "_id": "_dummy_id_",
@@ -204,7 +224,17 @@ exports.testMongoDBAfterPersistingProcess2 = function(test) {
                             "createdAt": "_dummy_ts_",
                             "finishedAt": null
                         },
-                        "pendingTimeouts": {}
+                        "pendingTimeouts": {},
+                        "views": {
+                            "startEvent": {
+                                "name": "MyStart",
+                                "type": "startEvent",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
+                            },
+                            "endEvent": null,
+                            "duration": null
+                        }
                     }
                 ],
                 "testMongoDBAfterPersistingProcess2");
@@ -240,6 +270,10 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
 
             test.ok(results[1]._id !== undefined, "testMongoDBAfterEndOfProcess2: _id 2 exists");
             results[1]._id = "_dummy_id_";
+
+            // "_dummy_ts_" - "_dummy_ts_" = NaN, but NaN != NaN, so deepEqualFails
+            test.ok(isNaN(results[1].views.duration), "testCreatePersistentHierarchicalProcess: saving: duration calculated" );
+            results[1].views.duration = "_calculated_";
 
             test.deepEqual(results,
                 [
@@ -277,7 +311,17 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                             "createdAt": "_dummy_ts_",
                             "finishedAt": null
                         },
-                        "pendingTimeouts": {}
+                        "pendingTimeouts": {},
+                        "views": {
+                            "startEvent": {
+                                "name": "MyStart",
+                                "type": "startEvent",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
+                            },
+                            "endEvent": null,
+                            "duration": null
+                        }
                     },
                     {
                         "_id": "_dummy_id_",
@@ -314,7 +358,22 @@ exports.testMongoDBAfterEndOfProcess2 = function(test) {
                             "createdAt": "_dummy_ts_",
                             "finishedAt": "_dummy_ts_"
                         },
-                        "pendingTimeouts": {}
+                        "pendingTimeouts": {},
+                        "views": {
+                            "startEvent": {
+                                "name": "MyStart",
+                                "type": "startEvent",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
+                            },
+                            "endEvent": {
+                                "name": "MyEnd",
+                                "type": "endEvent",
+                                "begin": "_dummy_ts_",
+                                "end": "_dummy_ts_"
+                            },
+                            "duration": "_calculated_"
+                        }
                     }
                 ],
                 "testMongoDBAfterEndOfProcess2");
@@ -370,7 +429,17 @@ exports.testMongoDBLoadProcess1 = function(test) {
                     "createdAt": "_dummy_ts_",
                     "finishedAt": null
                 },
-                "pendingTimeouts": {}
+                "pendingTimeouts": {},
+                "views": {
+                    "startEvent": {
+                        "name": "MyStart",
+                        "type": "startEvent",
+                        "begin": "_dummy_ts_",
+                        "end": "_dummy_ts_"
+                    },
+                    "endEvent": null,
+                    "duration": null
+                }
             },
             "testMongoDBAfterPersistingProcess2");
 
