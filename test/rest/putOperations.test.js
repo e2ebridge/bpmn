@@ -15,7 +15,7 @@ rest.clearReceivedMessageIds();
 
 var port = 9099;
 var urlMap = {
-    "TaskExampleProcess": path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
+    "TaskExampleProcess": path.join(__dirname, "../resources/projects/simpleUserTask/taskExampleProcess.bpmn")
 };
 var counter = 0;
 var server = bpmn.createServer({urlMap: urlMap, logLevel: bpmn.logLevels.error, createProcessId: function() {
@@ -68,6 +68,15 @@ exports.testIdempotentPut = function(test) {
     var client = createClient();
     client.put('/TaskExampleProcess/_my_custom_id_0/MyStart/_my_message_id_0', {"gugus": "blah"}, function(error, req, res, obj) {
         compareIdempotentPutEventResult(test, error, res.statusCode, obj);
+        client.close();
+        test.done();
+    });
+};
+
+exports.testPutTaskDone = function(test) {
+    var client = createClient();
+    client.put('/TaskExampleProcess/_my_custom_id_0/MyTaskDone/_my_task_done_id_0', {"gugus": "blah"}, function(error, req, res, obj) {
+        comparePutTaskDoneResult(test, error, res.statusCode, obj);
         client.close();
         test.done();
     });
@@ -173,7 +182,7 @@ function comparePutEventResult(test, error, statusCode, result) {
                 },
                 {
                     "name": "MyTask",
-                    "type": "task",
+                    "type": "userTask",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
@@ -185,6 +194,51 @@ function comparePutEventResult(test, error, statusCode, result) {
             }
         },
         "comparePutEventResult: result"
+    );
+}
+
+function comparePutTaskDoneResult(test, error, statusCode, result) {
+
+    test.ok(!error, "comparePutTaskDoneResult: noError");
+
+    test.equal(statusCode, 201, "comparePutTaskDoneResult: statusCode");
+
+    test.deepEqual(result,
+        {
+            "id": "_my_custom_id_0",
+            "name": "TaskExampleProcess",
+            "link": {
+                "rel": "self",
+                "href": "/TaskExampleProcess/_my_custom_id_0"
+            },
+            "state": [],
+            "history": [
+                {
+                    "name": "MyStart",
+                    "type": "startEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                {
+                    "name": "MyTask",
+                    "type": "userTask",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                {
+                    "name": "MyEnd",
+                    "type": "endEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                }
+            ],
+            "properties": {
+                "myFirstProperty": {
+                    "gugus": "blah"
+                }
+            }
+        },
+        "comparePutTaskDoneResult: result"
     );
 }
 
@@ -217,7 +271,7 @@ function compareIdempotentPutEventResult(test, error, statusCode, result) {
                 },
                 {
                     "name": "MyTask",
-                    "type": "task",
+                    "type": "userTask",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
@@ -299,7 +353,7 @@ function compareNoBodyPutRequestResult(test, error, statusCode, result) {
                 },
                 {
                     "name": "MyTask",
-                    "type": "task",
+                    "type": "userTask",
                     "begin": "_dummy_ts_",
                     "end": null
                 }
