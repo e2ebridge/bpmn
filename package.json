@@ -1,7 +1,7 @@
 {
   "name": "bpmn",
   "version": "0.1.0",
-  "description": "BPMN 2.0 Execution Engine",
+  "description": "BPMN 2.0 execution engine",
   "main": "./lib/public.js",
   "keywords": [
     "bpmn",
@@ -30,7 +30,7 @@
     "commander": ">= 2.0.0",
     "istanbul": ">= 0.1.44"
   },
-  "repository": "",
+  "repository": "https://github.com/e2ebridge/bpmn.git",
   "author": "support@e2ebridge.com",
   "license": "MIT"
 }
