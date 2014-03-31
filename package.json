@@ -1,6 +1,6 @@
 {
   "name": "bpmn",
-  "version": "0.0.2-RES-48",
+  "version": "0.1.0",
   "description": "BPMN 2.0 Execution Engine",
   "main": "./lib/public.js",
   "keywords": [
@@ -30,6 +30,6 @@
     "istanbul": ">= 0.1.44"
   },
   "repository": "",
-  "author": "Marcel Rassinger",
-  "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/"
+  "author": "support@e2ebridge.com",
+  "license": "MIT"
 }

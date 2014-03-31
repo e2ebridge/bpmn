@@ -1,11 +1,16 @@
-bpmn.js
+bpmn
 ================
 
 Introduction
 ------------
-BPMN execution is deemed to be a good way to describe process oriented business logic. This is especially true if we have to describe the orchestration and collaboration of service- and UI-interactions. Many of these interactions are asynchronous and event driven making node an ideal candidate for implementing a BPMN engine.
+This module executes BPMN 2.0 processes.
 
-To draw the BPMN file each BPMN 2.0 compliant tool can be used. If you want to have support by creating the handler files we recommend the node package (TODO).
+BPMN execution is deemed to be a good way to describe process oriented business logic. This is especially true if we have to describe the orchestration and collaboration of service- and UI-interactions. Many of these interactions are asynchronous and event driven making Node.js an ideal candidate for implementing a BPMN engine.
+
+To draw the BPMN file to be executed each BPMN 2.0 compliant tool can be used.
+
+We are working on a simple browser based BPMN 2.0 editor also utilizing Node.js as backend.
+You may learn more about our efforts and other Node.js packages on [http://e2ebridge.com](http://e2ebridge.com).
 
 Installation
 ------------
@@ -495,7 +500,7 @@ Future enhancements
 Licensing
 ---------
 
-http://creativecommons.org/licenses/by-nc-sa/3.0/
+MIT
 
 
 Questions, comments, thoughts?
