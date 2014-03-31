@@ -12,7 +12,7 @@ To draw the BPMN file to be executed each BPMN 2.0 compliant tool can be used.
 We are working on a simple browser based BPMN 2.0 editor also utilizing Node.js as backend.
 You may learn more about our efforts and other Node.js packages on [http://e2ebridge.com](http://e2ebridge.com).
 
-The e2e-transaction-logger package can optionnaly be used. The transaction log files generated are a good view of the transitions and requests. The [E2E Dashboards](http://docu.e2ebridge.com/E2E+Dashboards) use them to provide graphical views of your processes.
+The e2e-transaction-logger package can be used optionally. The generated transaction log files enable the [E2E Dashboards](http://docu.e2ebridge.com/E2E+Dashboards) to provide graphical views of your processes.
 
 Installation
 ------------
