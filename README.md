@@ -36,7 +36,7 @@ These following samples assume that you installed bpmn via npm.
 
 Assume myProcess.bpmn describes the following process
 
-![](examples/processes/task.png)
+![](https://raw.githubusercontent.com/e2ebridge/bpmn/master/examples/processes/task.png)
 
 then this process can be created by
 
@@ -156,7 +156,7 @@ If the following process has to be implemented, we have to provide three handler
 	};
 
 
-![](examples/processes/exclusiveGateway.png)
+![](https://raw.githubusercontent.com/e2ebridge/bpmn/master/examples/processes/exclusiveGateway.png)
 
 **Note**: 
 For each outgoing transition we have a condition handler that hast to evaluate synchronously. So if backend data are required, fetch them in the gateway callback.
@@ -181,7 +181,7 @@ Boundary timer events are timeouts on the activity they are attached to. To impl
     	done(data);
 	};
 
-![](examples/processes/timeout.png)
+![](https://raw.githubusercontent.com/e2ebridge/bpmn/master/examples/processes/timeout.png)
 
 Intermediate Timer Events
 -------------------------
@@ -198,7 +198,7 @@ Intermediate catch timer events are used to stop the process for a given time. I
     	done(data);
 	};
 
-![](examples/processes/intermediateTimerEvent.png)
+![](https://raw.githubusercontent.com/e2ebridge/bpmn/master/examples/processes/intermediateTimerEvent.png)
 
 
 Collaborations
@@ -206,7 +206,7 @@ Collaborations
 
 BPMN also supports collaborating processes as depicted below.
 
-![](examples/processes/collaboration.png)
+![](https://raw.githubusercontent.com/e2ebridge/bpmn/master/examples/processes/collaboration.png)
 
 These processes must be created together:
 
