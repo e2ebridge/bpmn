@@ -1,6 +1,6 @@
 {
   "name": "bpmn",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "BPMN 2.0 execution engine",
   "main": "./lib/public.js",
   "keywords": [
