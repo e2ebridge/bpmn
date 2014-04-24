@@ -1,8 +1,5 @@
 bpmn
 ================
-
-Introduction
-------------
 This module executes BPMN 2.0 processes.
 
 BPMN execution is deemed to be a good way to describe process oriented business logic. This is especially true if we have to describe the orchestration and collaboration of service- and UI-interactions. Many of these interactions are asynchronous and event driven making Node.js an ideal candidate for implementing a BPMN engine.
@@ -386,7 +383,7 @@ When receiving this request the server will use the `urlMap` to find the BPMN fi
 		"properties": {}
 	}
 
-The process has now been created but not yet started! Thus, `state`, `history`, and `properties` are empty. To do this, you have either to send a start event using a PUT request (see below) or you can use:
+The process has now been created but not yet started! Thus, `state`, `history`, and `properties` are empty. To do this, you have either to send a start event using a PUT request (see below) or you can **create and start** the process in one go by appending the start event to the process URI:
 
        var message = {
 			"gugus": "blah", // a process property ...
