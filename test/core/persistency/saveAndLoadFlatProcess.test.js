@@ -258,3 +258,75 @@ exports.testLoadSimpleBPMNProcess = function(test) {
     newBpmnProcess.taskDone("MyTask");
 
 };
+
+exports.testLoadSimpleBPMNProcessCallback = function(test) {
+    var newBpmnProcess;
+
+    var handler = {
+        "MyTaskDone": function(data, done) {
+            var state = this.getState();
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "myPersistentProcess_1"
+                    }
+                ],
+                "testPersistSimpleProcess: state at MyTask AFTER LOADING"
+            );
+            test.deepEqual(newBpmnProcess.properties,
+                {
+                    "myprop": {
+                        "an": "object"
+                    },
+                    "anAdditionalProperty": "Value of an additional property"
+                },
+                "testPersistSimpleProcess: properties at MyTask AFTER LOADING"
+            );
+            done(data);
+        }
+    };
+
+    newBpmnProcess = bpmnProcesses.createBPMNProcess4Testing(processId, processDefinition, handler, persistency, function(err, newBpmnProcess){
+
+        test.deepEqual(newBpmnProcess.getHistory().historyEntries,
+            [
+                {
+                    "name": "MyStart",
+                    "type": "startEvent",
+                    "begin": "_dummy_ts_",
+                    "end": "_dummy_ts_"
+                },
+                {
+                    "name": "MyTask",
+                    "type": "task",
+                    "begin": "_dummy_ts_",
+                    "end": null
+                }
+            ],
+            "testLoadSimpleBPMNProcess: history"
+        );
+        test.deepEqual(newBpmnProcess.getState().tokens,
+            [
+                {
+                    "position": "MyTask",
+                    "owningProcessId": "myPersistentProcess_1"
+                }
+            ],
+            "testLoadSimpleBPMNProcess: tokens"
+        );
+
+        var myProperty = newBpmnProcess.getProperty(testPropertyName);
+        test.deepEqual(
+            myProperty,
+            {
+                "an": "object"
+            },
+            "testLoadSimpleBPMNProcess: get loaded property"
+        );
+
+        test.done();
+    });
+
+
+};
