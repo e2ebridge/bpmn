@@ -104,7 +104,8 @@ exports.testDivergingParallelGatewayProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstForkingGatewayProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstForkingGatewayProcess", processDefinition, handler, function(err, bpmnProcess){
+        bpmnProcess.triggerEvent("Start Event");
+    });
 
-    bpmnProcess.triggerEvent("Start Event");
 };

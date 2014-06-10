@@ -14,16 +14,18 @@ exports.testSendingWrongEventInCollaboration = function(test) {
         {name: "My First Process", id: "myFirstProcessId_1"},
         {name: "My Second Process", id: "mySecondProcessId_1"}
     ];
-    var collaboratingProcesses = bpmn.createCollaboratingProcesses(processDescriptors, fileName);
+    bpmn.createCollaboratingProcesses(processDescriptors, fileName, function(err, collaboratingProcesses){
+        var secondProcess = collaboratingProcesses[0];
+        try {
+            secondProcess.triggerEvent("Wrong Event!");
+        } catch (e) {
+            var message = e.message;
+            test.equal(message, "The process 'My First Process' does not know the event 'Wrong Event!'", "testSendingWrongEventInCollaboration");
+            test.done();
+        }
+    });
 
-    var secondProcess = collaboratingProcesses[0];
-    try {
-        secondProcess.triggerEvent("Wrong Event!");
-    } catch (e) {
-        var message = e.message;
-        test.equal(message, "The process 'My First Process' does not know the event 'Wrong Event!'", "testSendingWrongEventInCollaboration");
-        test.done();
-    }
+
 };
 
 exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
@@ -34,109 +36,112 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
         {name: "My First Process", id: "myFirstProcessId_1"},
         {name: "My Second Process", id: "mySecondProcessId_1"}
     ];
-    var collaboratingProcesses = bpmn.createCollaboratingProcesses(processDescriptors, fileName);
 
-    var firstProcess = collaboratingProcesses[0];
-    var secondProcess = collaboratingProcesses[1];
-    secondProcess.triggerEvent("Start Event 2");
+    bpmn.createCollaboratingProcesses(processDescriptors, fileName, function(err, collaboratingProcesses){
+        var firstProcess = collaboratingProcesses[0];
+        var secondProcess = collaboratingProcesses[1];
+        secondProcess.triggerEvent("Start Event 2");
 
-    var firstProcessDefinition = firstProcess.getProcessDefinition();
-    var endEvent1 = firstProcessDefinition.getFlowObjectByName("End Event 1");
-    var outgoingMessageFlows = firstProcessDefinition.getOutgoingMessageFlows(endEvent1);
-    test.deepEqual(outgoingMessageFlows,
-        [
-            {
-                "bpmnId": "_26",
-                "name": "MY_MESSAGE",
-                "type": "messageFlow",
-                "sourceRef": "_6",
-                "targetRef": "_22",
-                "targetProcessDefinitionId": "PROCESS_2",
-                "sourceProcessDefinitionId": "PROCESS_1"
-            }
-        ],
-        "testCreateVolatileCollaborationOfBPMNProcesses: outgoingMessageFlows of endEvent1");
+        var firstProcessDefinition = firstProcess.getProcessDefinition();
+        var endEvent1 = firstProcessDefinition.getFlowObjectByName("End Event 1");
+        var outgoingMessageFlows = firstProcessDefinition.getOutgoingMessageFlows(endEvent1);
+        test.deepEqual(outgoingMessageFlows,
+            [
+                {
+                    "bpmnId": "_26",
+                    "name": "MY_MESSAGE",
+                    "type": "messageFlow",
+                    "sourceRef": "_6",
+                    "targetRef": "_22",
+                    "targetProcessDefinitionId": "PROCESS_2",
+                    "sourceProcessDefinitionId": "PROCESS_1"
+                }
+            ],
+            "testCreateVolatileCollaborationOfBPMNProcesses: outgoingMessageFlows of endEvent1");
 
-    var secondProcessDefinition = secondProcess.getProcessDefinition();
-    var intermediateCatchEvent = secondProcessDefinition.getFlowObjectByName("Catch MY_MESSAGE");
-    var incomingMessageFlows = secondProcessDefinition.getIncomingMessageFlows(intermediateCatchEvent);
-    test.deepEqual(incomingMessageFlows,
-        [
-            {
-                "bpmnId": "_26",
-                "name": "MY_MESSAGE",
-                "type": "messageFlow",
-                "sourceRef": "_6",
-                "targetRef": "_22",
-                "targetProcessDefinitionId": "PROCESS_2",
-                "sourceProcessDefinitionId": "PROCESS_1"
-            }
-        ],
-        "testCreateVolatileCollaborationOfBPMNProcesses: incomingMessageFlows of intermediateCatchEvent");
+        var secondProcessDefinition = secondProcess.getProcessDefinition();
+        var intermediateCatchEvent = secondProcessDefinition.getFlowObjectByName("Catch MY_MESSAGE");
+        var incomingMessageFlows = secondProcessDefinition.getIncomingMessageFlows(intermediateCatchEvent);
+        test.deepEqual(incomingMessageFlows,
+            [
+                {
+                    "bpmnId": "_26",
+                    "name": "MY_MESSAGE",
+                    "type": "messageFlow",
+                    "sourceRef": "_6",
+                    "targetRef": "_22",
+                    "targetProcessDefinitionId": "PROCESS_2",
+                    "sourceProcessDefinitionId": "PROCESS_1"
+                }
+            ],
+            "testCreateVolatileCollaborationOfBPMNProcesses: incomingMessageFlows of intermediateCatchEvent");
 
-    process.nextTick(function() {
-        var firstHistory = firstProcess.getHistory();
-        test.deepEqual(firstHistory,
-            {
-                "historyEntries": [
-                    {
-                        "name": "Start Event 1",
-                        "type": "startEvent",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    },
-                    {
-                        "name": "Task 1",
-                        "type": "serviceTask",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    },
-                    {
-                        "name": "End Event 1",
-                        "type": "endEvent",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    }
-                ],
-                "createdAt": "_dummy_ts_",
-                "finishedAt": "_dummy_ts_"
-            },
-            "testCreateVolatileCollaborationOfBPMNProcesses: history of process 1"
-        );
-        var secondHistory = secondProcess.getHistory();
-        test.deepEqual(secondHistory,
-            {
-                "historyEntries": [
-                    {
-                        "name": "Start Event 2",
-                        "type": "startEvent",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    },
-                    {
-                        "name": "Task 2",
-                        "type": "serviceTask",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    },
-                    {
-                        "name": "Catch MY_MESSAGE",
-                        "type": "intermediateCatchEvent",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    },
-                    {
-                        "name": "End Event 2",
-                        "type": "endEvent",
-                        "begin": "_dummy_ts_",
-                        "end": "_dummy_ts_"
-                    }
-                ],
-                "createdAt": "_dummy_ts_",
-                "finishedAt": "_dummy_ts_"
-            },
-            "testCreateVolatileCollaborationOfBPMNProcesses: history of process 2"
-        );
-        test.done();
+        process.nextTick(function() {
+            var firstHistory = firstProcess.getHistory();
+            test.deepEqual(firstHistory,
+                {
+                    "historyEntries": [
+                        {
+                            "name": "Start Event 1",
+                            "type": "startEvent",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        },
+                        {
+                            "name": "Task 1",
+                            "type": "serviceTask",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        },
+                        {
+                            "name": "End Event 1",
+                            "type": "endEvent",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        }
+                    ],
+                    "createdAt": "_dummy_ts_",
+                    "finishedAt": "_dummy_ts_"
+                },
+                "testCreateVolatileCollaborationOfBPMNProcesses: history of process 1"
+            );
+            var secondHistory = secondProcess.getHistory();
+            test.deepEqual(secondHistory,
+                {
+                    "historyEntries": [
+                        {
+                            "name": "Start Event 2",
+                            "type": "startEvent",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        },
+                        {
+                            "name": "Task 2",
+                            "type": "serviceTask",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        },
+                        {
+                            "name": "Catch MY_MESSAGE",
+                            "type": "intermediateCatchEvent",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        },
+                        {
+                            "name": "End Event 2",
+                            "type": "endEvent",
+                            "begin": "_dummy_ts_",
+                            "end": "_dummy_ts_"
+                        }
+                    ],
+                    "createdAt": "_dummy_ts_",
+                    "finishedAt": "_dummy_ts_"
+                },
+                "testCreateVolatileCollaborationOfBPMNProcesses: history of process 2"
+            );
+            test.done();
+        });
     });
+
+
 };

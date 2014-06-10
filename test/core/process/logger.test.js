@@ -17,7 +17,7 @@ exports.testSetTextualLogLevel = function(test) {
 };
 
 exports.testLogger = function(test) {
-    var fileName, bpmnProcess;
+    var fileName;
     var logMessages = [];
     var logAppender = function(logMessage) {
         logMessages.push(logMessage);
@@ -26,29 +26,31 @@ exports.testLogger = function(test) {
     bpmn.clearCache();
 
     fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmnProcess = bpmn.createProcess("myid", fileName);
-    bpmnProcess.setLogLevel(logLevels.debug);
-    bpmnProcess.setLogAppender(logAppender);
-    bpmnProcess.triggerEvent("MyStart");
+    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+        bpmnProcess.setLogLevel(logLevels.debug);
+        bpmnProcess.setLogAppender(logAppender);
+        bpmnProcess.triggerEvent("MyStart");
 
-    process.nextTick(function() {
-        test.deepEqual(logMessages,
-            [
-                "[trace][TaskExampleProcess][myid][Trigger startEvent 'MyStart']",
-                "[debug][TaskExampleProcess][myid][Token was put on 'MyStart']",
-                "[debug][TaskExampleProcess][myid][Token arrived at startEvent 'MyStart'][{}]",
-                "[debug][TaskExampleProcess][myid][Token was put on 'MyTask'][{}]",
-                "[debug][TaskExampleProcess][myid][Token arrived at task 'MyTask'][{}]"
-            ],
-            "testLogger"
-        );
+        process.nextTick(function() {
+            test.deepEqual(logMessages,
+                [
+                    "[trace][TaskExampleProcess][myid][Trigger startEvent 'MyStart']",
+                    "[debug][TaskExampleProcess][myid][Token was put on 'MyStart']",
+                    "[debug][TaskExampleProcess][myid][Token arrived at startEvent 'MyStart'][{}]",
+                    "[debug][TaskExampleProcess][myid][Token was put on 'MyTask'][{}]",
+                    "[debug][TaskExampleProcess][myid][Token arrived at task 'MyTask'][{}]"
+                ],
+                "testLogger"
+            );
 
-        test.done();
+            test.done();
+        });
     });
+
 };
 
 exports.testLoggerStringLevel = function(test) {
-    var fileName, bpmnProcess;
+    var fileName;
     var logMessages = [];
     var logAppender = function(logMessage) {
         logMessages.push(logMessage);
@@ -57,24 +59,26 @@ exports.testLoggerStringLevel = function(test) {
     bpmn.clearCache();
 
     fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmnProcess = bpmn.createProcess("myid", fileName);
-    bpmnProcess.setLogLevel("debug");
-    bpmnProcess.setLogAppender(logAppender);
-    bpmnProcess.triggerEvent("MyStart");
+    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+        bpmnProcess.setLogLevel("debug");
+        bpmnProcess.setLogAppender(logAppender);
+        bpmnProcess.triggerEvent("MyStart");
 
-    process.nextTick(function() {
-        test.deepEqual(logMessages,
-            [
-                "[trace][TaskExampleProcess][myid][Trigger startEvent 'MyStart']",
-                "[debug][TaskExampleProcess][myid][Token was put on 'MyStart']",
-                "[debug][TaskExampleProcess][myid][Token arrived at startEvent 'MyStart'][{}]",
-                "[debug][TaskExampleProcess][myid][Token was put on 'MyTask'][{}]",
-                "[debug][TaskExampleProcess][myid][Token arrived at task 'MyTask'][{}]"
-            ],
-            "testLoggerStringLevel"
-        );
+        process.nextTick(function() {
+            test.deepEqual(logMessages,
+                [
+                    "[trace][TaskExampleProcess][myid][Trigger startEvent 'MyStart']",
+                    "[debug][TaskExampleProcess][myid][Token was put on 'MyStart']",
+                    "[debug][TaskExampleProcess][myid][Token arrived at startEvent 'MyStart'][{}]",
+                    "[debug][TaskExampleProcess][myid][Token was put on 'MyTask'][{}]",
+                    "[debug][TaskExampleProcess][myid][Token arrived at task 'MyTask'][{}]"
+                ],
+                "testLoggerStringLevel"
+            );
 
-        test.done();
+            test.done();
+        });
     });
+
 };
 

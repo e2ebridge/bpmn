@@ -171,13 +171,18 @@ exports.testBPMNTimeout = function(test) {
         }
     };
 
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, function(err, process){
+        bpmnProcess = process;
 
-    bpmnProcess.triggerEvent("MyStart");
+        bpmnProcess.triggerEvent("MyStart");
+    });
+
 
 };
 
 exports.testBPMNWrongGetTimeoutResponse = function(test) {
+    var logMessages = [];
+
     var boundaryEvent = new BPMNBoundaryEvent("_7", "MyTimeout", "boundaryEvent", "_3");
     boundaryEvent.isTimerEvent = true;
 
@@ -227,14 +232,15 @@ exports.testBPMNWrongGetTimeoutResponse = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, function(err, bpmnProcess){
 
-    var logMessages = [];
-    var logAppender = function(logMessage) {
-        logMessages.push(logMessage);
-    };
-    bpmnProcess.setLogAppender(logAppender);
 
-    bpmnProcess.triggerEvent("MyStart");
+        var logAppender = function(logMessage) {
+            logMessages.push(logMessage);
+        };
+        bpmnProcess.setLogAppender(logAppender);
+
+        bpmnProcess.triggerEvent("MyStart");
+    });
 
 };

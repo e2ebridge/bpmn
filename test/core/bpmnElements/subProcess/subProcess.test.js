@@ -175,8 +175,11 @@ exports.testBPMNSubProcess = function(test) {
         }
     };
 
-    mainProcess = bpmnProcesses.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("mainPid1", processDefinition, handler, function(err, process){
+        mainProcess = process;
 
-    mainProcess.triggerEvent("MyStart");
+        mainProcess.triggerEvent("MyStart");
+
+    });
 
 };

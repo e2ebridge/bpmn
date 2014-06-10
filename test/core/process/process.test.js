@@ -10,25 +10,25 @@ exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
     var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.clearCache();
-    var bpmnProcess = bpmn.createProcess("myid", fileName);
+    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+        bpmnProcess.triggerEvent("MyStart");
 
-    bpmnProcess.triggerEvent("MyStart");
+        process.nextTick(function() {
+            //console.log("Comparing result after start event");
+            state = bpmnProcess.getState();
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "myid"
+                    }
+                ],
+                "testCreateVolatileBPMNProcess: reached first wait state."
+            );
 
-    process.nextTick(function() {
-        //console.log("Comparing result after start event");
-        state = bpmnProcess.getState();
-        test.deepEqual(state.tokens,
-            [
-                {
-                    "position": "MyTask",
-                    "owningProcessId": "myid"
-                }
-            ],
-            "testCreateVolatileBPMNProcess: reached first wait state."
-        );
-
-        test.done();
+            test.done();
+        });
     });
+
 };
 

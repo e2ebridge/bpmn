@@ -19,31 +19,34 @@ exports.testDefaultFileLogger = function(test) {
     bpmn.clearCache();
 
     var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = bpmn.createProcess(processId, bpmnFileName);
-    bpmnProcess.setLogLevel(logLevels.debug);
-    bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
-    bpmnProcess.triggerEvent("MyStart");
+    bpmn.createProcess(processId, bpmnFileName, function(err, bpmnProcess){
+        bpmnProcess.setLogLevel(logLevels.debug);
+        bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
+        bpmnProcess.triggerEvent("MyStart");
 
-    afterLogfileCreation(bpmnProcess, function() {
-        var loggedLines = fileUtils.readLines(path.join(defaultLogFilePath, defaultLogFileName));
-        var taskExampleProcessLines = loggedLines.filter(function(line) {
-            return (line.indexOf(processId) > -1);
-        });
-        var linesWOTimestamps = taskExampleProcessLines.map(function(line) {
-            return line.replace(/timestamp.+[^}]/, "\"timestamp\":TIMESTAMP");
-        });
-        test.deepEqual(linesWOTimestamps,
-            [
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}"
-             ],
-            "testDefaultFileLogger");
+        afterLogfileCreation(bpmnProcess, function() {
+            var loggedLines = fileUtils.readLines(path.join(defaultLogFilePath, defaultLogFileName));
+            var taskExampleProcessLines = loggedLines.filter(function(line) {
+                return (line.indexOf(processId) > -1);
+            });
+            var linesWOTimestamps = taskExampleProcessLines.map(function(line) {
+                return line.replace(/timestamp.+[^}]/, "\"timestamp\":TIMESTAMP");
+            });
+            test.deepEqual(linesWOTimestamps,
+                [
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"testdefaultfileloggerprocessid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"\"timestamp\":TIMESTAMP}"
+                ],
+                "testDefaultFileLogger");
 
+            test.done();
+        });
         test.done();
     });
+
  };
 
 exports.testNewWinstonTransport = function(test) {
@@ -57,36 +60,38 @@ exports.testNewWinstonTransport = function(test) {
     bpmn.clearCache();
 
     var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = bpmn.createProcess("myid", fileName);
-    bpmnProcess.setLogLevel(logLevels.debug);
-    bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
-    bpmnProcess.addLogTransport(winston.transports.File,
-        {
-            level: 'verbose',
-            filename: logFile,
-            maxsize: 64 * 1024 * 1024,
-            maxFiles: 100,
-            timestamp: function() {
-                return "TIMESTAMP";
+    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+        bpmnProcess.setLogLevel(logLevels.debug);
+        bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
+        bpmnProcess.addLogTransport(winston.transports.File,
+            {
+                level: 'verbose',
+                filename: logFile,
+                maxsize: 64 * 1024 * 1024,
+                maxFiles: 100,
+                timestamp: function() {
+                    return "TIMESTAMP";
+                }
             }
-        }
-    );
-    bpmnProcess.triggerEvent("MyStart");
+        );
+        bpmnProcess.triggerEvent("MyStart");
 
-    afterLogfileCreation(bpmnProcess, function() {
-        var loggedLines = fileUtils.readLines(logFile);
-        test.deepEqual(loggedLines,
-            [
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
-                "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
-                ""
-            ],
-            "testNewWinstonTransport");
-        test.done();
+        afterLogfileCreation(bpmnProcess, function() {
+            var loggedLines = fileUtils.readLines(logFile);
+            test.deepEqual(loggedLines,
+                [
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Trigger startEvent 'MyStart'\",\"level\":\"trace\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyStart'\",\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at startEvent 'MyStart'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token was put on 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                    "{\"process\":\"TaskExampleProcess\",\"id\":\"myid\",\"description\":\"Token arrived at task 'MyTask'\",\"data\":{},\"level\":\"debug\",\"message\":\"\",\"timestamp\":\"TIMESTAMP\"}",
+                    ""
+                ],
+                "testNewWinstonTransport");
+            test.done();
+        });
     });
+
 
 };
 
@@ -94,19 +99,19 @@ exports.testRemoveFileLogger = function(test) {
     bpmn.clearCache();
 
     var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    var bpmnProcess = bpmn.createProcess("myid", bpmnFileName);
+    bpmn.createProcess("myid", bpmnFileName, function(err, bpmnProcess){
+        var winstonLogger = bpmnProcess._implementation.logger.winstonLogger;
 
-    var winstonLogger = bpmnProcess._implementation.logger.winstonLogger;
+        var fileTransportBefore = winstonLogger.transports.file;
+        test.ok(fileTransportBefore !== undefined, "testRemoveFileLogger: before");
 
-    var fileTransportBefore = winstonLogger.transports.file;
-    test.ok(fileTransportBefore !== undefined, "testRemoveFileLogger: before");
+        bpmnProcess.removeLogTransport(winston.transports.File);
 
-    bpmnProcess.removeLogTransport(winston.transports.File);
+        var fileTransportAfter = winstonLogger.transports.file;
+        test.ok(fileTransportAfter === undefined, "testRemoveFileLogger: after");
 
-    var fileTransportAfter = winstonLogger.transports.file;
-    test.ok(fileTransportAfter === undefined, "testRemoveFileLogger: after");
-
-    test.done();
+        test.done();
+    });
 };
 
 function afterLogfileCreation(bpmnProcess, callback) {

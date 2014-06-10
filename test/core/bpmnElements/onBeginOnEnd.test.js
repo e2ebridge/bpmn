@@ -68,8 +68,10 @@ exports.testOnBeginOnEndHandler = function(test) {
         }
     };
 
-    mainProcess = bpmnProcesses.createBPMNProcess4Testing("mainPid1", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("mainPid1", processDefinition, handler, function(err, bpmnProcess){
+        mainProcess = bpmnProcess;
+        mainProcess.triggerEvent("MyMainStart");
+    });
 
-    mainProcess.triggerEvent("MyMainStart");
 
 };

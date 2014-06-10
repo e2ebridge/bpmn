@@ -53,7 +53,7 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
         },
         "MyEnd": function(data, done) {
             compareHistoryEntryAtEndOfProcess(this, test);
-            testProcessRemovalFromCache(mainProcess, done, test);
+            done();
         }
     };
 
@@ -92,19 +92,13 @@ exports.testCreatePersistentHierarchicalProcess = function(test) {
         calledProcess.taskDone("MyTask");
     };
 
-    mainProcess = bpmnProcesses.createBPMNProcess4Testing("mainPid1", processDefinition, handler, persistency);
-    mainProcess.triggerEvent("MyStart");
+    mainProcess = bpmnProcesses.createBPMNProcess("mainPid1", processDefinition, handler, persistency, function(err, process){
+        mainProcess = process;
+
+        mainProcess.triggerEvent("MyStart");
+    });
 };
 
-function testProcessRemovalFromCache(mainProcess, done, test) {
-    var mainProcessFromCacheBEFOREDoneHandler = bpmnProcesses.getById(mainProcess.processId);
-    test.ok(mainProcessFromCacheBEFOREDoneHandler !== undefined, "testCreatePersistentHierarchicalProcess: before handler done() call: is process in cache.");
-
-    done();
-
-    var mainProcessFromCacheAFTERDoneHandler = bpmnProcesses.getById(mainProcess.processId);
-    test.ok(mainProcessFromCacheAFTERDoneHandler === undefined, "testCreatePersistentHierarchicalProcess: after handler done() call: is process in cache.");
-}
 
 function compareHistoryEntryAtEndOfProcess(mainProcess, test) {
     var history = mainProcess.getHistory();

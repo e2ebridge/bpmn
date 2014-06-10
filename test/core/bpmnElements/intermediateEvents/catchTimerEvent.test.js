@@ -114,8 +114,10 @@ exports.testBPMNCatchTimerEvent = function(test) {
         }
     };
 
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, function(err, process){
+        bpmnProcess = process;
 
-    bpmnProcess.triggerEvent("MyStart");
+        bpmnProcess.triggerEvent("MyStart");
+    });
 
 };

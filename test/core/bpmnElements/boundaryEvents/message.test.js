@@ -154,8 +154,11 @@ exports.testBPMNMessageBoundaryEvent = function(test) {
         }
     };
 
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcess = bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, function(err, process){
+        bpmnProcess = process;
 
-    bpmnProcess.triggerEvent("MyStart");
+        bpmnProcess.triggerEvent("MyStart");
+    });
+
 
 };

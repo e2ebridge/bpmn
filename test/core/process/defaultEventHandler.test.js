@@ -26,6 +26,8 @@ exports.testIncorrectTaskDoneEvent = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", null, "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_8", null, "sequenceFlow", "_7", "_5"));
 
+    var bpmnProcess;
+
     var handler = {
         "MyStart": function(data, done) {
             var state = this.getState();
@@ -80,8 +82,12 @@ exports.testIncorrectTaskDoneEvent = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, function(err, process){
 
-    bpmnProcess.triggerEvent("MyStart");
+        bpmnProcess = process;
+
+        bpmnProcess.triggerEvent("MyStart");
+
+    });
 
 };

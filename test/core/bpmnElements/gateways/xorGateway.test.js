@@ -120,9 +120,11 @@ exports.testXorGateway = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstXGatewayProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstXGatewayProcess", processDefinition, handler, function(err, bpmnProcess){
 
-    bpmnProcess.triggerEvent("Start Event");
-    bpmnProcess.taskDone("First Task");
+        bpmnProcess.triggerEvent("Start Event");
+        bpmnProcess.taskDone("First Task");
+
+    });
 
 };

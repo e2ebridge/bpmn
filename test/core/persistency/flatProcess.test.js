@@ -175,8 +175,11 @@ exports.testCreatePersistentFlatProcess = function(test) {
         doneLoading: loadedState
     };
 
-    bpmnProcess = bpmn.createProcess("myid", fileName, persistencyOptions);
+    bpmn.createProcess("myid", fileName, persistencyOptions, function(err, process){
+        bpmnProcess = process;
 
-    // we let the process run to the first save state
-    bpmnProcess.triggerEvent("MyStart");
+        // we let the process run to the first save state
+        bpmnProcess.triggerEvent("MyStart");
+
+    });
 };

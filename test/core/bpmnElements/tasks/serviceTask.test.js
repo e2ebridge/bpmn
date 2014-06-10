@@ -91,8 +91,10 @@ exports.testBPMNServiceTask = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstServiceTaskProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstServiceTaskProcess", processDefinition, handler, function(err, bpmnProcess){
 
-    bpmnProcess.triggerEvent("MyStart");
+        bpmnProcess.triggerEvent("MyStart");
+
+    });
 
 };

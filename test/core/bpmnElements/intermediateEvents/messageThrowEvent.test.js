@@ -91,8 +91,8 @@ exports.testIntermediateThrowEvent = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myIntermediateThrowEventProcess", processDefinition, handler);
-
-    bpmnProcess.triggerEvent("MyStart");
+    bpmnProcesses.createBPMNProcess("myIntermediateThrowEventProcess", processDefinition, handler, function(err, bpmnProcess){
+        bpmnProcess.triggerEvent("MyStart");
+    });
 
 };

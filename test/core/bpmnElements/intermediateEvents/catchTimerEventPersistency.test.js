@@ -59,18 +59,19 @@ exports.testBPMNCatchTimerEventPersistencySave = function(test) {
     bpmn.clearCache();
 
     var persistency = new Persistency({uri: persistencyUri});
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
-    //bpmnProcess.setLogLevel(bpmn.logLevels.debug);
-    bpmnProcess.triggerEvent("MyStart");
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, persistency, function(err, process){
+        bpmnProcess = process;
+
+        bpmnProcess.triggerEvent("MyStart");
+    });
 };
 
 
 exports.testBPMNCatchTimerEventPersistencyLoad = function(test) {
-    var bpmnProcess;
 
     var handler = {
         "MyCatchTimerEvent$getTimeout": function() {
-            test.ok(bpmnProcess.pendingTimerEvents.pendingTimeouts.MyCatchTimerEvent === undefined,
+            test.ok(this._implementation.pendingTimerEvents.pendingTimeouts.MyCatchTimerEvent === undefined,
                 "testBPMNCatchTimerEventPersistencyLoad: 'MyCatchTimerEvent$getTimeout': pendingTimeouts not yet defined"
             );
             return 1000000; // means: never
@@ -81,32 +82,33 @@ exports.testBPMNCatchTimerEventPersistencyLoad = function(test) {
             test.equal(loadedData.pendingTimeouts.MyCatchTimerEvent.timeout, 1000000,
                 "testBPMNCatchTimerEventPersistencyLoad: loaded timeout."
             );
-
-            var pendingTimerEvents = bpmnProcess.pendingTimerEvents;
-            test.ok(pendingTimerEvents !== undefined,
-                "testBPMNCatchTimerEventPersistencyLoad: created pendingTimerEvents."
-            );
-
-            test.ok(pendingTimerEvents.pendingTimeouts.MyCatchTimerEvent !== undefined,
-                "testBPMNCatchTimerEventPersistencyLoad: 'MyCatchTimerEvent$getTimeout': pendingTimeouts after loading"
-            );
-
-            test.equal(pendingTimerEvents.pendingTimeouts.MyCatchTimerEvent.timeout, 1000000,
-                "testBPMNCatchTimerEventPersistencyLoad: added 'MyCatchTimerEvent' to pendingTimerEvents."
-            );
-
-            test.ok(pendingTimerEvents.setTimeoutIds.MyCatchTimerEvent._onTimeout !== undefined,
-                "testBPMNCatchTimerEventPersistencyLoad: created timers."
-            );
-
-            pendingTimerEvents.removeTimeout("MyCatchTimerEvent");
-
-            test.done();
         }
     };
 
     bpmn.clearCache();
 
     var persistency = new Persistency({uri: persistencyUri});
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, persistency, function(err, bpmnProcess){
+
+        var pendingTimerEvents = bpmnProcess.pendingTimerEvents;
+        test.ok(pendingTimerEvents !== undefined,
+            "testBPMNCatchTimerEventPersistencyLoad: created pendingTimerEvents."
+        );
+
+        test.ok(pendingTimerEvents.pendingTimeouts.MyCatchTimerEvent !== undefined,
+            "testBPMNCatchTimerEventPersistencyLoad: 'MyCatchTimerEvent$getTimeout': pendingTimeouts after loading"
+        );
+
+        test.equal(pendingTimerEvents.pendingTimeouts.MyCatchTimerEvent.timeout, 1000000,
+            "testBPMNCatchTimerEventPersistencyLoad: added 'MyCatchTimerEvent' to pendingTimerEvents."
+        );
+
+        test.ok(pendingTimerEvents.setTimeoutIds.MyCatchTimerEvent._onTimeout !== undefined,
+            "testBPMNCatchTimerEventPersistencyLoad: created timers."
+        );
+
+        pendingTimerEvents.removeTimeout("MyCatchTimerEvent");
+
+        test.done();
+    });
 };

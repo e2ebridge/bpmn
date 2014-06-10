@@ -130,9 +130,10 @@ exports.testPersistSimpleProcess = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
-    bpmnProcess.setProperty(testPropertyName, {an: "object"});
-    bpmnProcess.triggerEvent("MyStart");
+    bpmnProcesses.createBPMNProcess(processId, processDefinition, handler, persistency, function(err, bpmnProcess){
+        bpmnProcess.setProperty(testPropertyName, {an: "object"});
+        bpmnProcess.triggerEvent("MyStart");
+    });
   };
 
 exports.testLoadSimpleBPMNProcess = function(test) {
@@ -237,25 +238,14 @@ exports.testLoadSimpleBPMNProcess = function(test) {
             "testLoadSimpleBPMNProcess: get loaded property"
         );
 
-        // deferEvents flag is not in the process client interface. Thus, we have to use the process instance to get it
-        test.ok(newBpmnProcess.deferEvents, "testLoadSimpleBPMNProcess: deferEvents");
 
-        // deferredEvents is not in the process client interface. Thus, we have to use the process instance to get it
-        var deferredEvents = newBpmnProcess.deferredEvents;
-        test.deepEqual(deferredEvents,
-            [
-                {
-                    "type": "ACTIVITY_END_EVENT",
-                    "name": "MyTask",
-                    "data": {}
-                }
-            ],
-            "testLoadSimpleBPMNProcess: deferred after loading");
     };
 
-    newBpmnProcess = bpmnProcesses.createBPMNProcess4Testing(processId, processDefinition, handler, persistency);
+    newBpmnProcess = bpmnProcesses.createBPMNProcess(processId, processDefinition, handler, persistency, function(err, process){
+        newBpmnProcess = process;
 
-    newBpmnProcess.taskDone("MyTask");
+        newBpmnProcess.taskDone("MyTask");
+    });
 
 };
 
@@ -287,7 +277,7 @@ exports.testLoadSimpleBPMNProcessCallback = function(test) {
         }
     };
 
-    newBpmnProcess = bpmnProcesses.createBPMNProcess4Testing(processId, processDefinition, handler, persistency, function(err, newBpmnProcess){
+    newBpmnProcess = bpmnProcesses.createBPMNProcess(processId, processDefinition, handler, persistency, function(err, newBpmnProcess){
 
         test.deepEqual(newBpmnProcess.getHistory().historyEntries,
             [

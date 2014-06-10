@@ -61,18 +61,19 @@ exports.testBPMNTimeoutPersistencySave = function(test) {
     bpmn.clearCache();
 
     var persistency = new Persistency({uri: persistencyUri});
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
-    //bpmnProcess.setLogLevel(bpmn.logLevels.debug);
-    bpmnProcess.triggerEvent("MyStart");
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, persistency, function(err, process){
+        bpmnProcess = process;
+
+        bpmnProcess.triggerEvent("MyStart");
+    });
 };
 
 
 exports.testBPMNTimeoutPersistencyLoad = function(test) {
-    var bpmnProcess;
 
     var handler = {
         "MyTimeout$getTimeout": function() {
-            test.ok(bpmnProcess.pendingTimerEvents.pendingTimeouts.MyTimeout === undefined,
+            test.ok(this._implementation.pendingTimerEvents.pendingTimeouts.MyTimeout === undefined,
                 "testBPMNTimeoutPersistencyLoad: 'MyTimeout$getTimeout': pendingTimeouts not yet defined"
             );
             return 1000000; // means: never
@@ -83,32 +84,33 @@ exports.testBPMNTimeoutPersistencyLoad = function(test) {
             test.equal(loadedData.pendingTimeouts.MyTimeout.timeout, 1000000,
                 "testBPMNTimeoutPersistencyLoad: loaded timeout."
             );
-
-            var pendingTimerEvents = bpmnProcess.pendingTimerEvents;
-            test.ok(pendingTimerEvents !== undefined,
-                "testBPMNTimeoutPersistencyLoad: created pendingTimerEvents."
-            );
-
-            test.ok(pendingTimerEvents.pendingTimeouts.MyTimeout !== undefined,
-                "testBPMNTimeoutPersistencyLoad: 'MyTimeout$getTimeout': pendingTimeouts after loading"
-            );
-
-            test.equal(pendingTimerEvents.pendingTimeouts.MyTimeout.timeout, 1000000,
-                "testBPMNTimeoutPersistencyLoad: added 'MyTimeout' to pendingTimerEvents."
-            );
-
-            test.ok(pendingTimerEvents.setTimeoutIds.MyTimeout._onTimeout !== undefined,
-                "testBPMNTimeoutPersistencyLoad: created timers."
-            );
-
-            pendingTimerEvents.removeTimeout("MyTimeout");
-
-            test.done();
         }
     };
 
     bpmn.clearCache();
 
     var persistency = new Persistency({uri: persistencyUri});
-    bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler, persistency);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, persistency, function(err, bpmnProcess){
+
+        var pendingTimerEvents = bpmnProcess.pendingTimerEvents;
+        test.ok(pendingTimerEvents !== undefined,
+            "testBPMNTimeoutPersistencyLoad: created pendingTimerEvents."
+        );
+
+        test.ok(pendingTimerEvents.pendingTimeouts.MyTimeout !== undefined,
+            "testBPMNTimeoutPersistencyLoad: 'MyTimeout$getTimeout': pendingTimeouts after loading"
+        );
+
+        test.equal(pendingTimerEvents.pendingTimeouts.MyTimeout.timeout, 1000000,
+            "testBPMNTimeoutPersistencyLoad: added 'MyTimeout' to pendingTimerEvents."
+        );
+
+        test.ok(pendingTimerEvents.setTimeoutIds.MyTimeout._onTimeout !== undefined,
+            "testBPMNTimeoutPersistencyLoad: created timers."
+        );
+
+        pendingTimerEvents.removeTimeout("MyTimeout");
+
+        test.done();
+    });
 };

@@ -90,12 +90,14 @@ exports.testIntermediateCatchEvent = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myIntermediateCatchEventTestProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myIntermediateCatchEventTestProcess", processDefinition, handler, function(err, bpmnProcess){
 
-    bpmnProcess.triggerEvent("Start Event");
+        bpmnProcess.triggerEvent("Start Event");
 
-    process.nextTick(function() {
-        bpmnProcess.triggerEvent("My Intermediate Catch Event");
+        process.nextTick(function() {
+            bpmnProcess.triggerEvent("My Intermediate Catch Event");
+        });
+
     });
 
 };

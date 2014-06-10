@@ -131,9 +131,11 @@ exports.testAndMerge = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstConvergingParallelGatewayProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstConvergingParallelGatewayProcess", processDefinition, handler, function(err, bpmnProcess){
 
-    bpmnProcess.triggerEvent("Start Event1");
-    bpmnProcess.triggerEvent("Start Event2");
+        bpmnProcess.triggerEvent("Start Event1");
+        bpmnProcess.triggerEvent("Start Event2");
+
+    });
 
 };

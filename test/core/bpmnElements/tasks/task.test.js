@@ -22,6 +22,8 @@ exports.testBPMNTask = function(test) {
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_4", "flow1", "sequenceFlow", "_2", "_3"));
     processDefinition.addSequenceFlow(new BPMNSequenceFlow("_6", "flow2", "sequenceFlow", "_3", "_5"));
 
+    var bpmnProcess;
+
     var handler = {
         "MyStart": function(data, done) {
             var state = this.getState();
@@ -112,8 +114,11 @@ exports.testBPMNTask = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("myFirstProcess", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("myFirstProcess", processDefinition, handler, function(err, process){
+        bpmnProcess = process;
 
-    bpmnProcess.triggerEvent("MyStart");
+        bpmnProcess.triggerEvent("MyStart");
+
+    });
 
 };

@@ -107,8 +107,10 @@ exports.testDebuggerRunThrough = function(test) {
         }
     };
 
-    var bpmnProcess = bpmnProcesses.createBPMNProcess4Testing("testDebuggerRunThrough1", processDefinition, handler);
+    bpmnProcesses.createBPMNProcess("testDebuggerRunThrough1", processDefinition, handler, function(err, bpmnProcess){
 
-    test.ok(bpmnProcess.isDebuggerEnabled(), "testDebuggerRunThrough: isDebuggerEnabled");
-    bpmnProcess.triggerEvent("MyStart");
+        test.ok(bpmnProcess.isDebuggerEnabled(), "testDebuggerRunThrough: isDebuggerEnabled");
+        bpmnProcess.triggerEvent("MyStart");
+
+    });
 };
