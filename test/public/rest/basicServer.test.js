@@ -3,11 +3,13 @@
  */
 "use strict";
 
-var bpmn = require('../../lib/public.js');
+var Manager = require('../../../lib/manager').ProcessManager;
 var restify = require('restify');
 
 var port = 8099;
-var server = bpmn.createServer();
+
+var manager = new Manager();
+var server = manager.createServer();
 
 exports.testBasicRESTServer = function(test) {
 

@@ -3,17 +3,18 @@
  */
 "use strict";
 
-var bpmn = require('../../lib/public.js');
-var log = require('../../lib/logger');
+var Manager = require('../../../lib/manager').ProcessManager;
+var log = require('../../../lib/logger');
 var restify = require('restify');
 var path = require('path');
 
 var port = 8099;
-var urlMap = {
-    "TaskExampleProcess": path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
-};
 
-var server = bpmn.createServer({urlMap: urlMap, logLevel: log.logLevels.error});
+var manager = new Manager({
+    bpmnFilePath: path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn")
+});
+var server = manager.createServer({ logLevel: log.logLevels.error});
+
 var client = restify.createJsonClient({
     url: "http://localhost:" + port
 });
@@ -25,11 +26,11 @@ exports.testWrongProcessName = function(test) {
             if (error) {
                 test.equal(error.statusCode, 409, "testWrongProcessName: statusCode");
                 test.equal(error.restCode, "InvalidArgument", "testWrongProcessName: restCode");
-                test.equal(error.message, "Could not map process name 'unknownProcess' to BPMN file.", "testWrongProcessName: message");
+                test.equal(error.message, "Could not find process name 'unknownProcess'.", "testWrongProcessName: message");
                 test.deepEqual(error.body,
                     {
                         "code": "InvalidArgument",
-                        "message": "Could not map process name 'unknownProcess' to BPMN file."
+                        "message": "Could not find process name 'unknownProcess'."
                     },
                     "testWrongProcessName: body");
             } else {

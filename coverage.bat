@@ -1,2 +1,2 @@
-istanbul cover test/nodeunittraverse.js -- "test/core" "test/mongodb" "test/rest" "test/public"
+istanbul cover test/nodeunittraverse.js -- "test/core" "test/mongodb" "test/public"
 
