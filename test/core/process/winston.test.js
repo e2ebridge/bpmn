@@ -16,10 +16,10 @@ exports.testDefaultFileLogger = function(test) {
     var defaultLogFilePath = ".";
 
     fileUtils.removeFileSync(defaultLogFilePath, defaultLogFileName);
-    bpmn.clearCache();
 
-    var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createProcess(processId, bpmnFileName, function(err, bpmnProcess){
+    var manager = new bpmn.ProcessManager();
+    manager.addBpmnFilePath(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"));
+    manager.createProcess(processId, function(err, bpmnProcess){
         bpmnProcess.setLogLevel(logLevels.debug);
         bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
         bpmnProcess.triggerEvent("MyStart");
@@ -59,8 +59,9 @@ exports.testNewWinstonTransport = function(test) {
     fileUtils.cleanDirectorySync(baseDir);
     bpmn.clearCache();
 
-    var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+    var manager = new bpmn.ProcessManager();
+    manager.addBpmnFilePath(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"));
+    manager.createProcess("myid", function(err, bpmnProcess){
         bpmnProcess.setLogLevel(logLevels.debug);
         bpmnProcess.removeLogTransport(winston.transports.Console); // keeping the output clean
         bpmnProcess.addLogTransport(winston.transports.File,
@@ -98,8 +99,9 @@ exports.testNewWinstonTransport = function(test) {
 exports.testRemoveFileLogger = function(test) {
     bpmn.clearCache();
 
-    var bpmnFileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createProcess("myid", bpmnFileName, function(err, bpmnProcess){
+    var manager = new bpmn.ProcessManager();
+    manager.addBpmnFilePath(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"));
+    manager.createProcess("myid", function(err, bpmnProcess){
         var winstonLogger = bpmnProcess._implementation.logger.winstonLogger;
 
         var fileTransportBefore = winstonLogger.transports.file;

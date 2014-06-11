@@ -167,15 +167,16 @@ exports.testCreatePersistentFlatProcess = function(test) {
         test.done();
     };
 
-    var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.clearCache();
-    var persistencyOptions = {
-        uri: persistencyUri,
-        doneSaving: savedState,
-        doneLoading: loadedState
-    };
+    var manager = new bpmn.ProcessManager({
+        persistencyOptions: {
+            uri: persistencyUri,
+            doneSaving: savedState,
+            doneLoading: loadedState
+        }
+    });
+    manager.addBpmnFilePath(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"));
 
-    bpmn.createProcess("myid", fileName, persistencyOptions, function(err, process){
+    manager.createProcess("myid", function(err, process){
         bpmnProcess = process;
 
         // we let the process run to the first save state

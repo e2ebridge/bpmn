@@ -25,7 +25,7 @@ exports.testFindByValueAll = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -33,7 +33,7 @@ exports.testFindByValueAll = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -45,8 +45,8 @@ exports.testFindByValueAll = function(test) {
         var foundProcesses = find.findByProperty(processes);
 
         test.equal(foundProcesses.length, 2, "testFindByValueAll");
-        test.equal(foundProcesses[0]._implementation.properties.myprop1, "gugus", "testFindByValueAll");
-        test.equal(foundProcesses[1]._implementation.properties.myprop2, "blah", "testFindByValueAll");
+        test.equal(foundProcesses[0].getProperty('myprop1'), "gugus", "testFindByValueAll");
+        test.equal(foundProcesses[1].getProperty('myprop2'), "blah", "testFindByValueAll");
 
         test.done();
     });
@@ -57,7 +57,7 @@ exports.testFindByValueOneMatch = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -65,7 +65,7 @@ exports.testFindByValueOneMatch = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -77,7 +77,7 @@ exports.testFindByValueOneMatch = function(test) {
         var foundProcesses = find.findByProperty(processes, {myprop1: "gugus"});
 
         test.equal(foundProcesses.length, 1, "testFindByValueOneMatch");
-        test.equal(foundProcesses[0]._implementation.properties.myprop1, "gugus", "testFindByValueOneMatch");
+        test.equal(foundProcesses[0].getProperty('myprop1'), "gugus", "testFindByValueOneMatch");
 
         test.done();
     });

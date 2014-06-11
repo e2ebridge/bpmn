@@ -10,7 +10,7 @@ exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
     var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+    bpmn.createStandaloneProcess(fileName, function(err, bpmnProcess){
         bpmnProcess.triggerEvent("MyStart");
 
         process.nextTick(function() {
@@ -20,7 +20,7 @@ exports.testCreateVolatileBPMNProcess = function(test) {
                 [
                     {
                         "position": "MyTask",
-                        "owningProcessId": "myid"
+                        "owningProcessId": null
                     }
                 ],
                 "testCreateVolatileBPMNProcess: reached first wait state."

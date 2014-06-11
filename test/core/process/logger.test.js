@@ -17,16 +17,14 @@ exports.testSetTextualLogLevel = function(test) {
 };
 
 exports.testLogger = function(test) {
-    var fileName;
     var logMessages = [];
     var logAppender = function(logMessage) {
         logMessages.push(logMessage);
     };
 
-    bpmn.clearCache();
-
-    fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+    var manager = new bpmn.ProcessManager();
+    manager.addBpmnFilePath(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"));
+    manager.createProcess("myid", function(err, bpmnProcess){
         bpmnProcess.setLogLevel(logLevels.debug);
         bpmnProcess.setLogAppender(logAppender);
         bpmnProcess.triggerEvent("MyStart");
@@ -50,16 +48,14 @@ exports.testLogger = function(test) {
 };
 
 exports.testLoggerStringLevel = function(test) {
-    var fileName;
     var logMessages = [];
     var logAppender = function(logMessage) {
         logMessages.push(logMessage);
     };
 
-    bpmn.clearCache();
-
-    fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createProcess("myid", fileName, function(err, bpmnProcess){
+    var manager = new bpmn.ProcessManager();
+    manager.addBpmnFilePath(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"));
+    manager.createProcess("myid", function(err, bpmnProcess){
         bpmnProcess.setLogLevel("debug");
         bpmnProcess.setLogAppender(logAppender);
         bpmnProcess.triggerEvent("MyStart");

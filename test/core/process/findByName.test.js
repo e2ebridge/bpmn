@@ -24,7 +24,7 @@ exports.testFindByNameEmpty2 = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -32,7 +32,7 @@ exports.testFindByNameEmpty2 = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -54,7 +54,7 @@ exports.testFindByNameMatch = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -62,7 +62,7 @@ exports.testFindByNameMatch = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -74,7 +74,7 @@ exports.testFindByNameMatch = function(test) {
         var foundProcessesAtMyStart = find.findByName(processes, "TaskExampleProcess");
 
         test.equal(foundProcessesAtMyStart.length, 2, "testFindByNameMatch");
-        test.equal(foundProcessesAtMyStart[0]._implementation.processId, "p1", "testFindByNameMatch");
+        test.equal(foundProcessesAtMyStart[0].getProperty('myprop1'), "gugus", "testFindByNameMatch");
 
         test.done();
     });
@@ -85,7 +85,7 @@ exports.testFindByNameNoMatch = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -93,7 +93,7 @@ exports.testFindByNameNoMatch = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();

@@ -24,7 +24,7 @@ exports.testFindByStateAll = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess(fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -32,7 +32,7 @@ exports.testFindByStateAll = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess(fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -57,7 +57,7 @@ exports.testFindByStateOneMatch = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createProcess("p1", fileName,function(err, p){
+            bpmn.createStandaloneProcess(fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -65,7 +65,7 @@ exports.testFindByStateOneMatch = function(test) {
             });
         },
         function(done){
-            bpmn.createProcess("p2", fileName,function(err, p){
+            bpmn.createStandaloneProcess(fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -77,7 +77,7 @@ exports.testFindByStateOneMatch = function(test) {
         var foundProcessesAtMyStart = find.findByState(processes, "MyTask");
 
         test.equal(foundProcessesAtMyStart.length, 1, "testFindByStateOneMatch");
-        test.equal(foundProcessesAtMyStart[0]._implementation.processId, "p1", "testFindByStateOneMatch");
+        test.equal(foundProcessesAtMyStart[0].getProperty('myprop1'), "gugus", "testFindByStateOneMatch");
 
         test.done();
     });
