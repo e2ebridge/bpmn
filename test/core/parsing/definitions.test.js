@@ -334,15 +334,13 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ]
             },
@@ -505,15 +503,13 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ]
             },
@@ -657,15 +653,13 @@ exports.testGetAllBPMNProcessDefinitions = function(test) {
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     }
                 ]
             }
@@ -689,22 +683,19 @@ exports.testGetAllBPMNCollaborationDefinitions = function(test) {
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ],
                 "messageFlows": [

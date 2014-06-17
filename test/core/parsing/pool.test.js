@@ -4,6 +4,7 @@
 "use strict";
 
 var path = require('path');
+var fs = require('fs');
 var bpmnDefinitions = require('../../../lib/parsing/definitions.js');
 var bpmnParser = require('../../../lib/parsing/parser.js');
 
@@ -20,15 +21,13 @@ exports.testGetCollaboratingParticipants = function(test) {
                 "bpmnId": "_8",
                 "name": "My Second Process",
                 "type": "participant",
-                "processRef": "PROCESS_2",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_2"
             },
             {
                 "bpmnId": "_14",
                 "name": "My Third Process",
                 "type": "participant",
-                "processRef": "PROCESS_3",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_3"
             }
         ],
         "testGetCollaboratingParticipants."
@@ -46,8 +45,7 @@ exports.testGetParticipantByProcessId = function(test) {
             "bpmnId": "_2",
             "name": "My First Process",
             "type": "participant",
-            "processRef": "PROCESS_1",
-            "bpmnFileName": fileName
+            "processRef": "PROCESS_1"
         },
         "testGetParticipantByProcessId."
     );
@@ -70,15 +68,13 @@ exports.testGetBPMNProcessDefinitionsOfCollaboratingProcesses = function(test) {
                 "bpmnId": "_8",
                 "name": "My Second Process",
                 "type": "participant",
-                "processRef": "PROCESS_2",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_2"
             },
             {
                 "bpmnId": "_14",
                 "name": "My Third Process",
                 "type": "participant",
-                "processRef": "PROCESS_3",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_3"
             }
         ],
         "testGetBPMNProcessDefinitionsOfCollaboratingProcesses"
@@ -97,22 +93,19 @@ exports.testGetBPMNCollaborationDefinitions = function(test) {
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ],
                 "messageFlows": [
@@ -146,7 +139,8 @@ exports.testGetBPMNCollaborationDefinitions = function(test) {
 
 exports.testParseCollaborationsBetweenPools = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse(fileName);
+    var bpmnXML = fs.readFileSync(fileName, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML);
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
@@ -156,22 +150,19 @@ exports.testParseCollaborationsBetweenPools = function(test) {
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ],
                 "messageFlows": [
@@ -198,7 +189,7 @@ exports.testParseCollaborationsBetweenPools = function(test) {
             },
             {
                 "bpmnId": "PROCESS_1",
-                "name": "Pool",
+                "name": null,
                 "flowObjects": [
                     {
                         "bpmnId": "_3",
@@ -270,7 +261,7 @@ exports.testParseCollaborationsBetweenPools = function(test) {
             },
             {
                 "bpmnId": "PROCESS_2",
-                "name": "Pool",
+                "name": null,
                 "flowObjects": [
                     {
                         "bpmnId": "_11",
@@ -326,7 +317,7 @@ exports.testParseCollaborationsBetweenPools = function(test) {
             },
             {
                 "bpmnId": "PROCESS_3",
-                "name": "Pool",
+                "name": null,
                 "flowObjects": [
                     {
                         "bpmnId": "_15",

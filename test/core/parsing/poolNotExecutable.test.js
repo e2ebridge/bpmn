@@ -4,6 +4,7 @@
 "use strict";
 
 var path = require('path');
+var fs = require('fs');
 var bpmnDefinitions = require('../../../lib/parsing/definitions.js');
 var bpmnParser = require('../../../lib/parsing/parser.js');
 
@@ -20,15 +21,13 @@ exports.testGetNonExecutableCollaborationParticipants = function(test) {
                 "bpmnId": "_8",
                 "name": "My Second Process",
                 "type": "participant",
-                "processRef": "PROCESS_2",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_2"
             },
             {
                 "bpmnId": "_14",
                 "name": "My Third Process",
                 "type": "participant",
-                "processRef": "PROCESS_3",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_3"
             }
         ],
         "testGetNonExecutableCollaborationParticipants."
@@ -46,8 +45,7 @@ exports.testGetExecutableParticipantByProcessId = function(test) {
             "bpmnId": "_2",
             "name": "My First Process",
             "type": "participant",
-            "processRef": "PROCESS_1",
-            "bpmnFileName": fileName
+            "processRef": "PROCESS_1"
         },
         "testGetExecutableParticipantByProcessId."
     );
@@ -64,8 +62,7 @@ exports.testGetNonExecutableParticipantByProcessId = function(test) {
             "bpmnId": "_8",
             "name": "My Second Process",
             "type": "participant",
-            "processRef": "PROCESS_2",
-            "bpmnFileName": fileName
+            "processRef": "PROCESS_2"
         },
         "testGetNonExecutableParticipantByProcessId."
     );
@@ -88,15 +85,13 @@ exports.testGetBPMNProcessDefinitionsOfNonExecutableCollaboratingProcesses = fun
                 "bpmnId": "_8",
                 "name": "My Second Process",
                 "type": "participant",
-                "processRef": "PROCESS_2",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_2"
             },
             {
                 "bpmnId": "_14",
                 "name": "My Third Process",
                 "type": "participant",
-                "processRef": "PROCESS_3",
-                "bpmnFileName": fileName
+                "processRef": "PROCESS_3"
             }
         ],
         "testGetBPMNProcessDefinitionsOfNonExecutableCollaboratingProcesses"
@@ -115,22 +110,19 @@ exports.testGetBPMNNonExecutableCollaborationDefinitions = function(test) {
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ],
                 "messageFlows": [
@@ -164,7 +156,8 @@ exports.testGetBPMNNonExecutableCollaborationDefinitions = function(test) {
 
 exports.testParseCollaborationsBetweenExecutableAndNonExecutablePools = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse(fileName);
+    var bpmnXML = fs.readFileSync(fileName, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML);
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
@@ -174,22 +167,19 @@ exports.testParseCollaborationsBetweenExecutableAndNonExecutablePools = function
                         "bpmnId": "_2",
                         "name": "My First Process",
                         "type": "participant",
-                        "processRef": "PROCESS_1",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_1"
                     },
                     {
                         "bpmnId": "_8",
                         "name": "My Second Process",
                         "type": "participant",
-                        "processRef": "PROCESS_2",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_2"
                     },
                     {
                         "bpmnId": "_14",
                         "name": "My Third Process",
                         "type": "participant",
-                        "processRef": "PROCESS_3",
-                        "bpmnFileName": fileName
+                        "processRef": "PROCESS_3"
                     }
                 ],
                 "messageFlows": [
@@ -216,7 +206,7 @@ exports.testParseCollaborationsBetweenExecutableAndNonExecutablePools = function
             },
             {
                 "bpmnId": "PROCESS_1",
-                "name": "PoolNotExecutable",
+                "name": null,
                 "flowObjects": [
                     {
                         "bpmnId": "_3",

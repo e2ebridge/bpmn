@@ -4,11 +4,13 @@
 "use strict";
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
+var fs = require('fs');
 
 exports.testParseBPMNIntermediateMessageEvent = function(test) {
 
-    var fileName = "test/resources/bpmn/intermediateMessageEvent.bpmn";
-    var bpmnProcessDefinitions = bpmnParser.parse(fileName);
+    var bpmnFilePath = "test/resources/bpmn/intermediateMessageEvent.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "IntermediateMessageEvent");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
@@ -75,8 +77,7 @@ exports.testParseBPMNIntermediateMessageEvent = function(test) {
                         "bpmnId": "_7",
                         "name": "Participant",
                         "type": "participant",
-                        "processRef": null,
-                        "bpmnFileName": fileName
+                        "processRef": null
                     }
                 ],
                 "messageFlows": [

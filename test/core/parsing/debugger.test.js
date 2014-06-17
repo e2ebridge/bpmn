@@ -4,10 +4,13 @@
 "use strict";
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
+var fs = require('fs');
 
 exports.testParseDebuggerInterface = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/debuggerInterface.bpmn");
+    var bpmnFilePath = "test/resources/bpmn/debuggerInterface.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, null, bpmnFilePath);
     var debuggerInterface = bpmnProcessDefinitions[0].debuggerInterface;
 
     test.equal(debuggerInterface.fileName, "test/resources/bpmn/debuggerInterface.bpmn", "testParseDebuggerInterface: fileName");

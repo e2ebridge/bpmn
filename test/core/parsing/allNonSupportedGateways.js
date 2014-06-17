@@ -5,11 +5,14 @@
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
 var error = require("../../../lib/parsing/errors.js");
+var fs = require('fs');
 
 exports.testParseBPMNAllNonSupportedGateways = function(test) {
 
     var errorQueue = error.createBPMNParseErrorQueue();
-    bpmnParser.parse("test/resources/bpmn/allNonSupportedGateways.bpmn", errorQueue);
+    var bpmnFilePath = "test/resources/bpmn/allNonSupportedGateways.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    bpmnParser.parse(bpmnXML, errorQueue);
 
     var errors = errorQueue.getErrors();
     test.deepEqual(errors,

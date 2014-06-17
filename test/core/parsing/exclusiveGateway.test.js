@@ -4,10 +4,13 @@
 "use strict";
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
+var fs = require('fs');
 
 exports.testParseXorMerge = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("./test/resources/bpmn/xorMerge.bpmn");
+    var bpmnFilePath = "./test/resources/bpmn/xorMerge.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "XorMerge");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
@@ -87,7 +90,9 @@ exports.testParseXorMerge = function(test) {
 
 exports.testParseXorGateway = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/xorGateway.bpmn");
+    var bpmnFilePath = "test/resources/bpmn/xorGateway.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "XorGateway");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {

@@ -4,10 +4,13 @@
 "use strict";
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
+var fs = require('fs');
 
 exports.testParseBPMNIntermediateCatchTimerEvent = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/intermediateCatchTimerEvent.bpmn");
+    var bpmnFilePath = "test/resources/bpmn/intermediateCatchTimerEvent.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "IntermediateCatchTimerEvent");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {

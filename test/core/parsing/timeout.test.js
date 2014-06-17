@@ -4,10 +4,13 @@
 "use strict";
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
+var fs = require('fs');
 
 exports.testParseBPMNTimeout = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/timeout.bpmn");
+    var bpmnFilePath = "test/resources/bpmn/timeout.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "Timeout");
     test.equal(bpmnProcessDefinitions.length, 1, "testParseBPMNTimeout: number of processDefinitions");
     var bpmnProcessDefinition = bpmnProcessDefinitions[0];
 

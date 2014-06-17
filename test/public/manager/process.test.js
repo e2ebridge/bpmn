@@ -5,6 +5,7 @@
 "use strict";
 
 var path = require('path');
+var fs = require('fs');
 
 var Manager = require('../../../lib/manager').ProcessManager;
 
@@ -28,6 +29,66 @@ exports.testCreateVolatileBPMNProcess = function(test) {
                     }
                 ],
                 "testCreateVolatileBPMNProcess: reached first wait state."
+            );
+
+            test.done();
+        });
+    });
+
+};
+
+exports.testCreateVolatileBPMNProcessXML = function(test) {
+
+    var bpmnXML = fs.readFileSync(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"), 'utf-8');
+    var handlerString = fs.readFileSync(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.js"), 'utf-8');
+
+    var manager = new Manager({
+        bpmnXML: {name: 'TaskExampleProcess', xml: bpmnXML},
+        handlerString: {name: 'TaskExampleProcess', string: handlerString}
+    });
+
+    manager.createProcess('myid', function(err, bpmnProcess){
+        bpmnProcess.triggerEvent("MyStart");
+
+        process.nextTick(function() {
+            var state = bpmnProcess.getState();
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "myid"
+                    }
+                ],
+                "testCreateVolatileBPMNProcess: reached first wait state."
+            );
+
+            test.done();
+        });
+    });
+
+};
+
+exports.testCreateVolatileBPMNProcessXMLByAdd = function(test) {
+
+    var bpmnXML = fs.readFileSync(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn"), 'utf-8');
+    var handlerString = fs.readFileSync(path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.js"), 'utf-8');
+
+    var manager = new Manager();
+    manager.addBpmnXML(bpmnXML, 'TaskExampleProcess', handlerString);
+
+    manager.createProcess('myid', function(err, bpmnProcess){
+        bpmnProcess.triggerEvent("MyStart");
+
+        process.nextTick(function() {
+            var state = bpmnProcess.getState();
+            test.deepEqual(state.tokens,
+                [
+                    {
+                        "position": "MyTask",
+                        "owningProcessId": "myid"
+                    }
+                ],
+                "testCreateVolatileBPMNProcessXMLByAdd: reached first wait state."
             );
 
             test.done();

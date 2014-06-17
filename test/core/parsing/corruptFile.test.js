@@ -3,13 +3,17 @@
  */
 "use strict";
 
+var fs = require('fs');
+
 var bpmnParser = require('../../../lib/parsing/parser.js');
 var error = require('../../../lib/parsing/errors.js');
 
-exports.testParseCorruptFile = function(test) {
+exports.testParseCorruptXML = function(test) {
 
     var errorQueue = error.createBPMNParseErrorQueue();
-    bpmnParser.parse("test/resources/bpmn/corruptFile.bpmn", errorQueue);
+    var bpmnXML = fs.readFileSync("test/resources/bpmn/corruptFile.bpmn", "utf-8");
+
+    bpmnParser.parse(bpmnXML, errorQueue);
 
     test.deepEqual(errorQueue,
         {
@@ -29,7 +33,7 @@ exports.testParseCorruptFile = function(test) {
                     "bpmnType": "Unknown"
                 }
             ],
-            "fileName": "test/resources/bpmn/corruptFile.bpmn"
+            "fileName": undefined
         },
         "testParseCorruptFile");
     test.done();

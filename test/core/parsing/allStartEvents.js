@@ -4,10 +4,13 @@
 "use strict";
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
+var fs = require('fs');
 
 exports.testParseBPMNAllStartEvents = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/allStartEvents.bpmn");
+    var bpmnFilePath = "test/resources/bpmn/allStartEvents.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "AllStartEvents");
     test.deepEqual(bpmnProcessDefinitions,
         [
             {

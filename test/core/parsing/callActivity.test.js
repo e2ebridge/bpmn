@@ -5,10 +5,13 @@
 
 var bpmnParser = require('../../../lib/parsing/parser.js');
 var path = require('path');
+var fs = require('fs');
 
 exports.testParseBPMNCallActivity = function(test) {
 
-    var bpmnProcessDefinitions = bpmnParser.parse("test/resources/bpmn/callActivity.bpmn");
+    var bpmnFilePath = "test/resources/bpmn/callActivity.bpmn";
+    var bpmnXML = fs.readFileSync(bpmnFilePath, "utf8");
+    var bpmnProcessDefinitions = bpmnParser.parse(bpmnXML, null, "CallActivity", bpmnFilePath);
     test.deepEqual(bpmnProcessDefinitions,
         [
             {
