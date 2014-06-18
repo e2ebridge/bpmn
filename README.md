@@ -22,9 +22,8 @@ If you don't have a compiler on your platform the restify dtrace dependency won'
 Assumptions
 -----------
 
-- This package assumes each BPMN 2.0 file is accompanied by an equal named JS file. For example, the directory containing `myprocess.bpmn` must contain also `myprocess.js` holding the BPMN event handlers. If this is not the case, an error is thrown while creating the process.
+- This package assumes each BPMN 2.0 file is accompanied by an equal named JS file. For example, the directory containing `myprocess.bpmn` must contain also `myprocess.js` holding the BPMN event handlers.
 - Each BPMN element name is unique per process. This simplifies live considerably because we can use names instead of IDs simplifying the world for users and developers alike. If this is not the case, an error is thrown while creating the process.
-- The user must ensure that the process instance ID is unique.
 
 Basic Example
 =============
@@ -40,11 +39,12 @@ then this process can be created by
    
 	var bpmn = require("bpmn");
 	// We assume there is a myProcess.js besides myProcess.bpmn that contains the handlers
-	// Furthermore, the user must ensure that the process ID is unique
-	var myProcess = bpmn.createProcess("myid", "path/to/myProcess.bpmn");
+	bpmn.createStandaloneProcess("path/to/myProcess.bpmn", function(err, myProcess){
 
-    // we start the process
-    myProcess.triggerEvent("MyStart");
+        // we start the process
+        myProcess.triggerEvent("MyStart");
+
+	});
 
 The handler file looks like:
 
@@ -70,6 +70,18 @@ The handler file looks like:
     	// Called after MyEnd has been reached
     	done(data);
 	};
+
+Processes can also be created from an xml string instead of file. In this case the handler can be an object or a javascript string that would be parsed.
+
+
+	bpmn.createStandaloneProcessFromXML("<definitions ... </definitions>", "exports.MyStart = ...", function(err, myProcess){
+
+        // we start the process
+        myProcess.triggerEvent("MyStart");
+
+	});
+
+
 
 If no handler is defined, the default handler is being called. This handler can also be specified in the handler file by:
 
@@ -207,18 +219,14 @@ BPMN also supports collaborating processes as depicted below.
 
 These processes must be created together:
 
-	// define a list of process descriptors holding process name and id
-	var processDescriptors = [
-        {name: "My First Process", id: "myFirstProcessId_1"},
-        {name: "My Second Process", id: "mySecondProcessId_1"}
-    ];
+	// create collaborating processes
+    bpmn.createStandaloneCollaboratingProcesses("my/collaboration/example.bpmn", function(err, collaboratingProcesses){
 
-	// create collaborating processe
-    var collaboratingProcesses = publicModule.createCollaboratingProcesses(processDescriptors, "my/collaboration/example.bpmn");
+        // start the second process
+        var secondProcess = collaboratingProcesses[1];
+        secondProcess.triggerEvent("Start Event 2");
 
-    // start the second process
-    var secondProcess = collaboratingProcesses[1];
-    secondProcess.triggerEvent("Start Event 2");
+    });
 
 The collaboration of the processes is then implemented in the handlers. For example, it is possible to get a partner process by name and then send an event to this process. This is frequently done to start the partner process:
 
@@ -237,6 +245,8 @@ However, another option is to get all outgoing message flows and send a message 
     	this.sendMessage(messageFlows[0], {gugus: "blah"});
     	done(data);
 	};
+
+Collaborating processes can also be created from strings using createStandaloneCollaboratingProcessesFromXML(bpmnXML, handler, callback).
 
 **Note**: all task and event names must be unique
 
@@ -303,25 +313,176 @@ Of course, transports can be removed as well, e.g.:
 
 	bpmnProcess.removeLogTransport(winston.transports.File);
 
+Managing processes
+==================
+
+Process managers are used to create multiple processes using the same definitions and find them back later.
+
+    var manager = new bpmn.ProcessManager();
+
+    manager.addBpmnFilePath("path/to/myProcess.bpmn");
+
+    manager.createProcess("myId", function(err, myProcess){
+
+        // we start the process
+        myProcess.triggerEvent("MyStart");
+
+    });
+
+If the process id is already used an error is returned.
+
+If the manager have multiple bpmn definitions a descriptor object must be passed to the create function.
+
+    manager.createProcess({id: "myId", name: "MyProcess"}, function(err, myProcess){
+
+        // we start the process
+        myProcess.triggerEvent("MyStart");
+
+    });
+
+To create collaborating processes and array of descriptors must be passed to the create function.
+
+    var processDescriptors = [
+        {name: "My First Process", id: "myFirstProcessId_1"},
+        {name: "My Second Process", id: "mySecondProcessId_1"}
+    ];
+    manager.createProcess(processDescriptors, function(err, collaboratingProcesses){
+
+        var secondProcess = collaboratingProcesses[1];
+        secondProcess.triggerEvent("Start Event 2");
+
+    });
+
+
+Process definitions and handlers can be add in the manager creator or using add* functions.
+
+Creator options:
+
+- **handlerFilePath**: Object with name and filePath. Can be an array of theses object to define multiple handlers.
+    * **name**: The name of the process definition for which the handler will be used.
+    * **filePath**: Path to the javascript file defining the handler module.
+- **handlerString**: Object with name and string. Can be an array of theses object to define multiple handlers.
+    * **name**: The name of the process definition for which the handler will be used.
+    * **string**: The javascript string defining the handler module.
+- **handler**: Object with name and module. Can be an array of theses object to define multiple handlers.
+    * **name**: The name of the process definition for which the handler will be used.
+    * **module**: The javascript object defining the handler module.
+
+- **bpmnFilePath**: Path to the bpmn file. Can be an array to define multiple definitions. will try to load the handler from the corresponding javascript file.
+- **bpmnXML**: Object with name and xml. Can be an array of theses object to define multiple definitions.
+    * **name**: The name of the process definition.
+    * **xml**: The xml string definition.
+
+
+**Note**: If no handler is found for a process definition an error is thrown.
+
+    var manager = new bpmn.ProcessManager({
+        bpmnFilePath: "path/to/myProcess.bpmn"
+    });
+
+
+
+ProcessManager.addHandlerFilePath(name, handlerFilePath)
+
+- **name**: The name of the process definition for which the handler will be used.
+- **handlerFilePath**: Path to the javascript file defining the handler module.
+
+ProcessManager.addHandlerString = function(name, handlerString)
+
+- **name**: The name of the process definition for which the handler will be used.
+- **handlerString**: The javascript string defining the handler module.
+
+ProcessManager.addHandler = function(name, handler)
+
+- **name**: The name of the process definition for which the handler will be used.
+- **handlerString**: The javascript object defining the handler module.
+
+
+ProcessManager.addBpmnFilePath = function(bpmnFilePath, processHandler)
+
+- **bpmnFilePath**: Path to the bpmn file.
+- **processHandler**: Optional. The javascript object defining the handler module or the path to the javascript file defining the handler module.
+
+If no processHandler is passed we try to load the corresponding javascript file to the bpmn file. If no handler is found or defined before for this definition an error is thrown.
+
+
+ProcessManager.addBpmnXML = function(bpmnXml, processName, processHandler)
+
+- **bpmnXml**: The xml string definition.
+- **processName**: The name of the process definition.
+- **processHandler**: Optional. The javascript object defining the handler module or the javascript string defining the handler module.
+
+If no processHandler is passed and no handler was defined before for this definition an error is thrown.
+
 
 Finding processes
-=================
+-----------------
 
-All loaded processes can be found by invoking one of the following functions:
-	
+Existing processes in a manager can be retrived using these functions:
+
+	// returns the process with the corresponding id
+	bpmn.get(processId, function(err, process){
+        ...
+	});
+
+	// returns all processes
+    bpmn.getAllProcesses(function(err, processes){
+        ...
+    });
+
 	// returns all processes having the property names
-	var processes = bpmn.findByProperty({propName1: propValue1, propName2: propValue2, ...});
+	bpmn.findByProperty({propName1: propValue1, propName2: propValue2, ...}, function(err, processes){
+        ...
+    });
 
-	// returns all processes that are executing a task 
-	var processes = bpmn.findByTask(taskName);
+	// returns all processes in this state (callActivity, tasks, event, ...)
+	bpmn.findByState(stateName, function(err, processes){
+        ...
+    });
 
-	// returns all processes being in the intermediate event
-	var processes = bpmn.findByEvent(eventName);
-	
-	// returns all processes that are executing the activity (callActivity, tasks, ...) 
-	var processes = bpmn.findByTask(activityName);
+	// returns all processes using this definition
+	bpmn.findByName(definitionName, function(err, processes){
+        ...
+    });
 
-**Note**, processes that are not loaded in memory are not yet found.
+
+Persistency
+-----------
+
+The manager constructor also takes persistency options. The engine will save the state while waiting for a task being done. After a manager is created with persistency options all stored processes can be retrived using the functions above. The process can be persisted to the file system or to a MongoDB. We recommend the latter approach for productive use cases.
+
+    // using files
+    var manager = new bpmn.ProcessManager({
+        persistencyOptions: {
+            uri: "path/to/folder"
+        }
+    });
+
+
+    // using mongodb
+    var manager = new bpmn.ProcessManager({
+        persistencyOptions: {
+            uri: "mongodb://host:port/db_name"
+        }
+    });
+
+
+Main module is an instance of ProcessManager
+--------------------------------------------
+
+The main bpmn module is an instance of ProcessManager without options meaning you can use manager functions directly from it.
+
+    var bpmn = require('bpmn');
+
+    bpmn.addBpmnFilePath("path/to/myProcess.bpmn");
+
+    bpmn.createProcess("myId", function(err, myProcess){
+
+        // we start the process
+        myProcess.triggerEvent("MyStart");
+
+    });
+
 
 REST
 ====
@@ -329,15 +490,10 @@ REST
 Server
 ------
 
-The above API can also be called by REST HTTP calls. To do this, you have first to instantiate a server. For example:
-
-	// Used to map URI path names to BPMN definition files. Default: <path name>.bpmn
-	var urlMap = {
-    	"TaskExampleProcess": pathModule.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn")
-	};
+The above API can also be called by REST HTTP calls. To do this, you have first to instantiate a server from ta manager. For example:
 
 	// Returns a restify server.
-	var server = bpmn.createServer({urlMap: urlMap});
+	var server = manager.createServer();
 	server.listen(9009, function() {
     	console.log('%s listening at %s', server.name, server.url);
 	});
@@ -345,12 +501,11 @@ The above API can also be called by REST HTTP calls. To do this, you have first 
 The server is a node restify server. So all features of this package can be used.
 The full signature of `createProcess`  is
 
-	var server = bpmn.createServer(options, restifyOptions);
+	var server = manager.createServer(options, restifyOptions);
 
 The parameters are:
 
 - **options**: optional object having the following optional properties
-	* **urlMap**: Contains for each process name occurring in the URL the BPMN file path. If not given, the file name is derived by `processName + '.bpmn'`
  	* **createProcessId**: Function that returns a UUID. Default: `node-uuid.v1()`
  	* **logLevel**: used log level. Default: Error. Use logger.logLevels to set.
 - **restifyOptions**: these options are given to the restify.createServer call. If not given, the log property is set to the internal winston logger and the name property is set to 'bpmnRESTServer'.
@@ -489,13 +644,6 @@ Limitations
 - **End events**: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
 - **Gateway**s: only parallel- and exclusive gateways are supported yet.
 - Data objects: are ignored by the engine
-
-
-Future enhancements
--------------------
-
-- **Persistency**:
- The engine will save the state while waiting for a task being done. While this is happening, all events are deferred until the state has been saved. When creating a process the engine will reload existing processes having the given ID. If there is no such process, it will be created. The process can be persisted to the file system or to a MongoDB. We recommend the latter approach for productive use cases. 
 
 
 Licensing
