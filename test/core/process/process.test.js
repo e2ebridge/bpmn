@@ -10,7 +10,7 @@ exports.testCreateVolatileBPMNProcess = function(test) {
     var state;
 
     var fileName = path.join(__dirname, "../../resources/projects/simple/taskExampleProcess.bpmn");
-    bpmn.createStandaloneProcess(fileName, function(err, bpmnProcess){
+    bpmn.createUnmanagedProcess(fileName, function(err, bpmnProcess){
         bpmnProcess.triggerEvent("MyStart");
 
         process.nextTick(function() {

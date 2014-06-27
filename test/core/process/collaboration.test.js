@@ -10,7 +10,7 @@ exports.testSendingWrongEventInCollaboration = function(test) {
     bpmn.clearCache();
 
     var fileName = path.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
-    bpmn.createStandaloneCollaboratingProcesses(fileName, function(err, collaboratingProcesses){
+    bpmn.createUnmanagedCollaboratingProcesses(fileName, function(err, collaboratingProcesses){
         var secondProcess = collaboratingProcesses[0];
         try {
             secondProcess.triggerEvent("Wrong Event!");
@@ -29,7 +29,7 @@ exports.testCreateVolatileCollaborationOfBPMNProcesses = function(test) {
 
     var fileName = path.join(__dirname, "../../resources/projects/collaboration/collaboration.bpmn");
 
-    bpmn.createStandaloneCollaboratingProcesses(fileName, function(err, collaboratingProcesses){
+    bpmn.createUnmanagedCollaboratingProcesses(fileName, function(err, collaboratingProcesses){
         var firstProcess = collaboratingProcesses[0];
         var secondProcess = collaboratingProcesses[1];
         secondProcess.triggerEvent("Start Event 2");

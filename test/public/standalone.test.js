@@ -14,7 +14,7 @@ exports.testCreateStandaloneBPMNProcessFromXMLandString = function(test) {
     var bpmnXML = fs.readFileSync(path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn"), "utf8");
     var handlerString = fs.readFileSync(path.join(__dirname, "../resources/projects/simple/taskExampleProcess.js"), "utf8");
 
-    bpmn.createStandaloneProcessFromXML(bpmnXML, handlerString, function(err, bpmnProcess){
+    bpmn.createUnmanagedProcessFromXML(bpmnXML, handlerString, function(err, bpmnProcess){
         bpmnProcess.triggerEvent("MyStart");
 
         process.nextTick(function() {
@@ -40,7 +40,7 @@ exports.testCreateStandaloneBPMNProcessFromXMLandObject = function(test) {
     var bpmnXML = fs.readFileSync(path.join(__dirname, "../resources/projects/simple/taskExampleProcess.bpmn"), "utf8");
     var handler = require(path.join(__dirname, "../resources/projects/simple/taskExampleProcess.js"));
 
-    bpmn.createStandaloneProcessFromXML(bpmnXML, handler, function(err, bpmnProcess){
+    bpmn.createUnmanagedProcessFromXML(bpmnXML, handler, function(err, bpmnProcess){
         bpmnProcess.triggerEvent("MyStart");
 
         process.nextTick(function() {
@@ -66,7 +66,7 @@ exports.testCreateStandaloneBPMNProcessFromXMLUsingMultipleDefError = function(t
     var bpmnXML = fs.readFileSync(path.join(__dirname, "../resources/projects/collaboration/collaboration.bpmn"), "utf8");
     var handler = require(path.join(__dirname, "../resources/projects/simple/taskExampleProcess.js"));
 
-    bpmn.createStandaloneProcessFromXML(bpmnXML, handler, function(err){
+    bpmn.createUnmanagedProcessFromXML(bpmnXML, handler, function(err){
         test.equal(err.message, "The BPMN XML contains more than one process definition. Use 'createCollaboratingProcesses' instead of 'createProcess'", "testCreateStandaloneBPMNProcessFromXMLUsingMultipleDefError: creation error." );
         test.done();
     });

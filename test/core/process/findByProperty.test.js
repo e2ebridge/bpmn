@@ -25,7 +25,7 @@ exports.testFindByValueAll = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createStandaloneProcess( fileName,function(err, p){
+            bpmn.createUnmanagedProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -33,7 +33,7 @@ exports.testFindByValueAll = function(test) {
             });
         },
         function(done){
-            bpmn.createStandaloneProcess( fileName,function(err, p){
+            bpmn.createUnmanagedProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();
@@ -57,7 +57,7 @@ exports.testFindByValueOneMatch = function(test) {
 
     async.parallel([
         function(done){
-            bpmn.createStandaloneProcess( fileName,function(err, p){
+            bpmn.createUnmanagedProcess( fileName,function(err, p){
                 p.setProperty("myprop1", "gugus");
                 p.triggerEvent("MyStart");
                 processes.push(p);
@@ -65,7 +65,7 @@ exports.testFindByValueOneMatch = function(test) {
             });
         },
         function(done){
-            bpmn.createStandaloneProcess( fileName,function(err, p){
+            bpmn.createUnmanagedProcess( fileName,function(err, p){
                 p.setProperty("myprop2", "blah");
                 processes.push(p);
                 done();

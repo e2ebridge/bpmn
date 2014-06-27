@@ -25,6 +25,11 @@ Assumptions
 - This package assumes each BPMN 2.0 file is accompanied by an equal named JS file. For example, the directory containing `myprocess.bpmn` must contain also `myprocess.js` holding the BPMN event handlers.
 - Each BPMN element name is unique per process. This simplifies live considerably because we can use names instead of IDs simplifying the world for users and developers alike. If this is not the case, an error is thrown while creating the process.
 
+Remarks
+-------
+
+Process can be managed or unmanaged. Unmanaged processes are not stored in any way, the developer is responsible of storing the returned process objects to be able to use them later. Process manager allow to create multiple processes and store them during their execution. The managers have functions to retrieve existing processes by id, filter by property or state. Managers will also persist the managed processes if persistency options are set.
+
 Basic Example
 =============
 
@@ -39,7 +44,7 @@ then this process can be created by
    
 	var bpmn = require("bpmn");
 	// We assume there is a myProcess.js besides myProcess.bpmn that contains the handlers
-	bpmn.createStandaloneProcess("path/to/myProcess.bpmn", function(err, myProcess){
+	bpmn.createUnmanagedProcess("path/to/myProcess.bpmn", function(err, myProcess){
 
         // we start the process
         myProcess.triggerEvent("MyStart");
@@ -74,7 +79,7 @@ The handler file looks like:
 Processes can also be created from an xml string instead of file. In this case the handler can be an object or a javascript string that would be parsed.
 
 
-	bpmn.createStandaloneProcessFromXML("<definitions ... </definitions>", "exports.MyStart = ...", function(err, myProcess){
+	bpmn.createUnmanagedProcessFromXML("<definitions ... </definitions>", "exports.MyStart = ...", function(err, myProcess){
 
         // we start the process
         myProcess.triggerEvent("MyStart");
@@ -220,7 +225,7 @@ BPMN also supports collaborating processes as depicted below.
 These processes must be created together:
 
 	// create collaborating processes
-    bpmn.createStandaloneCollaboratingProcesses("my/collaboration/example.bpmn", function(err, collaboratingProcesses){
+    bpmn.createUnmanagedCollaboratingProcesses("my/collaboration/example.bpmn", function(err, collaboratingProcesses){
 
         // start the second process
         var secondProcess = collaboratingProcesses[1];
@@ -246,7 +251,7 @@ However, another option is to get all outgoing message flows and send a message 
     	done(data);
 	};
 
-Collaborating processes can also be created from strings using createStandaloneCollaboratingProcessesFromXML(bpmnXML, handler, callback).
+Collaborating processes can also be created from strings using createUnmanagedCollaboratingProcessesFromXML(bpmnXML, handler, callback).
 
 **Note**: all task and event names must be unique
 
