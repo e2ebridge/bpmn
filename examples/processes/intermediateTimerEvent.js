@@ -1,6 +1,6 @@
 /*global module exports console */
 
-exports.MyTimeout$getTimeout = function(data, done) {
+exports.Intermediate_Catch_Timer_Event$getTimeout = function(data, done) {
     // called when arriving on "Intermediate Catch Timer Event"
     // should return wait time in ms.
     return 10000;
