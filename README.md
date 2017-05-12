@@ -1,15 +1,12 @@
 bpmn
-================
+====
 This module executes BPMN 2.0 processes.
 
 BPMN execution is deemed to be a good way to describe process oriented business logic. This is especially true if we have to describe the orchestration and collaboration of service- and UI-interactions. Many of these interactions are asynchronous and event driven making Node.js an ideal candidate for implementing a BPMN engine.
-
 To draw the BPMN file to be executed each BPMN 2.0 compliant tool can be used.
 
-We are working on a simple browser based BPMN 2.0 editor also utilizing Node.js as backend.
-You may learn more about our efforts and other Node.js packages on [http://e2ebridge.com](http://e2ebridge.com).
-
 The e2e-transaction-logger package can be used optionally. The generated transaction log files enable the [E2E Dashboards](http://docu.e2ebridge.com/E2E+Dashboards) to provide graphical views of your processes.
+You may learn more about our efforts and other Node.js packages on [http://e2ebridge.com](http://e2ebridge.com).
 
 Installation
 ------------
@@ -29,6 +26,8 @@ Remarks
 -------
 
 Process can be managed or unmanaged. Unmanaged processes are not stored in any way, the developer is responsible of storing the returned process objects to be able to use them later. Process manager allow to create multiple processes and store them during their execution. The managers have functions to retrieve existing processes by id, filter by property or state. Managers will also persist the managed processes if persistency options are set.
+
+This is a very rough work in progress and we're not providing any official support.
 
 Basic Example
 =============
@@ -637,7 +636,7 @@ Supported Elements
 - **End events**: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
 - **Gateways**: Parallel- and exclusive gateways are supported.
 - **Task, User Task, Manual Task, Receive Task**: These tasks call an event handler when the task starts and then wait until `taskDone(taskName, data)` is invoked on the process.
-- Service Task, Script Task, Business Rule Task, Send Task (Wait Tasks): These tasks call an event handler when the task starts and proceed immediately after the the handler finishes.
+- **Service Task, Script Task, Business Rule Task, Send Task (Wait Tasks)**: These tasks call an event handler when the task starts and proceed immediately after the the handler finishes.
 - **Throw Intermediate Events**: the handler is triggered when the intermediate event is reached. All types of intermediate events are treated the same.
 - **Catch Intermediate Events**: the handler is triggered if the event is catched and not when it is reached. For example, if we have an intermediate catch message event, the handler is triggered when the message arrives. If we have an intermediate catch timer event, the handler is triggered when the timout occurs. However, in both cases, no handler is triggered when the intermediate event is reached.
 - **Call Activity**: an external sub-process is called. The sub-process must not be a collaboration and must have exactly one start event.
@@ -647,8 +646,8 @@ Limitations
 -----------
 - **Start events**: all kind of start events are mapped to the none start event. Any further specialization is then done in the implementation of the handler.
 - **End events**: all kind of end events are mapped to the none end event. Any further specialization is then done in the implementation of the handler.
-- **Gateway**s: only parallel- and exclusive gateways are supported yet.
-- Data objects: are ignored by the engine
+- **Gateways**: only parallel- and exclusive gateways are supported yet.
+- **Data objects**: are ignored by the engine
 
 
 Licensing
@@ -656,7 +655,7 @@ Licensing
 
 (The MIT License)
 
-Copyright (c) 2014 [E2E Technologies Ltd](http://www.e2ebridge.com)
+Copyright (c) 2014-2017 [Scheer E2E AG](http://www.e2ebridge.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -676,14 +675,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-by [E2E Technologies Ltd](http://www.e2ebridge.com)
-
-
-Questions, comments, thoughts?
-------------------------------
-This is a very rough work in progress. 
-
-Feel free to contact me at mrassinger@e2e.ch with questions or comments about this project.
-
+by [Scheer E2E AG](http://www.e2ebridge.com)
 
 
